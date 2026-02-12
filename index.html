@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mason Riehm</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            line-height: 1.6;
+            margin: 20px;
+            background-color: #8bcff0;
+        }
+        .description-box {
+    max-width: 900px;
+    margin: 30px auto;
+    padding: 20px 25px;
+    border: 2px solid #444;
+    border-radius: 8px;
+    background-color: #44b1cccc; /* slightly transparent white */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+.profile-container {
+    max-width: 900px;
+    margin: 30px auto;
+    padding: 20px;
+    border: 2px solid #000;
+    border-radius: 8px;
+    background-color: #44b1cccc;
+
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.profile-pic {
+    width: 200px;
+    height: 280px;
+    object-fit: cover;
+    object-position: center 50%;
+    border: 2px solid #000;
+    border-radius: 4px;
+}
+
+.homework {
+    max-width: 900px;
+    margin: 30px auto;
+    padding: 15px;
+    border: 1.5px solid #444;
+    border-radius: 6px;
+    background-color: #44b1cccc;
+}
+
+.homework-button {
+    display: block;
+    width: 100%;
+    padding: 12px 20px;
+    margin: 10px 0;
+    background-color: #0099cc;
+    color: black;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: bold;
+    font-family: inherit;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.homework-button:hover {
+    background-color: #007aa3;
+}
+
+.homework-button:active {
+    background-color: #005f7a;
+}
+.profile-title {
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.profile-text {
+    margin-top: 5px;
+    text-indent: 15px;
+    line-height: 1.7;
+    font-size: 12px;
+}
+
+.profile-text p {
+    font-size: clamp(11px, 1.4vw, 12px);
+}
+
+@media (max-width: 700px) {
+    .profile-container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .profile-text {
+        text-indent: 0;
+    }
+
+    .profile-pic {
+        margin: 0 auto;
+    }
+}
+
+
+    </style>
+</head>
+
+<body>
+    <header style="text-align: center;"><b>Mason Riehm
+        <br>1L06-LAB</b></header>
+<div class="profile-container">
+
+    <a href="https://www.linkedin.com/in/mason-riehm/" target="_blank">
+    <img src="IMG_2268.JPG"
+         alt="A picture of Mason Riehm"
+         class="profile-pic">
+        </a>
+        
+    <div class="profile-text">
+
+    <div class="profile-title">Creative Statement</div>
+
+        <p>
+        My name is Mason Riehm and I am a Media Studies student at Hunter College. I have a passion for creating content with effective and unique communication styles. 
+        I like to utilize aesthetic intelligence to create media that portrays a meaningful message and invokes thoughts and connections between the art and the viewers’
+        personal experiences. Through my studies, I will widen my understanding of  media, culture, and society, along with how they influence each other in the bigger 
+        picture. My goal is to create impactful content that widens eyes and sparks meaningful conversations. I am mostly interested in the entertainment industry, 
+        specifically creative expression and marketing in the music industry. I enjoy expressing myself and my experiences through music and media including video, photo,
+        and a curation of both. I am also passionate about advocacy for human rights and politics for the people. It is important to me to use my creativity to inspire 
+        others to be better. Finding the intersections between my interests and my studies is something I look forward to discovering and creating with during my time at
+        Hunter College. I am looking forward to making content that captures audiences and invokes emotions. I believe that media can be a very powerful tool for social 
+        change, and I am excited to be a part of that process! I have experience in experiential marketing, content creation, and creating memorable experiences for 
+        audiences. I am thoroughly excited to learn new skills and techniques that will help me grow as a professional in media.
+        </p>
+        </div>
+</div>
+<br>
+
+<div class="homework">
+<strong> Homework List </strong>
+    <button class="homework-button" onclick="window.location.href='reading1.html'">Reading 1: Plato's Cave</button>
+    <button class="homework-button" onclick="window.location.href='reading2.html'">Reading 2: With 'AI slop' distorting our reality, the world is sleepwalking into disaster</button>
+</div>
+
+</body>
+
+
+
+
+</html>  
