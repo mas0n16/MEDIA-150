@@ -224,7 +224,37 @@
     }
     body.sidebar-open .overlay {display: block;}
     body.sidebar-open .sidebar {left: 0;}
-
+    .homework-dropdown {
+    display: flex;
+    flex-direction: column;
+    background: rgba(0,0,0,0.15);
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease;
+    }
+    .homework-dropdown a {
+        font-size: 13px !important;
+        padding: 10px 24px 10px 36px !important;
+        border-left: 3px solid transparent;
+        color: #c9eaf5 !important;
+        font-weight: 400 !important;
+    }
+    .homework-dropdown a:hover {
+        background: rgba(255,255,255,0.08);
+        border-color: #7de0ff !important;
+    }
+    .homework-dropdown.open {
+        max-height: 300px;
+    }
+    body.sidebar-open .menu-toggle span:nth-child(1) {
+    transform: translateY(7.5px) rotate(45deg);
+}
+body.sidebar-open .menu-toggle span:nth-child(2) {
+    opacity: 0;
+}
+body.sidebar-open .menu-toggle span:nth-child(3) {
+    transform: translateY(-7.5px) rotate(-45deg);
+}
 
     </style>
 </head>
@@ -241,7 +271,15 @@
         <div class="sidebar-title"></div>
         <nav>
             <a href="#home" onclick="closeSidebar()"> Home</a>
-            <a href="#homeworks" onclick="closeSidebar()"> Homeworks</a>
+            <a href="#" onclick="toggleHomeworks(event)"> Homeworks
+                <span id="homeworkArrow" style="display:inline-block; transition: transform 0.35s ease;">&#9660;</span>
+            </a>
+            <div class="homework-dropdown" id="homeworkDropdown">
+                <a href="reading1.html">Reading 1: Plato's Cave</a>
+                <a href="reading2.html">Reading 2: With 'AI slop' distorting our reality, the world is sleepwalking into disaster</a>
+                <a href="Homework%203.html">Homework 3: Depth of Field and Camera Raw</a>
+                <a href="homework4.html">Homework 4: Photo Montage</a>
+            </div>
             <a href="https://www.linkedin.com/in/mason-riehm/" target="_blank">LinkedIn</a>
             <a href="#extracurricular" onclick="closeSidebar()"> Extracurriculars</a>
         </nav>
@@ -298,6 +336,15 @@ function toggleSidebar() {
 }
 function closeSidebar() {
     document.body.classList.remove('sidebar-open');
+}
+function toggleHomeworks(event) {
+    event.preventDefault();
+    const dropdown = document.getElementById('homeworkDropdown');
+    const arrow = document.getElementById('homeworkArrow');
+    dropdown.classList.toggle('open');
+    arrow.style.transform = dropdown.classList.contains('open')
+        ? 'rotate(180deg)'
+        : 'rotate(0deg)';
 }
 </script>
 </body>
