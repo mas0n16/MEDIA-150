@@ -110,7 +110,7 @@ body.sidebar-open .sidebar { left: 0; }
     align-items: center;
 }
 .montage-main img {
-  width: 500px;
+  width: 400px;
   max-width: 100%;
   height: auto;
     border-radius: 4px;
@@ -139,6 +139,27 @@ body.sidebar-open .menu-toggle span:nth-child(2) {
 }
 body.sidebar-open .menu-toggle span:nth-child(3) {
     transform: translateY(-7.5px) rotate(-45deg);
+}
+.preview-strip {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
+.preview-thumb {
+    width: 120px;
+    height: auto;
+    border-radius: 4px;
+    border: 3px solid transparent;
+    cursor: pointer;
+    opacity: 0.6;
+    transition: opacity 0.2s, border-color 0.2s;
+}
+.preview-thumb:hover {
+    opacity: 1;
+}
+.preview-thumb.active {
+    border-color: #0099cc;
+    opacity: 1;
 }
     </style>
 </head>
@@ -174,17 +195,16 @@ body.sidebar-open .menu-toggle span:nth-child(3) {
         <header style="text-align: center;"><b>Pattern T-Shirt</b></header>
     <br>
 
+    
     <div class="montage-container">
         <div class="montage-main">
-        <img src="shirt2.png" alt="T-Shirt with Pattern">
+            <img id="mainDisplay" src="shirt2.png" alt="First Shirt Design">
+        </div>
+        <div class="preview-strip">
+            <img src="shirt2.png" alt="Shirt 1" class="preview-thumb active" onclick="switchImage(this, 'shirt2.png')">
+            <img src="shirtdes2.png" alt="Shirt 2" class="preview-thumb" onclick="switchImage(this, 'shirtdes2.png')">
+        </div>
     </div>
-    </div>
-        <div class="montage-container">
-        <div class="montage-main">
-        <img src="shirtdes2.png" alt="T-Shirt with Second Pattern">
-    </div>
-    </div>
-    
 
         <script>
     function toggleSidebar() {
@@ -201,6 +221,12 @@ body.sidebar-open .menu-toggle span:nth-child(3) {
         arrow.style.transform = dropdown.classList.contains('open')
             ? 'rotate(180deg)'
             : 'rotate(0deg)';
+    }
+    function switchImage(thumb, src)
+    {
+        document.getElementById('mainDisplay').src = src;
+        document.querySelectorAll('.preview-thumb').forEach(t => t.classList.remove('active'));
+        thumb.classList.add('active');
     }
 </script>
 
