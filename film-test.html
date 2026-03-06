@@ -1,0 +1,1313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FILM P160 — Midterm Practice</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #faf7f2;
+    --warm-white: #fff9f0;
+    --sand: #e8dfd0;
+    --blush: #f0d9c8;
+    --dusty-rose: #d4a89a;
+    --terracotta: #c27b6a;
+    --sage: #8aaa8a;
+    --dark: #2a2018;
+    --mid: #6b5a4a;
+    --light-text: #9b8a7a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--cream);
+    font-family: 'DM Sans', sans-serif;
+    color: var(--dark);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Grain texture overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 999;
+    opacity: 0.4;
+  }
+
+  /* Film strip decoration */
+  .film-strip {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 48px;
+    height: 100vh;
+    background: var(--dark);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 12px 0;
+    gap: 8px;
+    z-index: 10;
+  }
+
+  .film-strip::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(to bottom, transparent, var(--terracotta), transparent);
+  }
+
+  .film-hole {
+    width: 18px;
+    height: 14px;
+    border-radius: 3px;
+    background: var(--cream);
+    opacity: 0.15;
+    flex-shrink: 0;
+  }
+
+  .film-frame-mini {
+    width: 30px;
+    height: 22px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    flex-shrink: 0;
+    border-radius: 1px;
+  }
+
+  /* Right film strip */
+  .film-strip-right {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 48px;
+    height: 100vh;
+    background: var(--dark);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 12px 0;
+    gap: 8px;
+    z-index: 10;
+  }
+
+  .film-strip-right::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(to bottom, transparent, var(--sage), transparent);
+  }
+
+  .main-container {
+    margin: 0 48px;
+    padding: 0 40px;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: calc(48px + 40px);
+    padding-right: calc(48px + 40px);
+  }
+
+  /* Header */
+  header {
+    text-align: center;
+    padding: 60px 0 40px;
+    position: relative;
+  }
+
+  .header-eyebrow {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--terracotta);
+    margin-bottom: 16px;
+  }
+
+  header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(36px, 5vw, 58px);
+    font-weight: 600;
+    line-height: 1.1;
+    color: var(--dark);
+    margin-bottom: 12px;
+  }
+
+  header h1 em {
+    font-style: italic;
+    color: var(--terracotta);
+  }
+
+  .header-sub {
+    font-size: 14px;
+    color: var(--light-text);
+    font-weight: 300;
+    letter-spacing: 0.02em;
+  }
+
+  .header-divider {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 32px auto;
+    max-width: 320px;
+  }
+
+  .header-divider::before,
+  .header-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--sand);
+  }
+
+  .lens-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 2px solid var(--sand);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--light-text);
+    font-size: 14px;
+  }
+
+  /* Progress */
+  .progress-area {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .progress-label {
+    font-size: 12px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--light-text);
+    margin-bottom: 10px;
+  }
+
+  .progress-bar-wrap {
+    background: var(--sand);
+    height: 4px;
+    border-radius: 2px;
+    max-width: 400px;
+    margin: 0 auto 8px;
+    overflow: hidden;
+  }
+
+  .progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(to right, var(--dusty-rose), var(--terracotta));
+    border-radius: 2px;
+    transition: width 0.5s ease;
+    width: 0%;
+  }
+
+  .score-display {
+    font-size: 13px;
+    color: var(--mid);
+  }
+
+  .score-display span {
+    color: var(--terracotta);
+    font-weight: 500;
+  }
+
+  /* Question card */
+  .question-card {
+    background: var(--warm-white);
+    border: 1px solid var(--sand);
+    border-radius: 16px;
+    padding: 40px;
+    margin-bottom: 32px;
+    position: relative;
+    overflow: hidden;
+    animation: cardIn 0.4s ease forwards;
+    box-shadow: 0 4px 24px rgba(42,32,24,0.06);
+  }
+
+  @keyframes cardIn {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .question-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(to right, var(--blush), var(--dusty-rose), var(--sage));
+  }
+
+  .q-number {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--light-text);
+    margin-bottom: 16px;
+  }
+
+  .q-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    line-height: 1.55;
+    color: var(--dark);
+    margin-bottom: 28px;
+    font-weight: 400;
+  }
+
+  /* Options */
+  .options-grid {
+    display: grid;
+    gap: 10px;
+  }
+
+  .option-btn {
+    background: var(--cream);
+    border: 1.5px solid var(--sand);
+    border-radius: 10px;
+    padding: 14px 20px;
+    text-align: left;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    color: var(--dark);
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    line-height: 1.4;
+  }
+
+  .option-letter {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: var(--sand);
+    color: var(--mid);
+    font-size: 11px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.2s ease;
+    letter-spacing: 0.05em;
+  }
+
+  .option-btn:hover:not(:disabled) {
+    border-color: var(--dusty-rose);
+    background: var(--warm-white);
+    transform: translateX(4px);
+  }
+
+  .option-btn:hover:not(:disabled) .option-letter {
+    background: var(--blush);
+    color: var(--terracotta);
+  }
+
+  .option-btn.correct {
+    border-color: var(--sage);
+    background: #f0f6f0;
+  }
+
+  .option-btn.correct .option-letter {
+    background: var(--sage);
+    color: white;
+  }
+
+  .option-btn.incorrect {
+    border-color: var(--terracotta);
+    background: #fdf0ed;
+  }
+
+  .option-btn.incorrect .option-letter {
+    background: var(--terracotta);
+    color: white;
+  }
+
+  .option-btn.show-correct {
+    border-color: var(--sage);
+    background: #f0f6f0;
+    opacity: 0.7;
+  }
+
+  .option-btn:disabled { cursor: default; }
+
+  /* Result + definition reveal */
+  .result-reveal {
+    margin-top: 24px;
+    border-top: 1px solid var(--sand);
+    padding-top: 20px;
+    animation: fadeUp 0.4s ease forwards;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .result-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+
+  .result-badge.correct {
+    background: #e8f5e8;
+    color: #4a7a4a;
+  }
+
+  .result-badge.incorrect {
+    background: #fdecea;
+    color: #a04a3a;
+  }
+
+  .definition-box {
+    background: linear-gradient(135deg, var(--blush) 0%, #f5ede5 100%);
+    border-radius: 10px;
+    padding: 18px 20px;
+  }
+
+  .def-label {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--terracotta);
+    font-weight: 500;
+    margin-bottom: 8px;
+  }
+
+  .def-text {
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--mid);
+  }
+
+  /* Next button */
+  .next-btn {
+    display: block;
+    margin: 0 auto;
+    background: var(--dark);
+    color: var(--cream);
+    border: none;
+    border-radius: 10px;
+    padding: 14px 36px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    margin-top: 28px;
+  }
+
+  .next-btn:hover {
+    background: var(--terracotta);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(194,123,106,0.3);
+  }
+
+  /* Final screen */
+  .final-screen {
+    text-align: center;
+    padding: 60px 20px;
+    animation: cardIn 0.5s ease forwards;
+  }
+
+  .final-screen h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 42px;
+    color: var(--dark);
+    margin-bottom: 12px;
+  }
+
+  .final-screen h2 em {
+    color: var(--terracotta);
+    font-style: italic;
+  }
+
+  .final-score-ring {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    border: 4px solid var(--sand);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 32px auto;
+    position: relative;
+  }
+
+  .final-score-ring::before {
+    content: '';
+    position: absolute;
+    inset: 4px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--blush), var(--warm-white));
+  }
+
+  .final-score-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 40px;
+    font-weight: 600;
+    color: var(--terracotta);
+    position: relative;
+    z-index: 1;
+    line-height: 1;
+  }
+
+  .final-score-total {
+    font-size: 13px;
+    color: var(--light-text);
+    position: relative;
+    z-index: 1;
+  }
+
+  .final-msg {
+    font-size: 16px;
+    color: var(--mid);
+    margin-bottom: 32px;
+    font-weight: 300;
+  }
+
+  .restart-btn {
+    background: var(--dark);
+    color: var(--cream);
+    border: none;
+    border-radius: 10px;
+    padding: 16px 44px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.25s ease;
+  }
+
+  .restart-btn:hover {
+    background: var(--terracotta);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(194,123,106,0.3);
+  }
+
+  /* Name input on final screen */
+  .name-input-wrap { margin: 20px auto 0; max-width: 320px; display: flex; gap: 10px; }
+  .name-input { flex: 1; background: var(--cream); border: 1.5px solid var(--sand); border-radius: 10px; padding: 12px 16px; font-family: 'DM Sans', sans-serif; font-size: 14px; color: var(--dark); outline: none; transition: border-color 0.2s; }
+  .name-input:focus { border-color: var(--dusty-rose); }
+  .name-submit-btn { background: var(--dark); color: var(--cream); border: none; border-radius: 10px; padding: 12px 20px; font-family: 'DM Sans', sans-serif; font-size: 13px; cursor: pointer; transition: all 0.2s; white-space: nowrap; }
+  .name-submit-btn:hover { background: var(--terracotta); }
+  .score-saved-msg { font-size: 13px; color: var(--sage); margin-top: 10px; font-weight: 500; }
+
+  /* Leaderboard trigger button */
+  .lb-trigger { position: fixed; bottom: 24px; right: 64px; background: var(--dark); color: var(--cream); border: none; border-radius: 50%; width: 44px; height: 44px; font-size: 20px; cursor: pointer; z-index: 100; transition: all 0.2s; box-shadow: 0 4px 16px rgba(42,32,24,0.18); display: flex; align-items: center; justify-content: center; }
+  .lb-trigger:hover { background: var(--terracotta); transform: translateY(-2px); }
+
+  /* Modal */
+  .lb-overlay { display: none; position: fixed; inset: 0; background: rgba(42,32,24,0.5); z-index: 200; align-items: center; justify-content: center; backdrop-filter: blur(4px); }
+  .lb-overlay.open { display: flex; }
+  .lb-modal { background: var(--warm-white); border-radius: 20px; padding: 40px 36px; width: 90%; max-width: 500px; max-height: 80vh; overflow-y: auto; position: relative; box-shadow: 0 24px 60px rgba(42,32,24,0.2); animation: cardIn 0.3s ease forwards; }
+  .lb-modal h3 { font-family: 'Playfair Display', serif; font-size: 26px; color: var(--dark); margin-bottom: 4px; }
+  .lb-modal h3 em { color: var(--terracotta); font-style: italic; }
+  .lb-subtitle { font-size: 13px; color: var(--light-text); margin-bottom: 4px; }
+  .lb-close { position: absolute; top: 16px; right: 20px; background: none; border: none; font-size: 20px; color: var(--light-text); cursor: pointer; line-height: 1; }
+  .lb-close:hover { color: var(--dark); }
+
+  /* Password gate */
+  .lb-pw-wrap { margin-top: 20px; display: flex; gap: 10px; }
+  .lb-pw-input { flex: 1; background: var(--cream); border: 1.5px solid var(--sand); border-radius: 10px; padding: 12px 16px; font-family: 'DM Sans', sans-serif; font-size: 14px; color: var(--dark); outline: none; transition: border-color 0.2s; }
+  .lb-pw-input:focus { border-color: var(--dusty-rose); }
+  .lb-pw-btn { background: var(--dark); color: var(--cream); border: none; border-radius: 10px; padding: 12px 20px; font-family: 'DM Sans', sans-serif; font-size: 13px; cursor: pointer; transition: all 0.2s; }
+  .lb-pw-btn:hover { background: var(--terracotta); }
+  .lb-pw-error { font-size: 13px; color: var(--terracotta); margin-top: 8px; }
+
+  /* Table */
+  .lb-table { width: 100%; margin-top: 20px; border-collapse: collapse; }
+  .lb-table th { font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--light-text); text-align: left; padding: 0 10px 10px; border-bottom: 1px solid var(--sand); }
+  .lb-table td { padding: 12px 10px; font-size: 14px; color: var(--mid); border-bottom: 1px solid var(--sand); }
+  .lb-table tr:last-child td { border-bottom: none; }
+  .lb-name { color: var(--dark); font-weight: 500; }
+  .lb-score-cell { color: var(--terracotta); font-weight: 500; font-family: 'Playfair Display', serif; font-size: 16px; }
+  .lb-empty { text-align: center; padding: 32px 0; color: var(--light-text); font-size: 14px; }
+  .lb-clear-btn { display: block; margin: 20px auto 0; background: none; border: 1px solid var(--sand); color: var(--light-text); border-radius: 8px; padding: 8px 18px; font-family: 'DM Sans', sans-serif; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; transition: all 0.2s; }
+  .lb-clear-btn:hover { border-color: var(--terracotta); color: var(--terracotta); }
+
+  /* Start screen */
+  .start-screen { text-align: center; padding: 20px 0 60px; animation: cardIn 0.4s ease forwards; }
+  .start-screen p { font-size: 15px; color: var(--mid); margin-bottom: 32px; font-weight: 300; }
+  .q-count-options { display: flex; gap: 14px; justify-content: center; margin-bottom: 32px; flex-wrap: wrap; }
+  .q-count-btn { background: var(--warm-white); border: 1.5px solid var(--sand); border-radius: 12px; padding: 18px 28px; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all 0.2s; text-align: center; min-width: 110px; }
+  .q-count-btn:hover { border-color: var(--dusty-rose); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(194,123,106,0.15); }
+  .q-count-btn.selected { border-color: var(--terracotta); background: linear-gradient(135deg, var(--blush), var(--warm-white)); }
+  .q-count-num { font-family: 'Playfair Display', serif; font-size: 32px; color: var(--terracotta); line-height: 1; margin-bottom: 4px; }
+  .q-count-label { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--light-text); }
+  .start-btn { background: var(--dark); color: var(--cream); border: none; border-radius: 10px; padding: 16px 48px; font-family: 'DM Sans', sans-serif; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer; transition: all 0.25s ease; }
+  .start-btn:hover { background: var(--terracotta); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(194,123,106,0.3); }
+
+  /* Missed questions review */
+  .missed-section { margin-top: 48px; text-align: left; }
+  .missed-header { text-align: center; margin-bottom: 24px; }
+  .missed-header h3 { font-family: 'Playfair Display', serif; font-size: 26px; color: var(--dark); }
+  .missed-header h3 em { color: var(--terracotta); font-style: italic; }
+  .missed-header p { font-size: 13px; color: var(--light-text); margin-top: 6px; }
+  .missed-card { background: var(--warm-white); border: 1px solid var(--sand); border-radius: 14px; padding: 24px 28px; margin-bottom: 16px; position: relative; overflow: hidden; }
+  .missed-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(to right, var(--terracotta), var(--dusty-rose)); }
+  .missed-q-num { font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--light-text); margin-bottom: 10px; }
+  .missed-q-text { font-family: 'Playfair Display', serif; font-size: 16px; line-height: 1.5; color: var(--dark); margin-bottom: 16px; }
+  .missed-answers { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+  .missed-answer-row { display: flex; align-items: flex-start; gap: 10px; font-size: 13px; line-height: 1.4; padding: 8px 12px; border-radius: 8px; }
+  .missed-answer-row.was-wrong { background: #fdf0ed; color: var(--terracotta); }
+  .missed-answer-row.is-correct { background: #f0f6f0; color: #4a7a4a; }
+  .missed-answer-icon { flex-shrink: 0; font-size: 13px; margin-top: 1px; }
+  .missed-def { background: linear-gradient(135deg, var(--blush) 0%, #f5ede5 100%); border-radius: 8px; padding: 14px 16px; }
+  .missed-def-label { font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--terracotta); font-weight: 500; margin-bottom: 6px; }
+  .missed-def-text { font-size: 13px; line-height: 1.6; color: var(--mid); }
+  .perfect-msg { text-align: center; padding: 32px; color: var(--sage); font-size: 15px; }
+
+  /* Responsive */
+  @media (max-width: 700px) {
+    .film-strip, .film-strip-right { width: 28px; }
+    .main-container { padding-left: calc(28px + 20px); padding-right: calc(28px + 20px); }
+    .question-card { padding: 24px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Left film strip -->
+<div class="film-strip" id="leftStrip"></div>
+<!-- Right film strip -->
+<div class="film-strip-right" id="rightStrip"></div>
+
+<!-- Leaderboard trigger -->
+<button class="lb-trigger" onclick="openLeaderboard()">🎬</button>
+
+<!-- Leaderboard modal -->
+<div class="lb-overlay" id="lbOverlay">
+  <div class="lb-modal">
+    <button class="lb-close" onclick="closeLeaderboard()">✕</button>
+    <h3>Class <em>Leaderboard</em></h3>
+    <p class="lb-subtitle">FILM P160 · Spring 2026</p>
+    <div id="lbContent">
+      <!-- password gate shown by default -->
+      <p style="font-size:14px;color:var(--mid);margin-top:16px;">Enter the password to view scores.</p>
+      <div class="lb-pw-wrap">
+        <input class="lb-pw-input" type="password" id="lbPwInput" placeholder="Password" onkeydown="if(event.key==='Enter')checkPassword()">
+        <button class="lb-pw-btn" onclick="checkPassword()">View</button>
+      </div>
+      <div class="lb-pw-error" id="lbPwError" style="display:none;">Incorrect password. Try again.</div>
+    </div>
+  </div>
+</div>
+
+<div class="main-container">
+  <header>
+    <div class="header-eyebrow">Spring 2026 · FILM P160</div>
+    <h1>Midterm <em>Practice</em></h1>
+    <p class="header-sub">Frame your knowledge. Focus your answers.</p>
+    <div class="header-divider">
+      <div class="lens-icon">◎</div>
+    </div>
+  </header>
+
+  <div class="progress-area">
+    <div class="progress-label">Progress</div>
+    <div class="progress-bar-wrap">
+      <div class="progress-bar-fill" id="progressBar"></div>
+    </div>
+    <div class="score-display">Score: <span id="scoreNum">0</span> / <span id="totalNum">0</span> &nbsp;·&nbsp; Question <span id="qNum">1</span> of <span id="qTotal"></span></div>
+  </div>
+
+  <div id="quizArea"></div>
+</div>
+
+<script>
+// --- Question bank ---
+// type: 'mc' = multiple choice (options shuffled each render)
+// type: 'tf' = true/false (fixed options, correctAnswer is 'True' or 'False')
+
+const questionBank = [
+  // ── MULTIPLE CHOICE ──────────────────────────────────────────────
+  {
+    type: 'mc',
+    question: "The standard film frame rate, which is also the preferred frame rate for most digital video, is:",
+    options: ["18 frames per second", "24 frames per second", "30 frames per second", "60 frames per second"],
+    correctAnswer: "24 frames per second",
+    definition: "24 FPS (frames per second) is the standard film frame rate and also preferred for most digital video production because it mimics the motion blur and cinematic look of traditional film."
+  },
+  {
+    type: 'mc',
+    question: "What does the 'p' stand for in the digital frame rate notation '24p'?",
+    options: ["Pixel", "Photographic", "Progressive", "Playback"],
+    correctAnswer: "Progressive",
+    definition: "Progressive scan means each frame is captured and displayed as a complete image, scanning lines from top to bottom in sequence — as opposed to interlaced scanning."
+  },
+  {
+    type: 'mc',
+    question: "What does the 'i' stand for in the digital frame rate notation '60i'?",
+    options: ["Image", "Interlaced", "Incremental", "Interval"],
+    correctAnswer: "Interlaced",
+    definition: "Interlaced scanning captures alternating lines of each frame (odd lines, then even lines). It was common in broadcast television to reduce bandwidth while maintaining apparent motion smoothness."
+  },
+  {
+    type: 'mc',
+    question: "What is the visual result when you shoot at a high frame rate and then play back at the normal frame rate?",
+    options: ["Time-lapse", "Freeze frame", "Slow motion", "Fast motion"],
+    correctAnswer: "Slow motion",
+    definition: "Shooting at a high frame rate (e.g., 120fps) and playing back at 24fps creates slow motion — more frames captured per second means each moment is stretched out during playback."
+  },
+  {
+    type: 'mc',
+    question: "The distance between the optical center of a lens and the image plane (film or digital sensor) is called:",
+    options: ["Depth of Field", "Focal Length", "Aperture", "Shutter Speed"],
+    correctAnswer: "Focal Length",
+    definition: "Focal length is the distance from the optical center of the lens to the image plane, measured in millimeters. It determines the lens's angle of view and magnification."
+  },
+  {
+    type: 'mc',
+    question: "On what scale is focal length measured?",
+    options: ["Centimeters", "Inches", "Millimeters", "Micrometers"],
+    correctAnswer: "Millimeters",
+    definition: "Focal length is always measured in millimeters (mm). Common focal lengths include 24mm (wide), 50mm (normal), and 200mm+ (telephoto)."
+  },
+  {
+    type: 'mc',
+    question: "Another name for a lens with a variable focal length is:",
+    options: ["Prime lens", "Telephoto lens", "Wide lens", "Zoom lens"],
+    correctAnswer: "Zoom lens",
+    definition: "A zoom lens has a variable focal length, allowing the shooter to adjust magnification without swapping lenses. Examples: 24–70mm or 70–200mm zoom lenses."
+  },
+  {
+    type: 'mc',
+    question: "Another name for a lens with a fixed focal length is:",
+    options: ["Zoom lens", "Prime lens", "Macro lens", "Fisheye lens"],
+    correctAnswer: "Prime lens",
+    definition: "A prime lens has a single fixed focal length (e.g., 35mm, 50mm, 85mm). They are often sharper and have wider maximum apertures than comparable zoom lenses."
+  },
+  {
+    type: 'mc',
+    question: "A lens with a shorter focal length (smaller mm number) has what kind of angle of view compared to a longer focal length?",
+    options: ["More narrow angle of view", "Wider angle of view", "The same angle of view", "It depends on the aperture"],
+    correctAnswer: "Wider angle of view",
+    definition: "Shorter focal lengths = wider angle of view. A 24mm lens captures much more of the scene than an 85mm lens from the same position."
+  },
+  {
+    type: 'mc',
+    question: "What is a long focal length lens called?",
+    options: ["Wide-angle lens", "Prime lens", "Fisheye lens", "Telephoto lens"],
+    correctAnswer: "Telephoto lens",
+    definition: "A telephoto lens has a long focal length (typically 70mm and above), providing a narrow angle of view and magnifying distant subjects. Commonly used in sports, wildlife, and portrait work."
+  },
+  {
+    type: 'mc',
+    question: "A telephoto lens does what to the relationship between foreground and background?",
+    options: ["Expands them, making them appear farther apart", "Compresses them, making them appear closer together", "Has no effect on spatial relationships", "Makes only the background blurry"],
+    correctAnswer: "Compresses them, making them appear closer together",
+    definition: "Telephoto compression is an optical effect where a long focal length makes foreground and background elements look spatially squeezed — closer together than they actually are."
+  },
+  {
+    type: 'mc',
+    question: "The range from the nearest to the farthest objects that are in acceptably sharp focus is called:",
+    options: ["Focal Range", "Depth of Field", "Focus Pull", "Sharpness Zone"],
+    correctAnswer: "Depth of Field",
+    definition: "Depth of Field (DOF) describes how much of the scene is in sharp focus. Shallow DOF = only a narrow range sharp (common in portraits). Deep DOF = most of the scene sharp (common in landscapes)."
+  },
+  {
+    type: 'mc',
+    question: "What is an f-stop?",
+    options: ["A measurement of shutter speed", "A measurement of sensor size", "A measurement of the aperture of the lens", "A measurement of focal length"],
+    correctAnswer: "A measurement of the aperture of the lens",
+    definition: "An f-stop (f-number) measures the aperture — the opening in the lens that controls how much light passes through to the sensor or film. Expressed as f/1.4, f/2.8, f/8, etc."
+  },
+  {
+    type: 'mc',
+    question: "Which aperture has a smaller f-stop number?",
+    options: ["A smaller aperture opening", "A larger aperture opening", "They have the same f-stop number", "f-stops don't relate to aperture size"],
+    correctAnswer: "A larger aperture opening",
+    definition: "Counterintuitively, a larger aperture (bigger opening) has a smaller f-stop number (e.g., f/1.4 = very wide open), while a small aperture has a larger f-stop number (e.g., f/16 = very small opening)."
+  },
+  {
+    type: 'mc',
+    question: "Which aperture setting produces more depth of field?",
+    options: ["Larger aperture (small f-stop number)", "Smaller aperture (large f-stop number)", "Aperture does not affect depth of field", "Both produce the same depth of field"],
+    correctAnswer: "Smaller aperture (large f-stop number)",
+    definition: "A smaller aperture (higher f-stop number like f/11 or f/16) produces more depth of field — more of the scene in sharp focus. A large aperture (like f/1.8) creates shallow depth with a blurry background (bokeh)."
+  },
+  {
+    type: 'mc',
+    question: "What is ISO in the context of photography and filmmaking?",
+    options: ["A measurement of shutter speed", "A measurement of lens focal length", "A measurement of a film or sensor's sensitivity to light", "A measurement of image resolution"],
+    correctAnswer: "A measurement of a film or sensor's sensitivity to light",
+    definition: "ISO measures the sensitivity of a film stock or digital camera sensor to light. Higher ISO = more sensitive, letting you shoot in darker conditions, but with increased noise/grain."
+  },
+  {
+    type: 'mc',
+    question: "A higher ISO number means the sensor is:",
+    options: ["Less sensitive to light", "More sensitive to light", "The same sensitivity as lower ISO", "Only relevant to film, not digital"],
+    correctAnswer: "More sensitive to light",
+    definition: "Higher ISO = greater sensitivity to light. ISO 3200 is much more sensitive than ISO 100, allowing shooting in darker conditions — but with more digital noise as a trade-off."
+  },
+  {
+    type: 'mc',
+    question: "A higher ISO number is generally:",
+    options: ["Less noisy (less grain)", "More noisy (more grain)", "Sharper and cleaner", "Unrelated to image noise"],
+    correctAnswer: "More noisy (more grain)",
+    definition: "Higher ISO amplifies the sensor signal, which also amplifies digital noise (grain-like artifacts). Low-light filmmaking requires balancing ISO noise against available light."
+  },
+  {
+    type: 'mc',
+    question: "The individual light-sensitive elements on a camera sensor are called:",
+    options: ["Photons", "Pixels", "Cells", "Receptors"],
+    correctAnswer: "Pixels",
+    definition: "Pixels (picture elements) are the tiny individual light-sensitive units on a digital sensor. Each records light intensity and color data, and millions together form a digital image."
+  },
+  {
+    type: 'mc',
+    question: "What is the pixel count of HD resolution?",
+    options: ["1280 × 720", "1920 × 1080", "2560 × 1440", "3840 × 2160"],
+    correctAnswer: "1920 × 1080",
+    definition: "HD (High Definition) resolution is 1920 × 1080 pixels — over 2 million pixels total. Also known as 1080p or Full HD, it's the standard for broadcast and streaming delivery."
+  },
+  {
+    type: 'mc',
+    question: "The relationship between the width and the height of the frame is called:",
+    options: ["Frame Rate", "Resolution", "Aspect Ratio", "Field of View"],
+    correctAnswer: "Aspect Ratio",
+    definition: "Aspect ratio describes the proportional relationship between a frame's width and height (e.g., 16:9). It determines the shape of the image and has evolved significantly throughout film history."
+  },
+  {
+    type: 'mc',
+    question: "The aspect ratio for standard definition (SD) video is:",
+    options: ["16:9", "4:3", "2.39:1", "1.85:1"],
+    correctAnswer: "4:3",
+    definition: "4:3 (1.33:1) is the traditional SD video aspect ratio — nearly square. It was the television standard from its inception through the early 2000s, before HD widescreen took over."
+  },
+  {
+    type: 'mc',
+    question: "The aspect ratio for HD video is:",
+    options: ["4:3", "3:2", "16:9", "2.35:1"],
+    correctAnswer: "16:9",
+    definition: "16:9 (1.78:1) is the standard aspect ratio for HD video and widescreen TV. It replaced 4:3 and is now the universal standard for broadcast, streaming, and digital cinema delivery."
+  },
+  {
+    type: 'mc',
+    question: "In frame composition, what is 'Lead Room'?",
+    options: ["Extra space left behind a moving subject", "The space left in front of a moving subject as the camera follows them", "The focus distance in front of the subject", "The gap between two characters in a scene"],
+    correctAnswer: "The space left in front of a moving subject as the camera follows them",
+    definition: "Lead Room is the space left in front of a moving subject in the direction of their movement. It creates a sense of where they're heading and makes the composition feel natural and balanced."
+  },
+  {
+    type: 'mc',
+    question: "In frame composition, the space left in front of a person in the direction they're looking is called:",
+    options: ["Lead Room", "Head Room", "Eye Room or Look Room", "Nose Room"],
+    correctAnswer: "Eye Room or Look Room",
+    definition: "Eye Room (or Look Room) is the compositional space left in front of a stationary subject in the direction they're looking. Without it, a subject feels cramped or about to walk out of frame."
+  },
+  {
+    type: 'mc',
+    question: "What is the Rule of Thirds?",
+    options: [
+      "A rule that says only one-third of the frame should be in focus",
+      "A guideline proposing the frame is divided by three equally spaced horizontal and vertical lines, with key elements along those lines",
+      "A rule requiring scenes be divided into three equal acts",
+      "A guideline that says the main subject must occupy one-third of the frame"
+    ],
+    correctAnswer: "A guideline proposing the frame is divided by three equally spaced horizontal and vertical lines, with key elements along those lines",
+    definition: "The Rule of Thirds divides the frame with two horizontal and two vertical equally spaced lines (a 3×3 grid). Placing key compositional elements at or near these lines and intersections creates dynamic, pleasing compositions."
+  },
+  {
+    type: 'mc',
+    question: "In frame composition, which axis refers to depth — movement toward or away from the camera?",
+    options: ["X axis", "Y axis", "Z axis", "W axis"],
+    correctAnswer: "Z axis",
+    definition: "The Z axis represents depth in the frame. X = horizontal (left/right), Y = vertical (up/down), Z = depth (toward/away from camera). Filmmakers use Z-axis movement to create a powerful sense of space."
+  },
+
+  // ── TRUE / FALSE ─────────────────────────────────────────────────
+  {
+    type: 'tf',
+    question: "TRUE or FALSE: A higher f-stop number (e.g., f/16) means a larger aperture opening.",
+    correctAnswer: "False",
+    definition: "False. A higher f-stop number actually means a SMALLER aperture opening. f/16 is a very small opening; f/1.4 is a very large one. The f-stop scale is inverse to the physical size of the aperture."
+  },
+  {
+    type: 'tf',
+    question: "TRUE or FALSE: Shooting at a low frame rate and playing back at the normal frame rate creates slow motion.",
+    correctAnswer: "False",
+    definition: "False. Shooting at a LOW frame rate and playing back at normal speed creates fast motion (time-lapse effect). You need a HIGH frame rate capture played back at normal speed to produce slow motion."
+  },
+  {
+    type: 'tf',
+    question: "TRUE or FALSE: A prime lens has a fixed focal length.",
+    correctAnswer: "True",
+    definition: "True. A prime lens has one fixed focal length and cannot zoom. Examples: 35mm, 50mm, 85mm. Prime lenses are often sharper and allow wider apertures than zoom lenses at similar price points."
+  },
+  {
+    type: 'tf',
+    question: "TRUE or FALSE: HD video has an aspect ratio of 4:3.",
+    correctAnswer: "False",
+    definition: "False. HD video uses a 16:9 aspect ratio (widescreen). The 4:3 ratio is associated with older standard definition (SD) television and video formats."
+  },
+  {
+    type: 'tf',
+    question: "TRUE or FALSE: A smaller aperture (higher f-stop number) produces more depth of field.",
+    correctAnswer: "True",
+    definition: "True. A smaller aperture (e.g., f/11 or f/16) lets in less light but puts more of the scene in sharp focus — greater depth of field. A large aperture (e.g., f/1.8) creates a shallow depth of field with background blur."
+  },
+  {
+    type: 'tf',
+    question: "TRUE or FALSE: Focal length is measured in centimeters.",
+    correctAnswer: "False",
+    definition: "False. Focal length is measured in millimeters (mm), not centimeters. Common focal lengths range from ultra-wide (8–16mm) to super-telephoto (400mm+)."
+  },
+  {
+    type: 'tf',
+    question: "TRUE or FALSE: A higher ISO number makes a camera sensor more sensitive to light.",
+    correctAnswer: "True",
+    definition: "True. Higher ISO = greater light sensitivity. This allows shooting in darker environments but increases digital noise (grain). Choosing the right ISO means balancing exposure needs against acceptable noise levels."
+  },
+  {
+    type: 'tf',
+    question: "TRUE or FALSE: A telephoto lens expands the apparent distance between foreground and background.",
+    correctAnswer: "False",
+    definition: "False. A telephoto lens COMPRESSES the apparent distance — foreground and background look closer together than they actually are. A wide-angle lens does the opposite, exaggerating depth."
+  },
+  {
+    type: 'tf',
+    question: "TRUE or FALSE: The Z axis in frame composition refers to depth — movement toward or away from the camera.",
+    correctAnswer: "True",
+    definition: "True. In cinematography, the Z axis represents the depth dimension of the frame. Blocking actors or moving the camera along the Z axis is a powerful tool for creating dynamic, three-dimensional compositions."
+  },
+  {
+    type: 'tf',
+    question: "TRUE or FALSE: Eye Room (Look Room) is the space left behind a subject in the direction they are looking.",
+    correctAnswer: "False",
+    definition: "False. Eye Room is the space left IN FRONT of the subject — in the direction they are looking. Leaving space behind them instead creates uncomfortable, cramped framing that goes against standard compositional practice."
+  },
+  {
+    type: 'tf',
+    question: "TRUE or FALSE: The standard HD resolution is 1920 × 1080 pixels.",
+    correctAnswer: "True",
+    definition: "True. 1920 × 1080 (Full HD / 1080p) is the standard HD resolution, totaling over 2 million pixels. It is the baseline standard for broadcast television, streaming platforms, and digital cinema delivery."
+  }
+];
+
+// ── Utility ──────────────────────────────────────────────────────────
+function shuffle(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+// Prepare a question for rendering: shuffle MC options, store shuffled state
+function prepareQuestion(q) {
+  if (q.type === 'tf') {
+    return {
+      ...q,
+      displayOptions: ['True', 'False'],
+      displayAnswer: q.correctAnswer
+    };
+  }
+  // MC: shuffle options and track where the correct answer lands
+  const shuffledOpts = shuffle([...q.options]);
+  return {
+    ...q,
+    displayOptions: shuffledOpts,
+    displayAnswer: q.correctAnswer
+  };
+}
+
+let shuffled = [];
+let current = 0;
+let score = 0;
+let missed = []; // tracks questions answered incorrectly
+let questionCount = 15; // default
+const letters = ['A', 'B', 'C', 'D'];
+
+// Build film strips
+function buildStrip(id) {
+  const el = document.getElementById(id);
+  for (let i = 0; i < 60; i++) {
+    if (i % 5 === 2) {
+      const f = document.createElement('div');
+      f.className = 'film-frame-mini';
+      el.appendChild(f);
+    } else {
+      const h = document.createElement('div');
+      h.className = 'film-hole';
+      el.appendChild(h);
+    }
+  }
+}
+buildStrip('leftStrip');
+buildStrip('rightStrip');
+
+function showStartScreen() {
+  document.getElementById('progressBar').style.width = '0%';
+  document.getElementById('scoreNum').textContent = '0';
+  document.getElementById('totalNum').textContent = '—';
+  document.getElementById('qNum').textContent = '—';
+  document.getElementById('qTotal').textContent = '—';
+
+  const counts = [
+    { value: 15, label: 'Quick' },
+    { value: 25, label: 'Standard' },
+    { value: questionBank.length, label: 'Full Set' }
+  ];
+
+  document.getElementById('quizArea').innerHTML = `
+    <div class="start-screen">
+      <p>How many questions would you like?</p>
+      <div class="q-count-options">
+        ${counts.map(c => `
+          <button class="q-count-btn ${questionCount === c.value ? 'selected' : ''}" onclick="selectCount(${c.value}, this)">
+            <div class="q-count-num">${c.value === questionBank.length ? 'All' : c.value}</div>
+            <div class="q-count-label">${c.label}${c.value === questionBank.length ? ' · ' + c.value + ' Qs' : ' questions'}</div>
+          </button>`).join('')}
+      </div>
+      <button class="start-btn" onclick="startQuiz()">Begin ›</button>
+    </div>
+  `;
+}
+
+function selectCount(val, el) {
+  questionCount = val;
+  document.querySelectorAll('.q-count-btn').forEach(b => b.classList.remove('selected'));
+  el.classList.add('selected');
+}
+
+function startQuiz() {
+  const pool = shuffle([...questionBank]);
+  shuffled = pool.slice(0, Math.min(questionCount, pool.length)).map(prepareQuestion);
+  current = 0;
+  score = 0;
+  missed = [];
+  document.getElementById('qTotal').textContent = shuffled.length;
+  document.getElementById('totalNum').textContent = shuffled.length;
+  renderQuestion();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function updateProgress() {
+  const pct = (current / shuffled.length) * 100;
+  document.getElementById('progressBar').style.width = pct + '%';
+  document.getElementById('scoreNum').textContent = score;
+  document.getElementById('qNum').textContent = Math.min(current + 1, shuffled.length);
+}
+
+function renderQuestion() {
+  updateProgress();
+  const q = shuffled[current];
+  const area = document.getElementById('quizArea');
+  area.innerHTML = '';
+
+  const isTF = q.type === 'tf';
+  const typeBadge = isTF
+    ? `<span style="display:inline-block;background:var(--blush);color:var(--terracotta);font-size:10px;letter-spacing:0.15em;text-transform:uppercase;padding:3px 10px;border-radius:20px;margin-bottom:14px;font-weight:500;">True / False</span>`
+    : `<span style="display:inline-block;background:var(--sand);color:var(--mid);font-size:10px;letter-spacing:0.15em;text-transform:uppercase;padding:3px 10px;border-radius:20px;margin-bottom:14px;font-weight:500;">Multiple Choice</span>`;
+
+  const card = document.createElement('div');
+  card.className = 'question-card';
+  card.innerHTML = `
+    <div class="q-number">Question ${current + 1} of ${shuffled.length}</div>
+    ${typeBadge}
+    <div class="q-text">${q.question}</div>
+    <div class="options-grid" id="optionsGrid"></div>
+  `;
+  area.appendChild(card);
+
+  const grid = document.getElementById('optionsGrid');
+  const opts = q.displayOptions;
+
+  opts.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'option-btn';
+    const label = isTF ? opt : letters[i];
+    btn.innerHTML = `<span class="option-letter">${label}</span><span>${opt}</span>`;
+    btn.addEventListener('click', () => handleAnswer(opt, q, card));
+    grid.appendChild(btn);
+  });
+}
+
+function handleAnswer(chosenText, q, card) {
+  const btns = card.querySelectorAll('.option-btn');
+  btns.forEach(b => b.disabled = true);
+
+  const isCorrect = chosenText === q.displayAnswer;
+  if (isCorrect) score++;
+  else missed.push({ ...q, chosenText });
+
+  // Find which button was chosen and which is correct
+  const opts = q.displayOptions;
+  btns.forEach((btn, i) => {
+    if (opts[i] === chosenText) btn.classList.add(isCorrect ? 'correct' : 'incorrect');
+    if (!isCorrect && opts[i] === q.displayAnswer) btn.classList.add('show-correct');
+  });
+
+  updateProgress();
+
+  const reveal = document.createElement('div');
+  reveal.className = 'result-reveal';
+  reveal.innerHTML = `
+    <div class="result-badge ${isCorrect ? 'correct' : 'incorrect'}">
+      ${isCorrect ? '✦ Correct' : '✗ Not quite — the answer is: ' + q.displayAnswer}
+    </div>
+    <div class="definition-box">
+      <div class="def-label">Definition & Context</div>
+      <div class="def-text">${q.definition}</div>
+    </div>
+  `;
+  card.appendChild(reveal);
+
+  const nextBtn = document.createElement('button');
+  nextBtn.className = 'next-btn';
+  nextBtn.textContent = current < shuffled.length - 1 ? 'Next Question →' : 'See Results';
+  nextBtn.addEventListener('click', () => {
+    current++;
+    if (current < shuffled.length) {
+      renderQuestion();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      showFinal();
+    }
+  });
+  document.getElementById('quizArea').appendChild(nextBtn);
+}
+
+function showFinal() {
+  const pct = Math.round((score / shuffled.length) * 100);
+  let msg = '';
+  if (pct === 100) msg = "Perfect score! You're ready to roll.";
+  else if (pct >= 80) msg = "Great work — you've got strong fundamentals.";
+  else if (pct >= 60) msg = "Good progress. A few more takes and you'll nail it.";
+  else msg = "Keep studying — every great film takes multiple drafts.";
+
+  document.getElementById('progressBar').style.width = '100%';
+
+  // Build missed questions review HTML
+  let missedHTML = '';
+  if (missed.length === 0) {
+    missedHTML = `<div class="perfect-msg">✦ You got every question right — nothing to review!</div>`;
+  } else {
+    missedHTML = missed.map((q, i) => `
+      <div class="missed-card">
+        <div class="missed-q-num">Missed · ${q.type === 'tf' ? 'True / False' : 'Multiple Choice'}</div>
+        <div class="missed-q-text">${q.question}</div>
+        <div class="missed-answers">
+          <div class="missed-answer-row was-wrong">
+            <span class="missed-answer-icon">✗</span>
+            <span>Your answer: <strong>${escHtml(q.chosenText)}</strong></span>
+          </div>
+          <div class="missed-answer-row is-correct">
+            <span class="missed-answer-icon">✦</span>
+            <span>Correct answer: <strong>${escHtml(q.displayAnswer)}</strong></span>
+          </div>
+        </div>
+        <div class="missed-def">
+          <div class="missed-def-label">Definition & Context</div>
+          <div class="missed-def-text">${q.definition}</div>
+        </div>
+      </div>`).join('');
+  }
+
+  document.getElementById('quizArea').innerHTML = `
+    <div class="final-screen">
+      <div class="header-eyebrow">That's a wrap!</div>
+      <h2>Your <em>Score</em></h2>
+      <div class="final-score-ring">
+        <div class="final-score-num">${score}</div>
+        <div class="final-score-total">out of ${shuffled.length}</div>
+      </div>
+      <p class="final-msg">${pct}% — ${msg}</p>
+      <div id="savedMsg"></div>
+      <button class="restart-btn" style="margin-top:28px;" onclick="restartQuiz()">New Quiz ↺</button>
+    </div>
+    <div class="missed-section">
+      <div class="missed-header">
+        <h3>${missed.length > 0 ? `<em>${missed.length}</em> to Review` : 'Review'}</h3>
+        <p>${missed.length > 0 ? 'Questions you missed — study these before your midterm.' : ''}</p>
+      </div>
+      ${missedHTML}
+    </div>
+  `;
+
+  saveScore();
+}
+
+// ── Leaderboard storage (shared so instructor can see all) ──────────
+// Lightweight storage wrapper so this file works standalone in the browser.
+// Uses localStorage when available and falls back to a no-op in-memory store.
+if (!window.storage) {
+  (function () {
+    const hasLocalStorage = (function () {
+      try {
+        const testKey = '__film_p160_test__';
+        window.localStorage.setItem(testKey, '1');
+        window.localStorage.removeItem(testKey);
+        return true;
+      } catch (e) {
+        return false;
+      }
+    })();
+
+    const memoryStore = {};
+
+    window.storage = {
+      async get(key) {
+        if (hasLocalStorage) {
+          const value = window.localStorage.getItem(key);
+          return { value };
+        }
+        return { value: memoryStore[key] ?? null };
+      },
+      async set(key, value) {
+        if (hasLocalStorage) {
+          window.localStorage.setItem(key, value);
+        } else {
+          memoryStore[key] = value;
+        }
+      }
+    };
+  })();
+}
+
+const LB_KEY = 'filmp160-leaderboard';
+const LB_PASSWORD = 'claudecode';
+let lbUnlocked = false;
+
+async function saveScore() {
+  const pct = Math.round((score / shuffled.length) * 100);
+  const entry = { name: 'Student', score, total: shuffled.length, pct, date: new Date().toLocaleDateString() };
+
+  try {
+    let entries = [];
+    try {
+      const res = await window.storage.get(LB_KEY, true);
+      if (res && res.value) entries = JSON.parse(res.value);
+    } catch(e) { entries = []; }
+
+    entries.push(entry);
+    entries.sort((a, b) => b.pct - a.pct || b.score - a.score);
+    if (entries.length > 50) entries = entries.slice(0, 50);
+
+    await window.storage.set(LB_KEY, JSON.stringify(entries), true);
+  } catch(err) {
+    // silently fail
+  }
+}
+
+function openLeaderboard() {
+  document.getElementById('lbOverlay').classList.add('open');
+  if (lbUnlocked) renderLeaderboard();
+}
+
+function closeLeaderboard() {
+  document.getElementById('lbOverlay').classList.remove('open');
+}
+
+function checkPassword() {
+  const pw = document.getElementById('lbPwInput').value;
+  if (pw === LB_PASSWORD) {
+    lbUnlocked = true;
+    renderLeaderboard();
+  } else {
+    document.getElementById('lbPwError').style.display = 'block';
+    document.getElementById('lbPwInput').value = '';
+  }
+}
+
+async function renderLeaderboard() {
+  const content = document.getElementById('lbContent');
+  content.innerHTML = '<p style="font-size:13px;color:var(--light-text);padding:16px 0;">Loading scores…</p>';
+
+  try {
+    let entries = [];
+    try {
+      const res = await window.storage.get(LB_KEY, true);
+      if (res && res.value) entries = JSON.parse(res.value);
+    } catch(e) { entries = []; }
+
+    entries.sort((a, b) => b.pct - a.pct || b.score - a.score);
+
+    const medals = ['🥇','🥈','🥉'];
+
+    if (entries.length === 0) {
+      content.innerHTML = `<div class="lb-empty">No scores yet — be the first to finish!</div>
+        <button class="lb-clear-btn" onclick="clearLeaderboard()">Clear All Scores</button>`;
+      return;
+    }
+
+    const rows = entries.map((e, i) => `
+      <tr>
+        <td style="color:var(--light-text);font-size:13px;">${medals[i] || (i+1)}</td>
+        <td class="lb-name">${escHtml(e.name)}</td>
+        <td class="lb-score-cell">${e.score}/${e.total}</td>
+        <td style="color:var(--mid);font-size:13px;">${e.pct}%</td>
+        <td style="color:var(--light-text);font-size:12px;">${e.date || ''}</td>
+      </tr>`).join('');
+
+    content.innerHTML = `
+      <table class="lb-table">
+        <thead><tr>
+          <th>#</th><th>Name</th><th>Score</th><th>%</th><th>Date</th>
+        </tr></thead>
+        <tbody>${rows}</tbody>
+      </table>
+      <button class="lb-clear-btn" onclick="clearLeaderboard()">Clear All Scores</button>`;
+  } catch(err) {
+    content.innerHTML = `<p style="color:var(--terracotta);font-size:14px;margin-top:16px;">Could not load scores.</p>`;
+  }
+}
+
+async function clearLeaderboard() {
+  if (!confirm('Clear all leaderboard scores? This cannot be undone.')) return;
+  try {
+    await window.storage.set(LB_KEY, JSON.stringify([]), true);
+    renderLeaderboard();
+  } catch(e) {}
+}
+
+function escHtml(str) {
+  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// Close modal on overlay click
+document.getElementById('lbOverlay').addEventListener('click', function(e) {
+  if (e.target === this) closeLeaderboard();
+});
+
+function restartQuiz() {
+  showStartScreen();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+showStartScreen();
+</script>
+</body>
+</html>
