@@ -1,0 +1,45 @@
+<button class="menu-toggle" onclick="toggleSidebar()">
+    <span></span>
+    <span></span>
+    <span></span>
+</button>
+
+<div class="sidebar" id="sidebar">
+    <div class="sidebar-title"></div>
+    <nav>
+        <a href="index.html" onclick="closeSidebar()"> Home</a>
+        <a href="#" onclick="toggleHomeworks(event)"> Homeworks
+            <span id="homeworkArrow" style="display:inline-block; transition: transform 0.35s ease;">&#9660;</span>
+        </a>
+        <div class="homework-dropdown" id="homeworkDropdown">
+            <a href="reading1.html">Reading 1: Plato's Cave</a>
+            <a href="reading2.html">Reading 2: AI Slop</a>
+            <a href="Homework%203.html">Homework 3: Depth of Field and Camera Raw</a>
+            <a href="homework4.html">Homework 4: Photo Montage</a>
+            <a href="homework5.html">Homework 5: My Eye</a>
+            <a href="homework6.html">Homework 6: Pattern T-Shirt</a>
+        </div>
+        <a href="https://www.linkedin.com/in/mason-riehm/" target="_blank"> LinkedIn</a>
+        <a href="index.html#extracurricular" onclick="closeSidebar()"> Extracurricular Projects</a>
+    </nav>
+</div>
+
+<div class="overlay" onclick="closeSidebar()"></div>
+
+<script>
+    function toggleSidebar() {
+        document.body.classList.toggle('sidebar-open');
+    }
+    function closeSidebar() {
+        document.body.classList.remove('sidebar-open');
+    }
+    function toggleHomeworks(event) {
+        event.preventDefault();
+        const dropdown = document.getElementById('homeworkDropdown');
+        const arrow = document.getElementById('homeworkArrow');
+        dropdown.classList.toggle('open');
+        arrow.style.transform = dropdown.classList.contains('open')
+            ? 'rotate(180deg)'
+            : 'rotate(0deg)';
+    }
+</script>
