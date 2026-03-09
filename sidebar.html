@@ -19,8 +19,17 @@
             <a href="homework5.html">Homework 5: My Eye</a>
             <a href="homework6.html">Homework 6: Pattern T-Shirt</a>
         </div>
+        <a href="#" onclick="toggleExtracurricular(event)"> Extracurricular Projects
+            <span id="extracurricularArrow" style="display:inline-block; transition: transform 0.35s ease;">&#9660;</span>
+        </a>
+        <div class="homework-dropdown" id="extracurricularDropdown">
+            <span class="sidebar-subsection">&lt;Coding&gt;</span>
+            <a href="irtheorytest.html">IR Theory Test</a>
+            <a href="film-test.html">Film Test</a>
+            <span class="sidebar-subsection">Media / Videos</span>
+            <a href="place.html">Know Your Place</a>
+        </div>
         <a href="https://www.linkedin.com/in/mason-riehm/" target="_blank"> LinkedIn</a>
-        <a href="index.html#extracurricular" onclick="closeSidebar()"> Extracurricular Projects</a>
     </nav>
 </div>
 
@@ -37,6 +46,15 @@
         event.preventDefault();
         const dropdown = document.getElementById('homeworkDropdown');
         const arrow = document.getElementById('homeworkArrow');
+        dropdown.classList.toggle('open');
+        arrow.style.transform = dropdown.classList.contains('open')
+            ? 'rotate(180deg)'
+            : 'rotate(0deg)';
+    }
+    function toggleExtracurricular(event) {
+        event.preventDefault();
+        const dropdown = document.getElementById('extracurricularDropdown');
+        const arrow = document.getElementById('extracurricularArrow');
         dropdown.classList.toggle('open');
         arrow.style.transform = dropdown.classList.contains('open')
             ? 'rotate(180deg)'

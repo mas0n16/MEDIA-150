@@ -125,6 +125,17 @@ body.sidebar-open .overlay {
     max-height: 400px;
 }
 
+/* ── Sidebar Subsection Labels (in dropdowns) ── */
+.sidebar-subsection {
+    display: block;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #7de0ff;
+    padding: 10px 24px 4px 36px;
+}
+
 /* ── Buttons ── */
 .homework-button {
     display: block;
