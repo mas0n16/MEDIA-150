@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>FILM P160 — Midterm Practice</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
 <style>
   :root {
     --cream: #faf7f2;
@@ -36,7 +37,7 @@
     inset: 0;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
     pointer-events: none;
-    z-index: 999;
+    z-index: 1001;
     opacity: 0.4;
   }
 
@@ -597,6 +598,21 @@
 </style>
 </head>
 <body>
+
+<div id="sidebar-container"></div>
+<script>
+    fetch('sidebar.html')
+        .then(res => res.text())
+        .then(html => {
+            const container = document.getElementById('sidebar-container');
+            container.innerHTML = html;
+            container.querySelectorAll('script').forEach(oldScript => {
+                const newScript = document.createElement('script');
+                newScript.textContent = oldScript.textContent;
+                document.body.appendChild(newScript);
+            });
+        });
+</script>
 
 <!-- Left film strip -->
 <div class="film-strip" id="leftStrip"></div>
