@@ -9,13 +9,20 @@
 
 <body>
 
-    <div id="sidebar-container"></div>
-    <script>
-        fetch('sidebar.html')
-            .then(res => res.text())
-            .then(html => document.getElementById('sidebar-container').innerHTML = html);
-    </script>
-
+<div id="sidebar-container"></div>
+<script>
+    fetch('sidebar.html')
+        .then(res => res.text())
+        .then(html => {
+            const container = document.getElementById('sidebar-container');
+            container.innerHTML = html;
+            container.querySelectorAll('script').forEach(oldScript => {
+                const newScript = document.createElement('script');
+                newScript.textContent = oldScript.textContent;
+                document.body.appendChild(newScript);
+            });
+        });
+</script>
     <header style="text-align: center; font-size: 32px; font-weight: bold; margin-bottom: 20px;">
         <a href="https://www.linkedin.com/in/mason-riehm/" target="_blank" style="text-decoration: none; color: inherit;">
             Mason Riehm
