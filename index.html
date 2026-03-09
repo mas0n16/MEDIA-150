@@ -13,258 +13,255 @@
             margin: 20px;
             background-color: #8bcff0;
         }
-    .lab-code {
-        display: none;
-        font-size: 16px;
-        color: #555;
-        margin-left: 10px;
-    }
-    header:hover .lab-code {
-        display: inline;
-        color: #555;
-    }
+        .lab-code {
+            display: none;
+            font-size: 16px;
+            color: #555;
+            margin-left: 10px;
+        }
+        header:hover .lab-code {
+            display: inline;
+            color: #555;
+        }
         .description-box {
-    max-width: 900px;
-    margin: 30px auto;
-    padding: 20px 25px;
-    border: 2px solid #444;
-    border-radius: 8px;
-    background-color: #44b1cccc; 
-    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-    }
-    .profile-container {
-    max-width: 900px;
-    margin: 30px auto;
-    padding: 20px;
-    border: 2px solid #000;
-    border-radius: 8px;
-    background-color: #44b1cccc;
-
-    display: flex;
-    align-items: center;
-    gap: 25px;
-    }
-
-    .profile-pic {
-    width: 200px;
-    height: 280px;
-    object-fit: cover;
-    object-position: center 50%;
-    border: 2px solid #000;
-    border-radius: 4px;
-    }
-
-    .profile-pic-link {
-    position: relative;
-    display: inline-block;
-    }
-
-    .tooltip {
-    position: absolute;
-    bottom: -27px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: #2e00e6;
-    color: white;
-    padding: 6px 10px;
-    border-radius: 6px;
-    font-size: 12px;
-    white-space: nowrap;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    cursor: pointer;
-    }
-
-    .profile-pic-link:hover .tooltip {
-    opacity: 1;
-    pointer-events: auto;
-    }
-
-    .tooltip:hover {
-    opacity: 1;
-    }
-
-    .homework {
-    max-width: 900px;
-    margin: 30px auto;
-    padding: 15px;
-    border: 1.5px solid #444;
-    border-radius: 6px;
-    background-color: #44b1cccc;
-    }
-
-    .extracurricular {
-    max-width: 900px;
-    margin: 30px auto;
-    padding: 15px;
-    border: 1.5px solid #444;
-    border-radius: 6px;
-    background-color: #44b1cccc;
-    }
-
-    .homework-button {
-    display: block;
-    width: 100%;
-    padding: 12px 20px;
-    margin: 10px 0;
-    background-color: #0099cc;
-    color: black;
-    border: none;
-    border-radius: 4px;
-    font-size: 16px;
-    font-weight: bold;
-    font-family: inherit;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    }
-
-    .homework-button:hover {
-    background-color: #007aa3;
-    }
-
-    .homework-button:active {
-    background-color: #005f7a;
-    }
-    .profile-title {
-    font-size: 15px;
-    font-weight: bold;
-    text-align: center;
-    margin-bottom: 15px;
-    }
-
-    .profile-text {
-    margin-top: 5px;
-    text-indent: 15px;
-    line-height: 1.7;
-    font-size: 12px; 
-    }
-
-    .profile-text p {
-    font-size: clamp(11px, 1.4vw, 12px);
-    }
-
-    @media (max-width: 700px) {
-    .profile-container {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    .profile-text {
-        text-indent: 0;
-    }
-
-    .profile-pic {
-        margin: 0 auto;
-    }
-    }
-
-    .menu-toggle {
-    position: fixed;
-    top: 18px;
-    left: 20px;
-    z-index: 1000;
-    background: #0099cc;
-    border: none;
-    border-radius: 6px;
-    width: 44px;
-    height: 44px;
-    cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 5px;
-    }
-
-    .menu-toggle span {
-    display: block;
-    width: 22px;
-    height: 2.5px;
-    background: #fff;
-    border-radius: 2px;
-    transition: transform 0.3s, opacity 0.3s;
-    }
-    .sidebar {
-    position: fixed;
-    top: 0;
-    left: -270px;
-    z-index: 999;
-    width: 260px;
-    height: 100%;
-    background: #1a6e8e;
-    box-shadow: 4px 0 18px rgba(0,0,0,0.25);
-    transition: left 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-    display: flex;
-    flex-direction: column;
-    padding-top: 70px;
-    }
-    .sidebar-title {
-    color: #c9eaf5;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    padding: 0 24px;
-    border-bottom: 1px solid rgba(255,255,255,0.15);
-    margin-bottom: 8px;
-    }
-    .sidebar nav a {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    text-decoration: none;
-    color: #e0f4fc;
-    font-size: 15px;
-    font-weight: 600;
-    padding: 13px 24px;
-    border-left: 3px solid transparent;
-    transition: background 0.2s, border-color 0.2s;
-    }
-    .sidebar nav a:hover {
-    background: rgba(255,255,255,0.1);
-    border-color: #7de0ff;
-    }
-    .overlay {
-        display: none;
-        position: fixed;
-        inset: 0;
-        background: rgba(0,0,0,0.35);
-        z-index: 998;
-    }
-    body.sidebar-open .overlay {display: block;}
-    body.sidebar-open .sidebar {left: 0;}
-    .homework-dropdown {
-    display: flex;
-    flex-direction: column;
-    background: rgba(0,0,0,0.15);
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.35s ease;
-    }
-    .homework-dropdown a {
-        font-size: 13px !important;
-        padding: 10px 24px 10px 36px !important;
-        border-left: 3px solid transparent;
-        color: #c9eaf5 !important;
-        font-weight: 400 !important;
-    }
-    .homework-dropdown a:hover {
-        background: rgba(255,255,255,0.08);
-        border-color: #7de0ff !important;
-    }
-    .homework-dropdown.open {
-        max-height: 400px;
-    }
-    body.sidebar-open .menu-toggle span:nth-child(1) {
-    transform: translateY(7.5px) rotate(45deg);
-}
-body.sidebar-open .menu-toggle span:nth-child(2) {
-    opacity: 0;
-}
-body.sidebar-open .menu-toggle span:nth-child(3) {
-    transform: translateY(-7.5px) rotate(-45deg);
-}
-
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 20px 25px;
+            border: 2px solid #444;
+            border-radius: 8px;
+            background-color: #44b1cccc;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+        .profile-container {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 20px;
+            border: 2px solid #000;
+            border-radius: 8px;
+            background-color: #44b1cccc;
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+        .profile-pic {
+            width: 200px;
+            height: 280px;
+            object-fit: cover;
+            object-position: center 50%;
+            border: 2px solid #000;
+            border-radius: 4px;
+        }
+        .profile-pic-link {
+            position: relative;
+            display: inline-block;
+        }
+        .tooltip {
+            position: absolute;
+            bottom: -27px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #2e00e6;
+            color: white;
+            padding: 6px 10px;
+            border-radius: 6px;
+            font-size: 12px;
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            cursor: pointer;
+        }
+        .profile-pic-link:hover .tooltip {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .tooltip:hover {
+            opacity: 1;
+        }
+        .homework {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 15px;
+            border: 1.5px solid #444;
+            border-radius: 6px;
+            background-color: #44b1cccc;
+        }
+        .extracurricular {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 15px;
+            border: 1.5px solid #444;
+            border-radius: 6px;
+            background-color: #44b1cccc;
+        }
+        .section-title {
+            font-weight: bold;
+            text-align: left;
+            display: block;
+            margin-bottom: 10px;
+        }
+        .subsection-label {
+            display: block;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: auto;
+            color: #1a6e8e;
+            margin: 14px 0 6px 0;
+        }
+        .homework-button {
+            display: block;
+            width: 100%;
+            padding: 12px 20px;
+            margin: 10px 0;
+            background-color: #0099cc;
+            color: black;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: bold;
+            font-family: inherit;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .homework-button:hover {
+            background-color: #007aa3;
+        }
+        .homework-button:active {
+            background-color: #005f7a;
+        }
+        .profile-title {
+            font-size: 15px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        .profile-text {
+            margin-top: 5px;
+            text-indent: 15px;
+            line-height: 1.7;
+            font-size: 12px;
+        }
+        .profile-text p {
+            font-size: clamp(11px, 1.4vw, 12px);
+        }
+        @media (max-width: 700px) {
+            .profile-container {
+                flex-direction: column;
+                text-align: center;
+            }
+            .profile-text {
+                text-indent: 0;
+            }
+            .profile-pic {
+                margin: 0 auto;
+            }
+        }
+        .menu-toggle {
+            position: fixed;
+            top: 18px;
+            left: 20px;
+            z-index: 1000;
+            background: #0099cc;
+            border: none;
+            border-radius: 6px;
+            width: 44px;
+            height: 44px;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+        .menu-toggle span {
+            display: block;
+            width: 22px;
+            height: 2.5px;
+            background: #fff;
+            border-radius: 2px;
+            transition: transform 0.3s, opacity 0.3s;
+        }
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: -270px;
+            z-index: 999;
+            width: 260px;
+            height: 100%;
+            background: #1a6e8e;
+            box-shadow: 4px 0 18px rgba(0,0,0,0.25);
+            transition: left 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            padding-top: 70px;
+        }
+        .sidebar-title {
+            color: #c9eaf5;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 0 24px;
+            border-bottom: 1px solid rgba(255,255,255,0.15);
+            margin-bottom: 8px;
+        }
+        .sidebar nav a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: #e0f4fc;
+            font-size: 15px;
+            font-weight: 600;
+            padding: 13px 24px;
+            border-left: 3px solid transparent;
+            transition: background 0.2s, border-color 0.2s;
+        }
+        .sidebar nav a:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: #7de0ff;
+        }
+        .overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.35);
+            z-index: 998;
+        }
+        body.sidebar-open .overlay { display: block; }
+        body.sidebar-open .sidebar { left: 0; }
+        .homework-dropdown {
+            display: flex;
+            flex-direction: column;
+            background: rgba(0,0,0,0.15);
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.35s ease;
+        }
+        .homework-dropdown a {
+            font-size: 13px !important;
+            padding: 10px 24px 10px 36px !important;
+            border-left: 3px solid transparent;
+            color: #c9eaf5 !important;
+            font-weight: 400 !important;
+        }
+        .homework-dropdown a:hover {
+            background: rgba(255,255,255,0.08);
+            border-color: #7de0ff !important;
+        }
+        .homework-dropdown.open {
+            max-height: 400px;
+        }
+        body.sidebar-open .menu-toggle span:nth-child(1) {
+            transform: translateY(7.5px) rotate(45deg);
+        }
+        body.sidebar-open .menu-toggle span:nth-child(2) {
+            opacity: 0;
+        }
+        body.sidebar-open .menu-toggle span:nth-child(3) {
+            transform: translateY(-7.5px) rotate(-45deg);
+        }
     </style>
 </head>
 
@@ -275,7 +272,7 @@ body.sidebar-open .menu-toggle span:nth-child(3) {
         <span></span>
         <span></span>
     </button>
-    
+
     <div class="sidebar" id="sidebar">
         <div class="sidebar-title"></div>
         <nav>
@@ -300,75 +297,75 @@ body.sidebar-open .menu-toggle span:nth-child(3) {
 
     <header style="text-align: center; font-size: 32px; font-weight: bold; margin-bottom: 20px;">
         <a href="https://www.linkedin.com/in/mason-riehm/" target="_blank" style="text-decoration: none; color: inherit;">
-        Mason Riehm
-        <span class="lab-code">1L06-LAB</span>
+            Mason Riehm
+            <span class="lab-code">1L06-LAB</span>
         </a>
     </header>
-<div class="profile-container">
 
+    <div class="profile-container">
     <a href="https://www.linkedin.com/in/mason-riehm/" target="_blank" class="profile-pic-link">
     <img src="IMG_2268.JPG"
          alt="A picture of Mason Riehm"
          class="profile-pic">
     <span class="tooltip">Connect with me on LinkedIn!</span>
         </a>
-        
-    <div class="profile-text">
 
-    <div class="profile-title">Creative Statement</div>
-
-        <p>
-        My name is Mason Riehm and I am a Media Studies student at Hunter College. I have a passion for creating content with effective and unique communication styles. 
-        I like to utilize aesthetic intelligence to create media that portrays a meaningful message and invokes thoughts and connections between the art and the viewers’
-        personal experiences. Through my studies, I will widen my understanding of  media, culture, and society, along with how they influence each other in the bigger 
-        picture. My goal is to create impactful content that widens eyes and sparks meaningful conversations. I am mostly interested in the entertainment industry, 
-        specifically creative expression and marketing in the music industry. I enjoy expressing myself and my experiences through music and media including video, photo,
-        and a curation of both. I am also passionate about advocacy for human rights and politics for the people. It is important to me to use my creativity to inspire 
-        others to be better. Finding the intersections between my interests and my studies is something I look forward to discovering and creating with during my time at
-        Hunter College. I am looking forward to making content that captures audiences and invokes emotions. I believe that media can be a very powerful tool for social 
-        change, and I am excited to be a part of that process! I have experience in experiential marketing, content creation, and creating memorable experiences for 
-        audiences. I am also thoroughly excited to learn new skills and techniques that will help me grow as a professional in media.
-        </p>
+        <div class="profile-text">
+            <div class="profile-title">Creative Statement</div>
+            <p>
+                My name is Mason Riehm and I am a Media Studies student at Hunter College. I have a passion for creating content with effective and unique communication styles.
+                I like to utilize aesthetic intelligence to create media that portrays a meaningful message and invokes thoughts and connections between the art and the viewers'
+                personal experiences. Through my studies, I will widen my understanding of media, culture, and society, along with how they influence each other in the bigger
+                picture. My goal is to create impactful content that widens eyes and sparks meaningful conversations. I am mostly interested in the entertainment industry,
+                specifically creative expression and marketing in the music industry. I enjoy expressing myself and my experiences through music and media including video, photo,
+                and a curation of both. I am also passionate about advocacy for human rights and politics for the people. It is important to me to use my creativity to inspire
+                others to be better. Finding the intersections between my interests and my studies is something I look forward to discovering and creating with during my time at
+                Hunter College. I am looking forward to making content that captures audiences and invokes emotions. I believe that media can be a very powerful tool for social
+                change, and I am excited to be a part of that process! I have experience in experiential marketing, content creation, and creating memorable experiences for
+                audiences. I am also thoroughly excited to learn new skills and techniques that will help me grow as a professional in media.
+            </p>
         </div>
-</div>
-<br>
+    </div>
+    <br>
 
-<div class="homework">
-<strong> Homework List </strong>
-    <button class="homework-button" onclick="window.location.href='reading1.html'">Reading 1: Plato's Cave</button>
-    <button class="homework-button" onclick="window.location.href='reading2.html'">Reading 2: With 'AI slop' distorting our reality, the world is sleepwalking into disaster</button>
-    <button class="homework-button" onclick="window.location.href='Homework%203.html'">Homework 3: Depth of Field and Camera Raw</button>
-    <button class="homework-button" onclick="window.location.href='homework4.html'">Homework 4: Photo Montage</button>
-    <button class="homework-button" onclick="window.location.href='homework5.html'">Homework 5: My Eye</button>
-    <button class="homework-button" onclick="window.location.href='homework6.html'">Homework 6: Pattern T-Shirt</button>
-</div>
+    <div class="homework">
+        <strong class="section-title">Homework List</strong>
+        <button class="homework-button" onclick="window.location.href='reading1.html'">Reading 1: Plato's Cave</button>
+        <button class="homework-button" onclick="window.location.href='reading2.html'">Reading 2: With 'AI slop' distorting our reality, the world is sleepwalking into disaster</button>
+        <button class="homework-button" onclick="window.location.href='Homework%203.html'">Homework 3: Depth of Field and Camera Raw</button>
+        <button class="homework-button" onclick="window.location.href='homework4.html'">Homework 4: Photo Montage</button>
+        <button class="homework-button" onclick="window.location.href='homework5.html'">Homework 5: My Eye</button>
+        <button class="homework-button" onclick="window.location.href='homework6.html'">Homework 6: Pattern T-Shirt</button>
+    </div>
 
-<div class="extracurricular" id="extracurricular">
-    <strong> Extracurricular Projects </strong>
-    <button class="homework-button" onclick="window.location.href='irtheorytest.html'">IR Theory Test</button>
-    <button class="homework-button" onclick="window.location.href='film-test.html'">Film Test</button>
-    <button class="homework-button" onclick="window.location.href='place.html'"> Know Your Place</button>
-</div>
+    <div class="extracurricular" id="extracurricular">
+        <strong class="section-title">Extracurricular Projects</strong>
 
+        <span class="subsection-label">&lt;CODING&gt;</span>
+        <button class="homework-button" onclick="window.location.href='irtheorytest.html'">IR Theory Test</button>
+        <button class="homework-button" onclick="window.location.href='film-test.html'">Film Test</button>
 
-<script>
-function toggleSidebar() {
-    document.body.classList.toggle('sidebar-open');
-}
-function closeSidebar() {
-    document.body.classList.remove('sidebar-open');
-}
-function toggleHomeworks(event) {
-    event.preventDefault();
-    const dropdown = document.getElementById('homeworkDropdown');
-    const arrow = document.getElementById('homeworkArrow');
-    dropdown.classList.toggle('open');
-    arrow.style.transform = dropdown.classList.contains('open')
-        ? 'rotate(180deg)'
-        : 'rotate(0deg)';
-}
-</script>
+        <span class="subsection-label">Media / Videos</span>
+        <button class="homework-button" onclick="window.location.href='place.html'">Know Your Place</button>
+    </div>
+
+    <script>
+        function toggleSidebar() {
+            document.body.classList.toggle('sidebar-open');
+        }
+        function closeSidebar() {
+            document.body.classList.remove('sidebar-open');
+        }
+        function toggleHomeworks(event) {
+            event.preventDefault();
+            const dropdown = document.getElementById('homeworkDropdown');
+            const arrow = document.getElementById('homeworkArrow');
+            dropdown.classList.toggle('open');
+            arrow.style.transform = dropdown.classList.contains('open')
+                ? 'rotate(180deg)'
+                : 'rotate(0deg)';
+        }
+    </script>
+
 </body>
-
-
-</html>  
+</html>
