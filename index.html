@@ -1,11 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="icon" href="media/website-icon.png">
     <meta charset="UTF-8">
+    <link rel="icon" href="media/website-icon.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mason Riehm</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        /* index-specific: larger name heading and linked header */
+        .page-header h1 {
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+        .page-header a {
+            text-decoration: none;
+            color: inherit;
+        }
+    </style>
 </head>
 
 <body>
@@ -24,58 +35,66 @@
             });
         });
 </script>
-    <header style="text-align: center; font-size: 32px; font-weight: bold; margin-bottom: 20px;">
-        <a href="https://www.linkedin.com/in/mason-riehm/" target="_blank" style="text-decoration: none; color: inherit;">
+
+    <h1 class="page-header">
+        <a href="https://www.linkedin.com/in/mason-riehm/" target="_blank">
             Mason Riehm
             <span class="lab-code">1L06-LAB</span>
         </a>
-    </header>
+    </h1>
 
     <div class="profile-container">
         <a href="https://www.linkedin.com/in/mason-riehm/" target="_blank" class="profile-pic-link">
-        <img src="media/IMG_2268.JPG"
-             alt="A picture of Mason Riehm"
-             class="profile-pic">
-        <span class="tooltip">Connect with me on LinkedIn!</span>
-            </a>
+            <img src="media/IMG_2268.JPG"
+                 alt="A picture of Mason Riehm"
+                 class="profile-pic">
+            <span class="tooltip">Connect with me on LinkedIn!</span>
+        </a>
 
         <div class="profile-text">
             <div class="profile-title">Creative Statement</div>
             <p>
-                My name is Mason Riehm and I am a Media Studies student at Hunter College. I have a passion for creating content with effective and unique communication styles.
-                I like to utilize aesthetic intelligence to create media that portrays a meaningful message and invokes thoughts and connections between the art and the viewers'
-                personal experiences. Through my studies, I will widen my understanding of media, culture, and society, along with how they influence each other in the bigger
-                picture. My goal is to create impactful content that widens eyes and sparks meaningful conversations. I am mostly interested in the entertainment industry,
-                specifically creative expression and marketing in the music industry. I enjoy expressing myself and my experiences through music and media including video, photo,
-                and a curation of both. I am also passionate about advocacy for human rights and politics for the people. It is important to me to use my creativity to inspire
-                others to be better. Finding the intersections between my interests and my studies is something I look forward to discovering and creating with during my time at
-                Hunter College. I am looking forward to making content that captures audiences and invokes emotions. I believe that media can be a very powerful tool for social
-                change, and I am excited to be a part of that process! I have experience in experiential marketing, content creation, and creating memorable experiences for
-                audiences. I am also thoroughly excited to learn new skills and techniques that will help me grow as a professional in media.
+                My name is Mason Riehm and I am a Media Studies student at Hunter College. I have a passion
+                for creating content with effective and unique communication styles. I like to utilize my knowledge
+                of aesthetics to create media that portrays a meaningful message and invokes thoughts and
+                connections between the art and the viewers' personal experiences.
+            </p>
+            <p>
+                Through my studies, I will widen my understanding of media, culture, and society, along with
+                how they influence each other in the bigger picture. I am mostly interested in the entertainment
+                industry, specifically creative expression and marketing in the music industry. I enjoy expressing
+                myself and my experiences through music and media including video, photo, and a curation of both.
+                I am also passionate about advocacy for human rights and politics for the people — it is important
+                to me to use my creativity to inspire others to be better.
+            </p>
+            <p>
+                I have experience in experiential marketing, content creation, and creating memorable experiences
+                for audiences. I am excited to learn new skills and techniques that will help me grow as a
+                professional in media. I believe media can be a powerful tool for social change, and I look
+                forward to discovering the intersections between my interests and my studies at Hunter College.
             </p>
         </div>
     </div>
-    <br>
 
     <div class="homework">
-        <strong class="section-title">Homework List</strong>
-        <button class="homework-button" onclick="window.location.href='reading1.html'">Reading 1: Plato's Cave</button>
-        <button class="homework-button" onclick="window.location.href='reading2.html'">Reading 2: With 'AI slop' distorting our reality, the world is sleepwalking into disaster</button>
-        <button class="homework-button" onclick="window.location.href='Homework%203.html'">Homework 3: Depth of Field and Camera Raw</button>
-        <button class="homework-button" onclick="window.location.href='homework4.html'">Homework 4: Photo Montage</button>
-        <button class="homework-button" onclick="window.location.href='homework5.html'">Homework 5: My Eye</button>
-        <button class="homework-button" onclick="window.location.href='homework6.html'">Homework 6: Pattern T-Shirt</button>
+        <span class="section-title">Homework List</span>
+        <a href="reading1.html" class="homework-button">Reading 1: Plato's Cave</a>
+        <a href="reading2.html" class="homework-button">Reading 2: AI Slop and Sleepwalking into Disaster</a>
+        <a href="Homework%203.html" class="homework-button">Homework 3: Depth of Field and Camera Raw</a>
+        <a href="homework4.html" class="homework-button">Homework 4: Photo Montage</a>
+        <a href="homework5.html" class="homework-button">Homework 5: My Eye</a>
+        <a href="homework6.html" class="homework-button">Homework 6: Pattern T-Shirt</a>
     </div>
 
     <div class="extracurricular" id="extracurricular">
-        <strong class="section-title">Extracurricular Projects</strong>
+        <span class="section-title">Extracurricular Projects</span>
 
-        <span class="subsection-label">&lt;Coding&gt;</span>
-        <button class="homework-button" onclick="window.location.href='irtheorytest.html'">IR Theory Test</button>
-        <button class="homework-button" onclick="window.location.href='film-test.html'">Film Test</button>
+        <span class="subsection-label">Coding</span>
+        <a href="irtheorytest.html" class="homework-button">IR Theory Test</a>
+        <a href="film-test.html" class="homework-button">Film Test</a>
 
         <span class="subsection-label">Media / Videos</span>
-        <button class="homework-button" onclick="window.location.href='place.html'">Know Your Place</button>
+        <a href="place.html" class="homework-button">Know Your Place</a>
     </div>
 
 </body>

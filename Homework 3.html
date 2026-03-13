@@ -7,11 +7,30 @@
     <title>Depth of Field</title>
     <link rel="stylesheet" href="styles.css">
     <style>
+        .page-header {
+            text-align: center;
+            margin-top: 10px;
+        }
+        .page-header h1 {
+            font-size: 22px;
+            font-weight: bold;
+            margin: 0 0 4px;
+        }
+        .page-header p {
+            font-size: 15px;
+            margin: 0 0 24px;
+        }
+        .section-label {
+            text-align: center;
+            font-size: 16px;
+            font-weight: bold;
+            margin: 30px 0 10px;
+        }
         .before-after-container {
             max-width: 900px;
-            margin: 30px auto;
+            margin: 0 auto 30px;
             padding: 20px;
-            border: 2px solid #000;
+            border: 1.5px solid #444;
             border-radius: 8px;
             background-color: #44b1cccc;
             display: flex;
@@ -25,7 +44,7 @@
             width: 350px;
             height: auto;
             border-radius: 4px;
-            border: 2px solid #000;
+            border: 1.5px solid #444;
         }
         .image-label {
             font-size: 18px;
@@ -34,9 +53,9 @@
         }
         .montage-container {
             max-width: 900px;
-            margin: 30px auto;
+            margin: 0 auto 50px;
             padding: 20px;
-            border: 2px solid #000;
+            border: 1.5px solid #444;
             border-radius: 8px;
             background-color: #44b1cccc;
             display: flex;
@@ -45,11 +64,11 @@
             align-items: center;
         }
         .montage-main img {
-            width: 750px;
-            max-width: 100%;
+            width: 100%;
+            max-width: 750px;
             height: auto;
             border-radius: 4px;
-            border: 2px solid #000;
+            border: 1.5px solid #444;
         }
     </style>
 </head>
@@ -70,10 +89,12 @@
             });
     </script>
 
-    <header style="text-align: center;"><b>Homework 3</b></header>
-    <p style="text-align: center;"><b>Depth of Field and Camera Raw</b></p>
+    <div class="page-header">
+        <h1>Homework 3</h1>
+        <p>Depth of Field and Camera Raw</p>
+    </div>
 
-    <p style="text-align: center; font-weight: bold; font-size: 16px; margin-bottom: -20px;">Edits with Camera Raw</p>
+    <h2 class="section-label">Camera Raw Edit — Set 1</h2>
     <div class="before-after-container">
         <div class="image-box">
             <img src="media/IMG_0713.jpg" alt="Before Image">
@@ -85,10 +106,10 @@
         </div>
     </div>
 
-    <p style="text-align: center; font-weight: bold; font-size: 16px; margin-bottom: -20px;">Edits with Camera Raw</p>
+    <h2 class="section-label">Camera Raw Edit — Set 2</h2>
     <div class="before-after-container">
         <div class="image-box">
-            <img src="media/IMG_0738 copy.JPG" alt="Before">
+            <img src="media/IMG_0738%20copy.JPG" alt="Before">
             <div class="image-label">Before</div>
         </div>
         <div class="image-box">
@@ -97,22 +118,22 @@
         </div>
     </div>
 
-    <p style="text-align: center; font-weight: bold; font-size: 16px; margin-bottom: -20px;">Blur with Photoshop</p>
+    <h2 class="section-label">Blur with Photoshop</h2>
     <div class="before-after-container">
         <div class="image-box">
-            <img src="media/IMG_0728 copy 2.JPG" alt="Before">
+            <img src="media/IMG_0728%20copy%202.JPG" alt="Before">
             <div class="image-label">Before</div>
         </div>
         <div class="image-box">
-            <img src="media/IMG_0728 blur.png" alt="After">
+            <img src="media/IMG_0728%20blur.png" alt="After">
             <div class="image-label">After</div>
         </div>
     </div>
 
-    <p style="text-align: center; font-weight: bold; font-size: 16px; margin-bottom: -20px;">Shallow Depth of Field with Camera</p>
+    <h2 class="section-label">Shallow Depth of Field with Camera</h2>
     <div class="montage-container">
         <div class="montage-main">
-            <img src="media/IMG_0760 copy.JPG" alt="Shallow DOF">
+            <img src="media/IMG_0760%20copy.JPG" alt="Shallow DOF">
         </div>
     </div>
 

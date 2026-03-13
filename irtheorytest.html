@@ -3,9 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>IR Midterm Practice Quiz</title>
+<title>IR Practice Quiz</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
 <style>
   :root {
     --bg: #0a0a0f;
@@ -30,15 +29,51 @@
     overflow-x: hidden;
   }
 
-  /* Push grain overlay above sidebar z-index */
   body::before {
     content: '';
     position: fixed;
     inset: 0;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
     pointer-events: none;
-    z-index: 1001;
+    z-index: 999;
   }
+
+  /* ── VERSION STRIP ── */
+  .version-strip {
+    height: 2rem;
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    transition: background 0.3s, border-color 0.3s;
+  }
+  .version-strip.v1 {
+    background: rgba(200, 168, 75, 0.06);
+    border-bottom: 1px solid rgba(200, 168, 75, 0.15);
+  }
+  .version-strip.v2 {
+    background: rgba(91, 141, 217, 0.06);
+    border-bottom: 1px solid rgba(91, 141, 217, 0.18);
+  }
+  .version-strip-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    transition: color 0.3s;
+  }
+  .version-strip.v1 .version-strip-label { color: var(--accent); }
+  .version-strip.v2 .version-strip-label { color: var(--accent2); }
+  .version-strip-desc {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+  }
+
+  /* ── HEADER ── */
+  header {
+    border-bottom: 1px solid var(--border);
     padding: 2rem 2rem 1.5rem;
     display: flex;
     align-items: flex-end;
@@ -46,7 +81,6 @@
     gap: 1rem;
     flex-wrap: wrap;
   }
-
   .header-title {
     font-family: 'Playfair Display', serif;
     font-size: clamp(1.8rem, 4vw, 2.8rem);
@@ -55,9 +89,7 @@
     letter-spacing: -0.02em;
     color: var(--text);
   }
-
   .header-title span { color: var(--accent); }
-
   .header-sub {
     font-family: 'IBM Plex Mono', monospace;
     font-size: 0.7rem;
@@ -66,7 +98,107 @@
     text-transform: uppercase;
     margin-top: 0.4rem;
   }
+  .header-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.5rem;
+  }
 
+  /* ── VERSION TOGGLE ── */
+  .version-toggle {
+    display: flex;
+    align-items: center;
+    border: 1px solid var(--border);
+    overflow: hidden;
+    position: relative;
+    margin-top: 0.9rem;
+  }
+  .version-toggle::before {
+    content: 'VERSION';
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.5rem;
+    letter-spacing: 0.18em;
+    color: var(--muted);
+    position: absolute;
+    top: -1.1rem;
+    right: 0;
+  }
+  .v-btn {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    padding: 0.38rem 0.85rem;
+    background: transparent;
+    border: none;
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.18s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+  .v-btn + .v-btn { border-left: 1px solid var(--border); }
+  .v-btn .v-dot { width: 5px; height: 5px; border-radius: 50%; background: currentColor; opacity: 0.6; }
+  .v-btn.active .v-dot { opacity: 1; }
+
+  .v-btn.v1-btn.active { background: var(--accent); color: var(--bg); }
+  .v-btn.v1-btn:not(.active):hover { background: rgba(200,168,75,0.1); color: var(--accent); }
+
+  .v-btn.v2-btn.active { background: var(--accent2); color: #fff; }
+  .v-btn.v2-btn:not(.active):hover { background: rgba(91,141,217,0.1); color: var(--accent2); }
+
+  .v-new {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.45rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent2);
+    border: 1px solid var(--accent2);
+    padding: 0.05rem 0.25rem;
+    line-height: 1.4;
+    margin-left: 0.1rem;
+  }
+  .v-btn.active .v-new { color: #fff; border-color: rgba(255,255,255,0.5); }
+
+  /* ── MT1 CHECKBOX ── */
+  .mt1-toggle {
+    display: none;
+    align-items: center;
+    gap: 0.45rem;
+    cursor: pointer;
+    user-select: none;
+  }
+  .mt1-toggle.visible { display: flex; }
+  .mt1-toggle input[type="checkbox"] { display: none; }
+  .mt1-box {
+    width: 1.1rem;
+    height: 1.1rem;
+    border: 1px solid var(--accent2);
+    background: var(--accent2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.65rem;
+    color: #fff;
+    transition: all 0.15s;
+    flex-shrink: 0;
+    font-weight: 700;
+  }
+  .mt1-box.unchecked { background: transparent; border-color: var(--border); color: transparent; }
+  .mt1-text {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    text-transform: uppercase;
+    transition: color 0.15s;
+  }
+  .mt1-toggle:hover .mt1-text { color: var(--accent2); }
+  .mt1-toggle:hover .mt1-box.unchecked { border-color: var(--accent2); }
+
+  /* ── SCORE BADGE ── */
   .score-badge {
     font-family: 'IBM Plex Mono', monospace;
     font-size: 0.8rem;
@@ -77,649 +209,208 @@
     white-space: nowrap;
   }
 
-  .progress-bar-wrap {
-    background: var(--border);
-    height: 2px;
-    width: 100%;
-  }
+  /* ── PROGRESS ── */
+  .progress-bar-wrap { background: var(--border); height: 2px; width: 100%; }
+  .progress-bar { height: 2px; transition: width 0.5s ease, background 0.3s; width: 0%; }
+  .progress-bar.v1 { background: var(--accent); }
+  .progress-bar.v2 { background: var(--accent2); }
 
-  .progress-bar {
-    height: 2px;
-    background: var(--accent);
-    transition: width 0.5s ease;
-    width: 0%;
-  }
+  /* ── MAIN ── */
+  main { max-width: 760px; margin: 0 auto; padding: 2.5rem 1.5rem 4rem; }
 
-  main {
-    max-width: 760px;
-    margin: 0 auto;
-    padding: 2.5rem 1.5rem 4rem;
-  }
+  /* ── INTRO ── */
+  #intro { text-align: center; padding: 3rem 1rem; }
+  #intro h2 { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 700; margin-bottom: 1rem; color: var(--text); }
+  #intro p { font-size: 0.9rem; color: var(--muted); max-width: 440px; margin: 0 auto 2rem; line-height: 1.6; }
 
-  /* Section label */
-  .section-tag {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.65rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--accent2);
-    margin-bottom: 0.6rem;
-  }
+  .category-grid { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; margin-bottom: 2rem; }
+  .cat-pill { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.3rem 0.7rem; border: 1px solid var(--border); color: var(--muted); }
+  .cat-pill.new { border-color: rgba(91,141,217,0.4); color: var(--accent2); }
 
-  /* Question card */
-  .q-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    padding: 1.8rem;
-    margin-bottom: 1.2rem;
-    transition: border-color 0.3s;
-    display: none;
-    animation: fadeIn 0.3s ease;
-  }
+  .length-picker { margin: 0 auto 2rem; max-width: 420px; }
+  .length-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.8rem; }
+  .length-options { display: flex; gap: 0.8rem; justify-content: center; }
 
-  .q-card.active { display: block; }
-
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(8px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  .q-card.correct { border-color: var(--success); }
-  .q-card.wrong { border-color: var(--danger); }
-
-  .q-num {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.7rem;
-    color: var(--muted);
-    margin-bottom: 0.8rem;
-    letter-spacing: 0.1em;
-  }
-
-  .q-text {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.15rem;
-    font-weight: 700;
-    line-height: 1.4;
-    margin-bottom: 1.4rem;
-    color: var(--text);
-  }
-
-  .options {
-    display: grid;
-    gap: 0.6rem;
-  }
-
-  .option-btn {
-    background: transparent;
-    border: 1px solid var(--border);
-    color: var(--text);
-    padding: 0.75rem 1rem;
-    text-align: left;
-    font-family: 'IBM Plex Sans', sans-serif;
-    font-size: 0.88rem;
-    font-weight: 400;
-    cursor: pointer;
-    transition: all 0.15s;
-    line-height: 1.4;
-    display: flex;
-    align-items: flex-start;
-    gap: 0.7rem;
-  }
-
-  .option-btn:hover:not(:disabled) {
-    border-color: var(--accent);
-    color: var(--accent);
-    background: rgba(200, 168, 75, 0.05);
-  }
-
-  .option-btn .opt-label {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.7rem;
-    font-weight: 500;
-    min-width: 1.2rem;
-    margin-top: 0.1rem;
-    color: var(--muted);
-  }
-
-  .option-btn.correct-ans {
-    border-color: var(--success);
-    background: rgba(91, 217, 138, 0.08);
-    color: var(--success);
-  }
-
-  .option-btn.wrong-ans {
-    border-color: var(--danger);
-    background: rgba(217, 91, 91, 0.08);
-    color: var(--danger);
-  }
-
-  .option-btn.correct-ans .opt-label,
-  .option-btn.wrong-ans .opt-label { color: inherit; }
-
-  .option-btn:disabled { cursor: default; }
-
-  .explanation {
-    margin-top: 1.2rem;
-    padding: 1rem 1.2rem;
-    border-left: 3px solid var(--accent2);
-    background: rgba(91, 141, 217, 0.06);
-    font-size: 0.83rem;
-    line-height: 1.6;
-    color: #b8c8e8;
-    display: none;
-  }
-
-  .explanation.show { display: block; }
-
-  .explanation strong {
-    color: var(--accent2);
-    font-weight: 500;
-  }
-
-  /* Nav */
-  .nav {
-    display: flex;
-    gap: 0.8rem;
-    margin-top: 1.6rem;
-    align-items: center;
-    flex-wrap: wrap;
-  }
-
-  .btn {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.75rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    padding: 0.6rem 1.4rem;
-    border: 1px solid var(--border);
-    background: transparent;
-    color: var(--text);
-    cursor: pointer;
-    transition: all 0.15s;
-  }
-
-  .btn:hover { border-color: var(--accent); color: var(--accent); }
-
-  .btn.primary {
-    background: var(--accent);
-    color: var(--bg);
-    border-color: var(--accent);
-    font-weight: 500;
-  }
-
-  .btn.primary:hover { background: #d4b05e; }
-
-  .btn:disabled { opacity: 0.3; cursor: default; }
-
-  /* Results */
-  #results {
-    display: none;
-    padding: 2.5rem 1.5rem 3rem;
-    animation: fadeIn 0.4s ease;
-  }
-
-  .results-top {
-    text-align: center;
-    margin-bottom: 2.5rem;
-  }
-
-  .big-score {
-    font-family: 'Playfair Display', serif;
-    font-size: 5rem;
-    font-weight: 900;
-    color: var(--accent);
-    line-height: 1;
-  }
-
-  .score-label {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.75rem;
-    color: var(--muted);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    margin-top: 0.5rem;
-  }
-
-  /* Section breakdown */
-  .section-breakdown {
-    background: var(--card);
-    border: 1px solid var(--border);
-    padding: 1.5rem;
-    margin-bottom: 1.5rem;
-  }
-
-  .breakdown-title {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.65rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 1.2rem;
-  }
-
-  .sec-row {
-    margin-bottom: 1.1rem;
-    padding-bottom: 1.1rem;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .sec-row:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
-
-  .sec-row.sec-weak { border-left: 2px solid var(--danger); padding-left: 0.8rem; }
-
-  .sec-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 0.4rem;
-  }
-
-  .sec-name {
-    font-size: 0.85rem;
-    font-weight: 500;
-    color: var(--text);
-  }
-
-  .sec-stat {
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.75rem;
-  }
-
-  .sec-icon { font-size: 0.8rem; }
-
-  .sec-bar-wrap {
-    background: var(--border);
-    height: 3px;
-    width: 100%;
-    margin-bottom: 0.5rem;
-  }
-
-  .sec-bar {
-    height: 3px;
-    transition: width 0.8s ease;
-  }
-
-  .missed-qs { margin-top: 0.4rem; }
-
-  .missed-q {
-    font-size: 0.75rem;
-    color: var(--muted);
-    line-height: 1.5;
-    padding: 0.15rem 0;
-    font-style: italic;
-  }
-
-  /* Study plan */
-  .study-plan {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-top: 3px solid var(--accent2);
-    padding: 1.5rem;
-  }
-
-  .study-plan.all-good { border-top-color: var(--success); }
-
-  .study-plan-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.1rem;
-    font-weight: 700;
-    margin-bottom: 0.4rem;
-    color: var(--text);
-  }
-
-  .study-plan-sub {
-    font-size: 0.82rem;
-    color: var(--muted);
-    margin-bottom: 1.2rem;
-    line-height: 1.5;
-  }
-
-  .study-item {
-    margin-bottom: 1.1rem;
-    padding-bottom: 1.1rem;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .study-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
-
-  .study-item-header {
-    display: flex;
-    align-items: center;
-    gap: 0.7rem;
-    margin-bottom: 0.4rem;
-  }
-
-  .study-num {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.65rem;
-    background: var(--accent2);
-    color: var(--bg);
-    width: 1.4rem;
-    height: 1.4rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    font-weight: 500;
-  }
-
-  .study-sec-name {
-    font-size: 0.88rem;
-    font-weight: 500;
-    color: var(--accent2);
-  }
-
-  .study-tip {
-    font-size: 0.8rem;
-    color: var(--muted);
-    line-height: 1.6;
-    padding-left: 2.1rem;
-  }
-
-  .length-picker {
-    margin: 0 auto 2rem;
-    max-width: 420px;
-  }
-
-  .length-label {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.65rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 0.8rem;
-  }
-
-  .length-options {
-    display: flex;
-    gap: 0.8rem;
-    justify-content: center;
-  }
-
-  .length-btn {
-    flex: 1;
-    background: transparent;
-    border: 1px solid var(--border);
-    color: var(--muted);
-    padding: 0.9rem 0.5rem;
-    cursor: pointer;
-    transition: all 0.15s;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.3rem;
-  }
-
-  .length-btn:hover {
-    border-color: var(--accent);
-    color: var(--accent);
-  }
-
-  .length-btn.active {
-    border-color: var(--accent);
-    background: rgba(200, 168, 75, 0.1);
-    color: var(--accent);
-  }
-
-  .length-num {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.8rem;
-    font-weight: 900;
-    line-height: 1;
-  }
-
-  .length-desc {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.6rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-  }
-
-  .diff-btn {
-    flex: 1;
-    background: transparent;
-    border: 1px solid var(--border);
-    color: var(--muted);
-    padding: 0.9rem 0.5rem;
-    cursor: pointer;
-    transition: all 0.15s;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.3rem;
+  .diff-btn, .length-btn {
+    flex: 1; background: transparent; border: 1px solid var(--border); color: var(--muted);
+    padding: 0.9rem 0.5rem; cursor: pointer; transition: all 0.15s;
+    display: flex; flex-direction: column; align-items: center; gap: 0.3rem;
   }
   .diff-btn:hover { border-color: var(--accent2); color: var(--accent2); }
   .diff-btn.active { border-color: var(--accent2); background: rgba(91,141,217,0.1); color: var(--accent2); }
+  .length-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .length-btn.active { border-color: var(--accent); background: rgba(200,168,75,0.1); color: var(--accent); }
 
-  .diff-desc {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.65rem;
-    color: var(--muted);
-    letter-spacing: 0.05em;
-    margin-top: 0.6rem;
-    text-align: center;
-    min-height: 1.2em;
-  }
+  .length-num { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 900; line-height: 1; }
+  .length-desc { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; }
+  .diff-desc { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; color: var(--muted); letter-spacing: 0.05em; margin-top: 0.6rem; text-align: center; min-height: 1.2em; }
 
-  /* Mode toggle */
-  .mode-toggle-wrap {
-    margin: 0 auto 2rem;
-    max-width: 420px;
-  }
-  .mode-toggle-row {
-    display: flex;
-    gap: 0.8rem;
-  }
-  .mode-btn {
-    flex: 1;
-    background: transparent;
-    border: 1px solid var(--border);
-    color: var(--muted);
-    padding: 0.9rem 0.7rem;
-    cursor: pointer;
-    transition: all 0.15s;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.25rem;
-    text-align: center;
-  }
+  .mode-toggle-wrap { margin: 0 auto 2rem; max-width: 420px; }
+  .mode-toggle-row { display: flex; gap: 0.8rem; }
+  .mode-btn { flex: 1; background: transparent; border: 1px solid var(--border); color: var(--muted); padding: 0.9rem 0.7rem; cursor: pointer; transition: all 0.15s; display: flex; flex-direction: column; align-items: center; gap: 0.25rem; text-align: center; }
   .mode-btn:hover { border-color: var(--success); color: var(--success); }
   .mode-btn.active { border-color: var(--success); background: rgba(82,196,133,0.08); color: var(--success); }
   .mode-icon { font-size: 1.4rem; line-height: 1; }
-  .mode-name {
-    font-family: "IBM Plex Mono", monospace;
-    font-size: 0.7rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-  }
-  .mode-hint {
-    font-size: 0.65rem;
-    color: var(--muted);
-    letter-spacing: 0.03em;
-  }
+  .mode-name { font-family: "IBM Plex Mono", monospace; font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; }
+  .mode-hint { font-size: 0.65rem; color: var(--muted); }
 
-  /* Multi-select option states */
-  .option-btn.selected {
-    border-color: var(--accent2);
-    background: rgba(91,141,217,0.12);
-    color: var(--fg);
-  }
-  .option-btn.partial-correct {
-    border-color: var(--success);
-    background: rgba(82,196,133,0.12);
-    color: var(--success);
-  }
-  .option-btn.partial-wrong {
-    border-color: var(--danger);
-    background: rgba(220,88,88,0.12);
-    color: var(--danger);
-  }
-  .option-btn.missed-ans {
-    border-color: var(--success);
-    background: rgba(82,196,133,0.06);
-    color: var(--success);
-    opacity: 0.7;
-  }
-  .submit-wrap {
-    margin-top: 1rem;
-    text-align: center;
-  }
-  .multi-hint {
-    font-family: "IBM Plex Mono", monospace;
-    font-size: 0.65rem;
-    color: var(--accent2);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    margin-bottom: 0.8rem;
-    text-align: center;
-  }
-
-  .diff-badge {
-    display: inline-block;
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.6rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    padding: 0.15rem 0.5rem;
-    margin-left: 0.5rem;
-    vertical-align: middle;
-  }
+  /* ── QUESTION CARD ── */
+  .section-tag { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent2); margin-bottom: 0.6rem; }
+  .q-card { background: var(--card); border: 1px solid var(--border); padding: 1.8rem; margin-bottom: 1.2rem; transition: border-color 0.3s; display: none; animation: fadeIn 0.3s ease; }
+  .q-card.active { display: block; }
+  @keyframes fadeIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+  .q-card.correct { border-color: var(--success); }
+  .q-card.wrong { border-color: var(--danger); }
+  .q-num { font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; color: var(--muted); margin-bottom: 0.8rem; letter-spacing: 0.1em; }
+  .q-text { font-family: 'Playfair Display', serif; font-size: 1.15rem; font-weight: 700; line-height: 1.4; margin-bottom: 1.4rem; color: var(--text); }
+  .options { display: grid; gap: 0.6rem; }
+  .option-btn { background: transparent; border: 1px solid var(--border); color: var(--text); padding: 0.75rem 1rem; text-align: left; font-family: 'IBM Plex Sans', sans-serif; font-size: 0.88rem; cursor: pointer; transition: all 0.15s; line-height: 1.4; display: flex; align-items: flex-start; gap: 0.7rem; }
+  .option-btn:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); background: rgba(200,168,75,0.05); }
+  .option-btn .opt-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; font-weight: 500; min-width: 1.2rem; margin-top: 0.1rem; color: var(--muted); }
+  .option-btn.correct-ans { border-color: var(--success); background: rgba(91,217,138,0.08); color: var(--success); }
+  .option-btn.wrong-ans { border-color: var(--danger); background: rgba(217,91,91,0.08); color: var(--danger); }
+  .option-btn.correct-ans .opt-label, .option-btn.wrong-ans .opt-label { color: inherit; }
+  .option-btn:disabled { cursor: default; }
+  .option-btn.selected { border-color: var(--accent2); background: rgba(91,141,217,0.12); }
+  .option-btn.partial-correct { border-color: var(--success); background: rgba(82,196,133,0.12); color: var(--success); }
+  .option-btn.partial-wrong { border-color: var(--danger); background: rgba(220,88,88,0.12); color: var(--danger); }
+  .option-btn.missed-ans { border-color: var(--success); background: rgba(82,196,133,0.06); color: var(--success); opacity: 0.7; }
+  .explanation { margin-top: 1.2rem; padding: 1rem 1.2rem; border-left: 3px solid var(--accent2); background: rgba(91,141,217,0.06); font-size: 0.83rem; line-height: 1.6; color: #b8c8e8; display: none; }
+  .explanation.show { display: block; }
+  .explanation strong { color: var(--accent2); font-weight: 500; }
+  .diff-badge { display: inline-block; font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.15rem 0.5rem; margin-left: 0.5rem; vertical-align: middle; }
   .diff-badge.d1 { border: 1px solid var(--success); color: var(--success); }
   .diff-badge.d2 { border: 1px solid var(--accent); color: var(--accent); }
   .diff-badge.d3 { border: 1px solid var(--danger); color: var(--danger); }
+  .multi-hint { font-family: "IBM Plex Mono", monospace; font-size: 0.65rem; color: var(--accent2); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.8rem; text-align: center; }
+  .submit-wrap { margin-top: 1rem; text-align: center; }
 
-  /* Intro */
-  #intro {
-    text-align: center;
-    padding: 3rem 1rem;
-  }
+  /* ── NAV / BUTTONS ── */
+  .nav { display: flex; gap: 0.8rem; margin-top: 1.6rem; align-items: center; flex-wrap: wrap; }
+  .btn { font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.6rem 1.4rem; border: 1px solid var(--border); background: transparent; color: var(--text); cursor: pointer; transition: all 0.15s; }
+  .btn:hover { border-color: var(--accent); color: var(--accent); }
+  .btn.primary { background: var(--accent); color: var(--bg); border-color: var(--accent); font-weight: 500; }
+  .btn.primary:hover { background: #d4b05e; }
+  .btn:disabled { opacity: 0.3; cursor: default; }
 
-  #intro h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.6rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
-  }
-
-  #intro p {
-    font-size: 0.9rem;
-    color: var(--muted);
-    max-width: 420px;
-    margin: 0 auto 2rem;
-    line-height: 1.6;
-  }
-
-  .category-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    justify-content: center;
-    margin-bottom: 2rem;
-  }
-
-  .cat-pill {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.65rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    padding: 0.3rem 0.7rem;
-    border: 1px solid var(--border);
-    color: var(--muted);
-  }
+  /* ── RESULTS ── */
+  #results { display: none; padding: 2.5rem 1.5rem 3rem; animation: fadeIn 0.4s ease; }
+  .results-top { text-align: center; margin-bottom: 2.5rem; }
+  .big-score { font-family: 'Playfair Display', serif; font-size: 5rem; font-weight: 900; line-height: 1; }
+  .score-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 0.5rem; }
+  .section-breakdown { background: var(--card); border: 1px solid var(--border); padding: 1.5rem; margin-bottom: 1.5rem; }
+  .breakdown-title { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-bottom: 1.2rem; }
+  .sec-row { margin-bottom: 1.1rem; padding-bottom: 1.1rem; border-bottom: 1px solid var(--border); }
+  .sec-row:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+  .sec-row.sec-weak { border-left: 2px solid var(--danger); padding-left: 0.8rem; }
+  .sec-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem; }
+  .sec-name { font-size: 0.85rem; font-weight: 500; color: var(--text); }
+  .sec-stat { display: flex; align-items: center; gap: 0.4rem; font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; }
+  .sec-bar-wrap { background: var(--border); height: 3px; width: 100%; margin-bottom: 0.5rem; }
+  .sec-bar { height: 3px; transition: width 0.8s ease; }
+  .missed-qs { margin-top: 0.4rem; }
+  .missed-q { font-size: 0.75rem; color: var(--muted); line-height: 1.5; padding: 0.15rem 0; font-style: italic; }
+  .study-plan { background: var(--card); border: 1px solid var(--border); border-top: 3px solid var(--accent2); padding: 1.5rem; }
+  .study-plan.all-good { border-top-color: var(--success); }
+  .study-plan-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text); }
+  .study-plan-sub { font-size: 0.82rem; color: var(--muted); margin-bottom: 1.2rem; line-height: 1.5; }
+  .study-item { margin-bottom: 1.1rem; padding-bottom: 1.1rem; border-bottom: 1px solid var(--border); }
+  .study-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+  .study-item-header { display: flex; align-items: center; gap: 0.7rem; margin-bottom: 0.4rem; }
+  .study-num { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; background: var(--accent2); color: var(--bg); width: 1.4rem; height: 1.4rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-weight: 500; }
+  .study-sec-name { font-size: 0.88rem; font-weight: 500; color: var(--accent2); }
+  .study-tip { font-size: 0.8rem; color: var(--muted); line-height: 1.6; padding-left: 2.1rem; }
 </style>
 </head>
 <body>
 
-<div id="sidebar-container"></div>
-<script>
-    fetch('sidebar.html')
-        .then(res => res.text())
-        .then(html => {
-            const container = document.getElementById('sidebar-container');
-            container.innerHTML = html;
-            container.querySelectorAll('script').forEach(oldScript => {
-                const newScript = document.createElement('script');
-                newScript.textContent = oldScript.textContent;
-                document.body.appendChild(newScript);
-            });
-        });
-</script>
+<div class="version-strip v1" id="version-strip">
+  <span class="version-strip-label" id="strip-label">▶ V1 — Midterm Bank</span>
+  <span class="version-strip-desc" id="strip-desc">62 questions · IR Theories, Doctrines, Trump II, Venezuela, Greenland, Trade, Scholars, Synthesis</span>
+</div>
 
 <header>
   <div>
-    <div class="header-title">IR <span>Midterm</span> Quiz</div>
-    <div class="header-sub">International Relations & U.S. Foreign Policy</div>
+    <div class="header-title" id="header-title">IR <span>Midterm</span> Quiz</div>
+    <div class="header-sub" id="header-sub">International Relations & U.S. Foreign Policy</div>
   </div>
-  <div class="score-badge" id="score-display">Score: 0 / 0</div>
+  <div class="header-right">
+    <div id="version-toggle-wrap" style="display:flex; flex-direction:column; align-items:flex-end; gap:0.5rem;">
+      <div class="version-toggle">
+        <button class="v-btn v1-btn active" id="btn-v1" onclick="switchVersion(1)">
+          <span class="v-dot"></span>V1
+        </button>
+        <button class="v-btn v2-btn" id="btn-v2" onclick="switchVersion(2)">
+          <span class="v-dot"></span>V2<span class="v-new">NEW</span>
+        </button>
+      </div>
+      <label class="mt1-toggle" id="mt1-label">
+        <input type="checkbox" id="mt1-check" checked onchange="toggleMT1Box()">
+        <span class="mt1-box" id="mt1-box">✓</span>
+        <span class="mt1-text">Include Midterm 1 material</span>
+      </label>
+    </div>
+    <div class="score-badge" id="score-display">Score: 0 / 0</div>
+  </div>
 </header>
-<div class="progress-bar-wrap"><div class="progress-bar" id="progress-bar"></div></div>
+
+<div class="progress-bar-wrap">
+  <div class="progress-bar v1" id="progress-bar"></div>
+</div>
 
 <main>
   <div id="intro">
-    <h2>Ready to test yourself?</h2>
-    <p>62 questions in the bank — shuffled every attempt. Pick your length and go.</p>
-    <div class="category-grid">
-      <span class="cat-pill">IR Theories</span>
-      <span class="cat-pill">Historical Doctrines</span>
-      <span class="cat-pill">Trump II Policy</span>
-      <span class="cat-pill">Venezuela</span>
-      <span class="cat-pill">Greenland</span>
-      <span class="cat-pill">Trade & Tariffs</span>
-      <span class="cat-pill">Scholar Perspectives</span>
-      <span class="cat-pill">Synthesis</span>
+    <h2 id="intro-heading">Ready to test yourself?</h2>
+    <p id="intro-desc">62 questions in the bank — shuffled every attempt. Pick your length and go.</p>
+
+    <div class="category-grid" id="cat-grid">
+      <!-- filled by JS -->
     </div>
+
     <div class="length-picker">
       <div class="length-label">Difficulty</div>
       <div class="length-options">
-        <button class="diff-btn active" onclick="selectDifficulty('all', this)">
+        <button class="diff-btn active" onclick="selectDifficulty('all',this)">
           <span class="length-num" style="font-size:1.2rem;">All</span>
           <span class="length-desc">Mixed</span>
         </button>
-        <button class="diff-btn" onclick="selectDifficulty(1, this)">
-          <span class="length-num">1</span>
-          <span class="length-desc">Foundational</span>
+        <button class="diff-btn" onclick="selectDifficulty(1,this)">
+          <span class="length-num">1</span><span class="length-desc">Foundational</span>
         </button>
-        <button class="diff-btn" onclick="selectDifficulty(2, this)">
-          <span class="length-num">2</span>
-          <span class="length-desc">Standard</span>
+        <button class="diff-btn" onclick="selectDifficulty(2,this)">
+          <span class="length-num">2</span><span class="length-desc">Standard</span>
         </button>
-        <button class="diff-btn" onclick="selectDifficulty(3, this)">
-          <span class="length-num">3</span>
-          <span class="length-desc">Advanced</span>
+        <button class="diff-btn" onclick="selectDifficulty(3,this)">
+          <span class="length-num">3</span><span class="length-desc">Advanced</span>
         </button>
       </div>
-      <div class="diff-desc" id="diff-desc">All 62 questions in the bank, every level mixed together.</div>
+      <div class="diff-desc" id="diff-desc">All questions in the bank, every level mixed together.</div>
     </div>
+
     <div class="length-picker">
       <div class="length-label">How many questions?</div>
-      <div class="length-options">
-        <button class="length-btn" onclick="selectLength(15, this)">
-          <span class="length-num">15</span>
-          <span class="length-desc">Quick Review</span>
+      <div class="length-options" id="length-btns">
+        <button class="length-btn" onclick="selectLength(15,this)">
+          <span class="length-num">15</span><span class="length-desc">Quick Review</span>
         </button>
-        <button class="length-btn active" onclick="selectLength(25, this)">
-          <span class="length-num">25</span>
-          <span class="length-desc">Standard</span>
+        <button class="length-btn active" onclick="selectLength(25,this)">
+          <span class="length-num">25</span><span class="length-desc">Standard</span>
         </button>
-        <button class="length-btn" onclick="selectLength(50, this)">
-          <span class="length-num">50</span>
-          <span class="length-desc">Full Bank</span>
+        <button class="length-btn" id="full-bank-btn" onclick="selectFullBank(this)">
+          <span class="length-num" id="full-bank-num">50</span><span class="length-desc">Full Bank</span>
         </button>
       </div>
     </div>
+
     <div class="mode-toggle-wrap">
       <div class="length-label">Question Mode</div>
       <div class="mode-toggle-row">
-        <button class="mode-btn active" id="mode-single-btn" onclick="setMode('single', this)">
+        <button class="mode-btn active" onclick="setMode('single',this)">
           <span class="mode-icon">◎</span>
           <span class="mode-name">Single Answer</span>
           <span class="mode-hint">Pick one correct answer</span>
         </button>
-        <button class="mode-btn" id="mode-multi-btn" onclick="setMode('multi', this)">
+        <button class="mode-btn" onclick="setMode('multi',this)">
           <span class="mode-icon">☑</span>
           <span class="mode-name">Multi-Select</span>
           <span class="mode-hint">Pick ALL correct answers</span>
@@ -734,689 +425,288 @@
 </main>
 
 <script>
-const allQuestions = [
-  // ── IR THEORIES ──────────────────────────────────────────────
-  {
-    section: "IR Theories", difficulty: 1,
-    q: "Which IR theory assumes an 'anarchic' international system where states are in perpetual contest for security, territory, and prosperity?",
-    opts: ["Idealism/Liberalism", "Constructivism", "Realism", "Foreign Policy Analysis"],
-    ans: 2,
-    exp: "<strong>Realism</strong> holds that the absence of a world government (anarchy) means states must fend for themselves, prioritizing hard power like military force and nuclear deterrence."
+// ─────────────────────────────────────────────────────────────
+//  VERSION STATE
+// ─────────────────────────────────────────────────────────────
+let activeVersion = 0;  // 0 = unset; will be initialized to 2 below
+
+// ─────────────────────────────────────────────────────────────
+//  V1 QUESTION BANK  (62 questions)
+// ─────────────────────────────────────────────────────────────
+const v1Questions = [
+  { section:"IR Theories", difficulty:1, q:"Which IR theory assumes an 'anarchic' international system where states are in perpetual contest for security, territory, and prosperity?", opts:["Idealism/Liberalism","Constructivism","Realism","Foreign Policy Analysis"], ans:2, exp:"<strong>Realism</strong> holds that the absence of a world government (anarchy) means states must fend for themselves, prioritizing hard power like military force and nuclear deterrence." },
+  { section:"IR Theories", difficulty:1, q:"Idealism (Liberalism) in IR primarily favors:", opts:["Military deterrence and balance-of-power competition","International institutions, democratic norms, and multilateral cooperation","Economic exploitation of weaker states by capitalist powers","Personal loyalty and tribute as the basis of international order"], ans:1, exp:"<strong>Idealism/Liberalism</strong> contends that behavior is driven by values such as human rights, democratic norms, and free-market capitalism, and it favors multilateral institutions like the UN, World Bank, and IMF to resolve conflicts." },
+  { section:"IR Theories", difficulty:1, q:"Foreign Policy Analysis (FPA) is distinctive because it:", opts:["Focuses solely on military balance between states","Probes inside states to examine leaders' personalities, cultures, and decision-making","Argues that free trade prevents conflict","Explains alliances through geographic proximity alone"], ans:1, exp:"<strong>FPA</strong> probes inside national states — examining decision-making patterns, organizational cultures, leader personalities, and public opinion — rather than treating states as black-box rational actors." },
+  { section:"IR Theories", difficulty:1, q:"Geoeconomic theories in IR primarily trace:", opts:["How military alliances stabilize the international system","How nuclear deterrence prevents great power war","Patterns involving wealth-seeking pursuits and how commercial interests interact with state strategy","How democratic norms spread through international organizations"], ans:2, exp:"<strong>Geoeconomic theories</strong> trace patterns involving wealth-seeking pursuits and how commercial interests interact with state strategies — including Marxist IR, which theorizes how capitalist investors exploit workers and terrain." },
+  { section:"IR Theories", difficulty:1, q:"In realist theory, 'Hard Power' refers to:", opts:["Diplomatic pressure and sanctions","Economic aid as a tool of influence","Cultural exports and soft persuasion","Kinetic military force — explosives, tanks, and coercive military presence"], ans:3, exp:"The study guide defines <strong>Hard Power</strong> as the use of kinetic action — explosives, tanks, and military force. The U.S. maintains over 750 foreign bases as a projection of this power." },
+  { section:"IR Theories", difficulty:2, q:"Stephen Walt's Balance-of-Threat Theory refines realism by arguing that alliances form in response to:", opts:["A state's total GDP and economic size alone","Perceived threats — calculated from aggregate power, geographic proximity, offensive capabilities, and perceived intentions","Shared ideology and cultural values between states","The number of nuclear weapons a state possesses"], ans:1, exp:"Walt's key insight: <strong>alliances form against threats, not just power</strong>. Threat is calculated from four factors: aggregate power, geographic proximity, offensive capabilities, and perceived intentions — ideology is not one of them." },
+  { section:"IR Theories", difficulty:2, q:"A scholar studies how the post-WWII norm against chemical weapons constrains state behavior even when there's no enforcement. Which IR theory best describes this?", opts:["Realism","Balance-of-Threat Theory","Geoeconomics","Constructivism"], ans:3, exp:"<strong>Constructivism</strong> tracks how norms, cultural influences, and rituals change over time to shape international behavior. The chemical weapons taboo is a classic example: states restrain themselves because the norm is internalized, not because of enforcement." },
+  { section:"IR Theories", difficulty:2, q:"Which IR framework would best explain how Trump's personality and zero-sum worldview drives U.S. foreign policy?", opts:["Realism","Balance-of-Threat Theory","Foreign Policy Analysis (FPA)","Constructivism"], ans:2, exp:"<strong>FPA</strong> probes inside states to examine leader personalities, decision-making cultures, and public opinion. Scholars like Musgrave use FPA to explain how Trump's consistent zero-sum personality shapes his foreign policy choices." },
+  { section:"IR Theories", difficulty:2, q:"According to Balance-of-Threat Theory, a small state is most likely to seek an alliance against a neighbor that:", opts:["Has a large economy but a purely defensive military posture","Is geographically distant with ambiguous intentions","Has powerful offensive capabilities, is nearby, and displays hostile intentions","Shares cultural and ideological values with the small state"], ans:2, exp:"Walt's theory says threat is highest when a state combines <strong>proximity + offensive capability + hostile intentions</strong>. All three factors together make a neighbor maximally threatening — regardless of ideology." },
+  { section:"IR Theories", difficulty:2, q:"Marxist IR, as a branch of Geoeconomics, primarily argues that:", opts:["Military alliances determine trade patterns between states","Democratic institutions naturally reduce global inequality over time","Capitalist investors exploit workers and terrain across national borders for profit","Nuclear deterrence stabilizes capitalist economies by preventing war"], ans:2, exp:"<strong>Marxist IR</strong> theorizes that <strong>capitalist investors exploit labor and terrain</strong> across borders — seeing global economic patterns not as mutual benefit but as structured exploitation driven by capital accumulation." },
+  { section:"IR Theories", difficulty:2, q:"W.E.B. Du Bois contributed a distinct lens to IR by arguing that:", opts:["Democratic institutions naturally eliminate racial inequality over time","Military alliances are the primary driver of colonial expansion","The UN is the best mechanism for resolving racial conflicts between states","Racist ideology and economic exploitation are intertwined forces shaping international relations"], ans:3, exp:"<strong>W.E.B. Du Bois</strong> theorized that <strong>racist ideology and economic exploitation are inseparable</strong> in international relations — an early critique of how race structures global power that anticipates later postcolonial IR theory." },
+  { section:"IR Theories", difficulty:2, q:"FPA's inclusion of 'public opinion' as a variable means it studies:", opts:["How citizens' attitudes about foreign policy shape state behavior","How global public opinion constrains the UN Security Council","How military public affairs offices manage wartime messaging","How international media influence stock markets during crises"], ans:0, exp:"<strong>FPA</strong> explicitly includes the study of <strong>citizen attitudes about foreign policy</strong> — sometimes called 'public opinion analysis' — as a variable shaping state behavior. The 'Guns and Butter' dynamic is one example of this." },
+  { section:"IR Theories", difficulty:3, q:"Idealism in IR is described in your notes as potentially 'egalitarian, status-quo, or hierarchical.' This matters because:", opts:["It shows Idealism always promotes equal rights between nations","Liberal interventionism can claim to spread democracy while actually reinforcing existing U.S.-led hierarchies of power","It means Idealists always oppose military force regardless of context","The UN is the only institution that can make Idealism work in practice"], ans:1, exp:"Idealism/Liberalism is not monolithic — it can be <strong>egalitarian, status-quo, or hierarchical</strong>. For example, liberal interventionism may claim to spread democracy while actually reinforcing U.S.-led power structures." },
+  { section:"IR Theories", difficulty:3, q:"The 'English School' of IR is grouped with Constructivism in your notes because both:", opts:["Emphasize military power and national interest as core drivers of behavior","Track how norms, shared understandings, and social structures evolve and shape state behavior over time","Focus exclusively on economic variables to explain foreign policy","Argue that international institutions are the primary cause of peace"], ans:1, exp:"Both <strong>Constructivism and the English School</strong> focus on how <strong>norms, shared ideas, and social structures evolve over time</strong> and shape behavior — in contrast to realism's focus on material power." },
+  { section:"IR Theories", difficulty:3, q:"Gunitsky argues that IR theory is useful for analyzing Trump even if Trump himself doesn't think in IR terms. Why?", opts:["Because IR theory predicts behavior by describing structural forces and incentives actors respond to, regardless of whether they've read the theory","Because Trump secretly studied IR theory before his first term","Because IR theory only applies to academic debates, not real-world events","Because FPA proves all actors consciously apply theoretical frameworks when deciding"], ans:0, exp:"Gunitsky argues IR theory <strong>can be a useful analytical lens even if policymakers don't consciously apply it</strong> — the theories describe structural pressures and incentives that shape behavior whether or not actors are aware of them." },
+  { section:"Historical Doctrines", difficulty:1, q:"Washington's Farewell Address established which foundational principle of early U.S. foreign policy?", opts:["Manifest Destiny — expanding westward to the Pacific","Collective security — joining alliances to deter European aggression","Isolationism — steering clear of 'entangling alliances' with European powers","Monroe Doctrine — closing the Western Hemisphere to colonization"], ans:2, exp:"<strong>Isolationism</strong>: Washington warned against permanent alliances with European powers, a principle that shaped U.S. foreign policy for over a century before WWII forced a shift to global engagement." },
+  { section:"Historical Doctrines", difficulty:1, q:"The Monroe Doctrine (1823) primarily declared that:", opts:["The U.S. would intervene militarily in any European conflict","The U.S. would maintain strict neutrality in all foreign wars","The U.S. had the right to police all Latin American nations","The Western Hemisphere was closed to further European colonization"], ans:3, exp:"The <strong>Monroe Doctrine</strong> declared the Western Hemisphere closed to further European colonization, warning that such attempts would be viewed as hostile acts against the U.S." },
+  { section:"Historical Doctrines", difficulty:1, q:"The Roosevelt Corollary (1904) built on the Monroe Doctrine by:", opts:["Establishing the U.S. as an 'international police power' justifying intervention in Latin America","Extending U.S. neutrality across the Western Hemisphere","Creating a formal military alliance with Latin American nations","Banning European trade in the Americas"], ans:0, exp:"The <strong>Roosevelt Corollary</strong> declared the U.S. had the right to intervene in Latin American nations to ensure 'stability,' effectively making the U.S. a regional police power — a major expansion of the Monroe Doctrine." },
+  { section:"Historical Doctrines", difficulty:1, q:"The Cold War strategy of 'Containment' referred to:", opts:["Limiting nuclear weapons through arms control treaties","Keeping U.S. troops out of foreign conflicts entirely","Blocking Soviet expansion geographically and ideologically","Containing domestic opposition to the Vietnam War"], ans:2, exp:"<strong>Containment</strong> was the core U.S. Cold War strategy — blocking Soviet expansion through alliances, proxy wars, and economic pressure, without directly attacking the USSR." },
+  { section:"Historical Doctrines", difficulty:1, q:"Approximately how much did the post-9/11 War on Terror cost, and how many deaths did it cause?", opts:["$8 trillion / 900,000+ deaths","$2 trillion / 100,000 deaths","$5 trillion / 500,000 deaths","$12 trillion / 1.5 million deaths"], ans:0, exp:"The study guide cites approximately <strong>$8 trillion in costs and over 900,000 deaths</strong> (including 387,000 civilians) from nearly 20 years of post-9/11 conflict." },
+  { section:"Historical Doctrines", difficulty:2, q:"The 'Unipolar Moment' describes the period after the Soviet collapse when:", opts:["The U.S. and Russia jointly managed global security as equal partners","The U.S. stood as the world's sole superpower, a status that ended with 9/11","The UN assumed primary responsibility for managing global conflicts","Nuclear deterrence made great power war essentially impossible"], ans:1, exp:"After the <strong>Soviet collapse in 1991</strong>, the U.S. stood as the world's sole superpower. This 'Unipolar Moment' was shattered by the 9/11 attacks in 2001." },
+  { section:"Historical Doctrines", difficulty:2, q:"Cold War 'Proxy Wars' allowed the U.S. and USSR to compete by:", opts:["Direct military confrontation in Central Europe","Fighting indirectly through third-party nations rather than confronting each other directly","Nuclear standoffs in which both powers threatened first use","Economic warfare conducted through competing trade blocs"], ans:1, exp:"<strong>Proxy Wars</strong> allowed the U.S. and USSR to compete for influence without directly fighting each other — conflicts in Korea, Vietnam, Angola, and Afghanistan all had this indirect character." },
+  { section:"Historical Doctrines", difficulty:2, q:"Nuclear 'Deterrence' during the Cold War rested on which key logic?", opts:["Only one side needed nuclear weapons to guarantee peace","The UN could mediate any nuclear standoff before escalation","Conventional military superiority made nuclear weapons unnecessary","Mutual Assured Destruction made launching a first strike irrational for both sides"], ans:3, exp:"<strong>Deterrence</strong> worked through MAD — Mutual Assured Destruction: if both sides could survive a first strike and retaliate devastatingly, neither had an incentive to strike first." },
+  { section:"Historical Doctrines", difficulty:3, q:"Nuclear arms policy involves three distinct challenges. Which pairing correctly matches the term to its definition?", opts:["Disarmament = reducing weapon types; Arms Control = preemptive action","Counterproliferation = arms reduction treaties; Disarmament = preemptive strikes","Arms Control = reducing weapon types; Counterproliferation = preemptive action against nuclear threats","Counterproliferation = complete nuclear elimination; Arms Control = diplomatic negotiations only"], ans:2, exp:"The study guide distinguishes: <strong>Disarmament</strong> (slim prospects), <strong>Arms Control</strong> (reducing and limiting weapon types), and <strong>Counterproliferation</strong> (preemptive action against states developing nuclear threats)." },
+  { section:"Trump II Policy", difficulty:1, q:"The 'Donroe Doctrine' is best described as:", opts:["A new nuclear arms reduction treaty with Russia","A trade framework targeting Chinese imports","A diplomatic initiative to expand NATO eastward","A Trump-era update to the Monroe Doctrine reasserting aggressive U.S. dominance over the Western Hemisphere"], ans:3, exp:"The <strong>'Donroe Doctrine'</strong> is a 2025 Trumpian update to the Monroe Doctrine, encapsulated by the phrase 'This is our hemisphere.' It prioritizes regional security and border control over democracy promotion or human rights." },
+  { section:"Trump II Policy", difficulty:1, q:"The 'Guns and Butter' theory of public opinion suggests that:", opts:["Military spending always hurts economic growth","Citizens prioritize domestic issues unless a crisis forces foreign policy attention","Voters consistently support military intervention abroad","Nuclear deterrence guarantees domestic economic stability"], ans:1, exp:"<strong>'Guns and Butter'</strong>: under normal conditions, citizens focus on domestic economic issues ('butter'). Only when a crisis or emergency arises do they shift attention to military/foreign policy ('guns')." },
+  { section:"Trump II Policy", difficulty:1, q:"How many foreign military bases does the U.S. maintain — more than any other nation?", opts:["Over 300","Over 500","Over 750","Over 1,200"], ans:2, exp:"The U.S. maintains <strong>over 750 foreign military bases</strong> — significantly more than any other nation." },
+  { section:"Trump II Policy", difficulty:2, q:"Which of the following best describes a key departure in Trump II's National Security Strategy from previous administrations?", opts:["Increased funding for the UN, WHO, and global health programs","Treating climate change, global health, and human rights as essential security priorities","Abandoning climate leadership, global health, and human rights as national security priorities, viewing them as distractions","Deepening multilateral trade agreements to strengthen democratic alliances"], ans:2, exp:"Trump II's NSS explicitly departs from treating <strong>climate leadership, global health, and human rights</strong> as security essentials — viewing them instead as distractions." },
+  { section:"Trump II Policy", difficulty:2, q:"The U.S. Intelligence Community's 2024 budget is estimated at approximately how much, with potentially up to 100 agencies involved?", opts:["$10–20 billion","$50–85 billion","$150–200 billion","$30–45 billion"], ans:1, exp:"The study guide cites an Intelligence Community budget of <strong>$50–85 billion</strong> in 2024 dollars, with potentially up to 100 agencies operating with 'murky' lines of accountability." },
+  { section:"Trump II Policy", difficulty:2, q:"Trump II's approach to alliances like NATO has been characterized by:", opts:["Deepening multilateral commitments and expanding membership","Pressuring allies to increase defense spending and questioning the value of multilateral institutions in favor of bilateral deals","Prioritizing the UN Security Council as the main security forum","Reducing bilateral trade deals in favor of global free trade frameworks"], ans:1, exp:"Trump II has <strong>pressured allies to increase defense spending</strong> and questioned the value of the UN and WHO, preferring bilateral 'deals' over multilateral commitments." },
+  { section:"Venezuela Case Study", difficulty:1, q:"What was the official legal justification for the U.S. capture of Venezuelan President Nicolás Maduro?", opts:["Human rights violations and election fraud","Illegal seizure of U.S. oil company assets","Narco-terrorism conspiracy charges — using the Venezuelan state to transport cocaine to the U.S.","Harboring operatives linked to foreign terrorist organizations"], ans:2, exp:"Maduro was indicted for <strong>narco-terrorism conspiracy</strong>, specifically allegations that he used the Venezuelan state apparatus to transport cocaine to the United States." },
+  { section:"Venezuela Case Study", difficulty:1, q:"What did Trump say the U.S. would do with Venezuela after capturing Maduro?", opts:["Hand power immediately to opposition leaders","Turn governance over to a UN peacekeeping mission","'Run the country' until a democratic transition occurs","Establish a joint U.S.–Colombian administration"], ans:2, exp:"Trump announced the U.S. would <strong>'run the country'</strong> until a transition occurs — a statement critics viewed as a blueprint for direct U.S. imperial administration of a sovereign nation." },
+  { section:"Venezuela Case Study", difficulty:2, q:"Beyond the narco-terrorism charge, what resource motive did Trump explicitly link to the Venezuela intervention?", opts:["Copper and lithium deposits for U.S. green energy transition","Rare earth elements vital for semiconductor production","Control of Venezuela's strategic port access to the Panama Canal","Securing Venezuela's oil reserves — the world's largest — for reconstruction by U.S. companies"], ans:3, exp:"Trump explicitly stated the U.S. would have a presence in Venezuela <strong>specifically for oil infrastructure</strong>, tying the intervention to securing the world's largest oil reserves for reconstruction by U.S. companies." },
+  { section:"Venezuela Case Study", difficulty:2, q:"Critics raised which constitutional concern about the Venezuela operation?", opts:["The raid violated the War Powers Act's 48-hour reporting requirement","The CIA is prohibited from conducting foreign arrests under existing law","The operation lacked Congressional authorization and it was unclear Maduro posed an imminent threat","Delta Force cannot legally operate in South America under U.S. code"], ans:2, exp:"Democrats criticized the strike for <strong>lacking Congressional approval</strong> and questioned whether Maduro actually posed an 'imminent threat.'" },
+  { section:"Venezuela Case Study", difficulty:2, q:"Which U.S. military unit carried out the raid on Maduro, and approximately how large was the operation?", opts:["Navy SEALs supported by Air Force, 50 aircraft","Delta Force supported by the CIA, 150 aircraft","Army Rangers, 30 aircraft","Marines, 200 ships"], ans:1, exp:"The operation was carried out by <strong>Delta Force special forces supported by the CIA</strong>, involving approximately 150 aircraft in an overnight raid." },
+  { section:"Venezuela Case Study", difficulty:3, q:"Trump also issued belligerent warnings to which neighboring countries as part of the Venezuela/Donroe Doctrine strategy?", opts:["Brazil and Peru","Ecuador and Bolivia","Colombia and Mexico","Panama and Honduras"], ans:2, exp:"Trump issued <strong>belligerent warnings to Colombia and Mexico</strong>, accusing their leaders of being run by or supporting drug cartels — part of the broader Donroe Doctrine." },
+  { section:"Greenland Case Study", difficulty:1, q:"What did Greenlandic local leaders say about Trump's acquisition proposals?", opts:["They proposed a referendum on independence from Denmark","They expressed openness to a U.S. defense partnership","They asked the UN to mediate the dispute","They issued a statement asserting they want to be 'Greenlanders,' not Americans or Danes, and are 'not for sale'"], ans:3, exp:"Greenlandic leaders issued a joint statement: they want to be <strong>'Greenlanders,' not Americans or Danes</strong>, and declared their territory is <strong>'not for sale.'</strong>" },
+  { section:"Greenland Case Study", difficulty:1, q:"Why is Greenland strategically valuable to the U.S.?", opts:["It is the only territory providing a land bridge to Europe","Its location between the U.S. and Russia, Arctic shipping routes opened by melting ice, and offshore oil/gas/rare earths","It houses the world's largest freshwater reserves","It provides a launching point for U.S. operations in sub-Saharan Africa"], ans:1, exp:"Greenland's value is threefold: <strong>strategic location</strong> between the U.S. and Russia, <strong>resource potential</strong> (offshore oil, gas, rare earths), and military positioning." },
+  { section:"Greenland Case Study", difficulty:2, q:"Nordic diplomats and NATO briefings rejected Trump's Russian/Chinese threat justification for acquiring Greenland. What did they say instead?", opts:["Greenland's resources are legally owned by the EU, not Denmark","Environmental treaties protect Greenland from any territorial transfer","Greenland already has a NATO defense treaty that supersedes U.S. claims","Russian/Chinese naval activity is confined to the Russian side of the Arctic, not near Greenland"], ans:3, exp:"Nordic diplomats and NATO briefings confirmed that <strong>Russian/Chinese naval activity is confined to the Russian side of the Arctic</strong> — not near Greenland — directly undermining Trump's stated security pretext." },
+  { section:"Greenland Case Study", difficulty:2, q:"What model of governance was proposed for Greenland under which it would gain independence but cede defense to the U.S.?", opts:["A Puerto Rico-style commonwealth arrangement","Full statehood within the United States","A compact similar to those with Pacific Island nations like Palau or the Marshall Islands","A joint Denmark-U.S. shared sovereignty protectorate"], ans:2, exp:"One idea floated was a <strong>compact similar to those with Pacific Island nations</strong> (like Palau or the Marshall Islands), where Greenland would gain independence from Denmark but cede defense responsibilities to the U.S." },
+  { section:"Greenland Case Study", difficulty:3, q:"How did Trump ally Steve Bannon frame the Greenland interest in a broader context?", opts:["He called it essential for defending against Chinese naval expansion in the Atlantic","He framed it purely as an environmental stewardship initiative","He argued Greenland would become a free economic zone for U.S. rare earth mining","He stated Trump sees the annexation of Canada as part of a broader strategic defense plan, of which Greenland is a piece"], ans:3, exp:"Steve Bannon framed Greenland within a <strong>broader expansionist vision</strong>, stating Trump sees <strong>the annexation of Canada</strong> as part of a strategic defense plan." },
+  { section:"Greenland Case Study", difficulty:3, q:"Analysts specifically fear the U.S. may engineer a dispute over which Arctic route that Canada claims as internal waters but the U.S. considers international?", opts:["The Bering Strait","The Denmark Strait","The Northwest Passage","The Hudson Bay Corridor"], ans:2, exp:"Analysts fear the U.S. may engineer a dispute over the <strong>Northwest Passage</strong> — a shipping route that Canada claims as internal waters but the U.S. considers international waters." },
+  { section:"Trade & Tariffs", difficulty:1, q:"What does 'TACO' stand for in the context of Trump's trade policy?", opts:["Tariff Adjustment and Competitive Ordering","Trans-Atlantic Commercial Operations","Trump Always Chickens Out","Trade Agreements Carefully Optimized"], ans:2, exp:"<strong>TACO = 'Trump Always Chickens Out'</strong> — a market term describing his pattern of announcing extreme tariff threats, causing market shocks, then backing down to 'napkin deals.'" },
+  { section:"Trade & Tariffs", difficulty:1, q:"The 'Liberation Day' tariffs brought U.S. effective tariff rates to 14.4% — a level not seen since which protectionist law?", opts:["The Revenue Act of 1916","The Fordney-McCumber Act of 1922","The Smoot-Hawley Act of 1930","The McKinley Tariff Act of 1890"], ans:2, exp:"The <strong>Smoot-Hawley Act of 1930</strong> is the historical benchmark — a notorious protectionist law credited with deepening the Great Depression." },
+  { section:"Trade & Tariffs", difficulty:1, q:"What is the estimated annual cost of Trump's tariffs to the average American household?", opts:["$300–$700","$6,000–$10,000","$500–$800","$1,200–$5,000"], ans:3, exp:"The study guide cites estimates of <strong>$1,200 to $5,000 per household annually</strong> as the cost of Trump's tariff regime." },
+  { section:"Trade & Tariffs", difficulty:2, q:"Protectionism as a trade policy is best defined as:", opts:["Minimizing government interference and relying on comparative advantage","Government support for specific high-growth industries like aerospace or biotech","Limiting imports through tariffs and subsidies to protect domestic industries","Using military force to open foreign markets to domestic exports"], ans:2, exp:"<strong>Protectionism</strong> limits imports to protect domestic industries, using tools like tariffs and subsidies." },
+  { section:"Trade & Tariffs", difficulty:2, q:"What happened to global stock markets when Trump unveiled 'Liberation Day' tariffs on April 2, 2025?", opts:["Markets gained $1 trillion as investors priced in domestic manufacturing growth","Markets remained stable because the tariffs were already priced in","$2.5 trillion was wiped off global stock markets in a single day","The dollar surged 15% as investors sought safe-haven assets"], ans:2, exp:"The Liberation Day announcement wiped <strong>$2.5 trillion off global stock markets in a single day</strong> — before Trump's characteristic TACO pattern of backtracking began." },
+  { section:"Trade & Tariffs", difficulty:2, q:"Strategic Trade policy differs from free trade in that it:", opts:["Bans all imports from rival nations","Uses the military to open foreign markets to U.S. goods","Relies entirely on market forces with no government involvement","Has the government actively support key growth industries like aerospace or biotech to gain competitive advantage"], ans:3, exp:"<strong>Strategic Trade</strong> involves government support for key growth industries — picking winners in sectors like aerospace, biotech, or semiconductors." },
+  { section:"Trade & Tariffs", difficulty:3, q:"What longer-term global financial effect did Trump's tariff policies produce?", opts:["The dollar strengthened as the dominant global reserve currency","The dollar's global primary currency status was dented as central banks diversified into gold","Foreign currencies collapsed as trading partners sought dollar reserves","The dollar's reserve status was reinforced by U.S. trade surpluses"], ans:1, exp:"The study guide notes the dollar's reserve currency status <strong>was dented as central banks diversified into gold</strong> due to geopolitical concerns." },
+  { section:"Scholar Perspectives", difficulty:1, q:"Seva Gunitsky's 'Neo-Feudalism' argument holds that Trump is replacing the rules-based capitalist order with:", opts:["A military empire based on territorial conquest","A technocratic order managed by private corporations","A system driven by personal loyalty, tribute, and ad hoc deals — treating allies as vassals","A new multilateral framework centered on bilateral economic agreements"], ans:2, exp:"Gunitsky argues Trump is creating a <strong>neo-feudal order</strong>: traditional national interest is replaced by patronage, allies must pay for protection, and international institutions are treated as irrelevant." },
+  { section:"Scholar Perspectives", difficulty:1, q:"Krzysztof Pelc's 'Imperial Aesthetics' argument says Trump's foreign policy is primarily driven by:", opts:["Rational economic calculations about long-term U.S. competitiveness","A desire to rebuild U.S. manufacturing through territorial expansion","Ideological opposition to liberal democracy globally","A fixation with the staged, visual look of power — annexations, seizures — for TV audiences rather than real strategic benefit"], ans:3, exp:"Pelc argues Trump is obsessed with the <strong>'staged look of power'</strong> — annexations, seizures, monuments — rather than the real mechanics of 21st-century influence (data centers, undersea cables, financial systems)." },
+  { section:"Scholar Perspectives", difficulty:1, q:"Paul Musgrave's FPA-based argument emphasizes that Trump's foreign policy worldview:", opts:["Has been remarkably consistent since at least the 1980s — zero-sum, transactional, viewing allies as exploiters","Is primarily a product of his time in office and advisors around him","Is mainly influenced by academic realist IR theory","Shifts dramatically based on domestic political pressure and approval ratings"], ans:0, exp:"Musgrave shows Trump's worldview has been <strong>stable since at least 1987</strong> — always zero-sum, always seeing allies as exploiters who owe 'protection money.'" },
+  { section:"Scholar Perspectives", difficulty:2, q:"According to Stephen Walt's analysis, former U.S. allies are now 'balancing' against America. What is his key example?", opts:["Germany seeking a new defense partnership with Russia","Japan questioning its U.S. military alliance","Canada — a NATO ally — seeking a new strategic partnership with China","France withdrawing from NATO's integrated military command"], ans:2, exp:"Walt's Balance-of-Threat Theory predicts that when a state becomes a <strong>'compulsive predator,'</strong> former friends start balancing against it. His key example: <strong>Canada</strong> seeking a new strategic partnership with China." },
+  { section:"Scholar Perspectives", difficulty:2, q:"Frontline reporting traced Trump's zero-sum trade worldview back to which country in the 1980s?", opts:["China — Trump's original target for unfair trade practices","Saudi Arabia — over oil pricing","Germany — over trade surpluses with the U.S.","Japan — which Trump accused of 'ripping off' the U.S. and 'laughing at our stupidity'"], ans:3, exp:"Trump's zero-sum trade worldview originally targeted <strong>Japan</strong> in the 1980s. The target later shifted to China, but the mindset was identical." },
+  { section:"Scholar Perspectives", difficulty:2, q:"In 'Geopolitics, But Make It Dumb and Personal,' Gunitsky's core argument about Trump II is:", opts:["Trump is a textbook realist optimizing U.S. relative power through rational grand strategy","Trump's policies fit neatly within Constructivist expectations about norm evolution","Trump's policies are best explained by Idealist theory — spreading democracy through force","Trump represents a major break from prior U.S. foreign policy, with motivations better explained by a drive for personal dominance than any coherent IR theory"], ans:3, exp:"Gunitsky argues Trump II represents a <strong>major break from prior U.S. foreign policy</strong> and that his motivations are best understood as playing for <strong>personal dominance</strong>." },
+  { section:"Scholar Perspectives", difficulty:3, q:"Pelc argues territorial conquest is counterproductive in the 21st century because:", opts:["It alienates potential military allies needed for balance of power","International law now makes annexation legally impossible to enforce","Modern populations resist foreign rule indefinitely, making occupation too costly","Territorial ownership is ruinously expensive and unnecessary — real power now runs through data centers, undersea cables, and financial systems, not land"], ans:3, exp:"Pelc argues that in the 21st century, <strong>territorial ownership is ruinously expensive and unnecessary</strong> because real power runs through data centers, undersea cables, and financial systems." },
+  { section:"Scholar Perspectives", difficulty:3, q:"The 'Policy Tensor' (Nietzschean) interpretation of Trump views his foreign policy as:", opts:["A mercantilist plan to restore U.S. manufacturing through tariffs and territorial expansion","A coherent realist strategy to restore U.S. relative power against China","A 'will to power' — accumulating dominance for its own sake, not as a means to any rational strategic end","A misguided idealist attempt to spread American values globally through force"], ans:2, exp:"The 'Policy Tensor' interpretation draws on Nietzsche: Trump's behavior is a <strong>'will to power'</strong> — a drive toward dominance as an end in itself, not as a means to any rational strategic goal." },
+  { section:"Scholar Perspectives", difficulty:3, q:"Gunitsky's essay title 'Geopolitics, But Make It Dumb and Personal' is a critique that implies:", opts:["Trump uses more sophisticated game theory than previous presidents","Traditional geopolitics involves strategic calculation about national interests; Trump substitutes personal grievance, spectacle, and dominance-seeking","Trump focuses exclusively on military power, ignoring economic tools","The essay is ironic — Trump's policy is actually more coherent than critics claim"], ans:1, exp:"The title is a sharp critique: traditional geopolitics involves <strong>strategic calculation about national interests</strong>. Gunitsky argues Trump substitutes <strong>personal grievance, spectacle, and dominance-seeking</strong>." },
+  { section:"Synthesis", difficulty:2, q:"Which statement BEST captures the central tension the study guide presents about Trump II's foreign policy?", opts:["Trump is a classic realist pursuing balance-of-power politics more aggressively than predecessors","Trump's policies represent a fundamental break from both realist and liberal traditions, driven by personality, aesthetics, and neo-feudal logic rather than coherent strategy","Trump is following Containment doctrine updated for the 21st century","Trump is a committed idealist trying to spread democracy through force"], ans:1, exp:"All four scholars agree: Trump II <strong>cannot be explained by classic IR theories</strong>. Walt says it violates realism; Gunitsky calls it neo-feudal; Pelc calls it aesthetic; Musgrave calls it personality." },
+  { section:"Synthesis", difficulty:2, q:"Retired Ambassador Bob Rae stated that Trump's actions had sparked international tensions not seen since:", opts:["The Vietnam War","The Cuban Missile Crisis","The Korean War","World War II"], ans:3, exp:"Ambassador Rae stated Trump had sparked tensions <strong>not seen since World War II</strong>." },
+  { section:"Synthesis", difficulty:3, q:"Walt argues Trump's behavior is self-defeating from a realist perspective because:", opts:["It spends too much on defense, crowding out economic investment","Realists don't care about allies; Walt's critique is actually from an idealist perspective","A true realist would maintain alliances as force multipliers — Trump's alienation of allies drives them toward U.S. rivals instead","The U.S. is too powerful for ally defection to matter strategically"], ans:2, exp:"Walt's core critique: a <strong>good realist would keep allies close</strong> as force multipliers against rivals. By treating allies as exploiters, Trump is driving them toward China and other adversaries." },
+  { section:"Synthesis", difficulty:3, q:"Which best describes the key difference between Musgrave's and the 'Policy Tensor' explanation of Trump?", opts:["Musgrave focuses on economics; Policy Tensor focuses on cultural identity","There is no meaningful difference — both make the same FPA argument","Musgrave explains Trump through a consistent zero-sum personality; Policy Tensor sees a deeper Nietzschean 'will to power' — dominance as an end in itself","Policy Tensor focuses on domestic politics; Musgrave focuses on international structure"], ans:2, exp:"Musgrave says Trump has a <strong>consistent transactional worldview since the 1980s</strong>; Policy Tensor goes deeper, arguing the behavior reflects a <strong>Nietzschean will to power</strong> — dominance sought as a value in itself." },
+];
+
+// ─────────────────────────────────────────────────────────────
+//  V2-ONLY ADDITIONS
+// ─────────────────────────────────────────────────────────────
+const v2OnlyQuestions = [
+  { section:"Ackerman — Tax Brackets", difficulty:1, q:"According to Ackerman, who holds the 'marginal-rate delusion' about how tax brackets work?", opts:["Mostly low-income Americans who never filed a tax return","Only fringe anti-government groups who distrust the IRS","'Vast swathes' of adult Americans — including teachers, doctors, and businesspeople","Primarily recent immigrants unfamiliar with the U.S. tax system"], ans:2, exp:"Ackerman writes that the delusion is held by <strong>'vast swathes' of adult Americans</strong> — and explicitly names respected community members like teachers, doctors, and businesspeople. The point is that this is not a fringe misconception." },
+  { section:"Ackerman — Tax Brackets", difficulty:1, q:"What is the core content of the 'marginal-rate delusion' as Ackerman describes it?", opts:["People believe tax brackets apply only to investment income, not wages","People believe their entire income is taxed at the rate of whatever bracket they fall into","People believe paying taxes in a higher bracket is a legal violation that must be avoided","People believe only the top 1% of earners are subject to marginal tax rates"], ans:1, exp:"The delusion is that <strong>being 'in' the 24% bracket means you pay 24% on all your income</strong> — and that getting pushed into the 32% bracket means your entire income is suddenly taxed at 32%. In reality, only income above each threshold is taxed at the higher rate." },
+  { section:"Ackerman — Tax Brackets", difficulty:1, q:"Which real-world example does Ackerman cite to show the delusion extends even to financial professionals?", opts:["A tax attorney who filed incorrect returns on behalf of clients for years","A CPA who advised corporations to shelter income from the IRS","An IRS auditor who misunderstood his own agency's rules","A gym trainer whose financial advisor urged him to stay below certain income thresholds to avoid a higher tax bracket"], ans:3, exp:"Ackerman describes a gym trainer whose <strong>financial advisor</strong> — whose job is to understand tax law — urged him to stay below a certain income threshold. Ackerman italicizes 'FINANCIAL advisor' to underscore how staggering this is." },
+  { section:"Ackerman — Tax Brackets", difficulty:1, q:"Where did one of Ackerman's sources first encounter the marginal-rate delusion?", opts:["From a misleading political advertisement warning about tax increases","From a widely-read personal finance book that misstated the rules","Literally as part of his school curriculum — his economics teacher taught it as fact","From his parents, who were also mistaken about how tax brackets work"], ans:2, exp:"Ackerman quotes a person who recalls that in his high school, the delusion <strong>was literally taught as part of the curriculum</strong> — the economics teacher insisted students had to be careful not to get bumped into higher brackets, implying it would be 'a lifelong math problem.'" },
+  { section:"Ackerman — Tax Brackets", difficulty:2, q:"According to Ackerman's specific example: if Biden raised the top marginal rate from 37% to 39.6%, what would a $600,000 earner actually owe in additional taxes — vs. what the delusion leads them to believe?", opts:["Believed: ~$5,000 more; Actual: ~$500 more","Believed: ~$15,000 more; Actual: ~$2,000 more","Believed: ~$30,000 more; Actual: ~$10,000 more","Believed: ~$2,000 more; Actual: ~$15,000 more"], ans:1, exp:"Ackerman gives a precise example: people under the delusion think the 2.6-point rate increase means <strong>2.6% of all $600,000 = ~$15,000 more</strong>. In reality, because only income above the top threshold is affected, the actual increase is <strong>only about $2,000</strong>." },
+  { section:"Ackerman — Tax Brackets", difficulty:2, q:"What does Ackerman identify as the key democratic consequence of the marginal-rate delusion?", opts:["People are more likely to vote for politicians who promise to eliminate all income taxes","The delusion drives people to hide income and evade taxes, undermining government revenue","It becomes impossible to maintain support for progressive income taxation when people massively overestimate their tax burden and believe the system operates irrationally and unfairly","People demand a flat tax because they believe graduated brackets are inherently unconstitutional"], ans:2, exp:"Ackerman closes with a direct question: <strong>how can you maintain support for a progressive income tax</strong> when so many people think it operates irrationally and unfairly — and when they massively overestimate the rates it involves? This is the democratic threat the title announces." },
+  { section:"Ackerman — Tax Brackets", difficulty:2, q:"Ackerman's title — 'The Marginal Tax Bracket is an Enemy of Democracy' — is best understood as arguing:", opts:["The marginal tax system is inherently unfair and should be replaced with a flat tax","Widespread misunderstanding of how marginal brackets work undermines democratic support for progressive taxation","High marginal rates on the wealthy are fundamentally incompatible with democratic values","Marginal tax brackets give too much power to the IRS, threatening civil liberties"], ans:1, exp:"The title is Ackerman's thesis: it is not the <em>bracket itself</em> but the <strong>widespread misunderstanding</strong> of how it works that is the democratic enemy. When citizens massively overestimate how much they pay, support for progressive taxation erodes on false grounds." },
+  { section:"Ackerman — Tax Brackets", difficulty:3, q:"Ackerman publishes this article in Jacobin, described as a left-wing political magazine. Why is this publication context analytically relevant?", opts:["Jacobin is a mainstream centrist publication, lending Ackerman's argument bipartisan credibility","Jacobin is a left-wing publication — Ackerman's concern for protecting progressive taxation reflects a political as well as analytical interest, which readers should factor into how they evaluate his argument","Jacobin focuses exclusively on tax policy, making Ackerman's argument technically authoritative above other publications","Publishing in Jacobin means the article has been peer-reviewed and academically validated"], ans:1, exp:"Ackerman is a political historian and <strong>Jacobin editor-at-large</strong>. Jacobin is an explicitly left-wing publication. This means his concern for defending progressive taxation is <strong>both an analytical argument and a politically motivated one</strong> — a factor in evaluating the piece critically." },
+  // ── LEVEY ──
+  { section:"Levey — Trump & Medical Debt", difficulty:1, q:"The author of the NPR/KFF article Noam Levey argues that the central tension in Trump's health care record is:", opts:["Trump successfully lowered health care costs by cutting government waste and fraud","Trump ran on making America affordable, but his health care moves are pushing medical bills higher for millions","Trump's health care policies primarily affect wealthy Americans who don't need government protection","Rising medical costs are driven by hospital pricing, which Trump has no power to change"], ans:1, exp:"Levey's central argument is a contradiction: Trump <strong>campaigned on making America affordable</strong>, pledging to 'make America affordable again,' but his administration's rollback of federal health care protections will <strong>push more Americans into medical debt</strong>." },
+  { section:"Levey — Trump & Medical Debt", difficulty:1, q:"According to Levey, approximately how many adults in the U.S. are already burdened by some form of health care debt?", opts:["About 25 million","About 50 million","About 100 million","About 200 million"], ans:2, exp:"Levey cites the figure of <strong>as many as 100 million adults</strong> in the U.S. burdened by some kind of health care debt — establishing this as an already-severe baseline problem that Trump's policies will worsen." },
+  { section:"Levey — Trump & Medical Debt", difficulty:1, q:"Levey reports that in recent surveys, approximately how many adults say they are worried about being able to afford health care?", opts:["About 1 in 10 adults","About 3 in 10 adults","About 6 in 10 adults — more than those worried about food or housing","About 9 in 10 adults"], ans:2, exp:"Levey cites a survey showing about <strong>6 in 10 adults — across the political spectrum</strong> — are worried about affording health care. Notably, this outpaces concern about the cost of food or housing." },
+  { section:"Levey — Trump & Medical Debt", difficulty:2, q:"According to Levey, what does the nonpartisan Congressional Budget Office project will happen to health coverage as a result of Trump's tax law?", opts:["2 million people will lose coverage but most will find private alternatives","10 million more people will be without health coverage by 2034","Coverage levels will remain stable as private insurers fill the gap","5 million people will gain coverage through new marketplace options"], ans:1, exp:"Levey cites the <strong>nonpartisan Congressional Budget Office</strong>, which estimated the tax law will leave <strong>10 million more people without health coverage by 2034</strong>, mostly due to Medicaid cuts." },
+  { section:"Levey — Trump & Medical Debt", difficulty:2, q:"Levey reports that Trump's tax law cuts more than $1 trillion in federal health spending over a decade, and that these tax cuts primarily benefit wealthy Americans. What does the CBO say the law adds to U.S. deficits?", opts:["$800 billion over a decade","$1.5 trillion over a decade","$3.4 trillion over a decade","$5 trillion over a decade"], ans:2, exp:"Levey cites the CBO's finding that the tax cuts, which <strong>primarily benefit wealthy Americans</strong>, will add <strong>$3.4 trillion to U.S. deficits over a decade</strong> — framing the Medicaid cuts not as fiscal discipline but as a transfer of resources." },
+  { section:"Levey — Trump & Medical Debt", difficulty:2, q:"According to Levey, what happened to the CFPB regulations that would have removed medical debt from consumer credit reports?", opts:["They were expanded by the Trump administration to cover more types of debt","They were passed into law as part of the tax legislation","The Trump administration declined to defend them in court; a Trump-appointed Texas judge then scrapped them","They are still in effect but set to expire in two years"], ans:2, exp:"Levey reports that the <strong>Trump administration chose not to defend</strong> the CFPB rules when debt collectors and credit bureaus challenged them. A federal judge in Texas — <strong>appointed by Trump</strong> — then ruled the regulations should be scrapped." },
+  { section:"Levey — Trump & Medical Debt", difficulty:2, q:"Levey describes research by Urban Institute economist Kyle Caswell on the effect of Medicaid expansion. What did that research find?", opts:["Medicaid expansion increased emergency room use and raised costs for hospitals","Medicaid expansion had no measurable effect on individuals' personal finances","Medicaid expansion led to measurable declines in medical debt and improved consumers' credit scores","Medicaid expansion primarily benefited state governments, not individual patients"], ans:2, exp:"Caswell and colleagues found that <strong>Medicaid expansion under the ACA led to measurable declines in medical debt and improvements in credit scores</strong> in states that implemented it — evidence that Medicaid serves as a powerful financial backstop for low-income families." },
+  { section:"Levey — Trump & Medical Debt", difficulty:3, q:"When Trump signed the tax bill on July 4th, how did he characterize the hundreds of billions in Medicaid cuts — and why does Levey frame this as significant?", opts:["Trump called them 'the most important restructuring of American health care in history' — Levey says this understates the impact","Trump said 'You won't even notice it. Just waste, fraud and abuse.' — Levey frames this as a dismissal that conflicts with what patient advocates and economists project will happen","Trump acknowledged the cuts were painful but necessary for fiscal responsibility — Levey says this was an unusually candid admission","Trump said he would protect every Medicaid recipient personally — Levey says this promise is legally unenforceable"], ans:1, exp:"Levey quotes Trump telling the public <strong>'You won't even notice it. Just waste, fraud and abuse.'</strong> The article frames this dismissal as significant because it directly contradicts projections from the CBO, Urban Institute economists, and patient advocates who say the cuts will push millions into debt and cause people to forgo needed treatment." },
+  // ── BRADY — POVERTY, NOT THE POOR ──
+  { section:"Brady — Poverty, Not the Poor", difficulty:1, q:"What is the central argument of David Brady's article 'Poverty, not the poor'?", opts:["Individual behaviors and cultural attitudes are the primary drivers of poverty in America","Political choices, power, and institutions — not the characteristics of poor people — are the pivotal cause of poverty","America's poverty rate is high because of demographic factors unique to its population","Poverty in America is primarily caused by insufficient economic growth and low productivity"], ans:1, exp:"Brady's core argument is that <strong>poverty should be explained politically</strong> — through power, policies, and institutions — rather than by focusing on the traits, behaviors, or culture of poor individuals." },
+  { section:"Brady — Poverty, Not the Poor", difficulty:1, q:"Brady uses the term 'systemically high' to describe U.S. poverty. Which of the following is NOT one of his five defining characteristics of 'systemically high' poverty?", opts:["It is a perennial outlier among rich democracies","It is staggeringly high for certain groups","It is unexpectedly high even among those who 'play by the rules'","It is caused primarily by immigration and demographic change"], ans:3, exp:"Brady's five characteristics of <strong>systemically high poverty</strong> are: (i) affects a huge share of the population, (ii) perennial outlier among rich democracies, (iii) staggeringly high for certain groups, (iv) unexpectedly high even for those who play by the rules, and (v) pervasive across groups and places. Immigration is not one of his five criteria." },
+  { section:"Brady — Poverty, Not the Poor", difficulty:1, q:"What is Brady's primary critique of the 'behavioralist' approach to poverty?", opts:["It focuses too much on structural factors and ignores individual responsibility","It cannot explain macro-level variation, has questionable causality, and wrongly focuses on prevalences while neglecting the more salient penalties","It relies too heavily on international comparisons that don't apply to the U.S. context","It overestimates the role of welfare programs in reducing poverty rates"], ans:1, exp:"Brady argues behavioralists fail on three grounds: they <strong>cannot explain macro-level variation</strong> (why does poverty differ across countries?), the <strong>causality between behaviors and poverty is questionable</strong>, and they focus on the wrong thing — the prevalence of behaviors rather than the penalties those behaviors incur." },
+  { section:"Brady — Poverty, Not the Poor", difficulty:2, q:"Brady critiques the 'dramatizing the poor' approach. What is his main objection to it?", opts:["It is too quantitative and ignores the human stories behind poverty statistics","It overemphasizes unrepresentative groups, focuses on symptoms over underlying causes, and downplays effective social policies","It falsely portrays poverty as a temporary condition rather than a persistent structural feature","It is too focused on international comparisons and ignores domestic political factors"], ans:1, exp:"Brady argues that <strong>'dramatizing the poor'</strong> — using humanizing narratives to elicit compassion — overemphasizes <strong>unrepresentative groups</strong>, focuses on <strong>symptoms rather than causes</strong>, and <strong>downplays effective social policies</strong> that actually address poverty." },
+  { section:"Brady — Poverty, Not the Poor", difficulty:2, q:"Brady calls the culturalist approach 'hopelessly endogenous.' What does he mean?", opts:["Cultural explanations can't be tested because they rely on subjective ethnographic fieldwork","The causal relationship between culture and poverty runs in both directions — making it impossible to cleanly attribute poverty to culture as a cause","Cultural explanations are only valid in cross-national comparisons, not within a single country","Culture is too broadly defined to be used as a meaningful variable in social science research"], ans:1, exp:"<strong>'Hopelessly endogenous'</strong> means the causal arrow is unclear: does pathological culture cause poverty, or does poverty produce the cultural patterns we observe? Brady argues culturalists can't cleanly establish that culture is the cause rather than the effect — and they also suffer from selection and subjective biases." },
+  { section:"Brady — Poverty, Not the Poor", difficulty:2, q:"According to Brady's political explanation, which four factors are emphasized as the pivotal drivers of poverty?", opts:["Individual behavior, educational attainment, family structure, and immigration","The essential role of social policy, political choices to penalize risks, power resources of collective political actors, and institutions","Economic growth, productivity, trade policy, and technology","Cultural norms, racial composition, geographic isolation, and historical legacies"], ans:1, exp:"Brady's political explanation rests on four pillars: <strong>(1) the essential role of social policy</strong>, <strong>(2) political choices to penalize risks</strong>, <strong>(3) power resources of collective political actors</strong>, and <strong>(4) institutions</strong>. These are presented as a direct alternative to individualizing explanations." },
+  { section:"Brady — Poverty, Not the Poor", difficulty:2, q:"Brady argues that culturalists both 'fix' AND 'dramatize' the poor. What does he mean by this?", opts:["Culturalists combine quantitative analysis with qualitative storytelling to build a complete picture of poverty","Culturalists claim pathological culture leads to counterproductive behavior which leads to poverty — combining the moralizing of behavioralism with the narrative techniques of dramatizers","Culturalists try to fix poverty through policy reform while also raising public awareness through media campaigns","Culturalists use dramatic statistical findings to argue that cultural change is the only fix for poverty"], ans:1, exp:"Brady says culturalists are a synthesis of the other two flawed approaches: they <strong>'fix'</strong> the poor (like behavioralists, they see culture as something to correct) <strong>AND 'dramatize'</strong> (they use narrative accounts of cultural pathology). The causal chain they posit is: <em>pathological culture → counterproductive behavior → poverty</em>." },
+  { section:"Brady — Poverty, Not the Poor", difficulty:3, q:"Brady's article is published in Science Advances and frames itself as part of a broader scholarly shift. What shift does it describe?", opts:["A shift from macro-level political analysis toward micro-level behavioral economics","A long-emerging but ascending shift away from individualistic explanations of the poor toward political explanations of poverty","A shift from qualitative ethnographic methods toward large-scale quantitative modeling","A shift from comparative international research toward single-country case studies of U.S. poverty"], ans:1, exp:"Brady concludes by framing his work as part of a <strong>'long emerging but ascending and warranted shift'</strong> — away from <strong>individualistic explanations</strong> of the poor (behavior, culture, personal narratives) toward <strong>political explanations of poverty itself</strong> (power, policy, institutions)." },
+];
+
+// Combined V2 bank
+const v2Questions = [...v1Questions, ...v2OnlyQuestions];
+
+// ─────────────────────────────────────────────────────────────
+//  MULTI-SELECT QUESTIONS
+// ─────────────────────────────────────────────────────────────
+const v1MultiQuestions = [
+  { section:"IR Theories", difficulty:2, q:"Which of the following are correctly matched — theory to its core claim? Select ALL that apply.", opts:["Realism → states compete in an anarchic system, optimizing for national interests","Idealism → favors multilateral institutions and democratic norms","Constructivism → tracks how norms evolve over time to shape state behavior","FPA → focuses only on the structure of the international system"], ans:0, ans2:[0,1,2], exp:"A, B, and C are all correct pairings. <strong>D is wrong</strong>: FPA probes <em>inside</em> states — leaders, cultures, public opinion — not the international system structure." },
+  { section:"IR Theories", difficulty:2, q:"According to your slides, which of the following are listed as branches of Geoeconomic theory? Select ALL that apply.", opts:["Marxist IR — capitalist investors exploit workers and terrain","W.E.B. Du Bois — theorized racist, economic exploitation in IR","Balance-of-Threat Theory — alliances form against perceived threats","English School — tracks international norms over time"], ans:0, ans2:[0,1], exp:"<strong>A and B</strong> are both listed under Geoeconomic theories. C (Balance-of-Threat) is a branch of Realism. D (English School) is grouped with Constructivism." },
+  { section:"IR Theories", difficulty:3, q:"Which of the following are TRUE about Idealism/Liberalism according to your slides? Select ALL that apply.", opts:["It may be egalitarian, status-quo, or hierarchical — not just one fixed form","It may justify the use of military force for peace, democracy, or human rights","It treats nation-states as the only relevant unit of analysis","It favors multilateral institutions like the UN"], ans:0, ans2:[0,1,3], exp:"<strong>A, B, and D</strong> are all true. <strong>C is false</strong> — treating nation-states as the only unit is Realism's assumption, not Idealism's." },
+  { section:"Historical Doctrines", difficulty:2, q:"Which of the following are contemporary foreign and defense policy challenges listed on the slides? Select ALL that apply.", opts:["Trade and terrorism","Nuclear explosions and global warming / ecological overshoot","Maintaining the gold standard and colonial administration","Diplomacy, foreign aid, and soft power"], ans:0, ans2:[0,1,3], exp:"<strong>A, B, and D</strong> are all directly listed. <strong>C is invented</strong> — the gold standard and colonial administration are not on the list." },
+  { section:"Historical Doctrines", difficulty:3, q:"According to the slides, which of the following are TRUE about the nuclear weapons challenge? Select ALL that apply.", opts:["Disarmament has slim prospects","Arms Control would reduce weapons number and types","Defense means increasing capacity to block or intercept attacks","Counterproliferation means signing international treaties to reduce stockpiles"], ans:0, ans2:[0,1,2], exp:"<strong>A, B, and C</strong> are all correct. <strong>D is wrong</strong>: Counterproliferation means <em>preemptive military action</em> against threats — not treaty-signing." },
+  { section:"Trump II Policy", difficulty:2, q:"Which of the following are components of U.S. 'Hard' force according to the slides? Select ALL that apply.", opts:["≈ 750 foreign military bases","The State Department and diplomatic corps","Air Force, Army, Navy, Marines, Coast Guard, and Cyber Command","The TSA and airport screening oversight"], ans:0, ans2:[0,2], exp:"<strong>A and C</strong> are both listed under 'Hard' force. <strong>B</strong> (State Dept.) is listed under Diplomacy. <strong>D</strong> (TSA) is listed under Homeland Security." },
+  { section:"Venezuela Case Study", difficulty:2, q:"Which of the following were cited as motivations or justifications for the Venezuela operation? Select ALL that apply.", opts:["Narco-terrorism charges — using the Venezuelan state to traffic cocaine to the U.S.","Securing Venezuela's oil reserves — the world's largest — for U.S. companies","Protecting Venezuelan democracy by installing Juan Guaidó as president","Belligerent warnings to Colombia and Mexico as part of the Donroe Doctrine"], ans:0, ans2:[0,1,3], exp:"<strong>A, B, and D</strong> are all cited. <strong>C is not accurate</strong> — Trump said the U.S. would 'run the country,' not install Guaidó." },
+  { section:"Greenland Case Study", difficulty:2, q:"Which of the following are TRUE about why Greenland is strategically valuable? Select ALL that apply.", opts:["Its location between the U.S. and Russia matters for defense positioning","Melting Arctic ice is opening new shipping routes like the Northwest Passage","It holds offshore oil, gas, and rare earth resources","It provides the only land bridge connecting North America to Europe"], ans:0, ans2:[0,1,2], exp:"<strong>A, B, and C</strong> are all correct. <strong>D is false</strong> — there is no land bridge between North America and Europe." },
+  { section:"Trade & Tariffs", difficulty:2, q:"Which of the following are TRUE about the 'Liberation Day' tariffs? Select ALL that apply.", opts:["They pushed effective U.S. tariff rates to 14.4% — near 1930 Smoot-Hawley levels","$2.5 trillion was wiped off global stock markets in a single day","They permanently resolved U.S. trade disputes with China, Canada, and Mexico","They followed the TACO pattern — dramatic threats followed by partial backtracking"], ans:0, ans2:[0,1,3], exp:"<strong>A, B, and D</strong> are all correct. <strong>C is false</strong> — the tariffs did not permanently resolve disputes; they triggered the TACO cycle." },
+  { section:"Scholar Perspectives", difficulty:2, q:"Which of the following are TRUE about Paul Musgrave's FPA interpretation of Trump? Select ALL that apply.", opts:["Musgrave traces Trump's tariff views back to biographical opinions since 1989","Musgrave argues Trump arrives at policies through gut instinct and a desire to be on the dominating side","Musgrave argues Trump uses a systematic evaluation of the environment to make decisions","Musgrave's research specialty is U.S. Foreign Policy Analysis (FPA)"], ans:0, ans2:[0,1,3], exp:"<strong>A, B, and D</strong> are all directly stated. <strong>C is the opposite</strong> — Musgrave explicitly writes that Trump does <em>not</em> systematically evaluate the environment." },
+  { section:"Synthesis", difficulty:3, q:"Which of the following are TRUE about how the four main scholars interpret Trump II? Select ALL that apply.", opts:["Gunitsky: Trump is replacing the rules-based order with a neo-feudal system of personal loyalty and tribute","Pelc: Trump is fixated on the visual, staged look of power rather than 21st-century real power mechanics","Musgrave: Trump's worldview is consistent since 1989 — gut instinct and always wanting to dominate","Walt: Trump's alienation of allies actually maximizes U.S. power by keeping rivals off-balance"], ans:0, ans2:[0,1,2], exp:"<strong>A, B, and C</strong> are all correct. <strong>D is the opposite of Walt's view</strong> — Walt argues alienating allies is self-defeating." },
+];
+
+const v2OnlyMultiQuestions = [
+  { section:"Ackerman — Tax Brackets", difficulty:2, q:"Which of the following does Ackerman cite as evidence that the marginal-rate delusion is widespread and institutionally reinforced? Select ALL that apply.", opts:["A high school economics teacher who taught the delusion as part of the curriculum","A gym trainer whose financial advisor told him to stay below certain income thresholds","An IRS publication that mistakenly described marginal rates as applying to all income","'Vast swathes' of adult Americans — including respected professionals — hold the misconception"], ans:0, ans2:[0,1,3], exp:"<strong>A, B, and D</strong> are all directly cited by Ackerman. <strong>C is fabricated</strong> — Ackerman does not cite any IRS publication." },
+  { section:"Ackerman — Tax Brackets", difficulty:3, q:"According to Ackerman, which of the following are TRUE about the democratic implications of the marginal-rate delusion? Select ALL that apply.", opts:["Millions of people think they're paying thousands of dollars more in taxes than they actually are","When people hear about a proposed rate increase, they massively overestimate its impact on their own tax bill","The delusion actually makes it easier to build public support for progressive taxation by simplifying how taxes are explained","It is hard to maintain support for progressive income tax when people think it operates in an irrational and unfair way"], ans:0, ans2:[0,1,3], exp:"<strong>A, B, and D</strong> are all stated or directly implied by Ackerman. <strong>C is the opposite of his argument</strong> — Ackerman argues the delusion <em>undermines</em> support for progressive taxation." },
+  // ── LEVEY MULTI ──
+  { section:"Levey — Trump & Medical Debt", difficulty:2, q:"According to Levey, which of the following are specific ways the Trump administration's policies will increase costs or reduce protections for patients? Select ALL that apply.", opts:["New COVID-19 vaccine guidelines allow insurers to stop covering shots, shifting costs to patients","The tax law requires copays of up to $35 for some Medicaid enrollees for certain doctor visits","A new federal price transparency law guarantees all patients can comparison-shop before receiving care","Rolling back CFPB regulations that would have removed medical debt from credit reports for ~15 million people"], ans:0, ans2:[0,1,3], exp:"<strong>A, B, and D</strong> are all reported by Levey. <strong>C is invented</strong> — no such price transparency guarantee is mentioned in the article." },
+  { section:"Levey — Trump & Medical Debt", difficulty:3, q:"Levey's article cites several specific numerical claims. Which of the following figures are accurately reported in the article? Select ALL that apply.", opts:["Trump's tax law will slash more than $1 trillion in federal health spending over the next decade, mostly through Medicaid","The CBO estimates 10 million more people will be without health coverage by 2034","The CFPB rules, which were scrapped, would have helped approximately 15 million people","Trump's health care cuts will save the average American household $5,000 per year in premiums"], ans:0, ans2:[0,1,2], exp:"<strong>A, B, and C</strong> are all directly cited by Levey. <strong>D is false</strong> — that figure does not appear; the article argues costs will go <em>up</em>, not down." },
+  // ── BRADY MULTI ──
+  { section:"Brady — Poverty, Not the Poor", difficulty:2, q:"Brady critiques three prevailing approaches to explaining poverty. Which of the following correctly describe those three approaches? Select ALL that apply.", opts:["Behavioralism — aims to 'fix' the poor by changing individual behaviors","'Dramatizing the poor' — aims to elicit compassion through humanizing narratives","Institutionalism — focuses on how laws and regulations trap people in poverty","Culturalism — claims pathological culture leads to counterproductive behavior and poverty"], ans:0, ans2:[0,1,3], exp:"<strong>A, B, and D</strong> are Brady's three named approaches. <strong>C is not one of Brady's three</strong> — 'institutionalism' is actually part of Brady's own political explanation, not one of the flawed approaches he critiques." },
+  { section:"Brady — Poverty, Not the Poor", difficulty:3, q:"According to Brady, which of the following are valid criticisms of the culturalist approach to poverty? Select ALL that apply.", opts:["It is hopelessly endogenous — culture and poverty mutually cause each other, making causality impossible to establish","It suffers from selection biases and subjective biases","It correctly identifies culture as the root cause but proposes ineffective policy solutions","It lacks contrast against rival explanations and comparison groups"], ans:0, ans2:[0,1,3], exp:"<strong>A, B, and D</strong> are all criticisms Brady makes of culturalism. <strong>C is not Brady's argument</strong> — Brady does not concede that culturalists correctly identify culture as the root cause; he disputes that claim entirely." },
+];
+
+// ─────────────────────────────────────────────────────────────
+//  VERSION CONFIG
+// ─────────────────────────────────────────────────────────────
+const V2_ONLY_SECTIONS = new Set(["Ackerman — Tax Brackets", "Levey — Trump & Medical Debt", "Brady — Poverty, Not the Poor"]);
+
+const versionConfig = {
+  1: {
+    stripClass: "v1",
+    stripLabel: "▶ V1 — Midterm Bank",
+    stripDesc: "62 questions · IR Theories, Doctrines, Trump II, Venezuela, Greenland, Trade, Scholars, Synthesis",
+    titleHTML: 'IR <span>Midterm</span> Quiz',
+    subtitle: "International Relations & U.S. Foreign Policy",
+    introDesc: "62 questions in the bank — shuffled every attempt. Pick your length and go.",
+    fullBankCount: 62,
+    categories: ["IR Theories","Historical Doctrines","Trump II Policy","Venezuela","Greenland","Trade & Tariffs","Scholar Perspectives","Synthesis"],
+    newCategories: [],
+    getPool: () => v1Questions,
+    getMultiPool: () => v1MultiQuestions,
+    progressClass: "v1",
   },
-  {
-    section: "IR Theories", difficulty: 1,
-    q: "Idealism (Liberalism) in IR primarily favors:",
-    opts: ["Military deterrence and balance-of-power competition", "International institutions, democratic norms, and multilateral cooperation", "Economic exploitation of weaker states by capitalist powers", "Personal loyalty and tribute as the basis of international order"],
-    ans: 1,
-    exp: "<strong>Idealism/Liberalism</strong> contends that behavior is driven by values such as human rights, democratic norms, and free-market capitalism, and it favors multilateral institutions like the UN, World Bank, and IMF to resolve conflicts."
-  },
-  {
-    section: "IR Theories", difficulty: 1,
-    q: "Foreign Policy Analysis (FPA) is distinctive because it:",
-    opts: ["Focuses solely on military balance between states", "Probes inside states to examine leaders\' personalities, cultures, and decision-making", "Argues that free trade prevents conflict", "Explains alliances through geographic proximity alone"],
-    ans: 1,
-    exp: "<strong>FPA</strong> probes inside national states — examining decision-making patterns, organizational cultures, leader personalities, and public opinion — rather than treating states as black-box rational actors."
-  },
-  {
-    section: "IR Theories", difficulty: 1,
-    q: "Geoeconomic theories in IR primarily trace:",
-    opts: ["How military alliances stabilize the international system", "How nuclear deterrence prevents great power war", "Patterns involving wealth-seeking pursuits and how commercial interests interact with state strategy", "How democratic norms spread through international organizations"],
-    ans: 2,
-    exp: "<strong>Geoeconomic theories</strong> trace patterns involving wealth-seeking pursuits and how commercial interests interact with state strategies — including Marxist IR, which theorizes how capitalist investors exploit workers and terrain."
-  },
-  {
-    section: "IR Theories", difficulty: 1,
-    q: "In realist theory, 'Hard Power' refers to:",
-    opts: ["Diplomatic pressure and sanctions", "Economic aid as a tool of influence", "Cultural exports and soft persuasion", "Kinetic military force — explosives, tanks, and coercive military presence"],
-    ans: 3,
-    exp: "The study guide defines <strong>Hard Power</strong> as the use of kinetic action — explosives, tanks, and military force. The U.S. maintains over 750 foreign bases as a projection of this power."
-  },
-  {
-    section: "IR Theories", difficulty: 2,
-    q: "Stephen Walt\'s Balance-of-Threat Theory refines realism by arguing that alliances form in response to:",
-    opts: ["A state\'s total GDP and economic size alone", "Perceived threats — calculated from aggregate power, geographic proximity, offensive capabilities, and perceived intentions", "Shared ideology and cultural values between states", "The number of nuclear weapons a state possesses"],
-    ans: 1,
-    exp: "Walt\'s key insight: <strong>alliances form against threats, not just power</strong>. Threat is calculated from four factors: aggregate power, geographic proximity, offensive capabilities, and perceived intentions — ideology is not one of them."
-  },
-  {
-    section: "IR Theories", difficulty: 2,
-    q: "A scholar studies how the post-WWII norm against chemical weapons constrains state behavior even when there\'s no enforcement. Which IR theory best describes this?",
-    opts: ["Realism", "Balance-of-Threat Theory", "Geoeconomics", "Constructivism"],
-    ans: 3,
-    exp: "<strong>Constructivism</strong> tracks how norms, cultural influences, and rituals change over time to shape international behavior. The chemical weapons taboo is a classic example: states restrain themselves because the norm is internalized, not because of enforcement."
-  },
-  {
-    section: "IR Theories", difficulty: 2,
-    q: "Which IR framework would best explain how Trump\'s personality and zero-sum worldview drives U.S. foreign policy?",
-    opts: ["Realism", "Balance-of-Threat Theory", "Foreign Policy Analysis (FPA)", "Constructivism"],
-    ans: 2,
-    exp: "<strong>FPA</strong> probes inside states to examine leader personalities, decision-making cultures, and public opinion. Scholars like Musgrave use FPA to explain how Trump\'s consistent zero-sum personality shapes his foreign policy choices."
-  },
-  {
-    section: "IR Theories", difficulty: 2,
-    q: "According to Balance-of-Threat Theory, a small state is most likely to seek an alliance against a neighbor that:",
-    opts: ["Has a large economy but a purely defensive military posture", "Is geographically distant with ambiguous intentions", "Has powerful offensive capabilities, is nearby, and displays hostile intentions", "Shares cultural and ideological values with the small state"],
-    ans: 2,
-    exp: "Walt\'s theory says threat is highest when a state combines <strong>proximity + offensive capability + hostile intentions</strong>. All three factors together make a neighbor maximally threatening — regardless of ideology."
-  },
-  {
-    section: "IR Theories", difficulty: 2,
-    q: "Marxist IR, as a branch of Geoeconomics, primarily argues that:",
-    opts: ["Military alliances determine trade patterns between states", "Democratic institutions naturally reduce global inequality over time", "Capitalist investors exploit workers and terrain across national borders for profit", "Nuclear deterrence stabilizes capitalist economies by preventing war"],
-    ans: 2,
-    exp: "<strong>Marxist IR</strong> theorizes that <strong>capitalist investors exploit labor and terrain</strong> across borders — seeing global economic patterns not as mutual benefit but as structured exploitation driven by capital accumulation."
-  },
-  {
-    section: "IR Theories", difficulty: 2,
-    q: "W.E.B. Du Bois contributed a distinct lens to IR by arguing that:",
-    opts: ["Democratic institutions naturally eliminate racial inequality over time", "Military alliances are the primary driver of colonial expansion", "The UN is the best mechanism for resolving racial conflicts between states", "Racist ideology and economic exploitation are intertwined forces shaping international relations"],
-    ans: 3,
-    exp: "<strong>W.E.B. Du Bois</strong> theorized that <strong>racist ideology and economic exploitation are inseparable</strong> in international relations — an early critique of how race structures global power that anticipates later postcolonial IR theory."
-  },
-  {
-    section: "IR Theories", difficulty: 2,
-    q: "FPA\'s inclusion of \'public opinion\' as a variable means it studies:",
-    opts: ["How citizens\' attitudes about foreign policy shape state behavior", "How global public opinion constrains the UN Security Council", "How military public affairs offices manage wartime messaging", "How international media influence stock markets during crises"],
-    ans: 0,
-    exp: "<strong>FPA</strong> explicitly includes the study of <strong>citizen attitudes about foreign policy</strong> — sometimes called \'public opinion analysis\' — as a variable shaping state behavior. The \'Guns and Butter\' dynamic is one example of this."
-  },
-  {
-    section: "IR Theories", difficulty: 3,
-    q: "Idealism in IR is described in your notes as potentially \'egalitarian, status-quo, or hierarchical.\' This matters because:",
-    opts: ["It shows Idealism always promotes equal rights between nations", "Liberal interventionism can claim to spread democracy while actually reinforcing existing U.S.-led hierarchies of power", "It means Idealists always oppose military force regardless of context", "The UN is the only institution that can make Idealism work in practice"],
-    ans: 1,
-    exp: "Idealism/Liberalism is not monolithic — it can be <strong>egalitarian, status-quo, or hierarchical</strong>. For example, liberal interventionism may claim to spread democracy while actually reinforcing U.S.-led power structures. This is why the theory is labeled \'may be\' each type."
-  },
-  {
-    section: "IR Theories", difficulty: 3,
-    q: "The \'English School\' of IR is grouped with Constructivism in your notes because both:",
-    opts: ["Emphasize military power and national interest as core drivers of behavior", "Track how norms, shared understandings, and social structures evolve and shape state behavior over time", "Focus exclusively on economic variables to explain foreign policy", "Argue that international institutions are the primary cause of peace"],
-    ans: 1,
-    exp: "Both <strong>Constructivism and the English School</strong> focus on how <strong>norms, shared ideas, and social structures evolve over time</strong> and shape behavior — in contrast to realism\'s focus on material power."
-  },
-  {
-    section: "IR Theories", difficulty: 3,
-    q: "Gunitsky argues that IR theory is useful for analyzing Trump even if Trump himself doesn\'t think in IR terms. Why?",
-    opts: ["Because IR theory predicts behavior by describing structural forces and incentives actors respond to, regardless of whether they\'ve read the theory", "Because Trump secretly studied IR theory before his first term", "Because IR theory only applies to academic debates, not real-world events", "Because FPA proves all actors consciously apply theoretical frameworks when deciding"],
-    ans: 0,
-    exp: "Gunitsky argues IR theory <strong>can be a useful analytical lens even if policymakers don\'t consciously apply it</strong> — the theories describe structural pressures and incentives that shape behavior whether or not actors are aware of them."
-  },
-  // ── HISTORICAL DOCTRINES ─────────────────────────────────────
-  {
-    section: "Historical Doctrines", difficulty: 1,
-    q: "Washington\'s Farewell Address established which foundational principle of early U.S. foreign policy?",
-    opts: ["Manifest Destiny — expanding westward to the Pacific", "Collective security — joining alliances to deter European aggression", "Isolationism — steering clear of \'entangling alliances\' with European powers", "Monroe Doctrine — closing the Western Hemisphere to colonization"],
-    ans: 2,
-    exp: "<strong>Isolationism</strong>: Washington warned against permanent alliances with European powers, a principle that shaped U.S. foreign policy for over a century before WWII forced a shift to global engagement."
-  },
-  {
-    section: "Historical Doctrines", difficulty: 1,
-    q: "The Monroe Doctrine (1823) primarily declared that:",
-    opts: ["The U.S. would intervene militarily in any European conflict", "The U.S. would maintain strict neutrality in all foreign wars", "The U.S. had the right to police all Latin American nations", "The Western Hemisphere was closed to further European colonization"],
-    ans: 3,
-    exp: "The <strong>Monroe Doctrine</strong> declared the Western Hemisphere closed to further European colonization, warning that such attempts would be viewed as hostile acts against the U.S."
-  },
-  {
-    section: "Historical Doctrines", difficulty: 1,
-    q: "The Roosevelt Corollary (1904) built on the Monroe Doctrine by:",
-    opts: ["Establishing the U.S. as an \'international police power\' justifying intervention in Latin America", "Extending U.S. neutrality across the Western Hemisphere", "Creating a formal military alliance with Latin American nations", "Banning European trade in the Americas"],
-    ans: 0,
-    exp: "The <strong>Roosevelt Corollary</strong> declared the U.S. had the right to intervene in Latin American nations to ensure \'stability,\' effectively making the U.S. a regional police power — a major expansion of the Monroe Doctrine."
-  },
-  {
-    section: "Historical Doctrines", difficulty: 1,
-    q: "The Cold War strategy of \'Containment\' referred to:",
-    opts: ["Limiting nuclear weapons through arms control treaties", "Keeping U.S. troops out of foreign conflicts entirely", "Blocking Soviet expansion geographically and ideologically", "Containing domestic opposition to the Vietnam War"],
-    ans: 2,
-    exp: "<strong>Containment</strong> was the core U.S. Cold War strategy — blocking Soviet expansion through alliances, proxy wars, and economic pressure, without directly attacking the USSR."
-  },
-  {
-    section: "Historical Doctrines", difficulty: 1,
-    q: "Approximately how much did the post-9/11 War on Terror cost, and how many deaths did it cause?",
-    opts: ["$8 trillion / 900,000+ deaths", "$2 trillion / 100,000 deaths", "$5 trillion / 500,000 deaths", "$12 trillion / 1.5 million deaths"],
-    ans: 0,
-    exp: "The study guide cites approximately <strong>$8 trillion in costs and over 900,000 deaths</strong> (including 387,000 civilians) from nearly 20 years of post-9/11 conflict."
-  },
-  {
-    section: "Historical Doctrines", difficulty: 2,
-    q: "The \'Unipolar Moment\' describes the period after the Soviet collapse when:",
-    opts: ["The U.S. and Russia jointly managed global security as equal partners", "The U.S. stood as the world\'s sole superpower, a status that ended with 9/11", "The UN assumed primary responsibility for managing global conflicts", "Nuclear deterrence made great power war essentially impossible"],
-    ans: 1,
-    exp: "After the <strong>Soviet collapse in 1991</strong>, the U.S. stood as the world\'s sole superpower. This \'Unipolar Moment\' — sometimes called the \'End of History\' — was shattered by the 9/11 attacks in 2001."
-  },
-  {
-    section: "Historical Doctrines", difficulty: 2,
-    q: "Cold War \'Proxy Wars\' allowed the U.S. and USSR to compete by:",
-    opts: ["Direct military confrontation in Central Europe", "Fighting indirectly through third-party nations rather than confronting each other directly", "Nuclear standoffs in which both powers threatened first use", "Economic warfare conducted through competing trade blocs"],
-    ans: 1,
-    exp: "<strong>Proxy Wars</strong> allowed the U.S. and USSR to compete for influence without directly fighting each other — conflicts in Korea, Vietnam, Angola, and Afghanistan all had this indirect character."
-  },
-  {
-    section: "Historical Doctrines", difficulty: 2,
-    q: "Nuclear \'Deterrence\' during the Cold War rested on which key logic?",
-    opts: ["Only one side needed nuclear weapons to guarantee peace", "The UN could mediate any nuclear standoff before escalation", "Conventional military superiority made nuclear weapons unnecessary", "Mutual Assured Destruction made launching a first strike irrational for both sides"],
-    ans: 3,
-    exp: "<strong>Deterrence</strong> worked through MAD — Mutual Assured Destruction: if both sides could survive a first strike and retaliate devastatingly, neither had an incentive to strike first. This stabilized the Cold War despite massive arms buildups."
-  },
-  {
-    section: "Historical Doctrines", difficulty: 3,
-    q: "Nuclear arms policy involves three distinct challenges. Which pairing below correctly matches the term to its definition?",
-    opts: ["Disarmament = reducing weapon types; Arms Control = preemptive action", "Counterproliferation = arms reduction treaties; Disarmament = preemptive strikes", "Arms Control = reducing weapon types; Counterproliferation = preemptive action against nuclear threats", "Counterproliferation = complete nuclear elimination; Arms Control = diplomatic negotiations only"],
-    ans: 2,
-    exp: "The study guide distinguishes three nuclear challenges: <strong>Disarmament</strong> (slim prospects for eliminating weapons entirely), <strong>Arms Control</strong> (reducing and limiting weapon types), and <strong>Counterproliferation</strong> (preemptive action against states developing nuclear threats)."
-  },
-  // ── TRUMP II POLICY ──────────────────────────────────────────
-  {
-    section: "Trump II Policy", difficulty: 1,
-    q: "The \'Donroe Doctrine\' is best described as:",
-    opts: ["A new nuclear arms reduction treaty with Russia", "A trade framework targeting Chinese imports", "A diplomatic initiative to expand NATO eastward", "A Trump-era update to the Monroe Doctrine reasserting aggressive U.S. dominance over the Western Hemisphere"],
-    ans: 3,
-    exp: "The <strong>\'Donroe Doctrine\'</strong> is a 2025 Trumpian update to the Monroe Doctrine, encapsulated by the phrase \'This is our hemisphere.\' It prioritizes regional security and border control over democracy promotion or human rights."
-  },
-  {
-    section: "Trump II Policy", difficulty: 1,
-    q: "The \'Guns and Butter\' theory of public opinion suggests that:",
-    opts: ["Military spending always hurts economic growth", "Citizens prioritize domestic issues unless a crisis forces foreign policy attention", "Voters consistently support military intervention abroad", "Nuclear deterrence guarantees domestic economic stability"],
-    ans: 1,
-    exp: "<strong>\'Guns and Butter\'</strong>: under normal conditions, citizens focus on domestic economic issues (\'butter\'). Only when a crisis or emergency arises do they shift attention to military/foreign policy (\'guns\')."
-  },
-  {
-    section: "Trump II Policy", difficulty: 1,
-    q: "How many foreign military bases does the U.S. maintain — more than any other nation?",
-    opts: ["Over 300", "Over 500", "Over 750", "Over 1,200"],
-    ans: 2,
-    exp: "The U.S. maintains <strong>over 750 foreign military bases</strong> — significantly more than any other nation. This global footprint is cited as a key expression of American Hard Power."
-  },
-  {
-    section: "Trump II Policy", difficulty: 2,
-    q: "Which of the following best describes a key departure in Trump II\'s National Security Strategy from previous administrations?",
-    opts: ["Increased funding for the UN, WHO, and global health programs", "Treating climate change, global health, and human rights as essential security priorities", "Abandoning climate leadership, global health, and human rights as national security priorities, viewing them as distractions", "Deepening multilateral trade agreements to strengthen democratic alliances"],
-    ans: 2,
-    exp: "Trump II\'s NSS explicitly departs from treating <strong>climate leadership, global health, and human rights</strong> as security essentials — viewing them instead as distractions from vital national interests like border control and regional dominance."
-  },
-  {
-    section: "Trump II Policy", difficulty: 2,
-    q: "The U.S. Intelligence Community\'s 2024 budget is estimated at approximately how much, with potentially up to 100 agencies involved?",
-    opts: ["$10–20 billion", "$50–85 billion", "$150–200 billion", "$30–45 billion"],
-    ans: 1,
-    exp: "The study guide cites an Intelligence Community budget of <strong>$50–85 billion</strong> in 2024 dollars, with potentially up to 100 agencies operating with \'murky\' lines of accountability."
-  },
-  {
-    section: "Trump II Policy", difficulty: 2,
-    q: "Trump II\'s approach to alliances like NATO has been characterized by:",
-    opts: ["Deepening multilateral commitments and expanding membership", "Pressuring allies to increase defense spending and questioning the value of multilateral institutions in favor of bilateral deals", "Prioritizing the UN Security Council as the main security forum", "Reducing bilateral trade deals in favor of global free trade frameworks"],
-    ans: 1,
-    exp: "Trump II has <strong>pressured allies to increase defense spending</strong> and questioned the value of the UN and WHO, preferring bilateral \'deals\' over multilateral commitments — a sharp departure from decades of post-WWII U.S. foreign policy."
-  },
-  // ── VENEZUELA CASE STUDY ─────────────────────────────────────
-  {
-    section: "Venezuela Case Study", difficulty: 1,
-    q: "What was the official legal justification for the U.S. capture of Venezuelan President Nicolás Maduro?",
-    opts: ["Human rights violations and election fraud", "Illegal seizure of U.S. oil company assets", "Narco-terrorism conspiracy charges — using the Venezuelan state to transport cocaine to the U.S.", "Harboring operatives linked to foreign terrorist organizations"],
-    ans: 2,
-    exp: "Maduro was indicted for <strong>narco-terrorism conspiracy</strong>, specifically allegations that he used the Venezuelan state apparatus to transport cocaine to the United States."
-  },
-  {
-    section: "Venezuela Case Study", difficulty: 1,
-    q: "What did Trump say the U.S. would do with Venezuela after capturing Maduro?",
-    opts: ["Hand power immediately to opposition leaders", "Turn governance over to a UN peacekeeping mission", "\'Run the country\' until a democratic transition occurs", "Establish a joint U.S.–Colombian administration"],
-    ans: 2,
-    exp: "Trump announced the U.S. would <strong>\'run the country\'</strong> until a transition occurs — a statement critics viewed as a blueprint for direct U.S. imperial administration of a sovereign nation."
-  },
-  {
-    section: "Venezuela Case Study", difficulty: 2,
-    q: "Beyond the narco-terrorism charge, what resource motive did Trump explicitly link to the Venezuela intervention?",
-    opts: ["Copper and lithium deposits for U.S. green energy transition", "Rare earth elements vital for semiconductor production", "Control of Venezuela\'s strategic port access to the Panama Canal", "Securing Venezuela\'s oil reserves — the world\'s largest — for reconstruction by U.S. companies"],
-    ans: 3,
-    exp: "Trump explicitly stated the U.S. would have a presence in Venezuela <strong>specifically for oil infrastructure</strong>, tying the intervention to securing the world\'s largest oil reserves for reconstruction by U.S. companies."
-  },
-  {
-    section: "Venezuela Case Study", difficulty: 2,
-    q: "Critics raised which constitutional concern about the Venezuela operation?",
-    opts: ["The raid violated the War Powers Act\'s 48-hour reporting requirement", "The CIA is prohibited from conducting foreign arrests under existing law", "The operation lacked Congressional authorization and it was unclear Maduro posed an imminent threat", "Delta Force cannot legally operate in South America under U.S. code"],
-    ans: 2,
-    exp: "Democrats criticized the strike for <strong>lacking Congressional approval</strong> and questioned whether Maduro actually posed an \'imminent threat\' — the standard required to justify executive military action without Congressional authorization."
-  },
-  {
-    section: "Venezuela Case Study", difficulty: 2,
-    q: "Which U.S. military unit carried out the raid on Maduro, and approximately how large was the operation?",
-    opts: ["Navy SEALs supported by Air Force, 50 aircraft", "Delta Force supported by the CIA, 150 aircraft", "Army Rangers, 30 aircraft", "Marines, 200 ships"],
-    ans: 1,
-    exp: "The operation was carried out by <strong>Delta Force special forces supported by the CIA</strong>, involving approximately 150 aircraft in an overnight raid."
-  },
-  {
-    section: "Venezuela Case Study", difficulty: 3,
-    q: "Trump also issued belligerent warnings to which neighboring countries as part of the Venezuela/Donroe Doctrine strategy, accusing their leaders of ties to drug cartels?",
-    opts: ["Brazil and Peru", "Ecuador and Bolivia", "Colombia and Mexico", "Panama and Honduras"],
-    ans: 2,
-    exp: "As part of the aggressive regional posture, Trump issued <strong>belligerent warnings to Colombia and Mexico</strong>, accusing their leaders of being run by or supporting drug cartels — part of the broader Donroe Doctrine asserting U.S. dominance over the hemisphere."
-  },
-  // ── GREENLAND CASE STUDY ─────────────────────────────────────
-  {
-    section: "Greenland Case Study", difficulty: 1,
-    q: "What did Greenlandic local leaders say about Trump\'s acquisition proposals?",
-    opts: ["They proposed a referendum on independence from Denmark", "They expressed openness to a U.S. defense partnership", "They asked the UN to mediate the dispute", "They issued a statement asserting they want to be \'Greenlanders,\' not Americans or Danes, and are \'not for sale\'"],
-    ans: 3,
-    exp: "Greenlandic leaders issued a joint statement with a clear message: they want to be <strong>\'Greenlanders,\' not Americans or Danes</strong>, and declared their territory is <strong>\'not for sale.\'</strong>"
-  },
-  {
-    section: "Greenland Case Study", difficulty: 1,
-    q: "Why is Greenland strategically valuable to the U.S.?",
-    opts: ["It is the only territory providing a land bridge to Europe", "Its location between the U.S. and Russia, Arctic shipping routes opened by melting ice, and offshore oil/gas/rare earths", "It houses the world\'s largest freshwater reserves", "It provides a launching point for U.S. operations in sub-Saharan Africa"],
-    ans: 1,
-    exp: "Greenland\'s value is threefold: <strong>strategic location</strong> between the U.S. and Russia (especially as melting polar ice opens Arctic shipping routes), <strong>resource potential</strong> (offshore oil, gas, rare earths), and military positioning."
-  },
-  {
-    section: "Greenland Case Study", difficulty: 2,
-    q: "Nordic diplomats and NATO briefings rejected Trump\'s Russian/Chinese threat justification for acquiring Greenland. What did they say instead?",
-    opts: ["Greenland\'s resources are legally owned by the EU, not Denmark", "Environmental treaties protect Greenland from any territorial transfer", "Greenland already has a NATO defense treaty that supersedes U.S. claims", "Russian/Chinese naval activity is confined to the Russian side of the Arctic, not near Greenland"],
-    ans: 3,
-    exp: "Nordic diplomats and NATO briefings confirmed that <strong>Russian/Chinese naval activity is confined to the Russian side of the Arctic</strong> — not near Greenland — directly undermining Trump\'s stated security pretext."
-  },
-  {
-    section: "Greenland Case Study", difficulty: 2,
-    q: "What model of governance was proposed for Greenland under which it would gain independence but cede defense to the U.S.?",
-    opts: ["A Puerto Rico-style commonwealth arrangement", "Full statehood within the United States", "A compact similar to those with Pacific Island nations like Palau or the Marshall Islands", "A joint Denmark-U.S. shared sovereignty protectorate"],
-    ans: 2,
-    exp: "One idea floated was a <strong>compact similar to those with Pacific Island nations</strong> (like Palau or the Marshall Islands), where Greenland would gain independence from Denmark but cede defense responsibilities to the U.S."
-  },
-  {
-    section: "Greenland Case Study", difficulty: 3,
-    q: "How did Trump ally Steve Bannon frame the Greenland interest in a broader context?",
-    opts: ["He called it essential for defending against Chinese naval expansion in the Atlantic", "He framed it purely as an environmental stewardship initiative", "He argued Greenland would become a free economic zone for U.S. rare earth mining", "He stated Trump sees the annexation of Canada as part of a broader strategic defense plan, of which Greenland is a piece"],
-    ans: 3,
-    exp: "Steve Bannon framed Greenland within a <strong>broader expansionist vision</strong>, stating Trump sees <strong>the annexation of Canada</strong> as part of a strategic defense plan — suggesting ambitions far beyond just Greenland."
-  },
-  {
-    section: "Greenland Case Study", difficulty: 3,
-    q: "Analysts specifically fear the U.S. may engineer a dispute over which Arctic route that Canada claims as internal waters but the U.S. considers international?",
-    opts: ["The Bering Strait", "The Denmark Strait", "The Northwest Passage", "The Hudson Bay Corridor"],
-    ans: 2,
-    exp: "Analysts fear the U.S. may engineer a dispute over the <strong>Northwest Passage</strong> — a shipping route that Canada claims as internal waters but the U.S. considers international waters. Melting Arctic ice is making this route increasingly strategic."
-  },
-  // ── TRADE & TARIFFS ──────────────────────────────────────────
-  {
-    section: "Trade & Tariffs", difficulty: 1,
-    q: "What does \'TACO\' stand for in the context of Trump\'s trade policy?",
-    opts: ["Tariff Adjustment and Competitive Ordering", "Trans-Atlantic Commercial Operations", "Trump Always Chickens Out", "Trade Agreements Carefully Optimized"],
-    ans: 2,
-    exp: "<strong>TACO = \'Trump Always Chickens Out\'</strong> — a market term describing his pattern of announcing extreme tariff threats, causing market shocks, then backing down to \'napkin deals.\'"
-  },
-  {
-    section: "Trade & Tariffs", difficulty: 1,
-    q: "The \'Liberation Day\' tariffs brought U.S. effective tariff rates to 14.4% — a level not seen since which protectionist law?",
-    opts: ["The Revenue Act of 1916", "The Fordney-McCumber Act of 1922", "The Smoot-Hawley Act of 1930", "The McKinley Tariff Act of 1890"],
-    ans: 2,
-    exp: "The <strong>Smoot-Hawley Act of 1930</strong> is the historical benchmark — a notorious protectionist law credited with deepening the Great Depression. Reaching those rate levels again is considered a major economic warning sign."
-  },
-  {
-    section: "Trade & Tariffs", difficulty: 1,
-    q: "What is the estimated annual cost of Trump\'s tariffs to the average American household?",
-    opts: ["$300–$700", "$6,000–$10,000", "$500–$800", "$1,200–$5,000"],
-    ans: 3,
-    exp: "The study guide cites estimates of <strong>$1,200 to $5,000 per household annually</strong> as the cost of Trump\'s tariff regime — a significant burden concentrated on lower- and middle-income families."
-  },
-  {
-    section: "Trade & Tariffs", difficulty: 2,
-    q: "Protectionism as a trade policy is best defined as:",
-    opts: ["Minimizing government interference and relying on comparative advantage", "Government support for specific high-growth industries like aerospace or biotech", "Limiting imports through tariffs and subsidies to protect domestic industries", "Using military force to open foreign markets to domestic exports"],
-    ans: 2,
-    exp: "<strong>Protectionism</strong> limits imports to protect domestic industries, using tools like tariffs and subsidies. This is contrasted in the study guide with <strong>Free Trade</strong> (minimal interference, comparative advantage) and <strong>Strategic Trade</strong> (targeted industry support)."
-  },
-  {
-    section: "Trade & Tariffs", difficulty: 2,
-    q: "What happened to global stock markets when Trump unveiled \'Liberation Day\' tariffs on April 2, 2025?",
-    opts: ["Markets gained $1 trillion as investors priced in domestic manufacturing growth", "Markets remained stable because the tariffs were already priced in", "$2.5 trillion was wiped off global stock markets in a single day", "The dollar surged 15% as investors sought safe-haven assets"],
-    ans: 2,
-    exp: "The Liberation Day announcement wiped <strong>$2.5 trillion off global stock markets in a single day</strong> — before Trump\'s characteristic TACO pattern of backtracking began."
-  },
-  {
-    section: "Trade & Tariffs", difficulty: 2,
-    q: "Strategic Trade policy differs from free trade in that it:",
-    opts: ["Bans all imports from rival nations", "Uses the military to open foreign markets to U.S. goods", "Relies entirely on market forces with no government involvement", "Has the government actively support key growth industries like aerospace or biotech to gain competitive advantage"],
-    ans: 3,
-    exp: "<strong>Strategic Trade</strong> involves government support for key growth industries — picking winners in sectors like aerospace, biotech, or semiconductors — rather than leaving everything to market competition."
-  },
-  {
-    section: "Trade & Tariffs", difficulty: 3,
-    q: "What longer-term global financial effect did Trump\'s tariff policies produce?",
-    opts: ["The dollar strengthened as the dominant global reserve currency", "The dollar\'s global primary currency status was dented as central banks diversified into gold", "Foreign currencies collapsed as trading partners sought dollar reserves", "The dollar\'s reserve status was reinforced by U.S. trade surpluses"],
-    ans: 1,
-    exp: "The study guide notes the dollar\'s status as the global reserve currency <strong>was dented as central banks diversified into gold</strong> due to geopolitical concerns — a signal of eroding international confidence in U.S. economic leadership."
-  },
-  // ── SCHOLAR PERSPECTIVES ─────────────────────────────────────
-  {
-    section: "Scholar Perspectives", difficulty: 1,
-    q: "Seva Gunitsky\'s \'Neo-Feudalism\' argument holds that Trump is replacing the rules-based capitalist order with:",
-    opts: ["A military empire based on territorial conquest", "A technocratic order managed by private corporations", "A system driven by personal loyalty, tribute, and ad hoc deals — treating allies as vassals", "A new multilateral framework centered on bilateral economic agreements"],
-    ans: 2,
-    exp: "Gunitsky argues Trump is creating a <strong>neo-feudal order</strong>: traditional national interest is replaced by patronage, allies must pay for protection, and international institutions are treated as irrelevant."
-  },
-  {
-    section: "Scholar Perspectives", difficulty: 1,
-    q: "Krzysztof Pelc\'s \'Imperial Aesthetics\' argument says Trump\'s foreign policy is primarily driven by:",
-    opts: ["Rational economic calculations about long-term U.S. competitiveness", "A desire to rebuild U.S. manufacturing through territorial expansion", "Ideological opposition to liberal democracy globally", "A fixation with the staged, visual look of power — annexations, seizures — for TV audiences rather than real strategic benefit"],
-    ans: 3,
-    exp: "Pelc argues Trump is obsessed with the <strong>\'staged look of power\'</strong> — annexations, seizures, monuments — rather than the real mechanics of 21st-century influence (data centers, undersea cables, financial systems)."
-  },
-  {
-    section: "Scholar Perspectives", difficulty: 1,
-    q: "Paul Musgrave\'s FPA-based argument emphasizes that Trump\'s foreign policy worldview:",
-    opts: ["Has been remarkably consistent since at least the 1980s — zero-sum, transactional, viewing allies as exploiters", "Is primarily a product of his time in office and advisors around him", "Is mainly influenced by academic realist IR theory", "Shifts dramatically based on domestic political pressure and approval ratings"],
-    ans: 0,
-    exp: "Musgrave shows Trump\'s worldview has been <strong>stable since at least 1987</strong> — always zero-sum, always seeing allies as exploiters who owe \'protection money,\' always treating IR as a series of immediate transactions with winners and losers."
-  },
-  {
-    section: "Scholar Perspectives", difficulty: 2,
-    q: "According to Stephen Walt\'s analysis, former U.S. allies are now \'balancing\' against America. What is his key example?",
-    opts: ["Germany seeking a new defense partnership with Russia", "Japan questioning its U.S. military alliance", "Canada — a NATO ally — seeking a new strategic partnership with China", "France withdrawing from NATO\'s integrated military command"],
-    ans: 2,
-    exp: "Walt\'s Balance-of-Threat Theory predicts that when a state becomes a <strong>\'compulsive predator,\'</strong> former friends start balancing against it. His key example: <strong>Canada</strong> — a longtime NATO ally — seeking a new strategic partnership with China."
-  },
-  {
-    section: "Scholar Perspectives", difficulty: 2,
-    q: "Frontline reporting traced Trump\'s zero-sum trade worldview back to which country in the 1980s?",
-    opts: ["China — Trump\'s original target for unfair trade practices", "Saudi Arabia — over oil pricing", "Germany — over trade surpluses with the U.S.", "Japan — which Trump accused of \'ripping off\' the U.S. and \'laughing at our stupidity\'"],
-    ans: 3,
-    exp: "Trump\'s zero-sum trade worldview originally targeted <strong>Japan</strong> in the 1980s. Much of his trade vernacular reportedly stems from decades of watching Lou Dobbs. The target later shifted to China, but the mindset was identical."
-  },
-  {
-    section: "Scholar Perspectives", difficulty: 2,
-    q: "In \'Geopolitics, But Make It Dumb and Personal,\' Gunitsky\'s core argument about Trump II is:",
-    opts: ["Trump is a textbook realist optimizing U.S. relative power through rational grand strategy", "Trump\'s policies fit neatly within Constructivist expectations about norm evolution", "Trump\'s policies are best explained by Idealist theory — spreading democracy through force", "Trump represents a major break from prior U.S. foreign policy, with motivations better explained by a drive for personal dominance than any coherent IR theory"],
-    ans: 3,
-    exp: "Gunitsky argues Trump II represents a <strong>major break from prior U.S. foreign policy</strong> and that his motivations are best understood as playing for <strong>personal dominance</strong> — not fitting neatly into realism, liberalism, or any classic IR framework."
-  },
-  {
-    section: "Scholar Perspectives", difficulty: 3,
-    q: "Pelc argues territorial conquest is counterproductive in the 21st century because:",
-    opts: ["It alienates potential military allies needed for balance of power", "International law now makes annexation legally impossible to enforce", "Modern populations resist foreign rule indefinitely, making occupation too costly", "Territorial ownership is ruinously expensive and unnecessary — real power now runs through data centers, undersea cables, and financial systems, not land"],
-    ans: 3,
-    exp: "Pelc argues that in the 21st century, <strong>territorial ownership is ruinously expensive and unnecessary</strong> because real power runs through data centers, undersea cables, and financial systems — not flags planted on land. This makes Trump\'s fixation on annexation aesthetically satisfying but strategically obsolete."
-  },
-  {
-    section: "Scholar Perspectives", difficulty: 3,
-    q: "The \'Policy Tensor\' (Nietzschean) interpretation of Trump views his foreign policy as:",
-    opts: ["A mercantilist plan to restore U.S. manufacturing through tariffs and territorial expansion", "A coherent realist strategy to restore U.S. relative power against China", "A \'will to power\' — accumulating dominance for its own sake, not as a means to any rational strategic end", "A misguided idealist attempt to spread American values globally through force"],
-    ans: 2,
-    exp: "The \'Policy Tensor\' interpretation draws on Nietzsche: Trump\'s behavior is a <strong>\'will to power\'</strong> — a drive toward dominance as an end in itself, not as a means to any rational strategic goal. This goes further than Musgrave\'s FPA explanation."
-  },
-  {
-    section: "Scholar Perspectives", difficulty: 3,
-    q: "Gunitsky\'s essay title \'Geopolitics, But Make It Dumb and Personal\' is a critique that implies:",
-    opts: ["Trump uses more sophisticated game theory than previous presidents", "Traditional geopolitics involves strategic calculation about national interests; Trump substitutes personal grievance, spectacle, and dominance-seeking", "Trump focuses exclusively on military power, ignoring economic tools", "The essay is ironic — Trump\'s policy is actually more coherent than critics claim"],
-    ans: 1,
-    exp: "The title is a sharp critique: traditional geopolitics involves <strong>strategic calculation about national interests</strong>. Gunitsky argues Trump substitutes <strong>personal grievance, spectacle, and dominance-seeking</strong> — making it \'dumb and personal\' rather than strategically rational."
-  },
-  // ── SYNTHESIS ────────────────────────────────────────────────
-  {
-    section: "Synthesis", difficulty: 2,
-    q: "Which statement BEST captures the central tension the study guide presents about Trump II\'s foreign policy?",
-    opts: ["Trump is a classic realist pursuing balance-of-power politics more aggressively than predecessors", "Trump\'s policies represent a fundamental break from both realist and liberal traditions, driven by personality, aesthetics, and neo-feudal logic rather than coherent strategy", "Trump is following Containment doctrine updated for the 21st century", "Trump is a committed idealist trying to spread democracy through force"],
-    ans: 1,
-    exp: "All four scholars agree: Trump II <strong>cannot be explained by classic IR theories</strong>. Walt says it violates realism; Gunitsky calls it neo-feudal; Pelc calls it aesthetic; Musgrave calls it personality. The break is fundamental, not merely stylistic."
-  },
-  {
-    section: "Synthesis", difficulty: 2,
-    q: "Retired Ambassador Bob Rae stated that Trump\'s actions had sparked international tensions not seen since:",
-    opts: ["The Vietnam War", "The Cuban Missile Crisis", "The Korean War", "World War II"],
-    ans: 3,
-    exp: "Ambassador Rae stated Trump had sparked tensions <strong>not seen since World War II</strong> — a striking claim that encompasses the Cold War, Cuban Missile Crisis, and multiple regional wars."
-  },
-  {
-    section: "Synthesis", difficulty: 3,
-    q: "Walt argues Trump\'s behavior is self-defeating from a realist perspective because:",
-    opts: ["It spends too much on defense, crowding out economic investment", "Realists don\'t care about allies; Walt\'s critique is actually from an idealist perspective", "A true realist would maintain alliances as force multipliers — Trump\'s alienation of allies drives them toward U.S. rivals instead", "The U.S. is too powerful for ally defection to matter strategically"],
-    ans: 2,
-    exp: "Walt\'s core critique: a <strong>good realist would keep allies close</strong> as force multipliers against rivals. By treating allies as exploiters, Trump is driving them toward China and other adversaries — actively undermining U.S. power rather than maximizing it."
-  },
-  {
-    section: "Synthesis", difficulty: 3,
-    q: "Which best describes the key difference between Musgrave\'s and the \'Policy Tensor\' explanation of Trump?",
-    opts: ["Musgrave focuses on economics; Policy Tensor focuses on cultural identity", "There is no meaningful difference — both make the same FPA argument", "Musgrave explains Trump through a consistent zero-sum personality; Policy Tensor sees a deeper Nietzschean \'will to power\' — dominance as an end in itself", "Policy Tensor focuses on domestic politics; Musgrave focuses on international structure"],
-    ans: 2,
-    exp: "Musgrave says Trump has a <strong>consistent transactional worldview since the 1980s</strong>; Policy Tensor goes deeper, arguing the behavior reflects a <strong>Nietzschean will to power</strong> — not rational calculation, but dominance sought as a value in itself."
+  2: {
+    stripClass: "v2",
+    stripLabel: "▶ V2 — Cumulative Bank",
+    stripDesc: "86 questions · All V1 topics + Ackerman (Tax Brackets) + Levey (Medical Debt) + Brady (Poverty)",
+    titleHTML: 'IR <span>&amp; Policy</span> Quiz',
+    subtitle: "International Relations · U.S. Foreign Policy · Tax Policy · Health Care · Poverty",
+    introDesc: "86 questions in the bank — all V1 material plus Ackerman, Levey, and Brady readings. Shuffled every attempt.",
+    fullBankCount: 86,
+    categories: ["IR Theories","Historical Doctrines","Trump II Policy","Venezuela","Greenland","Trade & Tariffs","Scholar Perspectives","Synthesis"],
+    newCategories: ["Ackerman — Tax Brackets", "Levey — Trump &amp; Medical Debt", "Brady — Poverty, Not the Poor"],
+    getPool: (includeMT1) => includeMT1 ? v2Questions : v2OnlyQuestions,
+    getMultiPool: (includeMT1) => includeMT1 ? [...v1MultiQuestions, ...v2OnlyMultiQuestions] : v2OnlyMultiQuestions,
+    progressClass: "v2",
   }
-];
-
-// ── MULTI-SELECT: define multiple correct answers per question ───────────────
-// For most questions ans2 = [ans] (single correct answer)
-// For ~20 questions we define genuine multi-correct sets
-allQuestions.forEach(q => { if (!q.ans2) q.ans2 = [q.ans]; });
-
-// Override specific questions with 2 correct answers
-// Identified by matching on a short unique substring of q.q
-const multiAnswerOverrides = [
-  // Walt's 4 threat factors: aggregate power + geographic proximity + offensive capabilities + perceived intentions
-  // Question: "refines realism by arguing alliances form in response to:"
-  // B (perceived threats - all four factors) is the full answer, but we can make it richer
-  // Actually for multi-select we reframe some questions differently - see renderQuestion logic
-
-  // Geoeconomic theories question: commercial + Marxist + Du Bois all qualify
-  // We'll handle this through the multi-select question variants below
-];
-
-// Multi-select variant questions — different framing when multiMode is on
-// These replace or supplement single-answer questions with multi-correct versions
-const multiVariants = {
-  // Key: short unique match string from q.q → value: {ans2: [], multiExp: ""}
-
-  // IR Theories
-  "anarchic": {
-    ans2: [2],  // Realism only — keep single
-    multiQ: null
-  },
-  "Geoeconomic theories in IR primarily trace": {
-    ans2: [1, 2],  // opts: 0=military alliances, 1=nuclear deterrence, 2=wealth-seeking, 3=democratic norms
-    // Wait — only C is correct for geoeconomics. Keep single.
-    ans2: [2],
-    multiQ: null
-  },
-  "W.E.B. Du Bois": {
-    ans2: [2, 3],  // C: capitalist investors exploit workers (Marxist) AND D: racist+economic exploitation (Du Bois)
-    // Actually this question asks specifically about Du Bois, so just D
-    ans2: [3],
-    multiQ: null
-  },
 };
 
-// Actually, cleanest approach: define a separate multiQuestions array
-// with the same structure but with ans2 arrays of length >= 2
-// When multiMode is on, these replace their single-answer counterparts
-
-// ── MULTI-MODE QUESTIONS ─────────────────────────────────────────────────────
-// These are genuinely multi-correct. The question text changes to make it clear
-// multiple answers apply. ans2 contains all correct indices.
-const multiQuestions = [
-  {
-    section: "IR Theories", difficulty: 2,
-    q: "Which of the following are correctly matched — theory to its core claim? Select ALL that apply.",
-    opts: [
-      "Realism → states compete in an anarchic system, optimizing for national interests",
-      "Idealism → favors multilateral institutions and democratic norms",
-      "Constructivism → tracks how norms evolve over time to shape state behavior",
-      "FPA → focuses only on the structure of the international system"
-    ],
-    ans: 0, ans2: [0, 1, 2],
-    exp: "A, B, and C are all correct pairings. <strong>D is wrong</strong>: FPA probes <em>inside</em> states — leaders, cultures, public opinion — not the international system structure (that's realism's domain)."
-  },
-  {
-    section: "IR Theories", difficulty: 2,
-    q: "According to your slides, which of the following are listed as branches of Geoeconomic theory? Select ALL that apply.",
-    opts: [
-      "Marxist IR — capitalist investors exploit workers and terrain",
-      "W.E.B. Du Bois — theorized racist, economic exploitation in IR",
-      "Balance-of-Threat Theory — alliances form against perceived threats",
-      "English School — tracks international norms over time"
-    ],
-    ans: 0, ans2: [0, 1],
-    exp: "<strong>A and B</strong> are both listed under Geoeconomic theories on the IR slide. C (Balance-of-Threat) is a branch of Realism. D (English School) is grouped with Constructivism."
-  },
-  {
-    section: "IR Theories", difficulty: 3,
-    q: "Which of the following are TRUE about Idealism/Liberalism according to your slides? Select ALL that apply.",
-    opts: [
-      "It may be egalitarian, status-quo, or hierarchical — not just one fixed form",
-      "It may justify the use of military force for peace, democracy, or human rights",
-      "It treats nation-states as the only relevant unit of analysis",
-      "It favors multilateral institutions like the UN"
-    ],
-    ans: 0, ans2: [0, 1, 3],
-    exp: "<strong>A, B, and D</strong> are all true per the slides. <strong>C is false</strong> — treating nation-states as the only unit is Realism's assumption, not Idealism's."
-  },
-  {
-    section: "Historical Doctrines", difficulty: 2,
-    q: "Which of the following are contemporary foreign and defense policy challenges listed on the slides? Select ALL that apply.",
-    opts: [
-      "Trade and terrorism",
-      "Nuclear explosions and global warming / ecological overshoot",
-      "Maintaining the gold standard and colonial administration",
-      "Diplomacy, foreign aid, and soft power"
-    ],
-    ans: 0, ans2: [0, 1, 3],
-    exp: "<strong>A, B, and D</strong> are all directly listed on slide 16.3. <strong>C is invented</strong> — the gold standard and colonial administration are not on the list."
-  },
-  {
-    section: "Historical Doctrines", difficulty: 3,
-    q: "According to the slides, which of the following are TRUE about the nuclear weapons challenge? Select ALL that apply.",
-    opts: [
-      "Disarmament has slim prospects",
-      "Arms Control would reduce weapons number and types",
-      "Defense means increasing capacity to block or intercept attacks",
-      "Counterproliferation means signing international treaties to reduce stockpiles"
-    ],
-    ans: 0, ans2: [0, 1, 2],
-    exp: "<strong>A, B, and C</strong> are all correct per the slides. <strong>D is wrong</strong>: Counterproliferation means <em>preemptive military action</em> against threats — not treaty-signing (that's Arms Control)."
-  },
-  {
-    section: "Trump II Policy", difficulty: 2,
-    q: "Which of the following are components of U.S. 'Hard' force according to the slides? Select ALL that apply.",
-    opts: [
-      "≈ 750 foreign military bases",
-      "The State Department and diplomatic corps",
-      "Air Force, Army, Navy, Marines, Coast Guard, and Cyber Command",
-      "The TSA and airport screening oversight"
-    ],
-    ans: 0, ans2: [0, 2],
-    exp: "<strong>A and C</strong> are both listed under 'Hard' force on slide 16.2. <strong>B</strong> (State Dept.) is listed under Diplomacy, not Hard force. <strong>D</strong> (TSA) is listed under Homeland Security."
-  },
-  {
-    section: "Trump II Policy", difficulty: 3,
-    q: "According to the slides, which of the following are TRUE about U.S. spy agencies? Select ALL that apply.",
-    opts: [
-      "There may be 13 to 100 U.S. spy agencies",
-      "The Intelligence Community budget is approximately $50–85 billion in 2024 dollars",
-      "The CIA is the only intelligence agency that reports directly to Congress",
-      "Managerial lines of accountability are murky"
-    ],
-    ans: 0, ans2: [0, 1, 3],
-    exp: "<strong>A, B, and D</strong> are all stated on the spy agencies slide. <strong>C is false</strong> — the slide says accountability lines are murky, not that the CIA reports directly to Congress."
-  },
-  {
-    section: "Venezuela Case Study", difficulty: 2,
-    q: "Which of the following were cited in your materials as motivations or justifications for the Venezuela operation? Select ALL that apply.",
-    opts: [
-      "Narco-terrorism charges — using the Venezuelan state to traffic cocaine to the U.S.",
-      "Securing Venezuela's oil reserves — the world's largest — for U.S. companies",
-      "Protecting Venezuelan democracy by installing Juan Guaidó as president",
-      "Belligerent warnings to Colombia and Mexico as part of the Donroe Doctrine"
-    ],
-    ans: 0, ans2: [0, 1, 3],
-    exp: "<strong>A, B, and D</strong> are all cited. <strong>C is not accurate</strong> — Trump said the U.S. would 'run the country,' not that it would install Guaidó. The promise to a specific opposition leader was not the stated plan."
-  },
-  {
-    section: "Greenland Case Study", difficulty: 2,
-    q: "Which of the following are TRUE about why Greenland is strategically valuable? Select ALL that apply.",
-    opts: [
-      "Its location between the U.S. and Russia matters for defense positioning",
-      "Melting Arctic ice is opening new shipping routes like the Northwest Passage",
-      "It holds offshore oil, gas, and rare earth resources",
-      "It provides the only land bridge connecting North America to Europe"
-    ],
-    ans: 0, ans2: [0, 1, 2],
-    exp: "<strong>A, B, and C</strong> are all correct. <strong>D is false</strong> — there is no land bridge between North America and Europe. Greenland's value is location, resources, and newly accessible Arctic sea routes."
-  },
-  {
-    section: "Trade & Tariffs", difficulty: 2,
-    q: "Which of the following are TRUE about the 'Liberation Day' tariffs? Select ALL that apply.",
-    opts: [
-      "They pushed effective U.S. tariff rates to 14.4% — near 1930 Smoot-Hawley levels",
-      "$2.5 trillion was wiped off global stock markets in a single day",
-      "They permanently resolved U.S. trade disputes with China, Canada, and Mexico",
-      "They followed the TACO pattern — dramatic threats followed by partial backtracking"
-    ],
-    ans: 0, ans2: [0, 1, 3],
-    exp: "<strong>A, B, and D</strong> are all correct. <strong>C is false</strong> — the tariffs did not permanently resolve disputes; they triggered the TACO cycle of climbdowns and partial deals."
-  },
-  {
-    section: "Scholar Perspectives", difficulty: 2,
-    q: "Which of the following are TRUE about Paul Musgrave's FPA interpretation of Trump? Select ALL that apply.",
-    opts: [
-      "Musgrave traces Trump's tariff views back to biographical opinions since 1989",
-      "Musgrave argues Trump arrives at policies through gut instinct and a desire to be on the dominating side",
-      "Musgrave argues Trump uses a systematic evaluation of the environment to make decisions",
-      "Musgrave's research specialty is U.S. Foreign Policy Analysis (FPA)"
-    ],
-    ans: 0, ans2: [0, 1, 3],
-    exp: "<strong>A, B, and D</strong> are all directly stated on the Musgrave slide. <strong>C is the opposite of what Musgrave says</strong> — he explicitly writes that Trump does <em>not</em> arrive at policies through evaluation of the environment."
-  },
-  {
-    section: "Scholar Perspectives", difficulty: 3,
-    q: "According to the slides, which scholars interpret Trump II tariffs as 'dominance plays'? Select ALL that apply.",
-    opts: [
-      "Krugman, Gunitsky, and Drenzner",
-      "Hanania, Dionne, and Sutton & Duss",
-      "Musgrave — via FPA / gut instinct and desire to dominate",
-      "Walt — via Balance-of-Threat Theory"
-    ],
-    ans: 0, ans2: [0, 1, 2],
-    exp: "<strong>A, B, and C</strong> are all correct — slide 14 lists all of these scholars as interpreting Trump II tariffs as dominance plays. <strong>D is partially wrong</strong>: Walt is listed in the course materials but his argument is about balance-of-threat, not specifically tariffs-as-dominance."
-  },
-  {
-    section: "Synthesis", difficulty: 3,
-    q: "Which of the following are TRUE about how the four main scholars in this unit interpret Trump II? Select ALL that apply.",
-    opts: [
-      "Gunitsky: Trump is replacing the rules-based order with a neo-feudal system of personal loyalty and tribute",
-      "Pelc: Trump is fixated on the visual, staged look of power rather than 21st-century real power mechanics",
-      "Musgrave: Trump's worldview is consistent since 1989 — gut instinct and always wanting to dominate",
-      "Walt: Trump's alienation of allies actually maximizes U.S. power by keeping rivals off-balance"
-    ],
-    ans: 0, ans2: [0, 1, 2],
-    exp: "<strong>A, B, and C</strong> are all correct characterizations of each scholar's argument. <strong>D is the opposite of Walt's view</strong> — Walt argues alienating allies is self-defeating because it drives them toward U.S. rivals."
-  },
-];
-
-// ── MULTI-SELECT MODE FLAG ────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────
+//  QUIZ STATE
+// ─────────────────────────────────────────────────────────────
 let multiMode = false;
-let activeQuestionPool = [];  // will hold either allQuestions or mixed set
+let questions = [];
+let selectedLength = 25;
+let selectedDifficulty = 'all';
+let score = 0, answered = 0, current = 0;
+const multiSelections = {};
+
+const sectionResults = {};
+[...v1Questions, ...v2OnlyQuestions].forEach(q => {
+  if (!sectionResults[q.section]) sectionResults[q.section] = { correct:0, total:0, missed:[] };
+});
+
+[...v1MultiQuestions, ...v2OnlyMultiQuestions].forEach(q => {
+  if (!sectionResults[q.section]) sectionResults[q.section] = { correct:0, total:0, missed:[] };
+});
+
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length-1; i>0; i--) { const j = Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; }
+  return a;
+}
+
+// ─────────────────────────────────────────────────────────────
+//  VERSION SWITCHING
+// ─────────────────────────────────────────────────────────────
+function switchVersion(v) {
+  if (activeVersion === v) return;
+  activeVersion = v;
+  const cfg = versionConfig[v];
+
+  // Reset quiz if in progress
+  resetQuizState();
+  document.getElementById('quiz-area').style.display = 'none';
+  document.getElementById('results').style.display = 'none';
+  document.getElementById('intro').style.display = 'block';
+
+  // Update strip
+  const strip = document.getElementById('version-strip');
+  strip.className = 'version-strip ' + cfg.stripClass;
+  document.getElementById('strip-label').textContent = cfg.stripLabel;
+  document.getElementById('strip-desc').textContent = cfg.stripDesc;
+
+  // Update header
+  document.getElementById('header-title').innerHTML = cfg.titleHTML;
+  document.getElementById('header-sub').textContent = cfg.subtitle;
+
+  // Update progress bar color
+  const pb = document.getElementById('progress-bar');
+  pb.className = 'progress-bar ' + cfg.progressClass;
+  pb.style.width = '0%';
+
+  // Toggle buttons
+  document.getElementById('btn-v1').classList.toggle('active', v === 1);
+  document.getElementById('btn-v2').classList.toggle('active', v === 2);
+
+  // MT1 checkbox visibility
+  const mt1 = document.getElementById('mt1-label');
+  if (v === 2) { mt1.classList.add('visible'); }
+  else { mt1.classList.remove('visible'); }
+
+  // Update intro
+  document.getElementById('intro-desc').textContent = cfg.introDesc;
+  document.getElementById('full-bank-num').textContent = cfg.fullBankCount;
+
+  // Update category grid
+  const grid = document.getElementById('cat-grid');
+  grid.innerHTML = cfg.categories.map(c => `<span class="cat-pill">${c}</span>`).join('')
+    + cfg.newCategories.map(c => `<span class="cat-pill new">★ ${c}</span>`).join('');
+
+  // Reset length/diff buttons
+  document.querySelectorAll('.diff-btn').forEach((b,i) => b.classList.toggle('active', i===0));
+  document.querySelectorAll('.length-btn').forEach((b,i) => b.classList.toggle('active', i===1));
+  selectedDifficulty = 'all';
+  selectedLength = 25;
+  document.getElementById('diff-desc').textContent = 'All questions in the bank, every level mixed together.';
+  document.getElementById('score-display').textContent = 'Score: 0 / 0';
+}
+
+// ─────────────────────────────────────────────────────────────
+//  MT1 CHECKBOX
+// ─────────────────────────────────────────────────────────────
+function toggleMT1Box() {
+  const checked = document.getElementById('mt1-check').checked;
+  const box = document.getElementById('mt1-box');
+  box.textContent = checked ? '✓' : '';
+  box.classList.toggle('unchecked', !checked);
+}
+
+function includeMT1() {
+  return document.getElementById('mt1-check').checked;
+}
+
+// ─────────────────────────────────────────────────────────────
+//  QUIZ CONTROLS
+// ─────────────────────────────────────────────────────────────
+const diffDescriptions = {
+  'all': 'All questions in the bank, every level mixed together.',
+  1: 'Foundational — core definitions, key facts, and basic concepts.',
+  2: 'Standard — applied questions, comparisons, and scenario-based reasoning.',
+  3: 'Advanced — nuanced distinctions, scholar-specific arguments, and synthesis questions.'
+};
 
 function setMode(mode, btn) {
   multiMode = (mode === 'multi');
   document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
 }
-
-// Shuffle helper
-function shuffle(arr) {
-  const a = [...arr];
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]];
-  }
-  return a;
-}
-
-// Active question set for this run (shuffled + sliced)
-let questions = shuffle(allQuestions);
-let selectedLength = 25;
-let selectedDifficulty = 'all';
-
-const diffDescriptions = {
-  'all': 'All 62 questions in the bank, every level mixed together.',
-  1: 'Foundational — core definitions, key facts, and basic concepts. Good for a first pass.',
-  2: 'Standard — applied questions, comparisons, and scenario-based reasoning.',
-  3: 'Advanced — nuanced distinctions, scholar-specific arguments, and synthesis questions.'
-};
 
 function selectDifficulty(d, btn) {
   selectedDifficulty = d;
@@ -1431,39 +721,30 @@ function selectLength(n, btn) {
   btn.classList.add('active');
 }
 
-let current = 0;
-let score = 0;
-let answered = 0;
-let wrongItems = [];
-
-// Track performance by section
-const sectionResults = {};
-allQuestions.forEach(q => {
-  if (!sectionResults[q.section]) {
-    sectionResults[q.section] = { correct: 0, total: 0, missed: [] };
-  }
-});
+function selectFullBank(btn) {
+  const cfg = versionConfig[activeVersion];
+  const pool = cfg.getPool ? cfg.getPool(includeMT1()) : v1Questions;
+  selectedLength = pool.length;
+  document.querySelectorAll('.length-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
 
 function startQuiz() {
-  const pool = selectedDifficulty === 'all'
-    ? allQuestions
-    : allQuestions.filter(q => q.difficulty === selectedDifficulty);
-
+  const cfg = versionConfig[activeVersion];
+  const withMT1 = activeVersion === 1 ? true : includeMT1();
+  const basePool = cfg.getPool(withMT1);
+  const pool = selectedDifficulty === 'all' ? basePool : basePool.filter(q => q.difficulty === selectedDifficulty);
   let base = shuffle(pool).slice(0, Math.min(selectedLength, pool.length));
 
   if (multiMode) {
-    // Replace ~1 in 4 questions with a multi-select variant, interspersed
-    const multiPool = shuffle([...multiQuestions]);
-    const mixed = [];
-    let mi = 0;
+    const mBase = cfg.getMultiPool(withMT1);
+    const mPool = shuffle([...mBase]);
+    const mixed = []; let mi = 0;
     base.forEach((q, i) => {
       mixed.push(q);
-      // Every 4th question (roughly), insert a multi-select question
-      if ((i + 1) % 4 === 0 && mi < multiPool.length) {
-        mixed.push(multiPool[mi++]);
-      }
+      if ((i+1) % 4 === 0 && mi < mPool.length) mixed.push(mPool[mi++]);
     });
-    questions = mixed.slice(0, Math.min(selectedLength + Math.floor(selectedLength / 4), mixed.length));
+    questions = mixed.slice(0, Math.min(selectedLength + Math.floor(selectedLength/4), mixed.length));
   } else {
     questions = base;
   }
@@ -1471,46 +752,39 @@ function startQuiz() {
   questions.forEach(q => { sectionResults[q.section].total++; });
   document.getElementById('intro').style.display = 'none';
   document.getElementById('quiz-area').style.display = 'block';
+  document.getElementById('version-toggle-wrap').style.display = 'none';
+  document.getElementById('mt1-label').classList.remove('visible');
   renderQuestion(0);
 }
 
 function renderQuestion(idx) {
   const area = document.getElementById('quiz-area');
   area.innerHTML = '';
-
   const q = questions[idx];
-  const labels = ['A', 'B', 'C', 'D'];
-
+  const labels = ['A','B','C','D'];
   const card = document.createElement('div');
   card.className = 'q-card active';
   card.id = `q-${idx}`;
-
-  const diffLabels = { 1: 'Foundational', 2: 'Standard', 3: 'Advanced' };
-  const diffClass = `d${q.difficulty}`;
-
+  const diffLabels = {1:'Foundational',2:'Standard',3:'Advanced'};
   const isMulti = q.ans2 && q.ans2.length > 1;
 
   card.innerHTML = `
-    <div class="section-tag">${q.section} <span class="diff-badge ${diffClass}">${diffLabels[q.difficulty]}</span>${isMulti ? '<span class="diff-badge" style="border-color:var(--accent2);color:var(--accent2);margin-left:0.4rem;">MULTI-SELECT</span>' : ''}</div>
-    <div class="q-num">Question ${idx + 1} of ${questions.length}</div>
+    <div class="section-tag">${q.section} <span class="diff-badge d${q.difficulty}">${diffLabels[q.difficulty]}</span>${isMulti ? '<span class="diff-badge" style="border-color:var(--accent2);color:var(--accent2);margin-left:0.4rem;">MULTI-SELECT</span>' : ''}</div>
+    <div class="q-num">Question ${idx+1} of ${questions.length}</div>
     <div class="q-text">${q.q}</div>
     ${isMulti ? '<div class="multi-hint">☑ Select all correct answers, then click Submit</div>' : ''}
     <div class="options" id="opts-${idx}">
-      ${q.opts.map((o, i) => `
-        <button class="option-btn" onclick="${isMulti ? `toggleMulti(${idx}, ${i})` : `selectAnswer(${idx}, ${i})`}" id="opt-${idx}-${i}">
-          <span class="opt-label">${isMulti ? '☐' : labels[i]}</span>
-          <span>${o}</span>
-        </button>
-      `).join('')}
+      ${q.opts.map((o,i) => `
+        <button class="option-btn" onclick="${isMulti ? `toggleMulti(${idx},${i})` : `selectAnswer(${idx},${i})`}" id="opt-${idx}-${i}">
+          <span class="opt-label">${isMulti ? '☐' : labels[i]}</span><span>${o}</span>
+        </button>`).join('')}
     </div>
     ${isMulti ? `<div class="submit-wrap"><button class="btn primary" id="submit-btn-${idx}" onclick="submitMulti(${idx})">Submit Answers</button></div>` : ''}
     <div class="explanation" id="exp-${idx}">${q.exp}</div>
     <div class="nav">
-      <button class="btn" id="prev-btn" onclick="goTo(${idx - 1})" ${idx === 0 ? 'disabled' : ''}>← Prev</button>
-      <button class="btn primary" id="next-btn" onclick="goTo(${idx + 1})" style="display:none;">${idx === questions.length - 1 ? 'See Results →' : 'Next →'}</button>
-    </div>
-  `;
-
+      <button class="btn" onclick="goTo(${idx-1})" ${idx===0?'disabled':''}>← Prev</button>
+      <button class="btn primary" id="next-btn" onclick="goTo(${idx+1})" style="display:none;">${idx===questions.length-1?'See Results →':'Next →'}</button>
+    </div>`;
   area.appendChild(card);
   updateProgress();
 }
@@ -1518,45 +792,21 @@ function renderQuestion(idx) {
 function selectAnswer(qIdx, chosen) {
   const q = questions[qIdx];
   const opts = document.querySelectorAll(`#opts-${qIdx} .option-btn`);
-  
-  opts.forEach(btn => btn.disabled = true);
-
-  if (chosen === q.ans) {
-    opts[chosen].classList.add('correct-ans');
-    document.getElementById(`q-${qIdx}`).classList.add('correct');
-    score++;
-    sectionResults[q.section].correct++;
-  } else {
-    opts[chosen].classList.add('wrong-ans');
-    opts[q.ans].classList.add('correct-ans');
-    document.getElementById(`q-${qIdx}`).classList.add('wrong');
-    wrongItems.push(q.q.length > 70 ? q.q.substring(0, 70) + '…' : q.q);
-    sectionResults[q.section].missed.push(q.q.length > 60 ? q.q.substring(0, 60) + '…' : q.q);
-  }
-
+  opts.forEach(b => b.disabled = true);
+  if (chosen === q.ans) { opts[chosen].classList.add('correct-ans'); document.getElementById(`q-${qIdx}`).classList.add('correct'); score++; sectionResults[q.section].correct++; }
+  else { opts[chosen].classList.add('wrong-ans'); opts[q.ans].classList.add('correct-ans'); document.getElementById(`q-${qIdx}`).classList.add('wrong'); sectionResults[q.section].missed.push(q.q.length>60?q.q.substring(0,60)+'…':q.q); }
   answered++;
   document.getElementById(`exp-${qIdx}`).classList.add('show');
   document.getElementById('next-btn').style.display = 'inline-block';
-  updateScore();
-  updateProgress();
+  updateScore(); updateProgress();
 }
-
-// Track multi-select state per question
-const multiSelections = {};
 
 function toggleMulti(qIdx, optIdx) {
   if (!multiSelections[qIdx]) multiSelections[qIdx] = new Set();
   const sel = multiSelections[qIdx];
   const btn = document.getElementById(`opt-${qIdx}-${optIdx}`);
-  if (sel.has(optIdx)) {
-    sel.delete(optIdx);
-    btn.classList.remove('selected');
-    btn.querySelector('.opt-label').textContent = '☐';
-  } else {
-    sel.add(optIdx);
-    btn.classList.add('selected');
-    btn.querySelector('.opt-label').textContent = '☑';
-  }
+  if (sel.has(optIdx)) { sel.delete(optIdx); btn.classList.remove('selected'); btn.querySelector('.opt-label').textContent = '☐'; }
+  else { sel.add(optIdx); btn.classList.add('selected'); btn.querySelector('.opt-label').textContent = '☑'; }
 }
 
 function submitMulti(qIdx) {
@@ -1564,210 +814,118 @@ function submitMulti(qIdx) {
   const sel = multiSelections[qIdx] ? [...multiSelections[qIdx]] : [];
   const correct = q.ans2;
   const opts = document.querySelectorAll(`#opts-${qIdx} .option-btn`);
-
-  // Disable all buttons and submit btn
-  opts.forEach(btn => btn.disabled = true);
-  const submitBtn = document.getElementById(`submit-btn-${qIdx}`);
-  if (submitBtn) submitBtn.disabled = true;
-
-  // Check correctness: must select exactly the right set
-  const selSet = new Set(sel);
-  const corrSet = new Set(correct);
-  const isFullyCorrect = sel.length === correct.length && correct.every(i => selSet.has(i));
-
-  // Color each option
+  opts.forEach(b => b.disabled = true);
+  const sb = document.getElementById(`submit-btn-${qIdx}`); if (sb) sb.disabled = true;
+  const selSet = new Set(sel), corrSet = new Set(correct);
+  const ok = sel.length === correct.length && correct.every(i => selSet.has(i));
   opts.forEach((btn, i) => {
-    const wasSelected = selSet.has(i);
-    const isCorrect = corrSet.has(i);
     btn.querySelector('.opt-label').textContent = ['A','B','C','D'][i];
-    if (wasSelected && isCorrect) {
-      btn.classList.remove('selected');
-      btn.classList.add('partial-correct');
-    } else if (wasSelected && !isCorrect) {
-      btn.classList.remove('selected');
-      btn.classList.add('partial-wrong');
-    } else if (!wasSelected && isCorrect) {
-      btn.classList.add('missed-ans');
-    }
+    if (selSet.has(i) && corrSet.has(i)) { btn.classList.remove('selected'); btn.classList.add('partial-correct'); }
+    else if (selSet.has(i) && !corrSet.has(i)) { btn.classList.remove('selected'); btn.classList.add('partial-wrong'); }
+    else if (!selSet.has(i) && corrSet.has(i)) { btn.classList.add('missed-ans'); }
   });
-
-  if (isFullyCorrect) {
-    document.getElementById(`q-${qIdx}`).classList.add('correct');
-    score++;
-    sectionResults[q.section].correct++;
-  } else {
-    document.getElementById(`q-${qIdx}`).classList.add('wrong');
-    wrongItems.push(q.q.length > 70 ? q.q.substring(0, 70) + '…' : q.q);
-    sectionResults[q.section].missed.push(q.q.length > 60 ? q.q.substring(0, 60) + '…' : q.q);
-  }
-
+  if (ok) { document.getElementById(`q-${qIdx}`).classList.add('correct'); score++; sectionResults[q.section].correct++; }
+  else { document.getElementById(`q-${qIdx}`).classList.add('wrong'); sectionResults[q.section].missed.push(q.q.length>60?q.q.substring(0,60)+'…':q.q); }
   answered++;
   document.getElementById(`exp-${qIdx}`).classList.add('show');
   document.getElementById('next-btn').style.display = 'inline-block';
-  updateScore();
-  updateProgress();
+  updateScore(); updateProgress();
 }
 
 function goTo(idx) {
-  if (idx >= questions.length) {
-    showResults();
-    return;
-  }
+  if (idx >= questions.length) { showResults(); return; }
   if (idx < 0) return;
-  current = idx;
-  renderQuestion(idx);
+  current = idx; renderQuestion(idx);
 }
 
-function updateScore() {
-  document.getElementById('score-display').textContent = `Score: ${score} / ${answered}`;
-}
+function updateScore() { document.getElementById('score-display').textContent = `Score: ${score} / ${answered}`; }
+function updateProgress() { document.getElementById('progress-bar').style.width = (answered / questions.length * 100) + '%'; }
 
-function updateProgress() {
-  const pct = (answered / questions.length) * 100;
-  document.getElementById('progress-bar').style.width = pct + '%';
-}
-
-// Study tips per section
 const studyTips = {
   "IR Theories": "Re-read the Core Theories section. Focus on distinguishing Realism vs. Idealism, and memorize Walt's four threat factors (power, proximity, offensive capability, intentions).",
   "Historical Doctrines": "Review the timeline from Isolationism → Monroe Doctrine → Roosevelt Corollary → Cold War → Unipolar Moment. Know the dates and what each policy added or changed.",
-  "Trump II Policy": "Study the NSS shifts section carefully. Know what was abandoned (climate, human rights) and why the 'Donroe Doctrine' differs from Monroe. Review 'Guns and Butter.'",
+  "Trump II Policy": "Study the NSS shifts section carefully. Know what was abandoned (climate, human rights) and why the 'Donroe Doctrine' differs from Monroe.",
   "Venezuela Case Study": "Know the three pillars: the justification (narco-terrorism), the resource motive (oil), and the legal controversy (no Congressional authorization / imminent threat standard).",
   "Greenland Case Study": "Focus on the three counter-arguments: Nordic diplomats disputing the Russian/Chinese threat claim, Greenlandic leaders saying 'not for sale,' and critics calling it 19th-century expansionism.",
   "Trade & Tariffs": "Memorize TACO, the Smoot-Hawley comparison (1930 / 14.4%), and the household cost figures ($1,200–$5,000). Understand protectionism vs. free trade vs. strategic trade.",
-  "Scholar Perspectives": "This is high-yield. For each of the four scholars, know their NAME, their KEY TERM, and their core argument: Gunitsky=Neo-Feudalism, Pelc=Imperial Aesthetics, Musgrave=FPA/Consistency, Walt=Balance-of-Threat/Predator.",
-  "Synthesis": "Review how all four scholars agree that Trump II breaks from classic IR theory — and why that matters. Practice explaining the difference between realism, neo-feudalism, and aesthetics-driven behavior."
+  "Scholar Perspectives": "High-yield. For each scholar: NAME + KEY TERM + core argument. Gunitsky=Neo-Feudalism, Pelc=Imperial Aesthetics, Musgrave=FPA/Consistency, Walt=Balance-of-Threat/Predator.",
+  "Synthesis": "Review how all four scholars agree that Trump II breaks from classic IR theory. Practice explaining the difference between realism, neo-feudalism, and aesthetics-driven behavior.",
+  "Ackerman — Tax Brackets": "Focus on Ackerman's core argument: the delusion is widespread (doctors, teachers, financial advisors), institutionally reinforced (taught in schools), and has a democratic consequence (undermines support for progressive taxation). Memorize the Biden example: 37%→39.6% = people think ~$15,000 more, actual is ~$2,000 more for a $600k earner.",
+  "Levey — Trump & Medical Debt": "Focus on Levey's central contradiction: Trump promised affordability, but his policies push costs up. Know the key numbers: 100 million adults already in health care debt; 6 in 10 adults worried about affording care; CBO projects 10 million more uninsured by 2034; tax law cuts $1T+ in health spending, adds $3.4T to deficits. Know the three mechanisms Levey describes: (1) Medicaid cuts → loss of coverage, (2) expiring marketplace subsidies → higher premiums, (3) scrapped CFPB rules → medical debt back on credit reports for ~15 million people.",
+  "Brady — Poverty, Not the Poor": "Brady's central argument: poverty should be explained politically (power, policies, institutions), not by focusing on the poor themselves. Know his three flawed approaches by name: (1) Behavioralism — 'fix' the poor; (2) 'Dramatizing the poor' — humanizing narratives; (3) Culturalism — pathological culture → bad behavior → poverty. Know why each fails. His alternative: four political pillars — social policy generosity, political choices to penalize risks, power resources of collective actors, and institutions. Key term: 'systemically high poverty' with its five characteristics.",
 };
 
 function showResults() {
   document.getElementById('quiz-area').style.display = 'none';
   const results = document.getElementById('results');
   results.style.display = 'block';
-
   const pct = Math.round((score / questions.length) * 100);
-
-  // Grade tier
   let tierLabel, tierColor;
   if (pct >= 88) { tierLabel = "Strong"; tierColor = "var(--success)"; }
   else if (pct >= 72) { tierLabel = "Passing"; tierColor = "var(--accent)"; }
   else if (pct >= 56) { tierLabel = "Developing"; tierColor = "#e0a050"; }
   else { tierLabel = "Needs Work"; tierColor = "var(--danger)"; }
 
-  // Build section breakdown
-  const sectionOrder = ["IR Theories","Historical Doctrines","Trump II Policy","Venezuela Case Study","Greenland Case Study","Trade & Tariffs","Scholar Perspectives","Synthesis"];
-  
+  const allSections = ["IR Theories","Historical Doctrines","Trump II Policy","Venezuela Case Study","Greenland Case Study","Trade & Tariffs","Scholar Perspectives","Synthesis","Ackerman — Tax Brackets","Levey — Trump & Medical Debt","Brady — Poverty, Not the Poor"];
   const weakSections = [];
-  const strongSections = [];
 
-  const sectionRows = sectionOrder.map(sec => {
+  const sectionRows = allSections.map(sec => {
     const data = sectionResults[sec];
     if (!data || data.total === 0) return '';
-    const secPct = Math.round((data.correct / data.total) * 100);
-    const isWeak = secPct < 70;
-    const isMedium = secPct >= 70 && secPct < 100;
-    const isStrong = secPct === 100;
-    
+    const sp = Math.round((data.correct / data.total) * 100);
+    const isWeak = sp < 70, isStrong = sp === 100;
     if (isWeak) weakSections.push(sec);
-    else if (isStrong) strongSections.push(sec);
-
     const barColor = isStrong ? 'var(--success)' : isWeak ? 'var(--danger)' : 'var(--accent)';
-    const statusIcon = isStrong ? '✓' : isWeak ? '✗' : '~';
-    const statusColor = isStrong ? 'var(--success)' : isWeak ? 'var(--danger)' : 'var(--accent)';
-
-    const missedHtml = data.missed.length > 0 ? `
-      <div class="missed-qs">
-        ${data.missed.map(m => `<div class="missed-q">↳ ${m}</div>`).join('')}
-      </div>` : '';
-
-    return `
-      <div class="sec-row ${isWeak ? 'sec-weak' : ''}">
-        <div class="sec-header">
-          <div class="sec-name">${sec}</div>
-          <div class="sec-stat">
-            <span class="sec-icon" style="color:${statusColor}">${statusIcon}</span>
-            <span class="sec-frac" style="color:${statusColor}">${data.correct}/${data.total}</span>
-          </div>
-        </div>
-        <div class="sec-bar-wrap">
-          <div class="sec-bar" style="width:${secPct}%; background:${barColor};"></div>
-        </div>
-        ${isWeak && data.missed.length > 0 ? missedHtml : ''}
-      </div>`;
+    const si = isStrong ? '✓' : isWeak ? '✗' : '~';
+    const sc = isStrong ? 'var(--success)' : isWeak ? 'var(--danger)' : 'var(--accent)';
+    const mh = data.missed.length > 0 ? `<div class="missed-qs">${data.missed.map(m=>`<div class="missed-q">↳ ${m}</div>`).join('')}</div>` : '';
+    return `<div class="sec-row ${isWeak?'sec-weak':''}"><div class="sec-header"><div class="sec-name">${sec}</div><div class="sec-stat"><span style="color:${sc}">${si}</span><span style="color:${sc}">${data.correct}/${data.total}</span></div></div><div class="sec-bar-wrap"><div class="sec-bar" style="width:${sp}%;background:${barColor};"></div></div>${isWeak&&data.missed.length>0?mh:''}</div>`;
   }).join('');
 
-  // Priority study plan
-  let studyPlanHtml = '';
-  if (weakSections.length > 0) {
-    studyPlanHtml = `
-      <div class="study-plan">
-        <div class="study-plan-title">📚 Priority Study Plan</div>
-        <div class="study-plan-sub">Focus on these sections before your midterm:</div>
-        ${weakSections.map((sec, i) => `
-          <div class="study-item">
-            <div class="study-item-header">
-              <span class="study-num">${i + 1}</span>
-              <span class="study-sec-name">${sec}</span>
-            </div>
-            <div class="study-tip">${studyTips[sec] || ''}</div>
-          </div>
-        `).join('')}
-      </div>`;
-  } else {
-    studyPlanHtml = `<div class="study-plan all-good"><div class="study-plan-title">🎯 You're in great shape!</div><div class="study-plan-sub">No weak areas detected. Do a final pass on Scholar Perspectives to make sure you can name each theorist's key argument under exam pressure.</div></div>`;
-  }
+  const studyPlanHtml = weakSections.length > 0
+    ? `<div class="study-plan"><div class="study-plan-title">📚 Priority Study Plan</div><div class="study-plan-sub">Focus on these sections before your exam:</div>${weakSections.map((sec,i) => `<div class="study-item"><div class="study-item-header"><span class="study-num">${i+1}</span><span class="study-sec-name">${sec}</span></div><div class="study-tip">${studyTips[sec]||''}</div></div>`).join('')}</div>`
+    : `<div class="study-plan all-good"><div class="study-plan-title">🎯 You're in great shape!</div><div class="study-plan-sub">No weak areas detected. Do a final pass on Scholar Perspectives and the Ackerman reading — both are high-yield for author-argument questions.</div></div>`;
 
   results.innerHTML = `
     <div class="results-top">
       <div class="big-score" style="color:${tierColor}">${pct}%</div>
       <div class="score-label">${score} correct out of ${questions.length} &nbsp;·&nbsp; <span style="color:${tierColor}">${tierLabel}</span></div>
     </div>
-
-    <div class="section-breakdown">
-      <div class="breakdown-title">Performance by Section</div>
-      ${sectionRows}
-    </div>
-
+    <div class="section-breakdown"><div class="breakdown-title">Performance by Section</div>${sectionRows}</div>
     ${studyPlanHtml}
-
     <div style="display:flex;gap:0.8rem;margin-top:1.5rem;flex-wrap:wrap;">
       <button class="btn primary" onclick="restartQuiz(false)">Retake Same Length</button>
-      <button class="btn" onclick="restartQuiz(true)">Change Length</button>
-    </div>
-  `;
+      <button class="btn" onclick="restartQuiz(true)">Change Settings</button>
+    </div>`;
 
   document.getElementById('progress-bar').style.width = '100%';
   document.getElementById('score-display').textContent = `Final: ${score} / ${questions.length}`;
 }
 
-function restartQuiz(goToIntro = false) {
-  score = 0;
-  answered = 0;
-  wrongItems = [];
-  current = 0;
+function resetQuizState() {
+  score = 0; answered = 0; current = 0;
   Object.keys(multiSelections).forEach(k => delete multiSelections[k]);
-  // Reset section tracking
   Object.keys(sectionResults).forEach(sec => {
-    sectionResults[sec].correct = 0;
-    sectionResults[sec].total = 0;
-    sectionResults[sec].missed = [];
+    sectionResults[sec].correct = 0; sectionResults[sec].total = 0; sectionResults[sec].missed = [];
   });
-  document.getElementById('results').style.display = 'none';
   document.getElementById('score-display').textContent = 'Score: 0 / 0';
   document.getElementById('progress-bar').style.width = '0%';
+}
 
+function restartQuiz(goToIntro = false) {
+  resetQuizState();
+  document.getElementById('results').style.display = 'none';
   if (goToIntro) {
     document.getElementById('intro').style.display = 'block';
+    document.getElementById('version-toggle-wrap').style.display = 'flex';
+    if (activeVersion === 2) document.getElementById('mt1-label').classList.add('visible');
   } else {
-    // Re-shuffle same length and difficulty
-    const pool = selectedDifficulty === 'all'
-      ? allQuestions
-      : allQuestions.filter(q => q.difficulty === selectedDifficulty);
-    questions = shuffle(pool).slice(0, Math.min(selectedLength, pool.length));
-    questions.forEach(q => { sectionResults[q.section].total++; });
-    document.getElementById('quiz-area').style.display = 'block';
-    renderQuestion(0);
+    startQuiz();
   }
 }
+
+// ── Init: default to V2 on load ──
+switchVersion(2);
 </script>
 </body>
 </html>
