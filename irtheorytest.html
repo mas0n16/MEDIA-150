@@ -320,6 +320,11 @@
   .study-num { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; background: var(--accent2); color: var(--bg); width: 1.4rem; height: 1.4rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-weight: 500; }
   .study-sec-name { font-size: 0.88rem; font-weight: 500; color: var(--accent2); }
   .study-tip { font-size: 0.8rem; color: var(--muted); line-height: 1.6; padding-left: 2.1rem; }
+  /* ── MONKEY-TYPE MODE ── */
+  .mk-char    { transition: color 0.08s; }
+  .mk-pending { color: inherit; }
+  .mk-correct { color: var(--success); }
+  .mk-wrong   { color: var(--danger); }
 </style>
 </head>
 <body>
@@ -528,6 +533,10 @@ const v2OnlyQuestions = [
   { section:"Brady — Poverty, Not the Poor", difficulty:2, q:"According to Brady's political explanation, which four factors are emphasized as the pivotal drivers of poverty?", opts:["Individual behavior, educational attainment, family structure, and immigration","The essential role of social policy, political choices to penalize risks, power resources of collective political actors, and institutions","Economic growth, productivity, trade policy, and technology","Cultural norms, racial composition, geographic isolation, and historical legacies"], ans:1, exp:"Brady's political explanation rests on four pillars: <strong>(1) the essential role of social policy</strong>, <strong>(2) political choices to penalize risks</strong>, <strong>(3) power resources of collective political actors</strong>, and <strong>(4) institutions</strong>. These are presented as a direct alternative to individualizing explanations." },
   { section:"Brady — Poverty, Not the Poor", difficulty:2, q:"Brady argues that culturalists both 'fix' AND 'dramatize' the poor. What does he mean by this?", opts:["Culturalists combine quantitative analysis with qualitative storytelling to build a complete picture of poverty","Culturalists claim pathological culture leads to counterproductive behavior which leads to poverty — combining the moralizing of behavioralism with the narrative techniques of dramatizers","Culturalists try to fix poverty through policy reform while also raising public awareness through media campaigns","Culturalists use dramatic statistical findings to argue that cultural change is the only fix for poverty"], ans:1, exp:"Brady says culturalists are a synthesis of the other two flawed approaches: they <strong>'fix'</strong> the poor (like behavioralists, they see culture as something to correct) <strong>AND 'dramatize'</strong> (they use narrative accounts of cultural pathology). The causal chain they posit is: <em>pathological culture → counterproductive behavior → poverty</em>." },
   { section:"Brady — Poverty, Not the Poor", difficulty:3, q:"Brady's article is published in Science Advances and frames itself as part of a broader scholarly shift. What shift does it describe?", opts:["A shift from macro-level political analysis toward micro-level behavioral economics","A long-emerging but ascending shift away from individualistic explanations of the poor toward political explanations of poverty","A shift from qualitative ethnographic methods toward large-scale quantitative modeling","A shift from comparative international research toward single-country case studies of U.S. poverty"], ans:1, exp:"Brady concludes by framing his work as part of a <strong>'long emerging but ascending and warranted shift'</strong> — away from <strong>individualistic explanations</strong> of the poor (behavior, culture, personal narratives) toward <strong>political explanations of poverty itself</strong> (power, policy, institutions)." },
+  // ── BRADY ADDITIONAL ──
+  { section:"Brady — Poverty, Not the Poor", difficulty:2, q:"Brady argues behavioralists focus on the wrong thing when they study poverty. What distinction does he draw to make this point?", opts:["They focus on income rather than wealth, missing the full picture of economic deprivation","They focus on short-term poverty spells rather than persistent, multigenerational poverty","They focus on the prevalence of risky behaviors among the poor, but the more salient question is how severely poverty penalizes those behaviors compared to other countries","They focus on urban poverty while ignoring rural poverty, skewing their conclusions"], ans:2, exp:"Brady's key methodological critique of behavioralists: they measure how <strong>common</strong> certain behaviors are among the poor (prevalence), but neglect the more important question — how severely does the U.S. <strong>penalize</strong> those behaviors with poverty compared to peer nations? The same behaviors produce worse poverty outcomes in the U.S. than elsewhere." },
+  { section:"Brady — Poverty, Not the Poor", difficulty:2, q:"What does Brady mean when he says U.S. poverty is 'unexpectedly high even among those who play by the rules'?", opts:["Even people who commit crimes and drop out of school sometimes escape poverty, undermining behavioral explanations","Even people who work, finish school, and form stable families face higher poverty rates in the U.S. than comparable people in other rich democracies","The U.S. poverty line is set so high that even middle-class households occasionally fall below it","People who follow social norms are actually more likely to be poor because they avoid the informal economy"], ans:1, exp:"This is one of Brady's five defining features of <strong>systemically high poverty</strong>: even people who do everything 'right' — work, graduate, form two-parent families — face higher poverty rates in the U.S. than their counterparts in comparable rich democracies. This directly undermines behavioral explanations, which predict that playing by the rules should largely protect people from poverty." },
+  { section:"Brady — Poverty, Not the Poor", difficulty:3, q:"Brady's critique of behavioralism includes a comparison group problem. What is it?", opts:["Behavioralists compare the poor to the wealthy within the U.S. but never compare the U.S. poor to the poor in other countries","Behavioralists never compare their findings to historical periods when the same behaviors were more common but poverty was lower","Behavioralists fail to ask why the same behaviors — single parenthood, low education, joblessness — produce worse poverty outcomes in the U.S. than in other rich democracies where those behaviors also exist","Behavioralists only study urban minority populations and lack rural and suburban comparison groups"], ans:2, exp:"Brady's comparison group critique: behavioralists note that certain behaviors correlate with poverty in the U.S. but never ask why those <strong>same behaviors produce far worse poverty outcomes here than in peer nations</strong> where they also occur. If single parenthood or low education caused poverty, it should produce similar poverty rates everywhere — it doesn't. The difference must lie in <strong>policy and institutions</strong>, not behavior." },
 ];
 
 // Combined V2 bank
@@ -584,11 +593,11 @@ const versionConfig = {
   2: {
     stripClass: "v2",
     stripLabel: "▶ V2 — Cumulative Bank",
-    stripDesc: "86 questions · All V1 topics + Ackerman (Tax Brackets) + Levey (Medical Debt) + Brady (Poverty)",
-    titleHTML: 'IR <span>&amp;</span> Policy Quiz',
+    stripDesc: "89 questions · All V1 topics + Ackerman (Tax Brackets) + Levey (Medical Debt) + Brady (Poverty)",
+    titleHTML: 'IR <span>&amp; Policy</span> Quiz',
     subtitle: "International Relations · U.S. Foreign Policy · Tax Policy · Health Care · Poverty",
-    introDesc: "86 questions in the bank — all V1 material plus Ackerman, Levey, and Brady readings. Shuffled every attempt.",
-    fullBankCount: 86,
+    introDesc: "89 questions in the bank — all V1 material plus Ackerman, Levey, and Brady readings. Shuffled every attempt.",
+    fullBankCount: 89,
     categories: ["IR Theories","Historical Doctrines","Trump II Policy","Venezuela","Greenland","Trade & Tariffs","Scholar Perspectives","Synthesis"],
     newCategories: ["Ackerman — Tax Brackets", "Levey — Trump &amp; Medical Debt", "Brady — Poverty, Not the Poor"],
     getPool: (includeMT1) => includeMT1 ? v2Questions : v2OnlyQuestions,
@@ -926,6 +935,47 @@ function restartQuiz(goToIntro = false) {
 
 // ── Init: default to V2 on load ──
 switchVersion(2);
+
+// ── MONKEY-TYPE MODE ──
+(function () {
+  let activeCleanup = null;
+  function activateMonkeyType(el) {
+    if (el.dataset.monkeyActive) return;
+    el.dataset.monkeyActive = 'true';
+    const originalText = el.textContent.trim();
+    let index = 0;
+    el.innerHTML = originalText.split('').map(ch => {
+      const safe = ch === ' ' ? ' ' : ch.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+      return `<span class="mk-char mk-pending">${safe}</span>`;
+    }).join('');
+    const spans = el.querySelectorAll('.mk-char');
+    function onKeyDown(e) {
+      if (e.key === 'Backspace') {
+        e.preventDefault();
+        if (index === 0) return;
+        index--;
+        spans[index].className = 'mk-char mk-pending';
+        return;
+      }
+      if (e.key.length !== 1 || e.metaKey || e.ctrlKey) return;
+      e.preventDefault();
+      spans[index].className = `mk-char ${e.key === originalText[index] ? 'mk-correct' : 'mk-wrong'}`;
+      index++;
+      if (index >= originalText.length) document.removeEventListener('keydown', onKeyDown);
+    }
+    if (activeCleanup) activeCleanup();
+    activeCleanup = () => document.removeEventListener('keydown', onKeyDown);
+    document.addEventListener('keydown', onKeyDown);
+  }
+  // Watch for any .explanation element gaining the 'show' class
+  new MutationObserver(() => {
+    const el = document.querySelector('.explanation.show');
+    if (el && !el.dataset.monkeyActive) activateMonkeyType(el);
+  }).observe(document.body, {
+    childList: true, subtree: true,
+    attributes: true, attributeFilter: ['class']
+  });
+})();
 </script>
 </body>
 </html>
