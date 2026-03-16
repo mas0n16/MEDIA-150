@@ -55,6 +55,10 @@
     background: rgba(91, 141, 217, 0.06);
     border-bottom: 1px solid rgba(91, 141, 217, 0.18);
   }
+  .version-strip.v3 {
+    background: rgba(91, 217, 138, 0.06);
+    border-bottom: 1px solid rgba(91, 217, 138, 0.18);
+  }
   .version-strip-label {
     font-family: 'IBM Plex Mono', monospace;
     font-size: 0.6rem;
@@ -64,6 +68,7 @@
   }
   .version-strip.v1 .version-strip-label { color: var(--accent); }
   .version-strip.v2 .version-strip-label { color: var(--accent2); }
+  .version-strip.v3 .version-strip-label { color: var(--success); }
   .version-strip-desc {
     font-family: 'IBM Plex Mono', monospace;
     font-size: 0.6rem;
@@ -148,6 +153,8 @@
 
   .v-btn.v2-btn.active { background: var(--accent2); color: #fff; }
   .v-btn.v2-btn:not(.active):hover { background: rgba(91,141,217,0.1); color: var(--accent2); }
+  .v-btn.v3-btn.active { background: var(--success); color: var(--bg); }
+  .v-btn.v3-btn:not(.active):hover { background: rgba(91,217,138,0.1); color: var(--success); }
 
   .v-new {
     font-family: 'IBM Plex Mono', monospace;
@@ -214,6 +221,7 @@
   .progress-bar { height: 2px; transition: width 0.5s ease, background 0.3s; width: 0%; }
   .progress-bar.v1 { background: var(--accent); }
   .progress-bar.v2 { background: var(--accent2); }
+  .progress-bar.v3 { background: var(--success); }
 
   /* ── MAIN ── */
   main { max-width: 760px; margin: 0 auto; padding: 2.5rem 1.5rem 4rem; }
@@ -345,8 +353,11 @@
         <button class="v-btn v1-btn active" id="btn-v1" onclick="switchVersion(1)">
           <span class="v-dot"></span>V1
         </button>
-        <button class="v-btn v2-btn" id="btn-v2" onclick="switchVersion(2)">
+        <button class="v-btn v2-btn" id="btn-v2" onclick="switchVersion(2)" style="display:none">
           <span class="v-dot"></span>V2<span class="v-new">NEW</span>
+        </button>
+        <button class="v-btn v3-btn" id="btn-v3" onclick="switchVersion(3)">
+          <span class="v-dot"></span>Gabe's Version<span class="v-new" style="border-color:var(--success);color:var(--success);">EXAM</span>
         </button>
       </div>
       <label class="mt1-toggle" id="mt1-label">
@@ -398,16 +409,16 @@
         <button class="length-btn" onclick="selectLength(15,this)">
           <span class="length-num">15</span><span class="length-desc">Quick Review</span>
         </button>
-        <button class="length-btn active" onclick="selectLength(25,this)">
+        <button class="length-btn" onclick="selectLength(25,this)">
           <span class="length-num">25</span><span class="length-desc">Standard</span>
         </button>
-        <button class="length-btn" id="full-bank-btn" onclick="selectFullBank(this)">
+        <button class="length-btn active" id="full-bank-btn" onclick="selectFullBank(this)">
           <span class="length-num" id="full-bank-num">50</span><span class="length-desc">Full Bank</span>
         </button>
       </div>
     </div>
 
-    <div class="mode-toggle-wrap">
+    <div class="mode-toggle-wrap" id="mode-toggle-wrap" style="display:none">
       <div class="length-label">Question Mode</div>
       <div class="mode-toggle-row">
         <button class="mode-btn active" onclick="setMode('single',this)">
@@ -571,6 +582,57 @@ const v2OnlyMultiQuestions = [
 ];
 
 // ─────────────────────────────────────────────────────────────
+//  PRACTICE EXAM BANK  (40 questions — Midterm 2 Practice Exam)
+// ─────────────────────────────────────────────────────────────
+const practiceExamQuestions = [
+  // ── PART I: U.S. FOREIGN & DEFENSE POLICY ──
+  { section:"Foreign & Defense Policy", difficulty:1, q:"Which of the following BEST describes the Monroe Doctrine of 1823?", opts:["The U.S. claimed the right to intervene militarily anywhere in Latin America","European powers must not attempt further colonization in the Western Hemisphere, and the U.S. would view such attempts as hostile acts","The U.S. pledged to send troops to defend any democracy attacked by a monarchy","The U.S. would join European military alliances to prevent colonial expansion","Both A and D"], ans:1, exp:"The Monroe Doctrine made four points: non-interference in European conflicts, non-disturbance of existing colonies, <strong>no further European colonization in the Western Hemisphere</strong>, and any such colonization would be treated as a hostile act against the U.S." },
+  { section:"Foreign & Defense Policy", difficulty:1, q:"The Roosevelt Corollary (1904) transformed the Monroe Doctrine by:", opts:["Limiting U.S. involvement in Latin American affairs","Pledging cooperation with European powers in the Caribbean","Asserting the U.S. right to act as an international police power in the Western Hemisphere","Prohibiting the U.S. from sending troops to any foreign country","Both B and D"], ans:2, exp:"Roosevelt's 1904 Corollary shifted the doctrine from <strong>defensive</strong> (keeping Europeans out) to <strong>offensive</strong> — the U.S. could intervene in Latin American states however it saw fit, leading to troop deployments in Cuba, Haiti, Nicaragua, Panama, and Mexico." },
+  { section:"Foreign & Defense Policy", difficulty:1, q:"According to Brown University's Costs of War project, the 20-year War on Terror cost approximately:", opts:["$2.3 trillion and 100,000 deaths","$4 trillion and 500,000 deaths","$8 trillion and approximately 900,000 deaths","$12 trillion and 1.5 million deaths","$8 trillion and 1.2 million deaths"], ans:2, exp:"The Costs of War project estimated <strong>$8 trillion in total direct costs and 897,000–929,000 deaths</strong>. Of that total, $2.3T was attributed to the Afghanistan/Pakistan war zone alone." },
+  { section:"Foreign & Defense Policy", difficulty:1, q:"Which of the following CORRECTLY pairs an IR theoretical framework with its core claim?", opts:["Realism — nations primarily act to advance democratic values globally","Idealism — nations are in perpetual military and economic competition and optimize for national interests","Constructivism — international relations are shaped by norms, cultural influences, and rituals over time","Foreign Policy Analysis (FPA) — all state behavior is determined solely by the international system","Both A and D"], ans:2, exp:"<strong>Constructivism</strong> (and the English School) tracks norms, cultural influences, and rituals to explain IR patterns. Realism emphasizes power rivalry; Idealism emphasizes values/institutions; FPA looks <em>inside</em> states at decision-making patterns." },
+  { section:"Foreign & Defense Policy", difficulty:1, q:"The 'Unipolar Moment' refers to:", opts:["The brief period during WWI when the U.S. was the only nation with nuclear weapons","The post-Cold War period (1991–2001) when the U.S. was the world's sole superpower","The moment in 1945 when the U.S. dropped atomic bombs on Japan","The period after 9/11 when the U.S. acted unilaterally without UN approval","Both C and D"], ans:1, exp:"After the Soviet Union collapsed in 1991, the U.S. enjoyed a <strong>'Unipolar Moment'</strong> as the world's sole superpower. This ended abruptly with the 9/11 attacks and subsequent wars." },
+  { section:"Foreign & Defense Policy", difficulty:2, q:"Which of the following statements about the 2025 National Security Strategy is ACCURATE?", opts:["It prioritized democracy promotion and human rights as core national security goals","It represented a departure from democracy promotion and increased geographic focus on the Western Hemisphere","It fully embraced multilateralism and increased U.S. foreign aid","It committed the U.S. to NATO obligations without question","Both A and C"], ans:1, exp:"The 2025 NSS <strong>narrowed national interest</strong>, departed from democracy promotion/climate/human rights, focused on Western Hemisphere security, and expressed skepticism toward alliances and multilateral institutions." },
+  { section:"Foreign & Defense Policy", difficulty:2, q:"Which of the following BEST describes 'détente'?", opts:["Reagan's policy of military assistance to anti-communist groups worldwide","Nixon's shift from 'an era of confrontation' to 'an era of negotiation' with the Soviet Union","The policy of massive nuclear retaliation against Soviet aggression","Truman's doctrine of economic and military assistance to countries fighting communism","Both C and D"], ans:1, exp:"<strong>Détente</strong> was Nixon's improvement of U.S.-Soviet relations, including SALT I and II arms limitation treaties and improved relations with China. Its greatest failure was inability to agree on rules for the non-industrialized world." },
+  { section:"Foreign & Defense Policy", difficulty:2, q:"Regarding Trump's tariff policy, which of the following combinations is CORRECT?", opts:["The effective tariff rate of ~14.4% is historically low compared to the past century","The tariff rate is comparable to the 1930 Smoot-Hawley Tariff Act, with inflation projected at ~$5,000 per U.S. household","The tariff policy has been slow and gradual, providing markets time to adjust","The tariffs apply only to Chinese goods and exclude all other trading partners","Both A and D"], ans:1, exp:"Trump's tariffs reached an effective rate of <strong>~14.4%</strong> — comparable to the 1930 Smoot-Hawley era — with inflation projected at <strong>~$5,000/household</strong>. The policy was described as 'rapid, extreme, and zig-zaggy.'" },
+  { section:"Foreign & Defense Policy", difficulty:1, q:"Which of the following CORRECTLY describes proxy wars during the Cold War?", opts:["Direct military confrontations between U.S. and Soviet forces in Europe","Wars where the U.S. and USSR fought each other indirectly through third-party countries, motivated partly by nuclear deterrence","Economic trade wars between the U.S. and USSR that never involved military force","Conflicts in which the United Nations served as the primary military force","Both C and D"], ans:1, exp:"<strong>Proxy wars</strong> were conflicts where the U.S. and USSR fought indirectly — it was smarter than direct conflict given the threat of nuclear war. The Cuban Missile Crisis was the closest the two came to direct confrontation." },
+  { section:"Foreign & Defense Policy", difficulty:3, q:"The Joint Comprehensive Plan of Action (JCPOA) with Iran involved all of the following EXCEPT:", opts:["Iran agreeing to dismantle existing nuclear facilities","Iran submitting to invasive international inspections","Lifting of economic sanctions against Iran","Iran's reintegration into the global financial system","The U.S. providing Iran with advanced conventional weaponry"], ans:4, exp:"The JCPOA (2015) involved Iran dismantling nuclear facilities and accepting inspections in exchange for lifting sanctions and financial reintegration. The U.S. withdrew in 2018. <strong>No weapons provision existed</strong> — that option was never part of the deal." },
+  // ── PART II: FISCAL POLICY & TAXATION ──
+  { section:"Fiscal Policy & Taxation", difficulty:1, q:"Which of the following BEST describes Keynesian economics?", opts:["The theory that cutting taxes on the wealthy stimulates investment and creates jobs for everyone","The belief that government should have no role in the economy (laissez-faire)","The argument that government spending can prevent the worst effects of recession by increasing people's disposable income, even if it creates a deficit","The idea that free trade is always beneficial and government should never interfere in markets","Both A and D"], ans:2, exp:"<strong>Keynes</strong> argued that government spending during downturns increases demand, raises employment, and stimulates economic growth faster than a free market alone — even if it creates deficits. This was revolutionary during the Great Depression." },
+  { section:"Fiscal Policy & Taxation", difficulty:2, q:"A person earns $65,000. Under a progressive tax system with brackets of 10% (up to $11,000), 12% ($11,001–$22,000), and 22% (above $22,000), their EFFECTIVE tax rate is approximately:", opts:["22%, because that is the bracket they fall into","37%, the highest U.S. marginal rate","Approximately 14.18%, because only portions of income are taxed at each bracket rate","10%, because that is the starting rate","Both A and B"], ans:2, exp:"With $65,000 income: first $11K @ 10% = $1,100; next $11K @ 12% = $1,320; remaining $43K @ 22% = $9,460. Total ≈ $9,214. <strong>Effective rate = $9,214 ÷ $65,000 ≈ 14.18%</strong>. Moving into a bracket does NOT tax all income at that rate." },
+  { section:"Fiscal Policy & Taxation", difficulty:2, q:"According to Ackerman's Jacobin article, the 'Marginal Rate Delusion' causes which political consequence?", opts:["Voters correctly understand tax policy and support progressive taxation","Voters massively overestimate proposed tax increases on the wealthy, making progressive tax reform politically harder","Wealthy taxpayers deliberately exploit the bracket system to avoid taxes","The government collects far more revenue than expected from progressive taxation","Both C and D"], ans:1, exp:"The <strong>Marginal Rate Delusion</strong> leads people to think a top rate increase from 37% to 39.6% means a $600K earner pays $15,000+ more, when the actual increase is ~$2,000. This causes voters to oppose progressive taxation based on a fundamental misunderstanding." },
+  { section:"Fiscal Policy & Taxation", difficulty:1, q:"Supply-side economics ('Reaganomics') is BEST described by which of the following?", opts:["Increasing government spending on social programs to stimulate consumer demand","Deep cuts to top tax rates to stimulate new investment, with the benefits theoretically 'trickling down' to workers","Raising taxes on the wealthy to reduce the deficit and fund public goods","The Laffer Curve shows that raising tax rates always raises revenues","Both C and D"], ans:1, exp:"Reagan's <strong>supply-side economics</strong> (visualized by the Laffer Curve napkin) argued that cutting taxes on high earners would stimulate investment and grow the economy, creating more jobs. Critics call it 'trickle-down economics.' The deficit actually expanded." },
+  { section:"Fiscal Policy & Taxation", difficulty:3, q:"France's Popular Front tax system (1936–38), as described by Ackerman, differed from the U.S. marginal rate system by:", opts:["Using a flat tax where everyone paid the same percentage","Using an average-rate schedule — a two-column table showing income interval and the average tax rate owed for that total income","Eliminating all taxes on income below a certain threshold","Allowing individuals to negotiate their own tax rates with the government","Both A and C"], ans:1, exp:"The Popular Front's <strong>average-rate system</strong> was transparent: find your income in the left column, see your exact tax rate in the right column. No complex bracket addition needed. This allowed direct public targeting of the wealthy '200 families.' Dismantled by Vichy in 1942." },
+  { section:"Fiscal Policy & Taxation", difficulty:2, q:"Which of the following statements about the national debt and deficits is MOST accurate?", opts:["The federal government has always run annual deficits throughout U.S. history","The national debt as of mid-2024 was approximately $35 trillion, exceeding 100% of GDP","Budget surpluses are unconstitutional at the federal level","All 50 states and the federal government are required by law to balance their budgets","Both A and D"], ans:1, exp:"Mid-2024 national debt = <strong>$35 trillion, more than 100% of GDP</strong>. Deficits were NOT always present — the U.S. had surpluses in non-war/non-recession periods, and again in the 1990s under Clinton. 50 states (not the federal government) require balanced budgets." },
+  { section:"Fiscal Policy & Taxation", difficulty:1, q:"The Tax Cuts and Jobs Act of 2017 did which of the following?", opts:["Raised the corporate tax rate from 21% to 35% to reduce the deficit","Lowered tax brackets, decreased the top rate for high earners, and cut the corporate rate from 35% to 21%","Eliminated all tax brackets and replaced them with a flat tax","Primarily benefited middle-class workers while maintaining higher rates on wealthy individuals","Both A and C"], ans:1, exp:"The <strong>2017 Tax Cuts and Jobs Act</strong> lowered the number of brackets, cut the corporate rate from 35% to 21%, and decreased the top rate for high earners. Most Americans pay less — until 2026." },
+  { section:"Fiscal Policy & Taxation", difficulty:1, q:"A sales tax is an example of a REGRESSIVE tax because:", opts:["It only applies to luxury goods purchased by wealthy individuals","The same rate is applied to all buyers, but the tax represents a larger percentage of income for lower-income individuals","It increases as a person's income increases","It is paid only by corporations, not individuals","Both C and D"], ans:1, exp:"A sales tax is <strong>regressive</strong> because two people buying the same item pay the same dollar amount, but the $30K/yr earner spends a far greater share of their income than the $300K/yr earner. Lower income = effectively higher tax burden." },
+  { section:"Fiscal Policy & Taxation", difficulty:2, q:"Which combination of fiscal policy developments is CORRECTLY matched to the right era?", opts:["Revenue Act of 1964 (Kennedy/LBJ) — raised income taxes, causing stagflation","CARES Act (2020) — $2.2T COVID relief; direct payments of $1,200/household; expanded unemployment","American Recovery and Reinvestment Act — Reagan's 1981 tax cut package","TARP — Obama's 2015 student loan relief program","Both A and D"], ans:1, exp:"The <strong>CARES Act (2020)</strong> was a $2.2T COVID response including $1,200 direct payments, extended unemployment by months, and PPP loans ($526B). Federal deficit jumped from $900B to $3.2T that year." },
+  { section:"Fiscal Policy & Taxation", difficulty:1, q:"According to the notes, the primary sources of federal government revenue are (in order):", opts:["Corporate income taxes (50%), payroll taxes (36%), individual income taxes (10%), other (4%)","Individual income taxes (50%), payroll taxes (36%), corporate income taxes (10%), other (5%)","Payroll taxes (60%), individual income taxes (30%), other (10%)","Tariffs and excise taxes (45%), income taxes (35%), borrowing (20%)","Both A and C"], ans:1, exp:"Federal revenue: <strong>Individual income taxes 50%, Payroll taxes 36%, Corporate income taxes 10%, Other 5%</strong>. Individual income taxes are by far the largest source." },
+  // ── PART III: HEALTH POLICY ──
+  { section:"Health Policy", difficulty:1, q:"Medicare and Medicaid were BOTH created in:", opts:["1935, as part of the Social Security Act under FDR","1965, by Congress and President Lyndon B. Johnson","2010, alongside the Affordable Care Act","1990, under President George H.W. Bush","Both A and C"], ans:1, exp:"Both Medicare and Medicaid were created in <strong>1965 under LBJ</strong>. They represented the first major national health programs. The ACA in 2010 was the next major health policy change." },
+  { section:"Health Policy", difficulty:1, q:"Which of the following CORRECTLY distinguishes Medicare from Medicaid?", opts:["Medicare is means-tested and covers only low-income people; Medicaid covers all Americans over 65","Medicare covers people 65+ and people with disabilities regardless of income; Medicaid subsidizes insurance for people below the poverty line and those with disabilities","Medicare is administered entirely by state governments; Medicaid is a purely federal program","Medicaid covers prescription drugs; Medicare does not cover any drug costs","Both A and C"], ans:1, exp:"<strong>Medicare</strong> is NOT means-tested — it covers those 65+ and disabled regardless of income. <strong>Medicaid</strong> IS means-tested — it subsidizes coverage for low-income individuals. Medicaid is a joint federal-state program; Medicare is federally administered." },
+  { section:"Health Policy", difficulty:2, q:"The Affordable Care Act (ACA) of 2010 included which combination of provisions?", opts:["Individual mandate, prohibition on denying coverage for pre-existing conditions, coverage for children on parents' plans until age 26","Elimination of all private health insurance, replacement with government-run universal care","Tax cuts to fund a new government insurance option for all Americans","Elimination of private insurance AND tax cuts for a public option","Both B and C"], ans:0, exp:"The ACA included <strong>individual mandate</strong> (later repealed 2018), prohibition on pre-existing condition denials, <strong>children on parents' insurance until 26</strong>, Medicaid expansion, and subsidies for those near the poverty line. It did NOT eliminate private insurance." },
+  { section:"Health Policy", difficulty:2, q:"According to the 2025 Medicaid crisis article, approximately how many Americans are projected to lose Medicaid coverage following the July 2025 policy package?", opts:["500,000 Americans","2 million Americans","7.8 million Americans","25 million Americans","50 million Americans"], ans:2, exp:"The July 4, 2025 domestic policy package is projected to cause <strong>7.8 million Americans to lose Medicaid coverage</strong>. In Michigan alone, 247,000–412,000 residents are expected to lose insurance." },
+  { section:"Health Policy", difficulty:2, q:"According to the article on ESI and Medicaid, which of the following combinations is ACCURATE?", opts:["Over 80% of blue-collar workers have employer-sponsored insurance (ESI); less than 50% of managers are covered","When Arkansas implemented work requirements in 2018, employment increased significantly among Medicaid recipients","Over 80% of managers/professionals have ESI, but only 50–70% of blue-collar workers are covered; Arkansas work requirements produced no increase in employment","ESI tax breaks are progressive and primarily benefit low-income workers","Both A and D"], ans:2, exp:"<strong>Managers/professionals: >80% have ESI. Blue-collar workers: only 50–70%.</strong> Arkansas 2018: zero employment increase but thousands lost coverage. ESI tax breaks are <strong>regressive</strong> — they benefit high-income earners and contribute to wage stagnation." },
+  { section:"Health Policy", difficulty:2, q:"The 'Big Beautiful Bill' SNAP cuts included all of the following EXCEPT:", opts:["Cutting SNAP funding by approximately $186 billion through 2034","Expanding work requirements to adults ages 55–64 and parents of children ages 14+","Requiring states with error rates at or above 6% to pay 5–15% of benefit costs","Doubling the maximum monthly SNAP benefit for all recipients","Restricting eligibility to U.S. citizens and lawful permanent residents"], ans:3, exp:"The bill <strong>cuts</strong> SNAP by ~$186B (20% reduction), expands work requirements, and creates state cost-sharing for high-error-rate states. It does <strong>NOT double benefits</strong> — the average affected family loses $146/month." },
+  { section:"Health Policy", difficulty:1, q:"According to the USDA (2019), every $1 in SNAP spending generates approximately how much in local economic benefit?", opts:["$0.50 (50 cents)","$1.00 (breaks even)","$1.54","$3.00","$5.00"], ans:2, exp:"USDA (2019): every $1 in SNAP spending generates <strong>$1.54 in local economic benefit</strong> because SNAP dollars are spent immediately, supporting grocery stores, producers, processors, and transportation workers." },
+  { section:"Health Policy", difficulty:2, q:"Which COMBINATION of statements about the 2025 healthcare affordability crisis is ACCURATE?", opts:["Only about 10% of adults are worried about healthcare costs; housing is the #1 concern","Approximately 6 in 10 adults are worried about healthcare affordability; about 100 million adults already carry healthcare debt; the July 2025 legislation is projected to leave 10 million more uninsured by 2034","The administration's rollbacks are expected to remove medical debt from credit reports, helping 15 million people","Biden-era premium subsidies have been permanently extended by Congress","Both A and C"], ans:1, exp:"<strong>6 in 10 adults</strong> are worried about healthcare costs (outpacing housing/food). <strong>~100 million adults</strong> carry healthcare debt. July 2025 law projects <strong>10M more uninsured by 2034</strong>. The administration <em>rolled back</em> rules that would have removed medical debt from credit reports." },
+  // ── PART IV: SOCIAL WELFARE & POVERTY ──
+  { section:"Social Welfare & Poverty", difficulty:1, q:"According to Brady (2023), which of the following BEST describes the U.S. poverty situation?", opts:["U.S. poverty is low by international standards and declining rapidly","U.S. poverty is systemically high — a perennial outlier among rich democracies at ~17%, roughly twice the peer nation average of ~8.8%","U.S. poverty is mostly concentrated in a few cities and does not represent a national pattern","U.S. poverty is primarily caused by lazy behaviors that can be corrected through education","Both A and C"], ans:1, exp:"Brady finds U.S. poverty stable at <strong>~17% since the 1980s</strong> — roughly twice the rich-democracy average of ~8.8%. It is pervasive across all regions, groups, and places. <strong>61% of Americans experience at least one year of poverty</strong> in their lifetime." },
+  { section:"Social Welfare & Poverty", difficulty:2, q:"Brady critiques behavioral explanations of poverty by arguing that:", opts:["Risk behaviors like unemployment and single motherhood are more prevalent in the U.S. than in other rich democracies","The U.S. actually has BELOW-AVERAGE prevalence of these risk behaviors, but the highest PENALTIES for them of any rich democracy","Behavioral explanations fully explain why the U.S. has twice the poverty rate of peer nations","The key solution to poverty is to reduce the prevalence of risk behaviors through incentive programs","Both A and D"], ans:1, exp:"Brady's key insight: the U.S. has <strong>BELOW-average prevalences</strong> of risk behaviors (unemployment, single motherhood) compared to peer nations, but the <strong>HIGHEST penalties</strong> — meaning the probability of being poor given those risk factors. Prevalences don't drive cross-national variation; penalties do." },
+  { section:"Social Welfare & Poverty", difficulty:2, q:"According to Brady's political explanation of poverty, which combination of factors BEST explains why the U.S. has high poverty?", opts:["Individual laziness and poor culture combined with high immigration rates","Low social policy generosity, political choices to penalize risks, weak power resources (unions/left parties), and path-dependent institutions (slavery, federalism, segregation)","The U.S. is simply a poor country with insufficient resources to address poverty","High poverty is inevitable in a capitalist economy and cannot be changed by policy","Both A and C"], ans:1, exp:"Brady argues four political explanations: (1) <strong>low welfare state generosity</strong>, (2) <strong>political choices to penalize risks</strong>, (3) <strong>weak power resources</strong> (low unionization, no significant left party), and (4) <strong>path-dependent institutions</strong> like slavery and segregation (Historical Racial Regimes)." },
+  { section:"Social Welfare & Poverty", difficulty:2, q:"TANF (Temporary Assistance for Needy Families) differs from AFDC (Aid to Families with Dependent Children) primarily because:", opts:["TANF provides more generous benefits and has no work requirements","TANF shifted funding from open-ended matching to block grants to states, giving states more flexibility toward work-oriented goals","TANF is a federal entitlement program; AFDC was a state program","TANF eliminated all welfare benefits for families with children","Both A and D"], ans:1, exp:"TANF replaced AFDC in the 1990s, shifting from <strong>open-ended federal matching to block grants</strong>. States gained flexibility to pursue work-oriented goals. Number of recipients fell, but little evidence of long-term success in reducing inequality. TANF is <strong>NOT an entitlement</strong>." },
+  { section:"Social Welfare & Poverty", difficulty:2, q:"Social Security's funding situation is BEST described as:", opts:["Fully funded through a dedicated trust fund that will never run out","At risk of financial insolvency by 2030 when the entire Baby Boom generation will be over 65, unless Congress acts","Recently reformed and on sound financial footing through 2075","Funded entirely by general tax revenues with no dedicated payroll tax","Both A and C"], ans:1, exp:"By 2030, the entire Baby Boom generation will be over 65, pushing <strong>Social Security toward financial insolvency</strong> without congressional action. The program is funded by a dedicated <strong>2.9% payroll tax</strong> (shared between employer and employee)." },
+  { section:"Social Welfare & Poverty", difficulty:1, q:"Which of the following correctly describes entitlement programs vs. means-tested programs?", opts:["Entitlement programs require income below a threshold; means-tested programs are universal","Entitlement programs provide benefits to all who meet eligibility criteria (age, work history) as a legal right; means-tested programs require income below specified levels","Both types of programs are funded exclusively by state governments","Means-tested programs include Social Security and Medicare; entitlement programs include Medicaid and SNAP","Both A and D"], ans:1, exp:"<strong>Entitlement programs</strong> (Social Security, Medicare, unemployment insurance) provide benefits to all who meet criteria as a legal right regardless of wealth. <strong>Means-tested programs</strong> (Medicaid, SNAP, SSI) require income below specified levels to receive benefits." },
+  // ── PART V: THE CONSTITUTION & FEDERALISM ──
+  { section:"Constitution & Federalism", difficulty:1, q:"The 'necessary and proper clause' (elastic clause) of Article I grants Congress the power to:", opts:["Override any state law it disagrees with","Enact laws 'necessary and proper' for carrying out its enumerated powers, giving rise to implied powers","Declare war without the consent of the president","Appoint federal judges without Senate confirmation","Both C and D"], ans:1, exp:"The <strong>Necessary and Proper Clause</strong> (Article I, Section 8) allows Congress to make all laws necessary for executing its enumerated powers — the basis for 'implied powers.' It is called the 'elastic clause' because it stretches congressional authority." },
+  { section:"Constitution & Federalism", difficulty:1, q:"The Supremacy Clause (Article VI) establishes that:", opts:["The Supreme Court is supreme over Congress and the president in all matters","The Constitution, federal laws, and treaties are the supreme law of the land; state judges are bound by federal law","States may nullify federal laws they believe are unconstitutional","The president has supreme authority over foreign policy without congressional oversight","Both C and D"], ans:1, exp:"The <strong>Supremacy Clause</strong> declares the Constitution, U.S. laws, and treaties the 'supreme Law of the Land.' All state judges are bound by federal law in cases of conflict. It is the linchpin of the entire federal system." },
+  { section:"Constitution & Federalism", difficulty:2, q:"The formal amendment process under Article V requires which combination of steps?", opts:["A simple majority vote in Congress, then presidential signature","A two-thirds vote in both chambers of Congress (or a national convention requested by two-thirds of states), then ratification by three-fourths of states","Approval by the Supreme Court, then a national referendum","A majority vote in the House, then ratification by at least 26 states","Both A and C"], ans:1, exp:"<strong>Article V, Stage 1:</strong> 2/3 vote in both chambers of Congress OR 2/3 of state legislatures request a convention (never used). <strong>Stage 2:</strong> 3/4 of state legislatures ratify OR 3/4 approve via special conventions (used only once, for the 21st Amendment)." },
+  { section:"Constitution & Federalism", difficulty:2, q:"According to Dillon's Rule (1868), which of the following statements about local governments is CORRECT?", opts:["Local governments have inherent sovereignty guaranteed by the 10th Amendment","Local governments have no inherent sovereignty; they must be authorized by state governments and can be created or abolished by states","Local governments receive their authority directly from the federal Constitution","Local governments can override state laws when the local population votes to do so","Both A and C"], ans:1, exp:"<strong>Dillon's Rule (1868):</strong> All local governments have no inherent sovereignty; they must be authorized by state governments. States can create or abolish local governments. Local governments require a charter specifying policies acceptable to the state legislature." },
+  { section:"Constitution & Federalism", difficulty:2, q:"Judicial review — the power of courts to nullify government acts that conflict with the Constitution — was established in:", opts:["The text of Article III of the original Constitution (1787)","Marbury v. Madison (1803), in which the Supreme Court established this power for the first time","The 14th Amendment (1868)","The Judiciary Act of 1925","Both A and C"], ans:1, exp:"<strong>Judicial review</strong> was established in <em>Marbury v. Madison</em> (1803) — it is NOT in the original text of Article III. President Wilson called the Supreme Court a 'constitutional convention in continuous session' due to its power to alter constitutional meaning through interpretation." },
+  { section:"Constitution & Federalism", difficulty:2, q:"Which COMBINATION of statements about reserved powers, concurrent powers, and denied powers is ACCURATE?", opts:["Reserved powers (10th Amendment) include state criminal laws; concurrent powers include taxation by both levels; bills of attainder are denied to both national and state governments","Reserved powers allow states to coin their own money; concurrent powers are exclusively federal; bills of attainder are permitted if approved by a court","The 10th Amendment gives states the right to nullify any federal law","Both state and federal governments may grant titles of nobility","Both B and D"], ans:0, exp:"<strong>Reserved powers</strong> (10th Amend.) include state criminal laws, public health, safety, morals. <strong>Concurrent powers</strong> include taxation by both levels. <strong>Bills of attainder</strong> (declaring an act illegal without trial) and ex post facto laws are denied to BOTH levels of government." },
+];
+
+// ─────────────────────────────────────────────────────────────
 //  VERSION CONFIG
 // ─────────────────────────────────────────────────────────────
 const V2_ONLY_SECTIONS = new Set(["Ackerman — Tax Brackets", "Levey — Trump & Medical Debt", "Brady — Poverty, Not the Poor"]);
@@ -603,6 +665,20 @@ const versionConfig = {
     getPool: (includeMT1) => includeMT1 ? v2Questions : v2OnlyQuestions,
     getMultiPool: (includeMT1) => includeMT1 ? [...v1MultiQuestions, ...v2OnlyMultiQuestions] : v2OnlyMultiQuestions,
     progressClass: "v2",
+  },
+  3: {
+    stripClass: "v3",
+    stripLabel: "▶ Gabe's Version — Midterm 2 Practice Exam",
+    stripDesc: "40 questions · Foreign Policy · Fiscal Policy · Health Policy · Social Welfare · Constitution",
+    titleHTML: 'Midterm 2 <span>Practice</span> Exam',
+    subtitle: "40 Questions · All Five Parts",
+    introDesc: "40 professor-written practice exam questions across all five parts of Midterm 2. Shuffled every attempt.",
+    fullBankCount: 40,
+    categories: ["Foreign & Defense Policy","Fiscal Policy & Taxation","Health Policy","Social Welfare & Poverty"],
+    newCategories: ["Constitution &amp; Federalism"],
+    getPool: () => practiceExamQuestions,
+    getMultiPool: () => [],
+    progressClass: "v3",
   }
 };
 
@@ -622,6 +698,10 @@ const sectionResults = {};
 });
 
 [...v1MultiQuestions, ...v2OnlyMultiQuestions].forEach(q => {
+  if (!sectionResults[q.section]) sectionResults[q.section] = { correct:0, total:0, missed:[] };
+});
+
+practiceExamQuestions.forEach(q => {
   if (!sectionResults[q.section]) sectionResults[q.section] = { correct:0, total:0, missed:[] };
 });
 
@@ -663,6 +743,7 @@ function switchVersion(v) {
   // Toggle buttons
   document.getElementById('btn-v1').classList.toggle('active', v === 1);
   document.getElementById('btn-v2').classList.toggle('active', v === 2);
+  document.getElementById('btn-v3').classList.toggle('active', v === 3);
 
   // MT1 checkbox visibility
   const mt1 = document.getElementById('mt1-label');
@@ -680,11 +761,19 @@ function switchVersion(v) {
 
   // Reset length/diff buttons
   document.querySelectorAll('.diff-btn').forEach((b,i) => b.classList.toggle('active', i===0));
-  document.querySelectorAll('.length-btn').forEach((b,i) => b.classList.toggle('active', i===1));
   selectedDifficulty = 'all';
-  selectedLength = 25;
   document.getElementById('diff-desc').textContent = 'All questions in the bank, every level mixed together.';
   document.getElementById('score-display').textContent = 'Score: 0 / 0';
+
+  if (v === 3) {
+    document.querySelectorAll('.length-btn').forEach((b,i) => b.classList.toggle('active', i===2));
+    selectedLength = 40;
+    document.getElementById('mode-toggle-wrap').style.display = 'none';
+  } else {
+    document.querySelectorAll('.length-btn').forEach((b,i) => b.classList.toggle('active', i===1));
+    selectedLength = 25;
+    document.getElementById('mode-toggle-wrap').style.display = '';
+  }
 }
 
 // ─────────────────────────────────────────────────────────────
@@ -770,7 +859,7 @@ function renderQuestion(idx) {
   const area = document.getElementById('quiz-area');
   area.innerHTML = '';
   const q = questions[idx];
-  const labels = ['A','B','C','D'];
+  const labels = ['A','B','C','D','E'];
   const card = document.createElement('div');
   card.className = 'q-card active';
   card.id = `q-${idx}`;
@@ -828,7 +917,7 @@ function submitMulti(qIdx) {
   const selSet = new Set(sel), corrSet = new Set(correct);
   const ok = sel.length === correct.length && correct.every(i => selSet.has(i));
   opts.forEach((btn, i) => {
-    btn.querySelector('.opt-label').textContent = ['A','B','C','D'][i];
+    btn.querySelector('.opt-label').textContent = ['A','B','C','D','E'][i];
     if (selSet.has(i) && corrSet.has(i)) { btn.classList.remove('selected'); btn.classList.add('partial-correct'); }
     else if (selSet.has(i) && !corrSet.has(i)) { btn.classList.remove('selected'); btn.classList.add('partial-wrong'); }
     else if (!selSet.has(i) && corrSet.has(i)) { btn.classList.add('missed-ans'); }
@@ -862,6 +951,11 @@ const studyTips = {
   "Ackerman — Tax Brackets": "Focus on Ackerman's core argument: the delusion is widespread (doctors, teachers, financial advisors), institutionally reinforced (taught in schools), and has a democratic consequence (undermines support for progressive taxation). Memorize the Biden example: 37%→39.6% = people think ~$15,000 more, actual is ~$2,000 more for a $600k earner.",
   "Levey — Trump & Medical Debt": "Focus on Levey's central contradiction: Trump promised affordability, but his policies push costs up. Know the key numbers: 100 million adults already in health care debt; 6 in 10 adults worried about affording care; CBO projects 10 million more uninsured by 2034; tax law cuts $1T+ in health spending, adds $3.4T to deficits. Know the three mechanisms Levey describes: (1) Medicaid cuts → loss of coverage, (2) expiring marketplace subsidies → higher premiums, (3) scrapped CFPB rules → medical debt back on credit reports for ~15 million people.",
   "Brady — Poverty, Not the Poor": "Brady's central argument: poverty should be explained politically (power, policies, institutions), not by focusing on the poor themselves. Know his three flawed approaches by name: (1) Behavioralism — 'fix' the poor; (2) 'Dramatizing the poor' — humanizing narratives; (3) Culturalism — pathological culture → bad behavior → poverty. Know why each fails. His alternative: four political pillars — social policy generosity, political choices to penalize risks, power resources of collective actors, and institutions. Key term: 'systemically high poverty' with its five characteristics.",
+  "Foreign & Defense Policy": "Review the doctrinal timeline: Isolationism → Monroe Doctrine → Roosevelt Corollary → Containment → Unipolar Moment → Post-9/11. Know détente (Nixon/SALT). Understand proxy wars, the JCPOA, and Trump's 2025 NSS departures.",
+  "Fiscal Policy & Taxation": "Know the four tax types (progressive, regressive, proportional, value-added). Memorize revenue sources: individual income 50%, payroll 36%, corporate 10%. Know Keynesian vs. supply-side. Know TCJA 2017 (corporate 35%→21%). Know the CARES Act ($2.2T, $1,200 payments). Know the Popular Front average-rate system vs. U.S. marginal brackets.",
+  "Health Policy": "Know Medicare vs. Medicaid (year created: 1965; who each covers). Know ACA provisions. Know SNAP multiplier ($1 → $1.54). Know the July 2025 numbers: 7.8M lose Medicaid, 10M more uninsured by 2034, 100M adults in healthcare debt, 6 in 10 worried. Know ESI coverage gaps (managers >80% vs. blue-collar 50–70%).",
+  "Social Welfare & Poverty": "Know Brady's prevalence vs. penalty distinction — the U.S. has BELOW-average risk behavior rates but the HIGHEST penalties. Know his four political pillars. Know TANF vs. AFDC (block grants, not entitlement). Know Social Security insolvency risk (2030, Baby Boom). Know entitlement vs. means-tested definitions.",
+  "Constitution & Federalism": "Know the five key clauses: Necessary & Proper (implied powers), Supremacy (federal law supreme), Commerce, 10th Amendment (reserved powers), and 14th Amendment (due process/equal protection). Know Dillon's Rule (local governments have no inherent sovereignty). Know Article V amendment process (2/3 Congress + 3/4 states). Know Marbury v. Madison (judicial review, 1803).",
 };
 
 function showResults() {
@@ -875,7 +969,7 @@ function showResults() {
   else if (pct >= 56) { tierLabel = "Developing"; tierColor = "#e0a050"; }
   else { tierLabel = "Needs Work"; tierColor = "var(--danger)"; }
 
-  const allSections = ["IR Theories","Historical Doctrines","Trump II Policy","Venezuela Case Study","Greenland Case Study","Trade & Tariffs","Scholar Perspectives","Synthesis","Ackerman — Tax Brackets","Levey — Trump & Medical Debt","Brady — Poverty, Not the Poor"];
+  const allSections = ["IR Theories","Historical Doctrines","Trump II Policy","Venezuela Case Study","Greenland Case Study","Trade & Tariffs","Scholar Perspectives","Synthesis","Ackerman — Tax Brackets","Levey — Trump & Medical Debt","Brady — Poverty, Not the Poor","Foreign & Defense Policy","Fiscal Policy & Taxation","Health Policy","Social Welfare & Poverty","Constitution & Federalism"];
   const weakSections = [];
 
   const sectionRows = allSections.map(sec => {
@@ -933,8 +1027,8 @@ function restartQuiz(goToIntro = false) {
   }
 }
 
-// ── Init: default to V2 on load ──
-switchVersion(2);
+// ── Init: default to Gabe's Version on load ──
+switchVersion(3);
 
 // ── MONKEY-TYPE MODE ──
 (function () {
