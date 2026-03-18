@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MEDPL 150 Full Quiz</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0e0e0e;
+    --card: #161616;
+    --accent: #f5c842;
+    --accent2: #e05c2a;
+    --text: #f0ede6;
+    --muted: #888;
+    --correct: #4caf81;
+    --wrong: #e05c2a;
+    --border: #2a2a2a;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Mono', monospace;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 16px;
+  }
+
+  .header { text-align: center; margin-bottom: 40px; }
+
+  .header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 900;
+    letter-spacing: -1px;
+    line-height: 1;
+  }
+
+  .header h1 span { color: var(--accent); }
+  .header p { color: var(--muted); font-size: 0.78rem; margin-top: 8px; letter-spacing: 0.08em; text-transform: uppercase; }
+
+  .progress-wrap { width: 100%; max-width: 640px; margin-bottom: 28px; }
+
+  .progress-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.72rem;
+    color: var(--muted);
+    margin-bottom: 8px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .progress-bar { height: 3px; background: var(--border); border-radius: 2px; overflow: hidden; }
+  .progress-fill { height: 100%; background: var(--accent); border-radius: 2px; transition: width 0.4s ease; }
+
+  .topic-tag {
+    display: inline-block;
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: rgba(245,200,66,0.1);
+    color: var(--accent);
+    border: 1px solid rgba(245,200,66,0.2);
+    border-radius: 4px;
+    padding: 3px 8px;
+    margin-bottom: 12px;
+  }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 36px 32px;
+    width: 100%;
+    max-width: 640px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+  }
+
+  .q-label { font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; }
+  .q-text { font-family: 'Playfair Display', serif; font-size: clamp(1.05rem, 2.5vw, 1.3rem); font-weight: 700; line-height: 1.5; margin-bottom: 28px; color: var(--text); }
+
+  .options { display: flex; flex-direction: column; gap: 10px; }
+
+  .option {
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 18px;
+    color: var(--text);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.82rem;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.18s ease;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    line-height: 1.5;
+  }
+
+  .option:hover:not(:disabled) { border-color: var(--accent); background: rgba(245,200,66,0.05); }
+
+  .option .opt-key {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 22px;
+    height: 22px;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+    font-size: 0.65rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    flex-shrink: 0;
+    margin-top: 1px;
+    transition: all 0.18s;
+  }
+
+  .option:hover:not(:disabled) .opt-key { background: var(--accent); color: #000; border-color: var(--accent); }
+  .option.correct { border-color: var(--correct); background: rgba(76,175,129,0.08); color: var(--correct); }
+  .option.correct .opt-key { background: var(--correct); color: #000; border-color: var(--correct); }
+  .option.wrong { border-color: var(--wrong); background: rgba(224,92,42,0.08); color: var(--wrong); }
+  .option.wrong .opt-key { background: var(--wrong); color: #fff; border-color: var(--wrong); }
+  .option.reveal-correct { border-color: var(--correct); background: rgba(76,175,129,0.05); color: var(--correct); }
+  .option:disabled { cursor: default; }
+
+  .explanation { margin-top: 20px; padding: 16px; background: rgba(255,255,255,0.03); border-left: 2px solid var(--accent); border-radius: 0 6px 6px 0; font-size: 0.8rem; line-height: 1.7; color: #c0bdb5; display: none; }
+  .explanation.show { display: block; animation: fadeIn 0.3s ease; }
+  .explanation strong { color: var(--accent); }
+
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+  .next-btn {
+    margin-top: 24px;
+    background: var(--accent);
+    color: #000;
+    border: none;
+    border-radius: 8px;
+    padding: 13px 28px;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.82rem;
+    font-weight: 500;
+    cursor: pointer;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    display: none;
+    transition: opacity 0.2s;
+  }
+
+  .next-btn:hover { opacity: 0.85; }
+  .next-btn.show { display: inline-block; }
+
+  .score-screen { text-align: center; padding: 48px 32px; display: none; }
+  .score-screen.show { display: block; }
+  .score-num { font-family: 'Playfair Display', serif; font-size: 5rem; font-weight: 900; color: var(--accent); line-height: 1; }
+  .score-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted); margin-top: 8px; margin-bottom: 32px; }
+  .score-msg { font-family: 'Playfair Display', serif; font-size: 1.4rem; margin-bottom: 12px; }
+  .score-sub { font-size: 0.78rem; color: var(--muted); margin-bottom: 32px; line-height: 1.7; }
+
+  .restart-btn {
+    background: transparent;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    border-radius: 8px;
+    padding: 12px 28px;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.8rem;
+    cursor: pointer;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: all 0.2s;
+  }
+
+  .restart-btn:hover { background: var(--accent); color: #000; }
+
+  .ticker { display: flex; gap: 6px; justify-content: center; margin-top: 24px; flex-wrap: wrap; }
+  .tick { width: 10px; height: 10px; border-radius: 50%; background: var(--border); }
+  .tick.c { background: var(--correct); }
+  .tick.w { background: var(--wrong); }
+
+  .topic-breakdown { margin-top: 32px; text-align: left; }
+  .topic-breakdown h3 { font-family: 'Playfair Display', serif; font-size: 1rem; margin-bottom: 16px; color: var(--accent); }
+  .topic-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 0.75rem; }
+  .topic-row:last-child { border-bottom: none; }
+  .topic-name { color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
+  .topic-score { color: var(--text); }
+  .topic-score.perfect { color: var(--correct); }
+  .topic-score.bad { color: var(--wrong); }
+
+  .quiz-wrap { width: 100%; max-width: 640px; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>MEDPL <span>150</span></h1>
+  <p>Full Exam Review · All Topics</p>
+</div>
+
+<div class="quiz-wrap">
+  <div class="progress-wrap">
+    <div class="progress-meta">
+      <span id="q-counter">Question 1 of 25</span>
+      <span id="score-live">0 correct</span>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="prog" style="width:0%"></div></div>
+  </div>
+
+  <div class="card" id="quiz-card">
+    <div class="q-label" id="q-label">Q1</div>
+    <div class="topic-tag" id="topic-tag"></div>
+    <div class="q-text" id="q-text"></div>
+    <div class="options" id="options"></div>
+    <div class="explanation" id="explanation"></div>
+    <button class="next-btn" id="next-btn">Next →</button>
+  </div>
+
+  <div class="card score-screen" id="score-screen">
+    <div class="score-num" id="final-score"></div>
+    <div class="score-label">out of 25</div>
+    <div class="score-msg" id="score-msg"></div>
+    <div class="score-sub" id="score-sub"></div>
+    <div class="ticker" id="ticker"></div>
+    <div class="topic-breakdown">
+      <h3>Topic Breakdown</h3>
+      <div id="topic-rows"></div>
+    </div>
+    <br>
+    <button class="restart-btn" onclick="restart()">Retake Quiz</button>
+  </div>
+</div>
+
+<script>
+const questions = [
+  // FILE FORMATS
+  {
+    topic: "File Formats",
+    q: "What is the key difference between a RAW file and a JPG?",
+    opts: [
+      "RAW is smaller and faster to load; JPG is larger",
+      "RAW is unprocessed sensor data with maximum quality; JPG is compressed and loses quality each save",
+      "RAW is a vector format; JPG is raster",
+      "RAW can only be opened in Photoshop; JPG can be opened anywhere"
+    ],
+    a: 1,
+    exp: "<strong>RAW</strong> = straight from camera sensor, uncompressed, max quality, large file. <strong>JPG</strong> = lossy compression, flattened, degrades every time you re-save."
+  },
+  {
+    topic: "File Formats",
+    q: "What makes a PSD file non-destructive?",
+    opts: [
+      "It compresses images automatically",
+      "It preserves layers and editing history so you can go back and change anything",
+      "It converts images to vector format",
+      "It reduces file size without losing quality"
+    ],
+    a: 1,
+    exp: "<strong>PSD</strong> is Photoshop's native format. It keeps all layers intact — you can always go back and edit. JPG flattens and compresses everything permanently."
+  },
+  // DPI
+  {
+    topic: "DPI",
+    q: "What DPI should an image be for print?",
+    opts: ["72 dpi", "96 dpi", "150 dpi", "300 dpi"],
+    a: 3,
+    exp: "<strong>300 dpi</strong> is the standard for print quality. 72 dpi is for screens only — it would look pixelated and low quality if printed."
+  },
+  // RASTER / VECTOR / BITMAP
+  {
+    topic: "Raster, Vector & Bitmap",
+    q: "What is a raster graphic?",
+    opts: [
+      "A graphic made of mathematical points, lines and curves",
+      "A graphic made of a grid of pixels",
+      "A graphic that scales infinitely without quality loss",
+      "A graphic format exclusive to Illustrator"
+    ],
+    a: 1,
+    exp: "<strong>Raster</strong> = grid of pixels. Formats include JPEG, PNG, GIF, TIFF. They lose quality when scaled up. Vector graphics use math — .svg, .ai, .eps, .pdf."
+  },
+  {
+    topic: "Raster, Vector & Bitmap",
+    q: "Which of these is a vector file format?",
+    opts: ["PNG", "TIFF", "SVG", "GIF"],
+    a: 2,
+    exp: "<strong>SVG</strong> (Scalable Vector Graphic) uses mathematical representations of shapes — it can scale to any size without losing quality. PNG, TIFF, and GIF are all raster formats."
+  },
+  {
+    topic: "Raster, Vector & Bitmap",
+    q: "What is a bitmap in the strictest technical sense?",
+    opts: [
+      "Any photo taken with a camera",
+      "A pixel-based image where each pixel is only black or white (1-bit color)",
+      "A vector format used in older software",
+      "Another name for a PSD file"
+    ],
+    a: 1,
+    exp: "<strong>Bitmap</strong> in the strict sense = each pixel is only black OR white. More broadly it's used interchangeably with raster. All bitmaps are raster, but not all raster images are bitmaps in the strict sense."
+  },
+  // DEPTH OF FIELD
+  {
+    topic: "Depth of Field",
+    q: "To create a shallow depth of field (blurry background), what aperture do you use?",
+    opts: [
+      "A closed aperture (high f-number like f/16)",
+      "An open aperture (low f-number like f/2.8)",
+      "A medium aperture (f/8)",
+      "Aperture has no effect on depth of field"
+    ],
+    a: 1,
+    exp: "<strong>Open aperture = shallow depth of field</strong>. Wide opening → more light → narrow plane of focus → blurry background. Low f-number = open."
+  },
+  {
+    topic: "Depth of Field",
+    q: "Between f/2.8 and f/16, which lets in MORE light?",
+    opts: ["f/16 — higher number means more open", "f/2.8 — lower f-number means more open", "They let in the same amount", "It depends on the camera"],
+    a: 1,
+    exp: "<strong>f/2.8 lets in more light</strong>. Counterintuitive but true — lower f-number = wider opening = more light. f/16 is closed down, good for bright sunny days."
+  },
+  {
+    topic: "Depth of Field",
+    q: "It's a bright sunny day and you want to reduce light entering the camera. Which f-stop do you use?",
+    opts: ["f/2.8", "f/16"],
+    a: 1,
+    exp: "<strong>f/16</strong> — a closed aperture lets in less light. On a bright day f/2.8 would massively overexpose the shot."
+  },
+  // TYPOGRAPHIC / TYPEFACES
+  {
+    topic: "Typography & Typefaces",
+    q: "What is the difference between a serif and a sans serif font?",
+    opts: [
+      "Serif fonts are digital; sans serif are hand-drawn",
+      "Serif fonts have small decorative strokes (feet) at the ends of letterforms; sans serif fonts do not",
+      "Sans serif fonts are always bold; serif fonts are always light",
+      "Serif fonts are used only for headlines; sans serif for body text"
+    ],
+    a: 1,
+    exp: "<strong>Serif</strong> = has small decorative strokes/feet at the ends of letterforms (e.g. Times New Roman). <strong>Sans serif</strong> = clean, no feet (e.g. Helvetica, Arial). The International/Swiss Style favored sans serif."
+  },
+  {
+    topic: "Typography & Typefaces",
+    q: "The font in the 'I LIKE WORDS.' image has thick rectangular block-like serifs. What is this font genre called?",
+    opts: ["Humanist Sans Serif", "Old Style", "Slab Serif", "Script"],
+    a: 2,
+    exp: "<strong>Slab Serif</strong> — defined by thick, block-like rectangular serifs. Common in vintage posters, western-style design, and display headlines."
+  },
+  {
+    topic: "Typography & Typefaces",
+    q: "The International/Swiss Style (Modernism) preferred which type of font?",
+    opts: ["Decorative script fonts", "Slab serif fonts", "Sans serif fonts", "Old style serif fonts"],
+    a: 2,
+    exp: "<strong>Sans serif</strong> — the International Style (Modernism) was characterized by sans serif type, grid structures, asymmetrical layouts, and absence of decoration. Think Jan Tschichold."
+  },
+  // MODERNISM / POSTMODERNISM
+  {
+    topic: "Modernism & Postmodernism",
+    q: "Which of these is a characteristic of Modernism in graphic design?",
+    opts: [
+      "Playful appropriation of other works with irony",
+      "Grid structures, sans serif type, clarity, absence of decoration",
+      "Embracing paradox and rejecting deep meanings",
+      "Mixing traditional and experimental elements"
+    ],
+    a: 1,
+    exp: "<strong>Modernism</strong>: grid structures, asymmetrical layout, sans serif type, absence of decoration, consistency, clarity. Peak years 1920s–60s. Also known as the International/Swiss Style."
+  },
+  {
+    topic: "Modernism & Postmodernism",
+    q: "The Ray Gun magazine cover (chaotic, layered, overlapping text) represents which design movement?",
+    opts: ["Modernism", "Bauhaus", "Postmodernism", "Russian Constructivism"],
+    a: 2,
+    exp: "<strong>Postmodernism</strong> — playful, rule-breaking, ironic, embraces chaos and paradox. Questions rational thought. Ray Gun was designed by David Carson, a key postmodern typographer."
+  },
+  {
+    topic: "Modernism & Postmodernism",
+    q: "What is the Principle of Economy in design?",
+    opts: [
+      "Making design as cheap as possible to produce",
+      "Using as many design elements as possible to fill space",
+      "Achieving powerful design with a minimal, restricted set of elements — 'less is more'",
+      "Borrowing from other works with irony"
+    ],
+    a: 2,
+    exp: "<strong>Principle of Economy</strong>: remove clutter, achieve harmony with minimal elements. The Beethoven concert poster uses only rectangles, gold, black, and white to create a powerful composition."
+  },
+  // DADA
+  {
+    topic: "Dada Art Movement",
+    q: "When and where was the Dada art movement active?",
+    opts: [
+      "1890s–1910s in London and Berlin",
+      "1916–mid 1920s in Zurich, NYC, Cologne, Hanover, Paris",
+      "1930s–1940s in Moscow and Leningrad",
+      "1950s–1960s in New York and Los Angeles"
+    ],
+    a: 1,
+    exp: "<strong>Dada: 1916–mid 1920s</strong> in Zurich, New York, Cologne, Hanover, and Paris. It was a response to WWI — artists saw the war as proof of corrupt politics and blind conformity."
+  },
+  {
+    topic: "Dada Art Movement",
+    q: "What was the core aim of the Dada movement?",
+    opts: [
+      "To celebrate industrial progress and national identity",
+      "To destroy the logic of reason and assault conventional definitions of art and rational thought",
+      "To promote communist ideology through art",
+      "To revive traditional painting and drawing techniques"
+    ],
+    a: 1,
+    exp: "<strong>Dada</strong> aimed to destroy the hoaxes of reason (Jean Arp). It was anti-war, anti-establishment, anti-rational — an assault on conventional art AND rational thought itself."
+  },
+  // PHOTOMONTAGE
+  {
+    topic: "Photomontage",
+    q: "What are the two definitions of photomontage?",
+    opts: [
+      "A single long-exposure photograph and a double exposure",
+      "Joining multiple negatives/images into a composite AND a collage constructed from photographs",
+      "A digital filter and a darkroom technique",
+      "A vector illustration and a raster photograph combined"
+    ],
+    a: 1,
+    exp: "<strong>Photomontage</strong>: (1) Joining multiple negatives and images into a composite and rephotographing the results. (2) A collage constructed from photographs (Tate Museum definition)."
+  },
+  // RUSSIAN CONSTRUCTIVISM
+  {
+    topic: "Russian Constructivism",
+    q: "What inspired Russian Constructivist artists like Rodchenko?",
+    opts: [
+      "Surrealism and dream imagery",
+      "Industrial production, architecture and engineering",
+      "Japanese woodblock printing",
+      "French Impressionism"
+    ],
+    a: 1,
+    exp: "<strong>Russian Constructivism</strong> was inspired by industrial production, architecture, and engineering. Artists built compositions by mixing and matching parts — they rejected traditional painting and drawing."
+  },
+  {
+    topic: "Russian Constructivism",
+    q: "What does 'Agitprop' mean?",
+    opts: [
+      "A Russian word for photomontage",
+      "A blend of 'agitation' and 'propaganda' — media carrying an explicit political message",
+      "A type of printing press used in the 1920s",
+      "A style of abstract painting"
+    ],
+    a: 1,
+    exp: "<strong>Agitprop</strong> = agitation + propaganda. Media designed to carry an explicit political message. Russian Constructivist posters were agitprop — promoting communist ideology and social utility."
+  },
+  // BLENDING MODES
+  {
+    topic: "Blending Modes",
+    q: "Blending modes are always applied to which layer?",
+    opts: ["The bottom layer", "The middle layer", "The top layer", "All layers equally"],
+    a: 2,
+    exp: "<strong>Blending modes are applied to the top layer</strong>. They give the appearance that the background and foreground are working together — you pick up the texture of the background through the top layer."
+  },
+  {
+    topic: "Blending Modes",
+    q: "What does the Multiply blending mode do?",
+    opts: [
+      "Combines pixels based on their lightest values",
+      "Combines pixels based on their darkest values — darkest pixel shines through",
+      "Splits at 50% brightness, pushing lights lighter and darks darker",
+      "Averages the values of both layers equally"
+    ],
+    a: 1,
+    exp: "<strong>Multiply</strong> = darkest pixels win. It always makes the image darker. Screen = lightest pixels win. Overlay = both, splits at 50% brightness creating higher contrast."
+  },
+  {
+    topic: "Blending Modes",
+    q: "What does the Overlay blending mode do?",
+    opts: [
+      "Always darkens the image",
+      "Always lightens the image",
+      "Pushes pixels darker than 50% brightness darker, and lighter than 50% lighter — increases contrast",
+      "Combines only the color information, ignoring luminance"
+    ],
+    a: 2,
+    exp: "<strong>Overlay</strong> = combines lightest AND darkest values. Pushes midtones: darker than 50% goes darker, lighter than 50% goes lighter. Creates a higher contrast image."
+  },
+  // HEX COLOR
+  {
+    topic: "Hex Color & RGB",
+    q: "In a hex color code like #d18bd0, what do the three pairs represent?",
+    opts: [
+      "Hue, Saturation, Brightness",
+      "Red, Green, Blue (in that order)",
+      "Cyan, Magenta, Yellow",
+      "Opacity, Contrast, Saturation"
+    ],
+    a: 1,
+    exp: "<strong>#RRGGBB</strong> — the six digits always represent Red, Green, Blue in pairs. d1=Red, 8b=Green, d0=Blue. Higher pair value = stronger presence of that color channel."
+  },
+  {
+    topic: "Hex Color & RGB",
+    q: "What color is the hex code #00ff00?",
+    opts: ["Red", "Blue", "Green", "Yellow"],
+    a: 2,
+    exp: "<strong>Green</strong>. 00=no red, ff=MAX green, 00=no blue. When only the green channel is maxed out, you get pure green. ff0000=red, 0000ff=blue, ffff00=yellow."
+  },
+  {
+    topic: "Hex Color & RGB",
+    q: "You see the hex code ff3311. Without looking it up, what color is this roughly?",
+    opts: ["Purple — ff is high blue", "Orange-red — ff is max red, 33 is low green, 11 is barely any blue", "Green — the middle pair 33 dominates", "White — all values are present"],
+    a: 1,
+    exp: "<strong>Orange-red</strong>. ff=MAX red, 33=low green, 11=barely any blue. Red dominates heavily, a tiny bit of green pushes it slightly toward orange. The first pair always carries the most weight."
+  }
+];
+
+let current = 0;
+let score = 0;
+let answered = false;
+let results = [];
+let topicResults = {};
+
+function render() {
+  const q = questions[current];
+  document.getElementById('q-label').textContent = `Q${current + 1} of ${questions.length}`;
+  document.getElementById('topic-tag').textContent = q.topic;
+  document.getElementById('q-text').textContent = q.q;
+  document.getElementById('q-counter').textContent = `Question ${current + 1} of ${questions.length}`;
+  document.getElementById('score-live').textContent = `${score} correct`;
+  document.getElementById('prog').style.width = `${(current / questions.length) * 100}%`;
+  document.getElementById('explanation').className = 'explanation';
+  document.getElementById('explanation').innerHTML = '';
+  document.getElementById('next-btn').className = 'next-btn';
+  answered = false;
+
+  const keys = ['A', 'B', 'C', 'D'];
+  const optDiv = document.getElementById('options');
+  optDiv.innerHTML = '';
+  q.opts.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'option';
+    btn.innerHTML = `<span class="opt-key">${keys[i]}</span>${opt}`;
+    btn.onclick = () => pick(i);
+    optDiv.appendChild(btn);
+  });
+}
+
+function pick(i) {
+  if (answered) return;
+  answered = true;
+  const q = questions[current];
+  const btns = document.querySelectorAll('.option');
+  btns.forEach(b => b.disabled = true);
+
+  if (!topicResults[q.topic]) topicResults[q.topic] = { correct: 0, total: 0 };
+  topicResults[q.topic].total++;
+
+  if (i === q.a) {
+    btns[i].classList.add('correct');
+    score++;
+    results.push('c');
+    topicResults[q.topic].correct++;
+  } else {
+    btns[i].classList.add('wrong');
+    btns[q.a].classList.add('reveal-correct');
+    results.push('w');
+  }
+
+  document.getElementById('score-live').textContent = `${score} correct`;
+  const exp = document.getElementById('explanation');
+  exp.innerHTML = q.exp;
+  exp.classList.add('show');
+  document.getElementById('next-btn').classList.add('show');
+}
+
+document.getElementById('next-btn').onclick = () => {
+  current++;
+  if (current >= questions.length) showScore();
+  else render();
+};
+
+function showScore() {
+  document.getElementById('quiz-card').style.display = 'none';
+  document.querySelector('.progress-wrap').style.display = 'none';
+  const ss = document.getElementById('score-screen');
+  ss.classList.add('show');
+  document.getElementById('final-score').textContent = score;
+
+  const pct = score / questions.length;
+  let msg, sub;
+  if (pct === 1) { msg = "Perfect score."; sub = "You know this material cold. Go ace that exam."; }
+  else if (pct >= 0.84) { msg = "Really strong."; sub = "A couple things to brush up on but you're well prepared."; }
+  else if (pct >= 0.68) { msg = "Getting there."; sub = "Check the topic breakdown below and focus your review."; }
+  else { msg = "Keep studying."; sub = "Go through the explanations again — you'll get it."; }
+
+  document.getElementById('score-msg').textContent = msg;
+  document.getElementById('score-sub').textContent = sub;
+
+  const ticker = document.getElementById('ticker');
+  ticker.innerHTML = '';
+  results.forEach(r => {
+    const d = document.createElement('div');
+    d.className = `tick ${r}`;
+    ticker.appendChild(d);
+  });
+
+  const rows = document.getElementById('topic-rows');
+  rows.innerHTML = '';
+  Object.entries(topicResults).forEach(([topic, data]) => {
+    const pct = data.correct / data.total;
+    const cls = pct === 1 ? 'perfect' : pct < 0.5 ? 'bad' : '';
+    rows.innerHTML += `
+      <div class="topic-row">
+        <span class="topic-name">${topic}</span>
+        <span class="topic-score ${cls}">${data.correct}/${data.total}</span>
+      </div>`;
+  });
+}
+
+function restart() {
+  current = 0; score = 0; answered = false; results = []; topicResults = {};
+  document.getElementById('quiz-card').style.display = '';
+  document.querySelector('.progress-wrap').style.display = '';
+  document.getElementById('score-screen').classList.remove('show');
+  render();
+}
+
+render();
+</script>
+</body>
+</html>
