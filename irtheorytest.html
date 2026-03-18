@@ -300,10 +300,11 @@
   .study-num { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; background: var(--accent2); color: var(--bg); width: 1.4rem; height: 1.4rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-weight: 500; }
   .study-sec-name { font-size: 0.88rem; font-weight: 500; color: var(--accent2); }
   .study-tip { font-size: 0.8rem; color: var(--muted); line-height: 1.6; padding-left: 2.1rem; }
-  .mk-char    { transition: color 0.08s; }
-  .mk-pending { color: inherit; }
-  .mk-correct { color: var(--success); }
-  .mk-wrong   { color: var(--danger); }
+  /* ── MONKEY-TYPE MODE ── */
+.mk-char    { transition: color 0.08s; }
+.mk-pending { color: inherit; }
+.mk-correct { color: var(--success); }
+.mk-wrong   { color: var(--danger); }
 </style>
 </head>
 <body>
@@ -1219,6 +1220,53 @@ document.addEventListener('keydown', function(e) {
 
 // Init: default to V2 (Federalism) since that's the new content
 switchVersion(3);
+
+// ── MONKEY-TYPE MODE ──
+(function () {
+  let activeCleanup = null;
+
+  function activateMonkeyType(el) {
+    if (el.dataset.monkeyActive) return;
+    el.dataset.monkeyActive = 'true';
+
+    const originalText = el.textContent.trim();
+    let index = 0;
+
+    el.innerHTML = originalText.split('').map(ch => {
+      const safe = ch === ' ' ? ' ' : ch.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+      return `<span class="mk-char mk-pending">${safe}</span>`;
+    }).join('');
+
+    const spans = el.querySelectorAll('.mk-char');
+
+    function onKeyDown(e) {
+      if (e.key === 'Backspace') {
+        e.preventDefault();
+        if (index === 0) return;
+        index--;
+        spans[index].className = 'mk-char mk-pending';
+        return;
+      }
+      if (e.key.length !== 1 || e.metaKey || e.ctrlKey) return;
+      e.preventDefault();
+      spans[index].className = `mk-char ${e.key === originalText[index] ? 'mk-correct' : 'mk-wrong'}`;
+      index++;
+      if (index >= originalText.length) document.removeEventListener('keydown', onKeyDown);
+    }
+
+    if (activeCleanup) activeCleanup();
+    activeCleanup = () => document.removeEventListener('keydown', onKeyDown);
+    document.addEventListener('keydown', onKeyDown);
+  }
+
+  new MutationObserver(() => {
+    const el = document.querySelector('.explanation.show');
+    if (el && !el.dataset.monkeyActive) activateMonkeyType(el);
+  }).observe(document.body, {
+    childList: true, subtree: true,
+    attributes: true, attributeFilter: ['class']
+  });
+})();
 </script>
 </body>
 </html>
