@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="media/website-icon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pattern T-Shirt</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .gif-container {
+            width: 90vw;
+            max-width: 1100px;
+            margin: 30px auto;
+            display: flex;
+            justify-content: center;
+        }
+        .gif-container img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            border: 1px solid #000;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="sidebar-container"></div>
+    <script>
+        fetch('sidebar.html')
+            .then(res => res.text())
+            .then(html => {
+                const container = document.getElementById('sidebar-container');
+                container.innerHTML = html;
+                container.querySelectorAll('script').forEach(oldScript => {
+                    const newScript = document.createElement('script');
+                    newScript.textContent = oldScript.textContent;
+                    document.body.appendChild(newScript);
+                });
+            });
+    </script>
+
+    <header style="text-align: center;"><b>Animation GIF</b></header>
+    <br>
+
+    <div class="gif-container">
+        <img src="animation.gif" alt="Animation">
+    </div>
+
+    <script>
+        function switchImage(thumb, src) {
+            document.getElementById('mainDisplay').src = src;
+            document.querySelectorAll('.preview-thumb').forEach(t => t.classList.remove('active'));
+            thumb.classList.add('active');
+        }
+    </script>
+
+</body>
+</html>
