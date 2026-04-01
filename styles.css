@@ -56,7 +56,7 @@ body.sidebar-open .menu-toggle span:nth-child(3) {
     z-index: 999;
     width: 260px;
     height: 100%;
-    background: #0d3347;
+    background: linear-gradient(to bottom, transparent 60px, #0d3347 60px);
     box-shadow: 4px 0 24px rgba(0, 0, 0, 0.3);
     transition: left 0.35s cubic-bezier(0.4, 0, 0.2, 1);
     display: flex;
@@ -69,6 +69,8 @@ body.sidebar-open .menu-toggle span:nth-child(3) {
     height: 60px;
     flex-shrink: 0;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(1px);
+    -webkit-backdrop-filter: blur(.5px);
 }
 
 /* ── Sidebar Section Label ── */
