@@ -11,11 +11,11 @@ body {
 /* ── Sidebar Toggle Button ── */
 .menu-toggle {
     position: fixed;
-    top: 18px;
+    top: 8px;
     left: 20px;
     z-index: 1000;
-    background: #0099cc;
-    border: none;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.18);
     border-radius: 6px;
     width: 44px;
     height: 44px;
@@ -25,6 +25,10 @@ body {
     align-items: center;
     justify-content: center;
     gap: 5px;
+    transition: background 0.2s;
+}
+.menu-toggle:hover {
+    background: rgba(255, 255, 255, 0.2);
 }
 .menu-toggle span {
     display: block;
@@ -52,38 +56,50 @@ body.sidebar-open .menu-toggle span:nth-child(3) {
     z-index: 999;
     width: 260px;
     height: 100%;
-    background: #1a6e8e;
-    box-shadow: 4px 0 18px rgba(0,0,0,0.25);
+    background: #0d3347;
+    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.3);
     transition: left 0.35s cubic-bezier(0.4, 0, 0.2, 1);
     display: flex;
     flex-direction: column;
-    padding-top: 70px;
+    padding-top: 0;
 }
+
+/* ── Sidebar Header Zone (matches topbar height) ── */
+.sidebar-header {
+    height: 60px;
+    flex-shrink: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* ── Sidebar Section Label ── */
 .sidebar-title {
-    color: #c9eaf5;
-    font-size: 11px;
+    color: rgba(255, 255, 255, 0.35);
+    font-size: 10px;
     font-weight: 700;
     letter-spacing: 2px;
     text-transform: uppercase;
-    padding: 0 24px;
-    border-bottom: 1px solid rgba(255,255,255,0.15);
-    margin-bottom: 8px;
+    padding: 16px 24px 8px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    margin-bottom: 4px;
 }
+
+/* ── Sidebar Nav Links ── */
 .sidebar nav a {
     display: flex;
     align-items: center;
     gap: 12px;
     text-decoration: none;
-    color: #e0f4fc;
+    color: rgba(255, 255, 255, 0.8);
     font-size: 15px;
     font-weight: 600;
     padding: 13px 24px;
     border-left: 3px solid transparent;
-    transition: background 0.2s, border-color 0.2s;
+    transition: background 0.2s, border-color 0.2s, color 0.2s;
 }
 .sidebar nav a:hover {
-    background: rgba(255,255,255,0.1);
+    background: rgba(255, 255, 255, 0.08);
     border-color: #7de0ff;
+    color: #fff;
 }
 body.sidebar-open .sidebar {
     left: 0;
@@ -94,7 +110,7 @@ body.sidebar-open .sidebar {
     display: none;
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,0.35);
+    background: rgba(0, 0, 0, 0.4);
     z-index: 998;
 }
 body.sidebar-open .overlay {
@@ -105,7 +121,7 @@ body.sidebar-open .overlay {
 .homework-dropdown {
     display: flex;
     flex-direction: column;
-    background: rgba(0,0,0,0.15);
+    background: rgba(0, 0, 0, 0.2);
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.35s ease;
@@ -114,18 +130,19 @@ body.sidebar-open .overlay {
     font-size: 13px !important;
     padding: 10px 24px 10px 36px !important;
     border-left: 3px solid transparent;
-    color: #c9eaf5 !important;
+    color: rgba(255, 255, 255, 0.6) !important;
     font-weight: 400 !important;
 }
 .homework-dropdown a:hover {
-    background: rgba(255,255,255,0.08);
+    background: rgba(255, 255, 255, 0.07);
     border-color: #7de0ff !important;
+    color: rgba(255, 255, 255, 0.9) !important;
 }
 .homework-dropdown.open {
     max-height: 400px;
 }
 
-/* ── Sidebar Subsection Labels (in dropdowns) ── */
+/* ── Sidebar Subsection Labels ── */
 .sidebar-subsection {
     display: block;
     font-size: 10px;
@@ -134,6 +151,7 @@ body.sidebar-open .overlay {
     text-transform: uppercase;
     color: #7de0ff;
     padding: 10px 24px 4px 36px;
+    opacity: 0.75;
 }
 
 /* ── Buttons ── */

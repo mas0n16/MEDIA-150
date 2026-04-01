@@ -6,21 +6,360 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mason Riehm</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+
     <style>
-        /* index-specific: larger name heading and linked header */
-        .page-header h1 {
-            font-size: 32px;
-            margin-bottom: 20px;
+        /* ── Reset index body margin ── */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'DM Sans', sans-serif;
+            overflow-x: hidden;
         }
-        .page-header a {
+
+        /* ── Color tokens ── */
+        :root {
+            --bg:        #8bcff0;
+            --card:      rgba(68, 177, 204, 0.45);
+            --card-border: rgba(26, 110, 142, 0.3);
+            --acc:       #0099cc;
+            --dark:      #1a6e8e;
+            --deep:      #0d3347;
+            --text:      #0d2a35;
+        }
+
+        /* ══════════════════════════
+           STICKY TOPBAR
+        ══════════════════════════ */
+        .topbar {
+            position: sticky;
+            top: 0;
+            z-index: 900;
+            height: 60px;
+            background: rgba(13, 51, 71, 0.88);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 28px 0 80px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+        }
+        .topbar-name {
+            font-family: 'Syne', sans-serif;
+            font-size: 17px;
+            font-weight: 800;
+            color: #fff;
+            letter-spacing: 0.04em;
             text-decoration: none;
-            color: inherit;
+        }
+        .topbar-links {
+            display: flex;
+            gap: 28px;
+            align-items: center;
+        }
+        .topbar-links a {
+            color: rgba(255,255,255,0.65);
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            transition: color 0.2s;
+        }
+        .topbar-links a:hover { color: #fff; }
+        .topbar-links .tl-cta {
+            background: var(--acc);
+            color: #fff !important;
+            padding: 7px 14px;
+            border-radius: 5px;
+            transition: background 0.2s !important;
+        }
+        /* Nudge hamburger to vertically center in 60px topbar: (60-44)/2 = 8px */
+        .menu-toggle { top: 8px !important; }
+
+        /* ══════════════════════════
+           HERO
+        ══════════════════════════ */
+        .hero {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 90px 32px 70px;
+            display: flex;
+            align-items: center;
+            gap: 64px;
+        }
+        .hero-content { flex: 1; }
+
+        .hero-eyebrow {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--dark);
+            margin-bottom: 18px;
+            opacity: 0;
+            transform: translateY(18px);
+            animation: slideUp 0.55s ease forwards 0.05s;
+        }
+        .hero-name {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(70px, 11vw, 116px);
+            font-weight: 800;
+            line-height: 0.9;
+            color: var(--deep);
+            margin: 0 0 26px;
+            letter-spacing: -0.02em;
+            opacity: 0;
+            transform: translateY(36px);
+            animation: slideUp 0.75s cubic-bezier(0.22, 1, 0.36, 1) forwards 0.18s;
+        }
+        .hero-divider {
+            width: 56px;
+            height: 3px;
+            background: var(--acc);
+            border-radius: 2px;
+            margin-bottom: 22px;
+            opacity: 0;
+            transform: scaleX(0);
+            transform-origin: left;
+            animation: scaleIn 0.5s ease forwards 0.45s;
+        }
+        .hero-sub {
+            font-size: 15px;
+            color: var(--dark);
+            max-width: 360px;
+            line-height: 1.75;
+            margin: 0 0 36px;
+            opacity: 0;
+            transform: translateY(18px);
+            animation: slideUp 0.6s ease forwards 0.55s;
+        }
+        .hero-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--deep);
+            color: #fff;
+            text-decoration: none;
+            padding: 13px 26px;
+            border-radius: 7px;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            transition: background 0.25s, transform 0.2s, box-shadow 0.2s;
+            opacity: 0;
+            transform: translateY(18px);
+            animation: slideUp 0.6s ease forwards 0.7s;
+            box-shadow: 0 4px 14px rgba(13,51,71,0.25);
+        }
+        .hero-cta:hover {
+            background: var(--acc);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,153,204,0.35);
+        }
+
+        /* Photo card */
+        .hero-img-wrap {
+            flex-shrink: 0;
+            position: relative;
+            opacity: 0;
+            transform: translateX(50px);
+            animation: slideFromRight 0.85s cubic-bezier(0.22, 1, 0.36, 1) forwards 0.35s;
+        }
+        .hero-img {
+            width: 230px;
+            height: 310px;
+            object-fit: cover;
+            object-position: center 45%;
+            border-radius: 14px;
+            border: 3px solid var(--deep);
+            box-shadow: 14px 18px 0 var(--deep);
+            display: block;
+        }
+        .hero-badge {
+            position: absolute;
+            bottom: -14px;
+            right: -8px;
+            background: var(--deep);
+            color: #7de0ff;
+            font-size: 10px;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            font-weight: 600;
+            padding: 6px 11px;
+            border-radius: 5px;
+        }
+
+        /* ══════════════════════════
+           MAIN CONTENT WRAPPER
+        ══════════════════════════ */
+        .page-content {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 0 32px 80px;
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+        }
+
+        /* ══════════════════════════
+           BIO CARD
+        ══════════════════════════ */
+        .bio-card {
+            background: var(--card);
+            border: 1.5px solid var(--card-border);
+            border-radius: 14px;
+            padding: 36px 40px;
+        }
+        .bio-card .bio-heading {
+            font-family: 'Syne', sans-serif;
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--deep);
+            margin: 0 0 20px;
+            text-align: center;
+            letter-spacing: 0.02em;
+        }
+        .bio-card p {
+            font-size: 13px;
+            line-height: 1.85;
+            color: var(--text);
+            text-indent: 15px;
+            margin: 0 0 10px;
+        }
+        .bio-card p:last-child { margin-bottom: 0; }
+
+        /* ══════════════════════════
+           SECTION BOXES
+        ══════════════════════════ */
+        .homework, .extracurricular {
+            background: var(--card);
+            border: 1.5px solid var(--card-border);
+            border-radius: 14px;
+            padding: 28px 28px 22px;
+            max-width: none;
+            margin: 0;
+        }
+        .section-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--deep);
+            text-align: center;
+            display: block;
+            margin-bottom: 16px;
+            letter-spacing: 0.02em;
+        }
+        .subsection-label {
+            display: block;
+            text-align: center;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--dark);
+            margin: 16px 0 6px;
+        }
+
+        /* ── Buttons ── */
+        .homework-button {
+            display: block;
+            width: 100%;
+            padding: 13px 20px;
+            margin: 8px 0;
+            background-color: var(--acc);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            font-family: 'DM Sans', inherit;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+            box-sizing: border-box;
+            letter-spacing: 0.01em;
+            /* stagger animation */
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.45s ease,
+                        transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+                        background-color 0.25s ease,
+                        box-shadow 0.25s ease;
+        }
+        .homework-button:hover {
+            background-color: var(--dark);
+            box-shadow: 0 4px 14px rgba(26, 110, 142, 0.35);
+            transform: translateY(-2px) !important;
+        }
+        .homework-button:active { background-color: #005f7a; }
+
+        /* When parent is visible, reveal buttons */
+        .homework.is-visible .homework-button,
+        .extracurricular.is-visible .homework-button {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ── Scroll offset for sticky topbar ── */
+        #homeworks, #extracurricular {
+            scroll-margin-top: 80px;
+        }
+
+        /* ══════════════════════════
+           SCROLL ANIMATION BASE
+        ══════════════════════════ */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(44px);
+            transition: opacity 0.7s ease,
+                        transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .animate-on-scroll.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ══════════════════════════
+           KEYFRAMES
+        ══════════════════════════ */
+        @keyframes slideUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes slideFromRight {
+            to { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes scaleIn {
+            to { opacity: 1; transform: scaleX(1); }
+        }
+
+        /* ══════════════════════════
+           RESPONSIVE
+        ══════════════════════════ */
+        @media (max-width: 700px) {
+            .hero {
+                flex-direction: column-reverse;
+                padding: 40px 20px 50px;
+                gap: 36px;
+                text-align: center;
+            }
+            .hero-divider { margin: 0 auto 22px; }
+            .hero-sub { max-width: 100%; }
+            .hero-img { width: 170px; height: 230px; }
+            .topbar-links { display: none; }
+            .page-content { padding: 0 18px 60px; }
+            .bio-card { padding: 24px 20px; }
         }
     </style>
 </head>
-
 <body>
 
+<!-- ── Sidebar (fetched from sidebar.html) ── -->
 <div id="sidebar-container"></div>
 <script>
     fetch('sidebar.html')
@@ -36,66 +375,106 @@
         });
 </script>
 
-    <h1 class="page-header">
-        <a href="https://www.linkedin.com/in/mason-riehm/" target="_blank">
-            Mason Riehm
-            <span class="lab-code">1L06-LAB</span>
-        </a>
-    </h1>
+<!-- ── Sticky Top Bar ── -->
+<header class="topbar">
+    <a href="index.html" class="topbar-name">Mason Riehm</a>
+    <nav class="topbar-links">
+        <a href="#homeworks">Homeworks</a>
+        <a href="#extracurricular">Projects</a>
+        <a href="https://www.linkedin.com/in/mason-riehm/" target="_blank" class="tl-cta">LinkedIn ↗</a>
+    </nav>
+</header>
 
-    <div class="profile-container">
-        <a href="https://www.linkedin.com/in/mason-riehm/" target="_blank" class="profile-pic-link">
-            <img src="media/IMG_2268.JPG"
-                 alt="A picture of Mason Riehm"
-                 class="profile-pic">
-            <span class="tooltip">Connect with me on LinkedIn!</span>
+<!-- ── Hero ── -->
+<section class="hero">
+    <div class="hero-content">
+        <div class="hero-eyebrow">Media Studies &nbsp;·&nbsp; Hunter College</div>
+        <h1 class="hero-name">Mason<br>Riehm</h1>
+        <div class="hero-divider"></div>
+        <p class="hero-sub">Creative storyteller. Experiential marketer. Visual communicator.</p>
+        <a href="https://www.linkedin.com/in/mason-riehm/" target="_blank" class="hero-cta">
+            Connect on LinkedIn &nbsp;↗
         </a>
+    </div>
+    <div class="hero-img-wrap">
+        <img src="media/IMG_2268.JPG" alt="Mason Riehm" class="hero-img">
+        <span class="hero-badge">@Mas0n.16</span>
+    </div>
+</section>
 
-        <div class="profile-text">
-            <div class="profile-title">Creative Statement</div>
-            <p>
-                My name is Mason Riehm and I am a Media Studies student at Hunter College. I have a passion
-                for creating content with effective and unique communication styles. I like to utilize my knowledge
-                of aesthetics to create media that portrays a meaningful message and invokes thoughts and
-                connections between the art and the viewers' personal experiences.
-            </p>
-            <p>
-                Through my studies, I will widen my understanding of media, culture, and society, along with
-                how they influence each other in the bigger picture. I am mostly interested in the entertainment
-                industry, specifically creative expression and marketing in the music industry. I enjoy expressing
-                myself and my experiences through music and media including video, photo, and a curation of both.
-                I am also passionate about advocacy for human rights and politics for the people — it is important
-                to me to use my creativity to inspire others to be better.
-            </p>
-            <p>
-                I have experience in experiential marketing, content creation, and creating memorable experiences
-                for audiences. I am excited to learn new skills and techniques that will help me grow as a
-                professional in media. I believe media can be a powerful tool for social change, and I look
-                forward to discovering the intersections between my interests and my studies at Hunter College.
-            </p>
-        </div>
+<!-- ── Main content ── -->
+<div class="page-content">
+
+    <!-- Bio -->
+    <div class="bio-card animate-on-scroll">
+        <div class="bio-heading">Creative Statement</div>
+        <p>
+            My name is Mason Riehm and I am a Media Studies student at Hunter College. I have a passion
+            for creating content with effective and unique communication styles. I like to utilize my knowledge
+            of aesthetics to create media that portrays a meaningful message and invokes thoughts and
+            connections between the art and the viewers' personal experiences.
+        </p>
+        <p>
+            Through my studies, I will widen my understanding of media, culture, and society, along with
+            how they influence each other in the bigger picture. I am mostly interested in the entertainment
+            industry, specifically creative expression and marketing in the music industry. I enjoy expressing
+            myself and my experiences through music and media including video, photo, and a curation of both.
+            I am also passionate about advocacy for human rights and politics for the people — it is important
+            to me to use my creativity to inspire others to be better.
+        </p>
+        <p>
+            I have experience in experiential marketing, content creation, and creating memorable experiences
+            for audiences. I am excited to learn new skills and techniques that will help me grow as a
+            professional in media. I believe media can be a powerful tool for social change, and I look
+            forward to discovering the intersections between my interests and my studies at Hunter College.
+        </p>
     </div>
 
-    <div class="homework">
+    <!-- Homework List (FIRST) -->
+    <div class="homework animate-on-scroll" id="homeworks">
         <span class="section-title">Homework List</span>
-        <a href="reading1.html" class="homework-button">Reading 1: Plato's Cave</a>
-        <a href="reading2.html" class="homework-button">Reading 2: AI Slop and Sleepwalking into Disaster</a>
-        <a href="Homework%203.html" class="homework-button">Homework 3: Depth of Field and Camera Raw</a>
-        <a href="homework4.html" class="homework-button">Homework 4: Photo Montage</a>
-        <a href="homework5.html" class="homework-button">Homework 5: My Eye</a>
-        <a href="homework6.html" class="homework-button">Homework 6: Pattern T-Shirt</a>
-        <a href="homework7.html" class="homework-button">Homework 7: Animation GIF</a>
+        <a href="reading1.html"          class="homework-button">Reading 1: Plato's Cave</a>
+        <a href="reading2.html"          class="homework-button">Reading 2: AI Slop and Sleepwalking into Disaster</a>
+        <a href="Homework%203.html"      class="homework-button">Homework 3: Depth of Field and Camera Raw</a>
+        <a href="homework4.html"         class="homework-button">Homework 4: Photo Montage</a>
+        <a href="homework5.html"         class="homework-button">Homework 5: My Eye</a>
+        <a href="homework6.html"         class="homework-button">Homework 6: Pattern T-Shirt</a>
+        <a href="homework7.html"         class="homework-button">Homework 7: Animation GIF</a>
     </div>
 
-    <div class="extracurricular" id="extracurricular">
+    <!-- Extracurricular Projects -->
+    <div class="extracurricular animate-on-scroll" id="extracurricular">
         <span class="section-title">Extracurricular Projects</span>
 
         <span class="subsection-label">Coding</span>
         <a href="irtheorytest.html" class="homework-button">IR Theory Test</a>
-        <a href="film-test.html" class="homework-button">Film Test</a>
-<span class="subsection-label">Media / Videos</span>
-        <a href="place.html" class="homework-button">Know Your Place</a>
+        <a href="film-test.html"    class="homework-button">Film Test</a>
+
+        <span class="subsection-label">Media / Videos</span>
+        <a href="place.html"        class="homework-button">Know Your Place</a>
     </div>
+
+</div><!-- /page-content -->
+
+<!-- ── Scroll animation observer ── -->
+<script>
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (!entry.isIntersecting) return;
+            const el = entry.target;
+            el.classList.add('is-visible');
+
+            // Stagger child buttons
+            el.querySelectorAll('.homework-button').forEach((btn, i) => {
+                btn.style.transitionDelay = `${0.05 + i * 0.07}s`;
+            });
+
+            observer.unobserve(el);
+        });
+    }, { threshold: 0.07 });
+
+    document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+</script>
 
 </body>
 </html>

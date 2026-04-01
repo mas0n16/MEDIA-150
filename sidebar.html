@@ -5,10 +5,11 @@
 </button>
 
 <div class="sidebar" id="sidebar">
-    <div class="sidebar-title"></div>
+    <div class="sidebar-header"></div>
+    <div class="sidebar-title">Navigation</div>
     <nav>
-        <a href="index.html" onclick="closeSidebar()"> Home</a>
-        <a href="#" onclick="toggleHomeworks(event)"> Homeworks
+        <a href="index.html" onclick="closeSidebar()">&#8962; Home</a>
+        <a href="#" onclick="toggleHomeworks(event)">&#9783; Homeworks
             <span id="homeworkArrow" style="display:inline-block; transition: transform 0.35s ease;">&#9660;</span>
         </a>
         <div class="homework-dropdown" id="homeworkDropdown">
@@ -20,7 +21,7 @@
             <a href="homework6.html">Homework 6: Pattern T-Shirt</a>
             <a href="homework7.html">Homework 7: Animation GIF</a>
         </div>
-        <a href="#" onclick="toggleExtracurricular(event)"> Extracurricular Projects
+        <a href="#" onclick="toggleExtracurricular(event)">&#10022; Extracurricular Projects
             <span id="extracurricularArrow" style="display:inline-block; transition: transform 0.35s ease;">&#9660;</span>
         </a>
         <div class="homework-dropdown" id="extracurricularDropdown">
@@ -30,7 +31,7 @@
             <span class="sidebar-subsection">Media / Videos</span>
             <a href="place.html">Know Your Place</a>
         </div>
-        <a href="https://www.linkedin.com/in/mason-riehm/" target="_blank"> LinkedIn</a>
+        <a href="https://www.linkedin.com/in/mason-riehm/" target="_blank">&#8599; LinkedIn</a>
     </nav>
 </div>
 
@@ -49,8 +50,7 @@
         const arrow = document.getElementById('homeworkArrow');
         dropdown.classList.toggle('open');
         arrow.style.transform = dropdown.classList.contains('open')
-            ? 'rotate(180deg)'
-            : 'rotate(0deg)';
+            ? 'rotate(180deg)' : 'rotate(0deg)';
     }
     function toggleExtracurricular(event) {
         event.preventDefault();
@@ -58,7 +58,6 @@
         const arrow = document.getElementById('extracurricularArrow');
         dropdown.classList.toggle('open');
         arrow.style.transform = dropdown.classList.contains('open')
-            ? 'rotate(180deg)'
-            : 'rotate(0deg)';
+            ? 'rotate(180deg)' : 'rotate(0deg)';
     }
 </script>
