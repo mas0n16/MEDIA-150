@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Genesis House</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://use.typekit.net/sde3jmy.css">
+
+  <style>
+    /* =========================================================
+       CUSTOMIZATION VARIABLES — edit these to restyle the page
+       ========================================================= */
+    :root {
+      /* Colors */
+      --color-bg:         #0d0d0d;      /* main background */
+      --color-surface:    #141414;      /* card / section backgrounds */
+      --color-border:     #2a2a2a;      /* subtle dividers */
+      --color-gold:       #ffffff;      /* accent / highlight color */
+      --color-gold-light: #ffffff;      /* lighter accent */
+      --color-text:       #e8e2d9;      /* primary text */
+      --color-muted:      #8a8278;      /* secondary / muted text */
+      --color-nav-bg:     rgba(13,13,13,0.92); /* nav backdrop */
+
+      /* Typography */
+      --font-display: 'futura-pt', sans-serif;  /* headings */
+      --font-body:    'futura-pt', sans-serif;  /* body / nav */
+
+      /* Spacing */
+      --section-pad: 100px 0;
+      --max-width: 1200px;
+
+      /* Hero */
+      --hero-height: 100vh;
+      /* Replace with an actual image URL for the hero background */
+      --hero-bg: linear-gradient(160deg, #1a1208 0%, #0d0d0d 60%);
+
+      /* Nav height */
+      --nav-h: 72px;
+    }
+
+    /* =========================================================
+       RESET & BASE
+       ========================================================= */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--color-bg);
+      color: var(--color-text);
+      font-family: var(--font-body);
+      font-weight: 300;
+      font-size: 15px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    img { display: block; width: 100%; }
+
+    /* =========================================================
+       NAVIGATION
+       ========================================================= */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      height: var(--nav-h);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+      background: var(--color-nav-bg);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--color-border);
+      transition: background 0.3s;
+    }
+
+    .nav-logo {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      color: var(--color-gold);
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--color-muted);
+      transition: color 0.2s;
+      display: inline-block;
+      animation: navPop 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    .nav-links li a { animation-delay: 0.1s; }
+
+    .nav-links a:hover { color: var(--color-gold); }
+
+    .nav-cta {
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 10px 22px;
+      border: 1px solid var(--color-gold);
+      color: var(--color-gold);
+      transition: background 0.2s, color 0.2s;
+      animation: navPop 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.1s both;
+    }
+
+    .nav-cta:hover {
+      background: var(--color-gold);
+      color: var(--color-bg);
+    }
+
+    /* =========================================================
+       HERO
+       ========================================================= */
+    .hero {
+      height: var(--hero-height);
+      min-height: 600px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 0 24px;
+      background: transparent;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.15);
+      pointer-events: none;
+    }
+
+    .hero-announcement {
+      font-size: 0.65rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--color-gold);
+      margin-bottom: 40px;
+      /* Change or remove this notice as needed */
+      border: 1px solid var(--color-border);
+      padding: 10px 24px;
+    }
+
+    .hero-eyebrow {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--color-muted);
+      margin-bottom: 18px;
+      animation: heroFadeUp 1.4s cubic-bezier(0.22, 1, 0.36, 1) 0.2s both;
+    }
+
+    @keyframes navPop {
+      from { opacity: 0; transform: translateX(-50px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+
+    @keyframes bgReveal {
+      from { filter: blur(16px); opacity: 0.4; }
+      to   { filter: blur(0px);  opacity: 1; }
+    }
+
+    .page-bg {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background: url('gh-background-4.jpg') center/cover no-repeat;
+      animation: bgReveal 2s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    @keyframes heroFadeUp {
+      from { opacity: 0; transform: translateY(24px); letter-spacing: 0.22em; }
+      to   { opacity: 1; transform: translateY(0);    letter-spacing: 0.1em; }
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 8vw, 7rem);
+      font-weight: 300;
+      letter-spacing: 0.1em;
+      line-height: 1;
+      color: var(--color-text);
+      text-transform: uppercase;
+      margin-bottom: 22px;
+      animation: heroFadeUp 1.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    .hero-sub {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--color-gold-light);
+      animation: heroFadeUp 1.4s cubic-bezier(0.22, 1, 0.36, 1) 0.5s both;
+    }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 36px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      color: var(--color-muted);
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      animation: bounce 2s infinite;
+    }
+
+    .hero-scroll::after {
+      content: '';
+      width: 1px;
+      height: 40px;
+      background: var(--color-gold);
+      display: block;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50%       { transform: translateX(-50%) translateY(6px); }
+    }
+
+    /* =========================================================
+       SHARED SECTION STYLES
+       ========================================================= */
+    section { padding: var(--section-pad); }
+
+    .container {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 48px;
+    }
+
+    .label {
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--color-gold);
+      margin-bottom: 14px;
+    }
+
+    h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.6rem, 3vw, 2.6rem);
+      font-weight: 300;
+      letter-spacing: 0.04em;
+      line-height: 1.25;
+      color: var(--color-text);
+      margin-bottom: 20px;
+    }
+
+    h3 {
+      font-family: var(--font-display);
+      font-size: clamp(1rem, 1.8vw, 1.4rem);
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      color: var(--color-gold-light);
+      margin-bottom: 16px;
+    }
+
+    p {
+      font-size: 0.85rem;
+      line-height: 1.9;
+      color: var(--color-muted);
+      max-width: 560px;
+    }
+
+    .btn {
+      display: inline-block;
+      margin-top: 32px;
+      font-size: 0.62rem;
+      font-weight: 500;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      padding: 13px 28px;
+      border: 1px solid var(--color-gold);
+      color: var(--color-gold);
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .btn:hover {
+      background: var(--color-gold);
+      color: var(--color-bg);
+    }
+
+    .btn-ghost {
+      border-color: var(--color-border);
+      color: var(--color-muted);
+    }
+
+    .btn-ghost:hover {
+      border-color: var(--color-gold);
+      background: transparent;
+      color: var(--color-gold);
+    }
+
+    /* Gold rule */
+    .rule {
+      width: 48px;
+      height: 1px;
+      background: var(--color-gold);
+      margin-bottom: 36px;
+    }
+
+    /* =========================================================
+       INTRO QUOTE SECTION
+       ========================================================= */
+    .intro {
+      background: var(--color-surface);
+      border-top: 1px solid var(--color-border);
+      border-bottom: 1px solid var(--color-border);
+      text-align: center;
+      padding: 48px 0;
+    }
+
+    .intro blockquote {
+      max-width: 560px;
+      margin: 0 auto;
+    }
+
+    .intro blockquote h2 {
+      font-size: clamp(1.1rem, 1.8vw, 1.6rem);
+      margin-bottom: 16px;
+    }
+
+    .intro blockquote p {
+      max-width: 100%;
+      font-size: 0.8rem;
+      line-height: 1.8;
+    }
+
+    /* =========================================================
+       TWO-COLUMN CONTENT SECTIONS
+       ========================================================= */
+    .split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .split.reverse { direction: rtl; }
+    .split.reverse > * { direction: ltr; }
+
+    /* Placeholder image box — replace with <img src="..."> */
+    .img-block {
+      aspect-ratio: 4/5;
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-border);
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .img-block span {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Wide single-column image block */
+    .img-wide {
+      width: 100%;
+      aspect-ratio: 16/7;
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-border);
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 56px;
+    }
+
+    /* =========================================================
+       RESTAURANT SECTION
+       ========================================================= */
+    #dining { background: var(--color-bg); }
+
+    /* =========================================================
+       LIBRARY SECTION
+       ========================================================= */
+    #library { background: var(--color-surface); }
+
+    /* =========================================================
+       TEA PAVILION SECTION
+       ========================================================= */
+    #teapavilion { background: var(--color-bg); }
+
+    /* =========================================================
+       SHOWROOM SECTION
+       ========================================================= */
+    #showroom { background: var(--color-surface); }
+
+    /* =========================================================
+       EVENTS SECTION
+       ========================================================= */
+    #events {
+      background: url('IMG_3547.jpg') center/cover no-repeat;
+      text-align: center;
+      position: relative;
+    }
+
+    #events::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      pointer-events: none;
+    }
+
+    #events .container { position: relative; z-index: 1; }
+
+    #events .container { display: flex; flex-direction: column; align-items: center; }
+    #events p { max-width: 580px; }
+
+    .events-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 56px;
+      width: 100%;
+    }
+
+    .event-card {
+      background: rgba(20, 20, 20, 0.5);
+      border: 1px solid var(--color-border);
+      padding: 32px;
+      text-align: left;
+      transition: border-color 0.2s;
+    }
+
+    .event-card:hover { border-color: var(--color-gold); }
+
+    .event-card .event-date {
+      font-size: 0.6rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--color-gold);
+      margin-bottom: 12px;
+    }
+
+    .event-card h4 {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      font-weight: 400;
+      color: var(--color-text);
+      margin-bottom: 10px;
+    }
+
+    .event-card p {
+      font-size: 0.78rem;
+      max-width: 100%;
+    }
+
+    /* =========================================================
+       FOOTER
+       ========================================================= */
+    footer {
+      background: var(--color-surface);
+      border-top: 1px solid var(--color-border);
+      padding: 80px 0 40px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 48px;
+      margin-bottom: 64px;
+    }
+
+    .footer-col h5 {
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--color-gold);
+      margin-bottom: 20px;
+    }
+
+    .footer-col p,
+    .footer-col address {
+      font-style: normal;
+      font-size: 0.8rem;
+      color: var(--color-muted);
+      line-height: 2;
+    }
+
+    .footer-col a { color: var(--color-muted); transition: color 0.2s; }
+    .footer-col a:hover { color: var(--color-gold); }
+
+    .hours-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.78rem;
+      color: var(--color-muted);
+      margin-bottom: 4px;
+    }
+
+    .hours-row span:first-child { color: var(--color-text); }
+
+    .social-links {
+      display: flex;
+      gap: 16px;
+      margin-top: 4px;
+    }
+
+    .social-links a {
+      font-size: 0.65rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--color-muted);
+      border-bottom: 1px solid var(--color-border);
+      padding-bottom: 2px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .social-links a:hover { color: var(--color-gold); border-color: var(--color-gold); }
+
+    .footer-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 32px;
+      border-top: 1px solid var(--color-border);
+    }
+
+    .footer-bottom p {
+      font-size: 0.65rem;
+      color: var(--color-muted);
+      max-width: none;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+
+    .footer-links a {
+      font-size: 0.62rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--color-muted);
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--color-gold); }
+
+    /* =========================================================
+       FADE-IN ANIMATION
+       ========================================================= */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* =========================================================
+       RESPONSIVE
+       ========================================================= */
+    @media (max-width: 900px) {
+      nav { padding: 0 24px; }
+      .nav-links { display: none; }
+      .container { padding: 0 24px; }
+      .split { grid-template-columns: 1fr; gap: 40px; }
+      .split.reverse { direction: ltr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .events-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 560px) {
+      .footer-grid { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="page-bg"></div>
+
+  <!-- =====================================================
+       NAVIGATION
+       ===================================================== -->
+  <nav>
+    <a href="gh-index.html"><img src="gh-logo.png" alt="Genesis House" style="height: 36px; width: auto; animation: navPop 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.02s both;"></a>
+    <ul class="nav-links">
+      <li><a href="#explore">Explore</a></li>
+      <li><a href="#dining">Restaurant</a></li>
+      <li><a href="#library">Library</a></li>
+      <li><a href="#teapavilion">Tea Pavilion</a></li>
+      <li><a href="#showroom">Showroom</a></li>
+      <li><a href="#events">Events</a></li>
+    </ul>
+    <!-- CTA button — link to reservation system -->
+    <a class="nav-cta" href="#">Reserve a Table</a>
+  </nav>
+
+  <!-- =====================================================
+       HERO
+       ===================================================== -->
+  <section id="explore" class="hero">
+    <!--
+      TO USE A REAL IMAGE:
+      Replace `--hero-bg` in :root with:
+        --hero-bg: url('your-image.jpg') center/cover no-repeat;
+      OR add:  style="background-image: url('your-image.jpg')"
+    -->
+
+    <p class="hero-eyebrow">A Sophisticated Oasis in the Meatpacking District</p>
+    <h1 class="hero-title">Genesis House</h1>
+    <p class="hero-sub">Expression, Fine Dining &amp; Discovery</p>
+  </section>
+
+  <!-- =====================================================
+       INTRO QUOTE
+       ===================================================== -->
+  <section class="intro">
+    <div class="container">
+      <blockquote class="fade-in">
+        <h2>A Nuanced Space for Those Who Gather</h2>
+        <p>
+          Poised to be an iconic destination in the Meatpacking District, Genesis House
+          celebrates elevated living through rich surroundings and intellectual nourishment.
+          Visitors will find an intriguing sanctuary with plenty to explore, from artful
+          installations and haute cuisine to luminary engagements and the impressive collection
+          of Genesis luxury vehicles.
+        </p>
+        <p style="margin-top: 16px;">We invite you to experience the many facets of Genesis House.</p>
+      </blockquote>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       RESTAURANT
+       ===================================================== -->
+  <section id="dining">
+    <div class="container">
+      <div class="split fade-in">
+        <div class="img-block"><img src="restaurant-seating.jpg" alt="Restaurant Seating" style="width:100%;height:100%;object-fit:cover;"></div>
+        <div>
+          <p class="label">Fine Dining</p>
+          <div class="rule"></div>
+          <h2 style="font-size: clamp(1.2rem, 2.8vw, 2rem); white-space: nowrap;">An Ever-Evolving Journey of Taste</h2>
+          <h3>Genesis House Restaurant</h3>
+          <p>
+            Visit Genesis House Restaurant, where distinctly Korean cuisine is reimagined
+            with a modern take. Discover the elevated flavors found within each seasonally
+            rotating menu, crafted to deliver authentically tantalizing dishes featuring
+            the finest local and imported ingredients.
+          </p>
+          <a class="btn" href="#">Learn More</a>
+          <a class="btn btn-ghost" href="#" style="margin-left: 16px;">Explore the Menu</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       LIBRARY
+       ===================================================== -->
+  <section id="library">
+    <div class="container">
+      <div class="split reverse fade-in">
+        <div class="img-block"><img src="library.png" alt="Library" style="width:100%;height:100%;object-fit:cover;"></div>
+        <div>
+          <h2 style="font-size: clamp(1.2rem, 2vw, 1.8rem);">Settle in With a Good Book</h2>
+          <p class="label">Curated by Assouline &amp; Arumjigi</p>
+          <div class="rule"></div>
+          <h2>The Library</h2>
+          <p>
+            With a collection of hundreds of rare books, The Library has an old soul and
+            secrets to share. Sit and ruminate with a warm beverage and a fascinating
+            biography. Or allow our mindful tea master to guide you through a traditional
+            Korean tea ceremony as you relax in the Tea Pavilion's veranda-like living room.
+          </p>
+          <a class="btn" href="#">Learn More</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       TEA PAVILION
+       ===================================================== -->
+  <section id="teapavilion">
+    <div class="container">
+      <!-- Wide image — replace with actual image -->
+      <div class="img-wide fade-in"><img src="tea-lib.jpg" alt="Tea Pavilion" style="width:100%;height:100%;object-fit:cover;"></div>
+      <div class="split fade-in">
+        <div>
+          <p class="label">Korean Tea Culture</p>
+          <div class="rule"></div>
+          <h2 style="white-space: nowrap;">A Reflection of Korean Hospitality</h2>
+          <h3>The Tea Pavilion</h3>
+          <p>
+            An oasis full of discovery and relaxation, the Tea Pavilion invites guests to
+            experience the deeply-rooted traditions and beauty of Korean tea culture. Immerse
+            yourself in the modern interpretation of a traditional Korean hanok and discover
+            the art of ancient tea rituals.
+          </p>
+          <a class="btn" href="#">Learn More</a>
+        </div>
+        <div></div><!-- spacer -->
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       SHOWROOM
+       ===================================================== -->
+  <section id="showroom">
+    <div class="container">
+      <div class="split fade-in">
+        <div class="img-block"><img src="showroom2.png" alt="Showroom" style="width:100%;height:100%;object-fit:cover;"></div>
+        <div>
+          <p class="label">Exploration Encouraged</p>
+          <div class="rule"></div>
+          <h2>Discover the Showroom</h2>
+          <h3>Genesis Collection</h3>
+          <p>
+            Step inside a boutique-like setting where you can get comfortable in the Genesis
+            that best fits your lifestyle. Peruse beautiful interior finishes and premium
+            materials while pondering your exterior color and trim choices. Then get up close
+            with all of the innovative technology that puts Genesis in a league of its own.
+          </p>
+          <a class="btn" href="#">Learn More</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       EVENTS
+       ===================================================== -->
+  <section id="events">
+    <div class="container">
+      <p class="label">Exclusive Events</p>
+      <div class="rule" style="margin: 0 auto 0;"></div>
+      <h2 style="margin-top: 36px;">Elevated Entertainment</h2>
+      <p>
+        The Cellar Stage offers soul-nurturing inspiration through a calendar of luminary
+        speakers, haute happenings, and interactive experiences — outfitted with floor-to-ceiling
+        LED staging and state-of-the-art AV technology.
+      </p>
+      <a class="btn" href="#">View All Events</a>
+
+      <!-- EVENTS GRID — add, remove, or edit cards below -->
+      <div class="events-grid fade-in">
+        <div class="event-card">
+          <div class="event-date">April 10, 2026</div>
+          <h4>A Conversation with Chef Soogil Lim</h4>
+          <p>An intimate evening exploring the intersection of Korean culinary heritage and modern gastronomy.</p>
+        </div>
+        <div class="event-card">
+          <div class="event-date">April 18, 2026</div>
+          <h4>Cellar Stage: Design Futures</h4>
+          <p>A panel discussion on the evolving language of luxury design with renowned creative directors.</p>
+        </div>
+        <div class="event-card">
+          <div class="event-date">April 25, 2026</div>
+          <h4>Korean Tea Ceremony Workshop</h4>
+          <p>An immersive hands-on introduction to the ancient art of Korean tea ceremony with our tea master.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       FOOTER
+       ===================================================== -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+
+        <!-- ADDRESS -->
+        <div class="footer-col">
+          <h5>Address</h5>
+          <address>
+            40A 10th Ave.<br />
+            New York, NY 10014
+          </address>
+          <a class="btn btn-ghost" href="https://goo.gl/maps/nFpgugBz9aWxUwHS8" target="_blank" style="margin-top: 20px; padding: 8px 18px; font-size: 0.58rem;">
+            Get Directions
+          </a>
+        </div>
+
+        <!-- CONTACT -->
+        <div class="footer-col">
+          <h5>Get in Touch</h5>
+          <p>
+            <a href="mailto:info@genesishouseNYC.com">info@genesishouseNYC.com</a><br />
+            <a href="tel:8554440836">855-444-0836</a>
+          </p>
+          <div class="social-links" style="margin-top: 24px;">
+            <a href="https://www.instagram.com/genesishousenyc/" target="_blank">Instagram</a>
+            <a href="https://www.facebook.com/genesishousenyc/" target="_blank">Facebook</a>
+          </div>
+        </div>
+
+        <!-- HOURS -->
+        <div class="footer-col">
+          <h5>Hours</h5>
+          <!-- Edit days/hours as needed -->
+          <div class="hours-row"><span>Sunday</span><span>11 AM – 9 PM</span></div>
+          <div class="hours-row"><span>Monday</span><span>Closed</span></div>
+          <div class="hours-row"><span>Tuesday</span><span>11 AM – 9 PM</span></div>
+          <div class="hours-row"><span>Wednesday</span><span>11 AM – 9 PM</span></div>
+          <div class="hours-row"><span>Thursday</span><span>11 AM – 9 PM</span></div>
+          <div class="hours-row"><span>Friday</span><span>11 AM – 9 PM</span></div>
+          <div class="hours-row"><span>Saturday</span><span>11 AM – 9 PM</span></div>
+        </div>
+
+        <!-- UPDATES -->
+        <div class="footer-col">
+          <h5>Stay Updated</h5>
+          <p>Subscribe to receive news and exclusive invitations from Genesis House.</p>
+          <!-- Email input — wire to your mailing list service -->
+          <div style="margin-top: 20px; display: flex; gap: 0;">
+            <input
+              type="email"
+              placeholder="Your email"
+              style="
+                background: transparent;
+                border: 1px solid var(--color-border);
+                color: var(--color-text);
+                padding: 10px 16px;
+                font-family: var(--font-body);
+                font-size: 0.75rem;
+                outline: none;
+                flex: 1;
+              "
+            />
+            <button style="
+              background: var(--color-gold);
+              border: none;
+              color: var(--color-bg);
+              padding: 10px 18px;
+              font-family: var(--font-body);
+              font-size: 0.6rem;
+              font-weight: 600;
+              letter-spacing: 0.15em;
+              text-transform: uppercase;
+              cursor: pointer;
+            ">
+              Subscribe
+            </button>
+          </div>
+        </div>
+
+      </div><!-- /footer-grid -->
+
+      <div class="footer-bottom">
+        <p>© 2026 Hyundai Motor America. Genesis is a registered trademark. All rights reserved.</p>
+        <ul class="footer-links">
+          <li><a href="#">Contact Us</a></li>
+          <li><a href="#">Terms of Use</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="https://www.genesis.com" target="_blank">Genesis.com</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <!-- =====================================================
+       SCROLL FADE-IN SCRIPT
+       ===================================================== -->
+  <script>
+    const observer = new IntersectionObserver(
+      entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
+      { threshold: 0.12 }
+    );
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>

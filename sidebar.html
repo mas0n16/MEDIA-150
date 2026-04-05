@@ -27,6 +27,7 @@
             <span class="sidebar-subsection">Coding</span>
             <a href="irtheorytest.html">IR Theory Test</a>
             <a href="film-test.html">Film Test</a>
+            <a href="#" onclick="openGH(event)">Genesis House</a>
             <span class="sidebar-subsection">Media / Videos</span>
             <a href="place.html">Know Your Place</a>
         </div>
@@ -50,6 +51,15 @@
         dropdown.classList.toggle('open');
         arrow.style.transform = dropdown.classList.contains('open')
             ? 'rotate(180deg)' : 'rotate(0deg)';
+    }
+    function openGH(event) {
+        event.preventDefault();
+        var p = prompt('Enter password:');
+        if (p === 'ghclient') {
+            window.location.href = 'GH/gh-index.html';
+        } else if (p !== null) {
+            alert('Incorrect password.');
+        }
     }
     function toggleExtracurricular(event) {
         event.preventDefault();
