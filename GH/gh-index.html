@@ -179,8 +179,8 @@
     }
 
     @keyframes bgReveal {
-      from { filter: blur(16px); opacity: 0.4; }
-      to   { filter: blur(0px);  opacity: 1; }
+      from { filter: blur(16px); opacity: 0.4; transform: scale(1.12); }
+      to   { filter: blur(0px);  opacity: 1;   transform: scale(1); }
     }
 
     .page-bg {
@@ -188,12 +188,12 @@
       inset: 0;
       z-index: -1;
       background: url('gh-background-4.jpg') center/cover no-repeat;
-      animation: bgReveal 2s cubic-bezier(0.22, 1, 0.36, 1) both;
+      animation: bgReveal 2.5s cubic-bezier(0.22, 1, 0.36, 1) both;
     }
 
     @keyframes heroFadeUp {
-      from { opacity: 0; transform: translateY(24px); letter-spacing: 0.22em; }
-      to   { opacity: 1; transform: translateY(0);    letter-spacing: 0.1em; }
+      0%   { opacity: 0; transform: translateY(24px); letter-spacing: 0.22em; text-shadow: 0 0 30px rgba(255,255,255,0.7), 0 0 60px rgba(255,255,255,0.3), 0 0 90px rgba(255,255,255,0.1); }
+      100% { opacity: 1; transform: translateY(0);    letter-spacing: 0.1em;  text-shadow: none; }
     }
 
     .hero-title {
@@ -205,7 +205,7 @@
       color: var(--color-text);
       text-transform: uppercase;
       margin-bottom: 22px;
-      animation: heroFadeUp 1.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+      animation: heroFadeUp 2s cubic-bezier(0.22, 1, 0.36, 1) both;
     }
 
     .hero-sub {
@@ -337,6 +337,7 @@
       border-bottom: 1px solid var(--color-border);
       text-align: center;
       padding: 48px 0;
+      scroll-margin-top: var(--nav-h);
     }
 
     .intro blockquote {
@@ -429,9 +430,22 @@
        EVENTS SECTION
        ========================================================= */
     #events {
-      background: url('IMG_3547.jpg') center/cover no-repeat;
       text-align: center;
       position: relative;
+      overflow: hidden;
+    }
+
+    #events .events-bg {
+      position: absolute;
+      inset: 0;
+      background: url('IMG_3547.jpg') center/cover no-repeat;
+      transform: scale(1.08);
+      transition: transform 1.4s cubic-bezier(0.22, 1, 0.36, 1);
+      z-index: 0;
+    }
+
+    #events.events-visible .events-bg {
+      transform: scale(1);
     }
 
     #events::before {
@@ -440,9 +454,25 @@
       inset: 0;
       background: rgba(0,0,0,0.6);
       pointer-events: none;
+      z-index: 1;
     }
 
-    #events .container { position: relative; z-index: 1; }
+    #events .container { position: relative; z-index: 2; }
+
+    #events .events-content {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 1s cubic-bezier(0.22, 1, 0.36, 1) 0.3s, transform 1s cubic-bezier(0.22, 1, 0.36, 1) 0.3s;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    #events.events-visible .events-content {
+      opacity: 1;
+      transform: translateY(0);
+    }
 
     #events .container { display: flex; flex-direction: column; align-items: center; }
     #events p { max-width: 580px; }
@@ -460,7 +490,15 @@
       border: 1px solid var(--color-border);
       padding: 32px;
       text-align: left;
-      transition: border-color 0.2s;
+      transition: border-color 0.2s, opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+      opacity: 0;
+      transform: translateY(40px) rotateX(8deg);
+      transform-origin: top center;
+    }
+
+    .event-card.visible {
+      opacity: 1;
+      transform: translateY(0) rotateX(0deg);
     }
 
     .event-card:hover { border-color: var(--color-gold); }
@@ -585,13 +623,13 @@
        ========================================================= */
     .fade-in {
       opacity: 0;
-      transform: translateY(28px);
-      transition: opacity 0.8s ease, transform 0.8s ease;
+      transform: translateY(75px) scale(0.96);
+      transition: opacity 1s cubic-bezier(0.22, 1, 0.36, 1), transform 1s cubic-bezier(0.22, 1, 0.36, 1);
     }
 
     .fade-in.visible {
       opacity: 1;
-      transform: none;
+      transform: translateY(0) scale(1);
     }
 
     /* =========================================================
@@ -623,7 +661,7 @@
   <nav>
     <a href="gh-index.html"><img src="gh-logo.png" alt="Genesis House" style="height: 36px; width: auto; animation: navPop 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.02s both;"></a>
     <ul class="nav-links">
-      <li><a href="#explore">Explore</a></li>
+      <li><a href="#intro">Explore</a></li>
       <li><a href="#dining">Restaurant</a></li>
       <li><a href="#library">Library</a></li>
       <li><a href="#teapavilion">Tea Pavilion</a></li>
@@ -653,7 +691,7 @@
   <!-- =====================================================
        INTRO QUOTE
        ===================================================== -->
-  <section class="intro">
+  <section class="intro" id="intro">
     <div class="container">
       <blockquote class="fade-in">
         <h2>A Nuanced Space for Those Who Gather</h2>
@@ -772,7 +810,9 @@
        EVENTS
        ===================================================== -->
   <section id="events">
+    <div class="events-bg"></div>
     <div class="container">
+      <div class="events-content">
       <p class="label">Exclusive Events</p>
       <div class="rule" style="margin: 0 auto 0;"></div>
       <h2 style="margin-top: 36px;">Elevated Entertainment</h2>
@@ -784,7 +824,7 @@
       <a class="btn" href="#">View All Events</a>
 
       <!-- EVENTS GRID — add, remove, or edit cards below -->
-      <div class="events-grid fade-in">
+      <div class="events-grid">
         <div class="event-card">
           <div class="event-date">April 10, 2026</div>
           <h4>A Conversation with Chef Soogil Lim</h4>
@@ -801,6 +841,7 @@
           <p>An immersive hands-on introduction to the ancient art of Korean tea ceremony with our tea master.</p>
         </div>
       </div>
+      </div><!-- /events-content -->
     </div>
   </section>
 
@@ -909,6 +950,29 @@
       { threshold: 0.12 }
     );
     document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    const cardObserver = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          const cards = e.target.querySelectorAll('.event-card');
+          cards.forEach((card, i) => {
+            setTimeout(() => card.classList.add('visible'), i * 150);
+          });
+          cardObserver.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.events-grid').forEach(el => cardObserver.observe(el));
+
+    const eventsObserver = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('events-visible');
+          eventsObserver.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    eventsObserver.observe(document.getElementById('events'));
   </script>
 
 </body>
