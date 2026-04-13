@@ -16,7 +16,7 @@
         }
         .menu-toggle { top: 8px; }
 
-        .kl-topbar {
+        .kl-title-link {
             display: block;
             text-align: center;
             padding: 16px 0;
@@ -32,13 +32,7 @@
             position: sticky;
             top: 0;
             z-index: 50;
-        }
-        .kl-topbar::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: var(--kl-bg);
-            z-index: -1;
+            background-color: var(--kl-bg);
         }
 
         /* ── K-Learn Variables ── */
@@ -90,15 +84,21 @@
         }
         .kl-tagline {
             font-size: 15px; color: var(--kl-text-dim); line-height: 1.7;
-            margin: 16px 0 52px; text-align: center; max-width: 360px;
+            margin: 16px 0 40px; text-align: center; max-width: 360px;
+        }
+
+        /* ── Song list on home ── */
+        .kl-song-list {
+            display: flex; flex-direction: row; gap: 16px;
+            align-items: center; justify-content: center; flex-wrap: wrap;
         }
         .kl-song-btn {
             background: linear-gradient(145deg, rgba(0,30,50,0.95), rgba(0,15,35,0.98));
             border: 1px solid rgba(0,212,255,0.2);
-            border-radius: 18px; padding: 28px 36px;
+            border-radius: 18px; padding: 22px 32px;
             cursor: pointer; transition: all 0.3s cubic-bezier(0.16,1,0.3,1);
-            display: flex; flex-direction: column; align-items: center; gap: 12px;
-            min-width: 260px;
+            display: flex; flex-direction: column; align-items: center; gap: 8px;
+            width: 100%;
             box-shadow: 0 8px 40px rgba(0,0,0,0.3);
             color: #fff;
         }
@@ -107,23 +107,24 @@
             border-color: rgba(0,212,255,0.5);
             box-shadow: 0 16px 60px rgba(0,212,255,0.12);
         }
-        .kl-song-btn .label {
-            font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
-            color: var(--kl-neon-blue); opacity: 0.6;
-        }
         .kl-song-btn .title {
-            font-size: 30px; font-weight: 800; font-family: 'Noto Sans KR', sans-serif;
+            font-size: 26px; font-weight: 800; font-family: 'Noto Sans KR', sans-serif;
         }
         .kl-song-btn .artist {
             font-size: 13px; color: var(--kl-text-dim);
         }
         .kl-song-btn .start-pill {
-            margin-top: 6px; padding: 6px 18px; border-radius: 20px;
+            margin-top: 4px; padding: 5px 16px; border-radius: 20px;
             background: rgba(0,212,255,0.1); border: 1px solid rgba(0,212,255,0.25);
-            font-size: 12px; color: var(--kl-neon-blue); letter-spacing: 1.5px;
+            font-size: 11px; color: var(--kl-neon-blue); letter-spacing: 1.5px;
         }
+        .kl-song-btn .track-num {
+            font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+            color: var(--kl-neon-blue); opacity: 0.5;
+        }
+
         .kl-coming-soon {
-            margin-top: 44px; text-align: center;
+            margin-top: 36px; text-align: center;
         }
         .kl-coming-soon .heading {
             font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
@@ -147,6 +148,7 @@
         .kl-fade.visible { opacity: 1; transform: none; }
         .kl-fade.d1 { transition-delay: 0.12s; }
         .kl-fade.d2 { transition-delay: 0.24s; }
+        .kl-fade.d25 { transition-delay: 0.32s; }
         .kl-fade.d3 { transition-delay: 0.4s; }
 
         /* ── Song Page ── */
@@ -282,7 +284,7 @@
             .kl-logo { font-size: 52px; }
             .kl-line-korean { font-size: 20px; }
             .kl-word .hangul { font-size: 18px; }
-            .kl-song-btn { min-width: unset; width: 100%; }
+            .kl-song-btn { min-width: unset; }
         }
 
         ::selection { background: rgba(200,162,230,0.3); color: #fff; }
@@ -294,7 +296,7 @@
 <div id="sidebar-container"></div>
 
 <!-- Top title bar -->
-<a href="k-learn.html" class="kl-topbar">k-learn</a>
+<a href="k-learn.html" class="kl-title-link">k-learn</a>
 
 <!-- ════════════════════════════════════ HOME ════════════════════════════════════ -->
 <div id="kl-home">
@@ -309,13 +311,29 @@
         <p class="kl-tagline">Learn Korean through music you love.<br>Every word broken down for beginners.</p>
     </div>
 
-    <div class="kl-fade d2">
-        <button class="kl-song-btn" onclick="showSong()">
-            <div class="title">2.0</div>
-            <div class="artist">BTS (방탄소년단)</div>
-            <div class="start-pill">START →</div>
-        </button>
-    </div>
+    <div class="kl-song-list">
+        <div class="kl-fade d2">
+            <button class="kl-song-btn" onclick="showSong('two_point_oh')">
+                <div class="title">2.0</div>
+                <div class="artist">BTS (방탄소년단)</div>
+                <div class="start-pill">START →</div>
+            </button>
+        </div>
+        <div class="kl-fade d25">
+            <button class="kl-song-btn" onclick="showSong('body_to_body')">
+                <div class="title">Body to Body</div>
+                <div class="artist">BTS (방탄소년단)</div>
+                <div class="start-pill">START →</div>
+            </button>
+        </div>
+        <div class="kl-fade d25">
+    <button class="kl-song-btn" onclick="showSong('whiplash')">
+        <div class="title">Whiplash</div>
+        <div class="artist">aespa</div>
+        <div class="start-pill">START →</div>
+    </button>
+</div>
+</div>
 
     <div class="kl-fade d3 kl-coming-soon">
         <div class="heading">More songs coming soon</div>
@@ -338,8 +356,8 @@
 
     <div class="kl-song-header">
         <div class="kl-badge">Word-by-Word Breakdown</div>
-        <h1 class="kl-song-title">2.0</h1>
-        <div class="kl-song-artist">BTS (방탄소년단)</div>
+        <h1 class="kl-song-title" id="kl-song-title"></h1>
+        <div class="kl-song-artist" id="kl-song-artist"></div>
 
         <div class="kl-guide">
             <div class="kl-guide-title">How to read each card</div>
@@ -362,8 +380,16 @@
 </div>
 
 <script>
-// ── Song Data ──
-const SONG = {
+// ══════════════════════════════════════════════════════════════
+// SONGS DATABASE
+// ══════════════════════════════════════════════════════════════
+
+const SONGS = {
+
+// ── 2.0 ──
+two_point_oh: {
+  title: "2.0",
+  artist: "BTS (방탄소년단)",
   sections: [
     { label: "Verse 1", lines: [
       { korean: "그래 방탄처럼 그게 말은 쉽지", english: "Do it like Bangtan — sure, that's easy to say", words: [
@@ -493,34 +519,407 @@ const SONG = {
       { eng: "Yeah we on that brand new" }, { eng: "You know how we do" }
     ]}
   ]
-};
+},
 
-// ── Navigation ──
-function showSong() {
+// ── Body to Body ──
+body_to_body: {
+  title: "Body to Body",
+  artist: "BTS (방탄소년단)",
+  sections: [
+    { label: "Intro", lines: [
+      { eng: "I need I need, I need (What you need, twin?)" },
+      { eng: "I need (What you need?)" },
+      { eng: "I need, I need" }
+    ]},
+    { label: "Verse 1", lines: [
+      { eng: "I need the whole stadium to jump" },
+      { eng: "Put your phone down, let's get all the fun" },
+      { eng: "I got my eyes on the row in the front" },
+      { eng: "The vibe is high, if we bein' blunt" },
+      { eng: "The vibe is high, let the building (Hey)" },
+      { eng: "B-T-uh, from everywhere to Korea" },
+      { korean: "총 칼 키보드 다 좀 치워", english: "Put away your guns, knives, and keyboards", words: [
+        { hangul: "총", roman: "chong", meaning: "gun" },
+        { hangul: "칼", roman: "kal", meaning: "knife / blade" },
+        { hangul: "키보드", roman: "ki-bo-deu", meaning: "keyboard" },
+        { hangul: "다", roman: "da", meaning: "all" },
+        { hangul: "좀", roman: "jom", meaning: "please (softener)" },
+        { hangul: "치워", roman: "chi-weo", meaning: "put away / clear out" }
+      ], note: "Guns, knives, AND keyboards — online hate is grouped with actual weapons. The keyboard is just as much a weapon. Drop all the hostility." },
+      { korean: "인생은 짧아 증오는 비워", english: "Life is short — empty out the hatred", words: [
+        { hangul: "인생은", roman: "in-saeng-eun", meaning: "life (topic)" },
+        { hangul: "짧아", roman: "jjal-ba", meaning: "is short" },
+        { hangul: "증오는", roman: "jeung-o-neun", meaning: "hatred (topic)" },
+        { hangul: "비워", roman: "bi-weo", meaning: "empty it out" }
+      ], note: "비우다 has a deliberate, almost meditative quality — it's the word you'd use for emptying a cup or clearing your mind. Not aggressive, just: let it go." },
+      { eng: "It's big in real life" },
+      { korean: "뭘 체면 따져", english: "Why worry about saving face?", words: [
+        { hangul: "뭘", roman: "mwol", meaning: "what / why" },
+        { hangul: "체면", roman: "che-myeon", meaning: "face / appearances" },
+        { hangul: "따져", roman: "dda-jyeo", meaning: "scrutinizing / being picky" }
+      ], note: "체면 is a culturally loaded word — the Korean concept of saving face, maintaining dignity in public. He's saying stop worrying about image and just let loose." },
+      { korean: "내려놔, 야 인마", english: "Put it down, yo", words: [
+        { hangul: "내려놔", roman: "nae-ryeo-nwa", meaning: "put it down / let go" },
+        { hangul: "야", roman: "ya", meaning: "hey" },
+        { hangul: "인마", roman: "in-ma", meaning: "dude / man" }
+      ], note: "인마 is slang — a contraction of 이 놈아 (\"this guy\"). Very rough and casual, like \"yo, man.\" RM dropping all formality here." },
+      { eng: "Hop in" },
+      { korean: "좀 더 가까이 와 skin to skin", english: "Come a little closer, skin to skin", words: [
+        { hangul: "좀 더", roman: "jom deo", meaning: "a little more" },
+        { hangul: "가까이", roman: "ga-kka-i", meaning: "closer" },
+        { hangul: "와", roman: "wa", meaning: "come" }
+      ]}
+    ]},
+    { label: "Pre-Chorus", lines: [
+      { eng: "I need some body to body" },
+      { eng: "All of your body beside me" },
+      { korean: "저기 저 달에 닿게", english: "So that we reach that moon over there", words: [
+        { hangul: "저기", roman: "jeo-gi", meaning: "over there" },
+        { hangul: "저", roman: "jeo", meaning: "that (distant)" },
+        { hangul: "달에", roman: "da-re", meaning: "to the moon" },
+        { hangul: "닿게", roman: "da-ke", meaning: "so that we reach" }
+      ], note: "닿다 means to reach or make contact with something — it's specifically about touching, not just getting close. Hands together, reaching for the moon." },
+      { korean: "손에 손, 너와 나, we on and on, yeah", english: "Hand in hand, you and me, we on and on", words: [
+        { hangul: "손에 손", roman: "so-ne son", meaning: "hand in hand" },
+        { hangul: "너와", roman: "neo-wa", meaning: "with you" },
+        { hangul: "나", roman: "na", meaning: "me / I" }
+      ]},
+      { eng: "Sunrise, but we don't go home" }
+    ]},
+    { label: "Chorus", lines: [
+      { eng: "Somebody like you, ayy" },
+      { eng: "Somebody like you, oh" },
+      { eng: "Somebody like you, ayy" },
+      { eng: "Somebody like you, somebody like, everybody like you" }
+    ]},
+    { label: "Verse 2", lines: [
+      { eng: "It's so tight" },
+      { korean: "I mean, 너와의 사이", english: "I mean, the space between you and me", words: [
+        { hangul: "너와의", roman: "neo-wa-ui", meaning: "between you and (me)" },
+        { hangul: "사이", roman: "sa-i", meaning: "space between / relationship" }
+      ], note: "사이 means both physical distance and the nature of a relationship. \"우리 사이\" = \"what's between us.\" j-hope plays off the English \"tight\" then flips to Korean." },
+      { eng: "I mean, 우리만의 그 style", words: [
+        { hangul: "우리만의", roman: "u-ri-man-ui", meaning: "only ours / exclusive to us" },
+        { hangul: "그", roman: "geu", meaning: "that" }
+      ], note: "만의 creates exclusivity — not just \"our style\" but \"our style and nobody else's.\"" },
+      { eng: "I mean, we livin' the life" },
+      { korean: "두 눈을 감지 않을 이 밤, uh", english: "This night where we won't close our eyes", words: [
+        { hangul: "두", roman: "du", meaning: "two" },
+        { hangul: "눈을", roman: "nu-neul", meaning: "eyes (object)" },
+        { hangul: "감지 않을", roman: "gam-ji a-neul", meaning: "won't close" },
+        { hangul: "이 밤", roman: "i bam", meaning: "this night" }
+      ]},
+      { korean: "솟구치는 겨레의 마음, mm", english: "The surging heart of our people", words: [
+        { hangul: "솟구치는", roman: "sot-gu-chi-neun", meaning: "surging / soaring" },
+        { hangul: "겨레의", roman: "gyeo-re-ui", meaning: "of our people" },
+        { hangul: "마음", roman: "ma-eum", meaning: "heart / spirit" }
+      ], note: "겨레 is deeply Korean — it means \"our people\" in an ethnic, ancestral sense, more poetic than 국민 (citizens). 솟구치다 is visceral, like something erupting from inside. This connects directly to the 아리랑 bridge." },
+      { eng: "Be about it, be about it, be about it" },
+      { eng: "You could see about it or you read about it" }
+    ]},
+    { label: "Pre-Chorus", lines: [
+      { eng: "I need some body to body" },
+      { eng: "All of your body beside me" },
+      { korean: "저기 저 달에 닿게", english: "So that we reach that moon over there", words: [
+        { hangul: "저기", roman: "jeo-gi", meaning: "over there" },
+        { hangul: "저", roman: "jeo", meaning: "that (distant)" },
+        { hangul: "달에", roman: "da-re", meaning: "to the moon" },
+        { hangul: "닿게", roman: "da-ke", meaning: "so that we reach" }
+      ]},
+      { korean: "손에 손, 너와 나, we on and on, yeah", english: "Hand in hand, you and me, we on and on", words: [
+        { hangul: "손에 손", roman: "so-ne son", meaning: "hand in hand" },
+        { hangul: "너와", roman: "neo-wa", meaning: "with you" },
+        { hangul: "나", roman: "na", meaning: "me / I" }
+      ]},
+      { eng: "Sunrise, but we don't go home" }
+    ]},
+    { label: "Chorus", lines: [
+      { eng: "Somebody like you, ayy" },
+      { eng: "Somebody like you, oh" },
+      { eng: "Somebody like you, ayy" },
+      { eng: "Somebody like you, somebody like" },
+      { eng: "Everybody like you, ayy" },
+      { eng: "Somebody like you, oh" },
+      { eng: "Somebody like you, ayy" },
+      { eng: "Somebody like you, somebody like, everybody like you" }
+    ]},
+    { label: "Bridge — 아리랑", lines: [
+      { korean: "아리랑, 아리랑, 아라리요", english: "Arirang, arirang, arariyo", words: [
+        { hangul: "아리랑", roman: "a-ri-rang", meaning: "Arirang (Korean folk song)" },
+        { hangul: "아라리요", roman: "a-ra-ri-yo", meaning: "(melodic refrain)" }
+      ], note: "This is the actual traditional Korean folk song 아리랑 — possibly the most iconic song in Korean culture. BTS embedding it in a stadium anthem anchors the hype in deep cultural identity." },
+      { korean: "아리랑 고개로 넘어간다", english: "Going over Arirang hill", words: [
+        { hangul: "아리랑", roman: "a-ri-rang", meaning: "Arirang" },
+        { hangul: "고개로", roman: "go-gae-ro", meaning: "over the hill / pass" },
+        { hangul: "넘어간다", roman: "neo-meo-gan-da", meaning: "going over / crossing" }
+      ]},
+      { korean: "나를 버리고 가시는 님은", english: "The beloved who abandons me and leaves", words: [
+        { hangul: "나를", roman: "na-reul", meaning: "me (object)" },
+        { hangul: "버리고", roman: "beo-ri-go", meaning: "abandoning" },
+        { hangul: "가시는", roman: "ga-shi-neun", meaning: "who is leaving" },
+        { hangul: "님은", roman: "ni-meun", meaning: "the beloved / my dear" }
+      ], note: "님 is one of the most loaded words in Korean — beloved, master, the one you long for. Used in poetry and traditional songs. The honorific -시는 shows respect even toward the person leaving." },
+      { korean: "십리도 못가서 발병난다", english: "Won't make it ten ri before their feet give out", words: [
+        { hangul: "십리도", roman: "ship-ri-do", meaning: "even ten ri" },
+        { hangul: "못가서", roman: "mot-ga-seo", meaning: "unable to go" },
+        { hangul: "발병난다", roman: "bal-byeong-nan-da", meaning: "feet will fall ill" }
+      ], note: "십리 = ten ri, an old Korean distance unit (~4km). The full meaning: \"You'll regret leaving me — you won't even make it down the road.\" A curse wrapped in longing." }
+    ]},
+    { label: "Outro", lines: [
+      { eng: "I need the whole stadium to jump" },
+      { eng: "Put your phone down, let's get all the fun" },
+      { eng: "You at the side, at the back, at the front" }
+    ]}
+  ]
+},
+// ── Whiplash ──
+whiplash: {
+  title: "Whiplash",
+  artist: "aespa",
+  sections: [
+    { label: "Verse 1", lines: [
+      { eng: "One look, give 'em whiplash" },
+      { eng: "Beat drop with a big flash" },
+      { korean: "집중해 좀 더 think fast", english: "Focus a little more, think fast", words: [
+        { hangul: "집중해", roman: "jip-jung-hae", meaning: "focus" },
+        { hangul: "좀 더", roman: "jom deo", meaning: "a little more" }
+      ]},
+      { korean: "이유 넌 이해 못 해 uh", english: "You can't understand the reason", words: [
+        { hangul: "이유", roman: "i-yu", meaning: "reason" },
+        { hangul: "넌", roman: "neon", meaning: "you (topic)" },
+        { hangul: "이해", roman: "i-hae", meaning: "understanding" },
+        { hangul: "못 해", roman: "mot hae", meaning: "can't do" }
+      ]},
+      { korean: "왜 이제야 know I did that, uh", english: "Why only now do you realize?", words: [
+        { hangul: "왜", roman: "wae", meaning: "why" },
+        { hangul: "이제야", roman: "i-je-ya", meaning: "only now / finally" }
+      ], note: "이제야 — the 야 adds emphasis meaning \"only now\" or \"at last.\" It carries a tone of impatience: you should have known sooner." },
+      { eng: "Day one, know I been bad, uh" },
+      { korean: "Don't stop 흔들린 채", english: "Don't stop, still swaying", words: [
+        { hangul: "흔들린", roman: "heun-deul-lin", meaning: "shaken / swaying" },
+        { hangul: "채", roman: "chae", meaning: "while still in that state" }
+      ], note: "채 is a grammar particle meaning \"while remaining in a state.\" 흔들린 채 = while still shaking/swaying. It freezes the moment — you're caught in the motion." },
+      { korean: "무리해도 can't touch that", english: "Even if you push yourself, can't touch that", words: [
+        { hangul: "무리해도", roman: "mu-ri-hae-do", meaning: "even if you overdo it" }
+      ], note: "무리하다 = to push beyond your limits, to overexert. The -해도 ending means \"even if you do.\" No matter how hard you try, you still can't touch this." }
+    ]},
+    { label: "Pre-Chorus", lines: [
+      { eng: "Under pressure, body sweating, can you focus?" },
+      { korean: "어디서나 거침없어 I'm the coldest", english: "Unstoppable anywhere — I'm the coldest", words: [
+        { hangul: "어디서나", roman: "eo-di-seo-na", meaning: "anywhere / everywhere" },
+        { hangul: "거침없어", roman: "geo-chim-eop-seo", meaning: "unstoppable / without hesitation" }
+      ], note: "거침없다 — literally \"without roughness/obstruction.\" It means moving forward with zero hesitation, nothing slowing you down. A very confident word." },
+      { korean: "오직 나만이 이 판을 바꿀 changer", english: "Only I can change this game", words: [
+        { hangul: "오직", roman: "o-jik", meaning: "only / solely" },
+        { hangul: "나만이", roman: "na-man-i", meaning: "only I" },
+        { hangul: "이", roman: "i", meaning: "this" },
+        { hangul: "판을", roman: "pa-neul", meaning: "game / board (object)" },
+        { hangul: "바꿀", roman: "ba-kkul", meaning: "will change" }
+      ], note: "판 literally means a board or stage — think of a game board or a scene. 이 판을 바꾸다 = to flip the whole game. Combined with 오직 나만이 (only I), it's a declaration that nobody else can do this." },
+      { eng: "Just close your eyes, breathe in and visualize" }
+    ]},
+    { label: "Chorus", lines: [
+      { eng: "One look, give 'em whiplash" },
+      { eng: "Beat drop with a big flash" },
+      { korean: "집중해 좀 더 think fast", english: "Focus a little more, think fast", words: [
+        { hangul: "집중해", roman: "jip-jung-hae", meaning: "focus" },
+        { hangul: "좀 더", roman: "jom deo", meaning: "a little more" }
+      ]},
+      { korean: "이유 넌 이해 못 해 uh", english: "You can't understand the reason", words: [
+        { hangul: "이유", roman: "i-yu", meaning: "reason" },
+        { hangul: "넌", roman: "neon", meaning: "you (topic)" },
+        { hangul: "이해", roman: "i-hae", meaning: "understanding" },
+        { hangul: "못 해", roman: "mot hae", meaning: "can't do" }
+      ]},
+      { korean: "왜 이제야 know I did that", english: "Why only now do you realize?", words: [
+        { hangul: "왜", roman: "wae", meaning: "why" },
+        { hangul: "이제야", roman: "i-je-ya", meaning: "only now" }
+      ]},
+      { eng: "Day one, know I been bad" },
+      { korean: "Don't stop 흔들린 채", english: "Don't stop, still swaying", words: [
+        { hangul: "흔들린", roman: "heun-deul-lin", meaning: "shaken / swaying" },
+        { hangul: "채", roman: "chae", meaning: "while in that state" }
+      ]},
+      { korean: "무리해도 can't touch that", english: "Even if you push yourself, can't touch that", words: [
+        { hangul: "무리해도", roman: "mu-ri-hae-do", meaning: "even if you overdo it" }
+      ]}
+    ]},
+    { label: "Post-Chorus", lines: [
+      { eng: "Whip-whiplash, whip-whiplash" },
+      { eng: "Whip-whiplash, whip-whiplash" },
+      { eng: "Whip-whiplash, whip-whiplash" },
+      { eng: "Whip-whiplash, one look, give 'em whiplash" }
+    ]},
+    { label: "Verse 2", lines: [
+      { korean: "Fancy 이건 참 화려해", english: "Fancy — this is really dazzling", words: [
+        { hangul: "이건", roman: "i-geon", meaning: "this (topic)" },
+        { hangul: "참", roman: "cham", meaning: "really / truly" },
+        { hangul: "화려해", roman: "hwa-ryeo-hae", meaning: "is dazzling / flashy" }
+      ], note: "화려하다 — gorgeous, dazzling, glamorous. It describes something visually stunning, almost overwhelmingly beautiful. Stronger than just \"pretty.\"" },
+      { eng: "It's glowing and it's flashy" },
+      { korean: "알아, 적당함이 뭔지 keep it classy", english: "I know what moderation is — keep it classy", words: [
+        { hangul: "알아", roman: "a-ra", meaning: "I know" },
+        { hangul: "적당함이", roman: "jeok-dang-ham-i", meaning: "moderation / appropriateness" },
+        { hangul: "뭔지", roman: "mwon-ji", meaning: "what it is" }
+      ], note: "적당하다 = appropriate, moderate, just right. They're saying: I know how to be flashy without being tacky. I know the line." },
+      { korean: "따라 하지, 넌 또 하나부터 열까지", english: "You copy — again, from one to ten", words: [
+        { hangul: "따라 하지", roman: "dda-ra ha-ji", meaning: "you copy / imitate" },
+        { hangul: "넌", roman: "neon", meaning: "you" },
+        { hangul: "또", roman: "tto", meaning: "again" },
+        { hangul: "하나부터", roman: "ha-na-bu-teo", meaning: "from one" },
+        { hangul: "열까지", roman: "yeol-kka-ji", meaning: "to ten" }
+      ], note: "하나부터 열까지 — \"from one to ten\" is a Korean expression meaning \"everything, from start to finish.\" You're copying every single thing." },
+      { korean: "아닌척하지", english: "Pretending you're not", words: [
+        { hangul: "아닌", roman: "a-nin", meaning: "not / isn't" },
+        { hangul: "척하지", roman: "cheok-ha-ji", meaning: "pretending" }
+      ], note: "척하다 = to pretend, to act like. 아닌척하다 = pretending it's not the case. They're calling out someone faking it." }
+    ]},
+    { label: "Pre-Chorus", lines: [
+      { eng: "Under pressure, body sweating, can you focus?" },
+      { eng: "I deliver, I can promise, I'm the coldest" },
+      { korean: "외면해도 소용없지 don't you blow it", english: "Even if you look away, it's useless", words: [
+        { hangul: "외면해도", roman: "oe-myeon-hae-do", meaning: "even if you look away" },
+        { hangul: "소용없지", roman: "so-yong-eop-ji", meaning: "it's useless / no point" }
+      ], note: "외면하다 = to turn your face away, to ignore. 소용없다 = it's pointless. You can try to ignore it but it won't help — you're already caught." },
+      { eng: "Just close your eyes, breathe in and visualize" }
+    ]},
+    { label: "Bridge", lines: [
+      { korean: "시작되는 순간 끝나버린 판단", english: "The moment it starts, your judgment is already over", words: [
+        { hangul: "시작되는", roman: "shi-jak-doe-neun", meaning: "the moment it starts" },
+        { hangul: "순간", roman: "sun-gan", meaning: "moment / instant" },
+        { hangul: "끝나버린", roman: "kkeut-na-beo-rin", meaning: "already ended" },
+        { hangul: "판단", roman: "pan-dan", meaning: "judgment / decision" }
+      ], note: "끝나버리다 — the 버리다 attached to 끝나다 (to end) adds a sense of finality and irreversibility. It's done. Your ability to think clearly is gone the instant you see them." },
+      { korean: "기횐 오직 one time, unforgettable", english: "The chance is only one time — unforgettable", words: [
+        { hangul: "기횐", roman: "gi-hoen", meaning: "chance / opportunity" },
+        { hangul: "오직", roman: "o-jik", meaning: "only / solely" }
+      ]},
+      { korean: "찾아낸 the right light", english: "Found the right light", words: [
+        { hangul: "찾아낸", roman: "cha-ja-naen", meaning: "found / discovered" }
+      ], note: "찾아내다 = to find something by seeking it out. Not stumbled upon — actively discovered. They earned this spotlight." },
+      { korean: "사라지지 않아", english: "It doesn't disappear", words: [
+        { hangul: "사라지지", roman: "sa-ra-ji-ji", meaning: "disappear" },
+        { hangul: "않아", roman: "a-na", meaning: "does not" }
+      ]},
+      { korean: "눈에 새긴 one time, unforgettable", english: "Engraved in your eyes, one time — unforgettable", words: [
+        { hangul: "눈에", roman: "nu-ne", meaning: "in your eyes" },
+        { hangul: "새긴", roman: "sae-gin", meaning: "engraved / carved" }
+      ], note: "새기다 = to engrave, to carve into. 눈에 새기다 = to engrave something in your eyes — meaning the image is burned into your memory permanently. Powerful visual." }
+    ]},
+    { label: "Chorus", lines: [
+      { eng: "One look, give 'em whiplash (sheesh)" },
+      { eng: "Beat drop with a big flash" },
+      { korean: "집중해 좀 더 think fast", english: "Focus a little more, think fast", words: [
+        { hangul: "집중해", roman: "jip-jung-hae", meaning: "focus" },
+        { hangul: "좀 더", roman: "jom deo", meaning: "a little more" }
+      ]},
+      { korean: "이유 넌 이해 못 해 uh", english: "You can't understand the reason", words: [
+        { hangul: "이유", roman: "i-yu", meaning: "reason" },
+        { hangul: "넌", roman: "neon", meaning: "you (topic)" },
+        { hangul: "이해", roman: "i-hae", meaning: "understanding" },
+        { hangul: "못 해", roman: "mot hae", meaning: "can't do" }
+      ]},
+      { korean: "왜 이제야 know I did that, uh", english: "Why only now do you realize?", words: [
+        { hangul: "왜", roman: "wae", meaning: "why" },
+        { hangul: "이제야", roman: "i-je-ya", meaning: "only now" }
+      ]},
+      { eng: "Day one, know I been bad, uh" },
+      { korean: "Don't stop 흔들린 채", english: "Don't stop, still swaying", words: [
+        { hangul: "흔들린", roman: "heun-deul-lin", meaning: "shaken / swaying" },
+        { hangul: "채", roman: "chae", meaning: "while in that state" }
+      ]},
+      { korean: "무리해도 can't touch that", english: "Even if you push yourself, can't touch that", words: [
+        { hangul: "무리해도", roman: "mu-ri-hae-do", meaning: "even if you overdo it" }
+      ]}
+    ]},
+    { label: "Outro", lines: [
+      { korean: "I'm the highlight 비춰 red light", english: "I'm the highlight — shining red light", words: [
+        { hangul: "비춰", roman: "bi-chweo", meaning: "shining / illuminating" }
+      ], note: "비추다 = to shine light on, to illuminate. She IS the light source, not just standing in it." },
+      { eng: "Yeah, tonight it's all about me" },
+      { korean: "You know it's my site 거친 next sigh", english: "You know it's my site — rough next sigh", words: [
+        { hangul: "거친", roman: "geo-chin", meaning: "rough / fierce / wild" }
+      ]},
+      { korean: "만들어갈 history", english: "History we'll create", words: [
+        { hangul: "만들어갈", roman: "man-deu-reo-gal", meaning: "will go on creating" }
+      ], note: "만들어가다 = to go on making/building. The 갈 (from 가다, to go) adds forward motion — not just making history, but continuously building it as they move forward." },
+      { eng: "One look, give 'em whiplash (whip-whip, sheesh)" },
+      { eng: "Beat drop with a big flash" },
+      { korean: "따라와 어서 move fast", english: "Follow me, hurry, move fast", words: [
+        { hangul: "따라와", roman: "dda-ra-wa", meaning: "follow me / come along" },
+        { hangul: "어서", roman: "eo-seo", meaning: "hurry / quickly" }
+      ]},
+      { korean: "이유 넌 이해 못 해 uh", english: "You can't understand the reason", words: [
+        { hangul: "이유", roman: "i-yu", meaning: "reason" },
+        { hangul: "넌", roman: "neon", meaning: "you" },
+        { hangul: "이해", roman: "i-hae", meaning: "understanding" },
+        { hangul: "못 해", roman: "mot hae", meaning: "can't do" }
+      ]},
+      { korean: "왜 이제야 know I did that, uh", english: "Why only now?", words: [
+        { hangul: "왜", roman: "wae", meaning: "why" },
+        { hangul: "이제야", roman: "i-je-ya", meaning: "only now" }
+      ]},
+      { eng: "Day one, know I been bad, uh" },
+      { korean: "Don't stop 흔들린 채", english: "Don't stop, still swaying", words: [
+        { hangul: "흔들린", roman: "heun-deul-lin", meaning: "shaken / swaying" },
+        { hangul: "채", roman: "chae", meaning: "while in that state" }
+      ]},
+      { korean: "다가와도 can't touch that", english: "Even if you come closer, can't touch that", words: [
+        { hangul: "다가와도", roman: "da-ga-wa-do", meaning: "even if you come closer" }
+      ], note: "다가오다 = to approach, to come closer. The -와도 means \"even if.\" Even if you close the distance, you still can't touch this." },
+      { eng: "Whip-whiplash, whip-whiplash" },
+      { eng: "Whip-whiplash, whip-whiplash" },
+      { eng: "Whip-whiplash, whip-whiplash" },
+      { eng: "Whip-whiplash, one look, give 'em whiplash" }
+    ]}
+  ]
+}
+
+}; // end SONGS
+
+// ══════════════════════════════════════════════════════════════
+// APP LOGIC
+// ══════════════════════════════════════════════════════════════
+
+let currentSong = null;
+
+function showSong(songId) {
+    currentSong = SONGS[songId];
+    if (!currentSong) return;
+
+    document.getElementById('kl-song-title').textContent = currentSong.title;
+    document.getElementById('kl-song-artist').textContent = currentSong.artist;
+
+    renderLyrics(currentSong);
+
     document.getElementById('kl-home').style.display = 'none';
     document.getElementById('kl-song').style.display = 'block';
     window.scrollTo(0, 0);
-    observeCards();
+
+    setTimeout(() => observeCards(), 50);
 }
+
 function showHome() {
     document.getElementById('kl-song').style.display = 'none';
     document.getElementById('kl-home').style.display = 'flex';
     window.scrollTo(0, 0);
 }
 
-// ── Build lyrics ──
-function renderLyrics() {
+function renderLyrics(song) {
     const container = document.getElementById('kl-lyrics');
     let html = '';
 
-    SONG.sections.forEach(section => {
+    song.sections.forEach(section => {
         html += `<div class="kl-section-label">${section.label}</div>`;
 
         section.lines.forEach(line => {
-            if (line.eng) {
+            if (line.eng && !line.words) {
                 html += `<div class="kl-eng-line">${line.eng}</div>`;
                 return;
             }
+
+            const displayKorean = line.korean || line.eng || '';
+            const displayEnglish = line.english || '';
 
             let wordsHtml = '';
             if (line.words) {
@@ -540,8 +939,8 @@ function renderLyrics() {
 
             html += `
                 <div class="kl-line-card">
-                    <div class="kl-line-korean">${line.korean}</div>
-                    ${line.english ? `<div class="kl-line-english">${line.english}</div>` : ''}
+                    <div class="kl-line-korean">${displayKorean}</div>
+                    ${displayEnglish ? `<div class="kl-line-english">${displayEnglish}</div>` : ''}
                     ${wordsHtml}
                     ${noteHtml}
                 </div>`;
@@ -551,7 +950,6 @@ function renderLyrics() {
     container.innerHTML = html;
 }
 
-// ── Scroll animations ──
 function observeCards() {
     const cards = document.querySelectorAll('.kl-line-card');
     const obs = new IntersectionObserver(entries => {
@@ -560,7 +958,6 @@ function observeCards() {
     cards.forEach(c => obs.observe(c));
 }
 
-// ── Home fade-ins ──
 function initHome() {
     setTimeout(() => {
         document.querySelectorAll('.kl-fade').forEach(el => el.classList.add('visible'));
@@ -572,7 +969,6 @@ fetch('sidebar.html')
     .then(r => r.text())
     .then(html => {
         document.getElementById('sidebar-container').innerHTML = html;
-        // Re-run any inline scripts from sidebar
         document.getElementById('sidebar-container').querySelectorAll('script').forEach(old => {
             const s = document.createElement('script');
             s.textContent = old.textContent;
@@ -581,8 +977,6 @@ fetch('sidebar.html')
     })
     .catch(() => {});
 
-// ── Init ──
-renderLyrics();
 initHome();
 </script>
 
