@@ -6,6 +6,7 @@
 
 <div class="sidebar" id="sidebar">
     <div class="sidebar-header"></div>
+    <div class="sidebar-title">Navigation</div>
     <nav>
         <a href="index.html" onclick="closeSidebar()">&#8962; Home</a>
         <a href="#" onclick="toggleHomeworks(event)">&#9783; Homeworks
@@ -27,9 +28,10 @@
             <span class="sidebar-subsection">Coding</span>
             <a href="irtheorytest.html">IR Theory Test</a>
             <a href="film-test.html">Film Test</a>
-            <a href="#" onclick="openGH(event)">Genesis House</a>
             <span class="sidebar-subsection">Media / Videos</span>
             <a href="place.html">Know Your Place</a>
+            <span class="sidebar-subsection">Language</span>
+            <a href="k-learn.html">k-learn: Korean Through Music</a>
         </div>
         <a href="https://www.linkedin.com/in/mason-riehm/" target="_blank">&#8599; LinkedIn</a>
     </nav>
@@ -50,16 +52,8 @@
         const arrow = document.getElementById('homeworkArrow');
         dropdown.classList.toggle('open');
         arrow.style.transform = dropdown.classList.contains('open')
-            ? 'rotate(180deg)' : 'rotate(0deg)';
-    }
-    function openGH(event) {
-        event.preventDefault();
-        var p = prompt('Enter password:');
-        if (p === 'ghclient') {
-            window.location.href = 'GH/gh-index.html';
-        } else if (p !== null) {
-            alert('Incorrect password.');
-        }
+            ? 'rotate(180deg)'
+            : 'rotate(0deg)';
     }
     function toggleExtracurricular(event) {
         event.preventDefault();
@@ -67,6 +61,7 @@
         const arrow = document.getElementById('extracurricularArrow');
         dropdown.classList.toggle('open');
         arrow.style.transform = dropdown.classList.contains('open')
-            ? 'rotate(180deg)' : 'rotate(0deg)';
+            ? 'rotate(180deg)'
+            : 'rotate(0deg)';
     }
 </script>

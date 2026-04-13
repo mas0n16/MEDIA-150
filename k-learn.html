@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>k-learn — Learn Korean Through Music</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;0,9..40,900;1,9..40,400&family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        /* ── Override site defaults for k-learn ── */
+        body {
+            background: #0b0b14 !important;
+            color: #fff;
+            font-family: 'DM Sans', sans-serif;
+            margin: 0;
+        }
+        .menu-toggle { top: 8px; }
+
+        .kl-topbar {
+            display: block;
+            text-align: center;
+            padding: 16px 0;
+            font-size: 22px;
+            font-weight: 800;
+            letter-spacing: -1px;
+            background: linear-gradient(135deg, #f2a7c3 0%, #c8a2e6 50%, #a2c4e6 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-decoration: none;
+            cursor: pointer;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+        .kl-topbar::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--kl-bg);
+            z-index: -1;
+        }
+
+        /* ── K-Learn Variables ── */
+        :root {
+            --kl-gold: #c8a2e6;
+            --kl-gold-dim: rgba(200,162,230,0.4);
+            --kl-bg: #0b0b14;
+            --kl-card: rgba(255,255,255,0.02);
+            --kl-border: rgba(255,255,255,0.05);
+            --kl-text-dim: rgba(255,255,255,0.35);
+            --kl-text-faint: rgba(255,255,255,0.15);
+            --kl-pastel-pink: #f2a7c3;
+            --kl-pastel-purple: #c8a2e6;
+            --kl-pastel-blue: #a2c4e6;
+            --kl-pastel-mint: #a2e6c8;
+            --kl-neon-blue: #00d4ff;
+            --kl-neon-blue-dim: rgba(0,212,255,0.4);
+        }
+
+        /* ── Home Page ── */
+        #kl-home {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 24px;
+            position: relative;
+            overflow: hidden;
+            background: radial-gradient(ellipse at 30% 20%, rgba(200,162,230,0.06) 0%, transparent 40%), radial-gradient(ellipse at 70% 80%, rgba(242,167,195,0.04) 0%, transparent 40%), var(--kl-bg);
+        }
+        #kl-home .grid-bg {
+            position: absolute; inset: 0;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.012) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.012) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+        }
+        .kl-subtitle-kr {
+            font-size: 12px; letter-spacing: 7px; text-transform: uppercase;
+            color: rgba(200,162,230,0.5); margin-bottom: 10px;
+        }
+        .kl-logo {
+            font-size: 68px; font-weight: 900; margin: 0;
+            background: linear-gradient(135deg, #f2a7c3 0%, #c8a2e6 50%, #a2c4e6 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            letter-spacing: -3px; line-height: 1;
+        }
+        .kl-tagline {
+            font-size: 15px; color: var(--kl-text-dim); line-height: 1.7;
+            margin: 16px 0 52px; text-align: center; max-width: 360px;
+        }
+        .kl-song-btn {
+            background: linear-gradient(145deg, rgba(0,30,50,0.95), rgba(0,15,35,0.98));
+            border: 1px solid rgba(0,212,255,0.2);
+            border-radius: 18px; padding: 28px 36px;
+            cursor: pointer; transition: all 0.3s cubic-bezier(0.16,1,0.3,1);
+            display: flex; flex-direction: column; align-items: center; gap: 12px;
+            min-width: 260px;
+            box-shadow: 0 8px 40px rgba(0,0,0,0.3);
+            color: #fff;
+        }
+        .kl-song-btn:hover {
+            transform: translateY(-3px);
+            border-color: rgba(0,212,255,0.5);
+            box-shadow: 0 16px 60px rgba(0,212,255,0.12);
+        }
+        .kl-song-btn .label {
+            font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+            color: var(--kl-neon-blue); opacity: 0.6;
+        }
+        .kl-song-btn .title {
+            font-size: 30px; font-weight: 800; font-family: 'Noto Sans KR', sans-serif;
+        }
+        .kl-song-btn .artist {
+            font-size: 13px; color: var(--kl-text-dim);
+        }
+        .kl-song-btn .start-pill {
+            margin-top: 6px; padding: 6px 18px; border-radius: 20px;
+            background: rgba(0,212,255,0.1); border: 1px solid rgba(0,212,255,0.25);
+            font-size: 12px; color: var(--kl-neon-blue); letter-spacing: 1.5px;
+        }
+        .kl-coming-soon {
+            margin-top: 44px; text-align: center;
+        }
+        .kl-coming-soon .heading {
+            font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+            color: var(--kl-text-faint); margin-bottom: 14px;
+        }
+        .kl-coming-soon .tags {
+            display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;
+        }
+        .kl-coming-soon .tag {
+            padding: 6px 14px; border-radius: 8px;
+            background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05);
+            font-size: 11px; color: var(--kl-text-faint);
+        }
+        .kl-footer {
+            position: absolute; bottom: 20px;
+            font-size: 10px; color: rgba(255,255,255,0.08); letter-spacing: 1px;
+        }
+
+        /* ── Fade-in animations ── */
+        .kl-fade { opacity: 0; transform: translateY(16px); transition: opacity 0.7s, transform 0.7s cubic-bezier(0.16,1,0.3,1); }
+        .kl-fade.visible { opacity: 1; transform: none; }
+        .kl-fade.d1 { transition-delay: 0.12s; }
+        .kl-fade.d2 { transition-delay: 0.24s; }
+        .kl-fade.d3 { transition-delay: 0.4s; }
+
+        /* ── Song Page ── */
+        #kl-song { display: none; min-height: 100vh; background: var(--kl-bg); }
+
+        .kl-topbar {
+            position: sticky; top: 0; z-index: 100;
+            background: rgba(11,11,20,0.88); backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            padding: 12px 20px 12px 70px;
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        .kl-back {
+            background: none; border: none; color: var(--kl-neon-blue);
+            cursor: pointer; font-size: 14px; font-family: 'DM Sans', sans-serif;
+            padding: 6px 0;
+        }
+        .kl-mode-label {
+            font-size: 11px; color: rgba(255,255,255,0.2);
+            letter-spacing: 1.5px; text-transform: uppercase;
+        }
+
+        .kl-song-header {
+            padding: 40px 20px 28px; text-align: center;
+        }
+        .kl-badge {
+            display: inline-block; padding: 4px 14px; border-radius: 20px;
+            background: rgba(0,212,255,0.08); border: 1px solid rgba(0,212,255,0.18);
+            font-size: 10px; color: var(--kl-neon-blue); letter-spacing: 2.5px;
+            text-transform: uppercase; margin-bottom: 14px;
+        }
+        .kl-song-title {
+            font-size: 34px; font-weight: 800; color: #fff;
+            font-family: 'Noto Sans KR', sans-serif; margin: 0 0 6px;
+        }
+        .kl-song-artist {
+            font-size: 15px; color: var(--kl-text-dim);
+        }
+
+        /* ── How to read guide ── */
+        .kl-guide {
+            max-width: 400px; margin: 24px auto 0; padding: 14px 18px;
+            background: rgba(255,255,255,0.03); border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.06); text-align: left;
+        }
+        .kl-guide-title {
+            font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.5); margin-bottom: 8px;
+        }
+        .kl-guide-row {
+            display: flex; align-items: center; gap: 16px;
+        }
+        .kl-guide-example {
+            display: flex; flex-direction: column; align-items: center;
+            padding: 8px 14px 6px; background: rgba(255,255,255,0.03);
+            border-radius: 8px; border: 1px solid rgba(255,255,255,0.06);
+        }
+        .kl-guide-example .h { font-size: 20px; font-weight: 700; color: #fff; font-family: 'Noto Sans KR', sans-serif; }
+        .kl-guide-example .r { font-size: 12px; color: var(--kl-neon-blue); }
+        .kl-guide-example .m { font-size: 10px; color: rgba(255,255,255,0.4); }
+        .kl-guide-legend {
+            font-size: 12px; color: var(--kl-text-dim); line-height: 1.6;
+        }
+
+        /* ── Lyrics container ── */
+        .kl-lyrics {
+            max-width: 540px; margin: 0 auto; padding: 0 16px 80px;
+        }
+
+        /* ── Section divider ── */
+        .kl-section-label {
+            font-size: 10px; text-transform: uppercase; letter-spacing: 3px;
+            color: var(--kl-neon-blue-dim); margin-bottom: 16px; padding-bottom: 8px;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+            margin-top: 36px;
+        }
+
+        /* ── English-only lines ── */
+        .kl-eng-line {
+            padding: 6px 0;
+            font-size: 15px; color: rgba(255,255,255,0.3); font-style: italic;
+        }
+
+        /* ── Korean lyric card ── */
+        .kl-line-card {
+            margin-bottom: 32px; padding: 20px;
+            background: var(--kl-card); border-radius: 14px;
+            border: 1px solid var(--kl-border);
+            opacity: 0; transform: translateY(12px);
+            transition: opacity 0.5s, transform 0.5s;
+        }
+        .kl-line-card.visible { opacity: 1; transform: none; }
+        .kl-line-korean {
+            font-size: 24px; font-weight: 700; color: #fff;
+            font-family: 'Noto Sans KR', sans-serif;
+            line-height: 1.5; margin-bottom: 6px;
+        }
+        .kl-line-english {
+            font-size: 14px; color: var(--kl-text-dim);
+            margin-bottom: 16px; line-height: 1.5;
+        }
+
+        /* ── Word cards ── */
+        .kl-words { display: flex; flex-wrap: wrap; gap: 8px; }
+        .kl-word {
+            display: inline-flex; flex-direction: column; align-items: center;
+            padding: 10px 14px 8px; gap: 3px;
+            background: rgba(255,255,255,0.03); border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.06);
+            min-width: 70px;
+        }
+        .kl-word .hangul {
+            font-size: 22px; font-weight: 700; color: #fff;
+            font-family: 'Noto Sans KR', sans-serif; line-height: 1.3;
+        }
+        .kl-word .roman {
+            font-size: 13px; color: var(--kl-neon-blue); font-weight: 500; line-height: 1.2;
+        }
+        .kl-word .meaning {
+            font-size: 11px; color: rgba(255,255,255,0.45);
+            line-height: 1.3; text-align: center;
+        }
+
+        /* ── Notes ── */
+        .kl-note {
+            margin-top: 14px; padding: 10px 14px;
+            background: rgba(0,212,255,0.04); border-radius: 8px;
+            border-left: 3px solid rgba(0,212,255,0.35);
+            font-size: 12px; color: rgba(0,212,255,0.85); line-height: 1.6;
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 500px) {
+            .kl-logo { font-size: 52px; }
+            .kl-line-korean { font-size: 20px; }
+            .kl-word .hangul { font-size: 18px; }
+            .kl-song-btn { min-width: unset; width: 100%; }
+        }
+
+        ::selection { background: rgba(200,162,230,0.3); color: #fff; }
+    </style>
+</head>
+<body>
+
+<!-- Shared sidebar -->
+<div id="sidebar-container"></div>
+
+<!-- Top title bar -->
+<a href="k-learn.html" class="kl-topbar">k-learn</a>
+
+<!-- ════════════════════════════════════ HOME ════════════════════════════════════ -->
+<div id="kl-home">
+    <div class="grid-bg"></div>
+
+    <div class="kl-fade" style="text-align:center; margin-bottom:16px;">
+        <div class="kl-subtitle-kr">한국어 학습</div>
+        <h1 class="kl-logo">k-learn</h1>
+    </div>
+
+    <div class="kl-fade d1">
+        <p class="kl-tagline">Learn Korean through music you love.<br>Every word broken down for beginners.</p>
+    </div>
+
+    <div class="kl-fade d2">
+        <button class="kl-song-btn" onclick="showSong()">
+            <div class="title">2.0</div>
+            <div class="artist">BTS (방탄소년단)</div>
+            <div class="start-pill">START →</div>
+        </button>
+    </div>
+
+    <div class="kl-fade d3 kl-coming-soon">
+        <div class="heading">More songs coming soon</div>
+        <div class="tags">
+            <span class="tag">Yet To Come</span>
+            <span class="tag">Ddaeng</span>
+            <span class="tag">Daechwita</span>
+        </div>
+    </div>
+
+    <div class="kl-footer">k-learn.com</div>
+</div>
+
+<!-- ════════════════════════════════════ SONG PAGE ════════════════════════════════════ -->
+<div id="kl-song">
+    <div class="kl-topbar">
+        <button class="kl-back" onclick="showHome()">← Home</button>
+        <span class="kl-mode-label">Beginner Mode</span>
+    </div>
+
+    <div class="kl-song-header">
+        <div class="kl-badge">Word-by-Word Breakdown</div>
+        <h1 class="kl-song-title">2.0</h1>
+        <div class="kl-song-artist">BTS (방탄소년단)</div>
+
+        <div class="kl-guide">
+            <div class="kl-guide-title">How to read each card</div>
+            <div class="kl-guide-row">
+                <div class="kl-guide-example">
+                    <span class="h">한글</span>
+                    <span class="r">han-geul</span>
+                    <span class="m">Korean script</span>
+                </div>
+                <div class="kl-guide-legend">
+                    <span style="color:#fff">Top</span> — Korean characters<br>
+                    <span style="color:#00d4ff">Middle</span> — how to say it<br>
+                    <span style="color:rgba(255,255,255,0.45)">Bottom</span> — what it means
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="kl-lyrics" id="kl-lyrics"></div>
+</div>
+
+<script>
+// ── Song Data ──
+const SONG = {
+  sections: [
+    { label: "Verse 1", lines: [
+      { korean: "그래 방탄처럼 그게 말은 쉽지", english: "Do it like Bangtan — sure, that's easy to say", words: [
+        { hangul: "그래", roman: "geu-rae", meaning: "yeah / sure" },
+        { hangul: "방탄", roman: "bang-tan", meaning: "Bangtan (BTS)" },
+        { hangul: "처럼", roman: "cheo-reom", meaning: "like / as" },
+        { hangul: "그게", roman: "geu-ge", meaning: "that" },
+        { hangul: "말은", roman: "ma-reun", meaning: "words (topic)" },
+        { hangul: "쉽지", roman: "swip-ji", meaning: "easy, right?" }
+      ], note: "말은 쉽지 — a common expression like \"easier said than done.\" Someone brags about something and you go 말은 쉽지 — sure, words are easy." },
+      { korean: "우린 뜀틀 누가 맨날 뛰어넘니", english: "We're the bar — who's clearing it every day?", words: [
+        { hangul: "우린", roman: "u-rin", meaning: "we" },
+        { hangul: "뜀틀", roman: "ttwim-teul", meaning: "vaulting box" },
+        { hangul: "누가", roman: "nu-ga", meaning: "who?" },
+        { hangul: "맨날", roman: "maen-nal", meaning: "every day" },
+        { hangul: "뛰어넘니", roman: "ttwi-eo-neom-ni", meaning: "jumping over?" }
+      ]},
+      { korean: "웃기기는 한데 사실 안 웃기지", english: "It's funny, sure — but actually not really", words: [
+        { hangul: "웃기기는", roman: "ut-gi-gi-neun", meaning: "it is funny" },
+        { hangul: "한데", roman: "han-de", meaning: "but / however" },
+        { hangul: "사실", roman: "sa-shil", meaning: "actually" },
+        { hangul: "안", roman: "an", meaning: "not" },
+        { hangul: "웃기지", roman: "ut-gi-ji", meaning: "funny" }
+      ]},
+      { korean: "10년은 말야 어림 반 푼어치", english: "10 years? Not even close.", words: [
+        { hangul: "10년은", roman: "ship-nyeon-eun", meaning: "10 years" },
+        { hangul: "말야", roman: "ma-rya", meaning: "I'm saying" },
+        { hangul: "어림", roman: "eo-rim", meaning: "rough guess" },
+        { hangul: "반", roman: "ban", meaning: "half" },
+        { hangul: "푼어치", roman: "pun-eo-chi", meaning: "a tiny amount" }
+      ], note: "어림 반 푼어치 is an idiom meaning \"not a chance\" — not even worth half a guess" }
+    ]},
+    { label: "Pre-Chorus", lines: [
+      { eng: "Stop, ride" }, { eng: "Yuh yuh yuh yuh, yeah" },
+      { eng: "Pull up at your block" }, { eng: "We gon' knock knock knock knock, yeah" },
+      { eng: "Had your little fun, fella?" }, { eng: "Pop pop pop pop, yeah" },
+      { eng: "Came back for what's mine, we don't" }, { eng: "Stop, ride" }
+    ]},
+    { label: "Hook", lines: [
+      { eng: "You know how I do do do do do do" }, { eng: "You know how I do do do do do" },
+      { korean: "불을 붙여 brand new", english: "Light it up brand new", words: [
+        { hangul: "불을", roman: "bu-reul", meaning: "fire (object)" },
+        { hangul: "붙여", roman: "bu-chyeo", meaning: "light it / ignite" }
+      ], note: "불을 붙이다 — literally \"attach fire to something.\" A common expression meaning to ignite, spark, or kick something off. Here: lighting the fire on a brand new era." },
+      { korean: "붙여 brand new", english: "Light it brand new", words: [
+        { hangul: "붙여", roman: "bu-chyeo", meaning: "light it" }
+      ]},
+      { eng: "Yeah we on that brand new" }, { eng: "You know how we do" }, { eng: "Ay ay ay" }
+    ]},
+    { label: "Verse 2", lines: [
+      { korean: "그래, 기분 마치 brand new", english: "That's right, feels like brand new", words: [
+        { hangul: "그래", roman: "geu-rae", meaning: "that's right" },
+        { hangul: "기분", roman: "gi-bun", meaning: "feeling / mood" },
+        { hangul: "마치", roman: "ma-chi", meaning: "as if / like" }
+      ]},
+      { korean: "Spec 다른 step, 뛰지 않는 step two", english: "Different spec step — skipping step two", words: [
+        { hangul: "다른", roman: "da-reun", meaning: "different" },
+        { hangul: "뛰지 않는", roman: "ttwi-ji an-neun", meaning: "not jumping / skipping" }
+      ]},
+      { korean: "Two, two point oh 업데이트된 후", english: "Two point oh — after updating", words: [
+        { hangul: "업데이트된", roman: "eop-de-i-teu-doen", meaning: "updated" },
+        { hangul: "후", roman: "hu", meaning: "after" }
+      ]},
+      { korean: "여기저기 또 한 번 일냈네", english: "Causing a scene everywhere, once again", words: [
+        { hangul: "여기저기", roman: "yeo-gi-jeo-gi", meaning: "here and there" },
+        { hangul: "또", roman: "tto", meaning: "again" },
+        { hangul: "한 번", roman: "han beon", meaning: "one time" },
+        { hangul: "일냈네", roman: "il-naen-ne", meaning: "caused a stir" }
+      ], note: "일을 내다 — literally \"to make an incident.\" Can mean causing trouble OR pulling off something big. Here it's positive: \"they went and did it again.\" The -네 ending adds a tone of impressed surprise." },
+      { eng: "10 out of 10, 10" },
+      { korean: "이젠 버려, 못 쓸 폐품", english: "Throw out that unusable junk", words: [
+        { hangul: "이젠", roman: "i-jen", meaning: "now" },
+        { hangul: "버려", roman: "beo-ryeo", meaning: "throw away" },
+        { hangul: "못 쓸", roman: "mot sseul", meaning: "can't use" },
+        { hangul: "폐품", roman: "pye-pum", meaning: "junk / waste" }
+      ]},
+      { korean: "수거하러 가", english: "Go pick it up (for disposal)", words: [
+        { hangul: "수거", roman: "su-geo", meaning: "collection / pickup" },
+        { hangul: "하러", roman: "ha-reo", meaning: "in order to" },
+        { hangul: "가", roman: "ga", meaning: "go" }
+      ]},
+      { korean: "여유 있게 다시 수고하러", english: "And calmly head off to work", words: [
+        { hangul: "여유 있게", roman: "yeo-yu it-ge", meaning: "calmly / with ease" },
+        { hangul: "다시", roman: "da-shi", meaning: "again" },
+        { hangul: "수고하러", roman: "su-go-ha-reo", meaning: "to go work hard" }
+      ], note: "Wordplay: 수거 (su-geo → pickup) shifts to 수고 (su-go → hard work). Clean up the junk, then get back to grinding." }
+    ]},
+    { label: "Pre-Chorus", lines: [
+      { eng: "Stop, ride" }, { eng: "Yuh yuh yuh yuh, yeah" },
+      { eng: "Pull up at your block" }, { eng: "We gon' knock knock knock knock, yeah" },
+      { eng: "Had your little fun, fella?" }, { eng: "Pop pop pop pop, yeah" },
+      { eng: "Came back for what's mine, we don't" }, { eng: "Stop, ride" }
+    ]},
+    { label: "Hook", lines: [
+      { eng: "You know how I do do do do do do" }, { eng: "You know how I do do do do do" },
+      { korean: "불을 붙여 brand new", english: "Light it up brand new", words: [
+        { hangul: "불을", roman: "bu-reul", meaning: "fire (object)" },
+        { hangul: "붙여", roman: "bu-chyeo", meaning: "light it / ignite" }
+      ]},
+      { korean: "붙여 brand new", english: "Light it brand new", words: [
+        { hangul: "붙여", roman: "bu-chyeo", meaning: "light it" }
+      ]},
+      { eng: "Yeah we on that brand new" }, { eng: "You know how we do" }
+    ]},
+    { label: "Bridge", lines: [
+      { eng: "Pop pop pop pop pop pop pop pop pop pop" },
+      { eng: "Baby gettin' too lit rah rah rah rah rah rah" },
+      { eng: "Hit 'em up like pop" }, { eng: "Hit 'em with the truth like rah" },
+      { eng: "Time to pay your debt" }, { eng: "Fear me or fear me not" },
+      { eng: "Let it be / Let it bleed" }, { eng: "Hit a lick / In a split" }
+    ]},
+    { label: "Final Chorus", lines: [
+      { eng: "Stop, ride" }, { eng: "Yuh yuh yuh yuh, yeah" },
+      { eng: "Pull up at your block" }, { eng: "We gon' knock knock knock knock, yeah" },
+      { eng: "Had your little fun, fella?" }, { eng: "Pop pop pop pop, yeah" },
+      { eng: "Came back for what's mine, we don't" }, { eng: "Stop, ride" }
+    ]},
+    { label: "Outro", lines: [
+      { eng: "You know how I do do do do do do" }, { eng: "You know how I do do do do do" },
+      { korean: "불을 붙여 brand new", english: "Light it up brand new", words: [
+        { hangul: "불을", roman: "bu-reul", meaning: "fire (object)" },
+        { hangul: "붙여", roman: "bu-chyeo", meaning: "light it / ignite" }
+      ]},
+      { korean: "붙여 brand new", english: "Light it brand new", words: [
+        { hangul: "붙여", roman: "bu-chyeo", meaning: "light it" }
+      ]},
+      { eng: "Yeah we on that brand new" }, { eng: "You know how we do" }
+    ]}
+  ]
+};
+
+// ── Navigation ──
+function showSong() {
+    document.getElementById('kl-home').style.display = 'none';
+    document.getElementById('kl-song').style.display = 'block';
+    window.scrollTo(0, 0);
+    observeCards();
+}
+function showHome() {
+    document.getElementById('kl-song').style.display = 'none';
+    document.getElementById('kl-home').style.display = 'flex';
+    window.scrollTo(0, 0);
+}
+
+// ── Build lyrics ──
+function renderLyrics() {
+    const container = document.getElementById('kl-lyrics');
+    let html = '';
+
+    SONG.sections.forEach(section => {
+        html += `<div class="kl-section-label">${section.label}</div>`;
+
+        section.lines.forEach(line => {
+            if (line.eng) {
+                html += `<div class="kl-eng-line">${line.eng}</div>`;
+                return;
+            }
+
+            let wordsHtml = '';
+            if (line.words) {
+                wordsHtml = '<div class="kl-words">' + line.words.map(w =>
+                    `<div class="kl-word">
+                        <span class="hangul">${w.hangul}</span>
+                        <span class="roman">${w.roman}</span>
+                        <span class="meaning">${w.meaning}</span>
+                    </div>`
+                ).join('') + '</div>';
+            }
+
+            let noteHtml = '';
+            if (line.note) {
+                noteHtml = `<div class="kl-note">${line.note}</div>`;
+            }
+
+            html += `
+                <div class="kl-line-card">
+                    <div class="kl-line-korean">${line.korean}</div>
+                    ${line.english ? `<div class="kl-line-english">${line.english}</div>` : ''}
+                    ${wordsHtml}
+                    ${noteHtml}
+                </div>`;
+        });
+    });
+
+    container.innerHTML = html;
+}
+
+// ── Scroll animations ──
+function observeCards() {
+    const cards = document.querySelectorAll('.kl-line-card');
+    const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+    cards.forEach(c => obs.observe(c));
+}
+
+// ── Home fade-ins ──
+function initHome() {
+    setTimeout(() => {
+        document.querySelectorAll('.kl-fade').forEach(el => el.classList.add('visible'));
+    }, 100);
+}
+
+// ── Load sidebar ──
+fetch('sidebar.html')
+    .then(r => r.text())
+    .then(html => {
+        document.getElementById('sidebar-container').innerHTML = html;
+        // Re-run any inline scripts from sidebar
+        document.getElementById('sidebar-container').querySelectorAll('script').forEach(old => {
+            const s = document.createElement('script');
+            s.textContent = old.textContent;
+            old.replaceWith(s);
+        });
+    })
+    .catch(() => {});
+
+// ── Init ──
+renderLyrics();
+initHome();
+</script>
+
+</body>
+</html>
