@@ -89,8 +89,14 @@
 
         /* ── Song list on home ── */
         .kl-song-list {
-            display: flex; flex-direction: row; gap: 16px;
-            align-items: center; justify-content: center; flex-wrap: wrap;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            justify-content: center;
+            max-width: 860px;
+        }
+        .kl-song-list > * {
+            flex: 0 0 calc(33.333% - 16px);
         }
         .kl-song-btn {
             background: linear-gradient(145deg, rgba(0,30,50,0.95), rgba(0,15,35,0.98));
@@ -295,8 +301,6 @@
 <!-- Shared sidebar -->
 <div id="sidebar-container"></div>
 
-<!-- Top title bar -->
-<a href="k-learn.html" class="kl-title-link">k-learn</a>
 
 <!-- ════════════════════════════════════ HOME ════════════════════════════════════ -->
 <div id="kl-home">
@@ -332,6 +336,21 @@
         <div class="artist">aespa</div>
         <div class="start-pill">START →</div>
     </button>
+    </div>
+    <div class="kl-fade d3">
+    <button class="kl-song-btn" onclick="showSong('jump')">
+        <div class="title">Jump</div>
+        <div class="artist">BLACKPINK</div>
+        <div class="start-pill">START →</div>
+    </button>
+    </div>
+    <div class="kl-fade d3">
+    <button class="kl-song-btn" onclick="showSong('famous')">
+        <div class="title">Famous</div>
+        <div class="artist">ALLDAY PROJECT</div>
+        <div class="start-pill">START →</div>
+    </button>
+</div>
 </div>
 </div>
 
@@ -871,6 +890,350 @@ whiplash: {
       { eng: "Whip-whiplash, whip-whiplash" },
       { eng: "Whip-whiplash, whip-whiplash" },
       { eng: "Whip-whiplash, one look, give 'em whiplash" }
+    ]}
+  ]
+},
+// ── Jump (뛰어) ──
+jump: {
+  title: "뛰어 (Jump)",
+  artist: "BLACKPINK",
+  sections: [
+    { label: "Verse 1", lines: [
+      { eng: "I'm not that easy to tame" },
+      { eng: "You should see me under these lights, all my tears turn to ice" },
+      { eng: "That's the sweetest escape" },
+      { eng: "Every time the feeling kicks in, I might stay through the night" }
+    ]},
+    { label: "Pre-Chorus", lines: [
+      { eng: "Bet you get it now" },
+      { eng: "Rocked that, didn't I?" },
+      { korean: "착각 하지 마", english: "Don't get it twisted", words: [
+        { hangul: "착각", roman: "chak-gak", meaning: "illusion / misunderstanding" },
+        { hangul: "하지 마", roman: "ha-ji ma", meaning: "don't do" }
+      ], note: "착각하다 = to be under an illusion, to misunderstand the situation. 착각 하지 마 is a sharp warning: \"Don't get confused about what's really going on here.\" Very direct." },
+      { korean: "누가 누군지, woah", english: "Who's who", words: [
+        { hangul: "누가", roman: "nu-ga", meaning: "who (subject)" },
+        { hangul: "누군지", roman: "nu-gun-ji", meaning: "who (someone) is" }
+      ], note: "누가 누군지 — literally \"who is who.\" Combined with 착각 하지 마, the full line is: \"Don't get confused about who's who here.\" Know your place." },
+      { eng: "Think you're running that?" },
+      { eng: "Guess we gunnin' back" },
+      { eng: "You know I walk, yeah, I talk it" },
+      { korean: "눈 감고, 하나, 둘, 셋 (뛰어)", english: "Close your eyes — one, two, three (jump!)", words: [
+        { hangul: "눈", roman: "nun", meaning: "eyes" },
+        { hangul: "감고", roman: "gam-go", meaning: "close and..." },
+        { hangul: "하나", roman: "ha-na", meaning: "one" },
+        { hangul: "둘", roman: "dul", meaning: "two" },
+        { hangul: "셋", roman: "set", meaning: "three" },
+        { hangul: "뛰어", roman: "ttwi-eo", meaning: "jump! / run!" }
+      ], note: "뛰다 has two meanings: to jump AND to run. 뛰어 is the command form — it works as both \"jump!\" and \"go! run!\" The title plays on this double meaning: leap forward, take the risk." }
+    ]},
+    { label: "Chorus", lines: [
+      { korean: "뛰어 뛰어 뛰어 뛰어", english: "Jump! Jump! Jump! Jump!", words: [
+        { hangul: "뛰어", roman: "ttwi-eo", meaning: "jump! / run!" }
+      ]},
+      { eng: "So come up with me, I'll take you high" },
+      { eng: "That Prima donna, spice up your life" },
+      { eng: "You know I got that shit that you like" },
+      { eng: "So come up with me, run up, uh, jump (뛰어)" }
+    ]},
+    { label: "Post-Chorus", lines: [
+      { eng: "Watch me runnin' up the place" },
+      { eng: "I'm already stuntin' and my girls are on the way (뛰어)" },
+      { eng: "Watch me open up the place" },
+      { eng: "Wanna see you bumpin', baby, bouncin' to the bass" }
+    ]},
+    { label: "Verse 2", lines: [
+      { eng: "Are you not entertained? (No)" },
+      { eng: "I ain't gotta explain (No)" },
+      { eng: "I'm with all of my sisters (Ah)" },
+      { eng: "Got 'em going insane, yeah" },
+      { eng: "You know we on a mission" },
+      { eng: "All gas, no brakes, yeah" },
+      { eng: "Breaking out of the system" },
+      { eng: "Breaking out of this cage, yeah" }
+    ]},
+    { label: "Pre-Chorus", lines: [
+      { eng: "Bet you get it now" },
+      { eng: "Ate that, didn't I?" },
+      { korean: "순간 잊지 마", english: "Don't forget for a second", words: [
+        { hangul: "순간", roman: "sun-gan", meaning: "moment / instant" },
+        { hangul: "잊지 마", roman: "it-ji ma", meaning: "don't forget" }
+      ], note: "잊지 마 — \"don't forget.\" 잊다 = to forget, -지 마 = don't. Combined with 순간: \"Don't forget even for a moment.\" A variation on the first pre-chorus — 착각 하지 마 (don't get confused) becomes 순간 잊지 마 (don't you dare forget)." },
+      { korean: "누가 누군지, oh", english: "Who's who", words: [
+        { hangul: "누가", roman: "nu-ga", meaning: "who (subject)" },
+        { hangul: "누군지", roman: "nu-gun-ji", meaning: "who (someone) is" }
+      ]},
+      { eng: "Think you runnin' that?" },
+      { eng: "Guess we gunnin' back" },
+      { eng: "You know I walk, yeah, I talk it" },
+      { korean: "눈 감고, 하나, 둘, 셋 (뛰어)", english: "Close your eyes — one, two, three (jump!)", words: [
+        { hangul: "눈", roman: "nun", meaning: "eyes" },
+        { hangul: "감고", roman: "gam-go", meaning: "close and..." },
+        { hangul: "하나", roman: "ha-na", meaning: "one" },
+        { hangul: "둘", roman: "dul", meaning: "two" },
+        { hangul: "셋", roman: "set", meaning: "three" },
+        { hangul: "뛰어", roman: "ttwi-eo", meaning: "jump!" }
+      ]}
+    ]},
+    { label: "Chorus", lines: [
+      { korean: "뛰-뛰-뛰어 뛰어 뛰어 뛰어", english: "Ju-ju-jump! Jump! Jump! Jump!", words: [
+        { hangul: "뛰어", roman: "ttwi-eo", meaning: "jump!" }
+      ]},
+      { eng: "So come up with me, I'll take you high" },
+      { eng: "That Prima donna, spice up your life" },
+      { eng: "You know I got that shit that you like" },
+      { eng: "So come up with me, run up, uh, jump (뛰어)" }
+    ]},
+    { label: "Post-Chorus", lines: [
+      { eng: "Watch me runnin' up the place" },
+      { eng: "I'm already stuntin' and my girls are on the way (뛰어)" },
+      { eng: "Watch me open up the place" },
+      { eng: "Wanna see you bumpin', baby, bouncin' to the bass" }
+    ]},
+    { label: "Outro", lines: [
+      { eng: "BLACKPINK in your area" },
+      { korean: "뛰어 뛰어", english: "Jump! Jump!", words: [
+        { hangul: "뛰어", roman: "ttwi-eo", meaning: "jump! / run!" }
+      ]}
+    ]}
+  ]
+},
+// ── Famous ──
+famous: {
+  title: "Famous",
+  artist: "ALLDAY PROJECT",
+  sections: [
+    { label: "Intro", lines: [
+      { eng: "Oh, oh, oh" }
+    ]},
+    { label: "Verse 1", lines: [
+      { korean: "분명 나쁜 아이는 아니어도", english: "Sure, I'm not a bad kid, but even so", words: [
+        { hangul: "분명", roman: "bun-myeong", meaning: "clearly / for sure" },
+        { hangul: "나쁜", roman: "na-bbeun", meaning: "bad" },
+        { hangul: "아이는", roman: "a-i-neun", meaning: "kid (topic)" },
+        { hangul: "아니어도", roman: "a-ni-eo-do", meaning: "even if not" }
+      ]},
+      { korean: "또 틀에 가두면, we break it", english: "If you box me in again, we break it", words: [
+        { hangul: "또", roman: "tto", meaning: "again" },
+        { hangul: "틀에", roman: "teu-re", meaning: "in a frame / mold" },
+        { hangul: "가두면", roman: "ga-du-myeon", meaning: "if you trap / confine" }
+      ], note: "틀에 가두다 — literally \"to trap in a frame.\" Means putting someone in a box, forcing them into a category or stereotype. They're saying: try to define us and we'll break out." },
+      { eng: "Bum, no bigger than the girl next door" },
+      { korean: "무대 서면, we fake it", english: "When we stand on stage, we fake it", words: [
+        { hangul: "무대", roman: "mu-dae", meaning: "stage" },
+        { hangul: "서면", roman: "seo-myeon", meaning: "if/when (we) stand" }
+      ], note: "무대 서다 = to stand on stage, to perform. The \"fake it\" isn't about being phony — it's \"fake it till you make it.\" Regular people who transform when performing." },
+      { korean: "No white collar, 근데 얜 좀 쳐", english: "No white collar, but she hits different", words: [
+        { hangul: "근데", roman: "geun-de", meaning: "but / however" },
+        { hangul: "얜", roman: "yaen", meaning: "this person" },
+        { hangul: "좀", roman: "jom", meaning: "a bit / kinda" },
+        { hangul: "쳐", roman: "chyeo", meaning: "hits / strikes" }
+      ], note: "얜 is a contraction of 얘는 (this kid/person). 좀 쳐 = hits a bit, meaning she goes hard. 근데 얜 좀 쳐 = \"but she kinda hits different\" — casual, confident slang." },
+      { eng: "When I put mans in their places" },
+      { korean: "모든 시선들은 날 따라와", english: "All eyes follow me", words: [
+        { hangul: "모든", roman: "mo-deun", meaning: "all / every" },
+        { hangul: "시선들은", roman: "shi-seon-deu-reun", meaning: "gazes / stares (topic)" },
+        { hangul: "날", roman: "nal", meaning: "me" },
+        { hangul: "따라와", roman: "dda-ra-wa", meaning: "follow" }
+      ], note: "시선 = a gaze, a line of sight. 시선을 따라오다 = eyes following someone. Every gaze in the room tracks to them." },
+      { eng: "But we ain't even famous" }
+    ]},
+    { label: "Chorus", lines: [
+      { eng: "Don't you try me, I want some more" },
+      { eng: "Don't you play me, we on the floor" },
+      { eng: "Don't you try me, I want some more" },
+      { eng: "We ain't even famous" },
+      { eng: "Don't you try me, I want some more" },
+      { eng: "Don't you play me, we on the floor" },
+      { eng: "Don't you try me, I want some more" },
+      { eng: "We ain't even famous" }
+    ]},
+    { label: "Verse 2", lines: [
+      { eng: "Money don't make friends, only got my fam" },
+      { eng: "Pull up with my M's and I make the money dance" },
+      { eng: "Funny how it goes, but this is how it ends" },
+      { eng: "This is how I live by the name Tarzan" },
+      { eng: "I ain't even famous" },
+      { korean: "다들 날 보면 오, they say less", english: "When everyone sees me — oh, they say less", words: [
+        { hangul: "다들", roman: "da-deul", meaning: "everyone / all of them" },
+        { hangul: "날", roman: "nal", meaning: "me" },
+        { hangul: "보면", roman: "bo-myeon", meaning: "when they see" }
+      ]},
+      { eng: "And my kit in my whip is the latest" },
+      { korean: "내 가친 조 단위 임마 불러봐", english: "My worth is in the trillions — go ahead, say my name", words: [
+        { hangul: "내", roman: "nae", meaning: "my" },
+        { hangul: "가친", roman: "ga-chin", meaning: "worth / value" },
+        { hangul: "조", roman: "jo", meaning: "trillion" },
+        { hangul: "단위", roman: "dan-wi", meaning: "unit / scale" },
+        { hangul: "임마", roman: "im-ma", meaning: "dude / man" },
+        { hangul: "불러봐", roman: "bul-leo-bwa", meaning: "try calling / say it" }
+      ], note: "조 단위 = on a trillion-won scale. 임마 is the same rough slang as 인마 — like \"yo, man.\" 불러봐 = \"try saying it\" or \"call me.\" The whole line is: my value is in the trillions, go ahead and say my name." },
+      { eng: "My name is: The Greatest Unfamous" }
+    ]},
+    { label: "Pre-Chorus", lines: [
+      { korean: "느껴져 내 분위기", english: "You can feel my vibe", words: [
+        { hangul: "느껴져", roman: "neu-kkyeo-jyeo", meaning: "it's felt / you can feel it" },
+        { hangul: "내", roman: "nae", meaning: "my" },
+        { hangul: "분위기", roman: "bun-wi-gi", meaning: "vibe / atmosphere" }
+      ], note: "분위기 — one of the most used Korean words. Means atmosphere, mood, vibe. 느껴지다 is passive: the vibe isn't being pushed, it's just naturally felt. It radiates." },
+      { korean: "When I walk, 다 돌아봐", english: "When I walk, everyone turns around", words: [
+        { hangul: "다", roman: "da", meaning: "everyone / all" },
+        { hangul: "돌아봐", roman: "do-ra-bwa", meaning: "turn around / look back" }
+      ]},
+      { eng: "I be gettin' what I need" },
+      { eng: "Those things I've got" },
+      { eng: "Think it's going to my head" },
+      { eng: "Know you lookin' when I dance" },
+      { eng: "Take a quick pic for your friend" },
+      { korean: "내 이름 알아둬", english: "Remember my name", words: [
+        { hangul: "내", roman: "nae", meaning: "my" },
+        { hangul: "이름", roman: "i-reum", meaning: "name" },
+        { hangul: "알아둬", roman: "a-ra-dweo", meaning: "remember it / keep it in mind" }
+      ], note: "알아두다 = to learn and keep in mind. Stronger than just \"know\" — it's \"make sure you remember this.\" A warning: you'll be hearing this name again." }
+    ]},
+    { label: "Verse 1 (Reprise)", lines: [
+      { korean: "분명 나쁜 아이는 아니어도", english: "Sure, I'm not a bad kid, but even so", words: [
+        { hangul: "분명", roman: "bun-myeong", meaning: "clearly / for sure" },
+        { hangul: "나쁜", roman: "na-bbeun", meaning: "bad" },
+        { hangul: "아이는", roman: "a-i-neun", meaning: "kid (topic)" },
+        { hangul: "아니어도", roman: "a-ni-eo-do", meaning: "even if not" }
+      ]},
+      { korean: "또 틀에 가두면, we break it", english: "If you box me in again, we break it", words: [
+        { hangul: "또", roman: "tto", meaning: "again" },
+        { hangul: "틀에", roman: "teu-re", meaning: "in a frame / mold" },
+        { hangul: "가두면", roman: "ga-du-myeon", meaning: "if you trap" }
+      ]},
+      { eng: "Bum, no bigger than the girl next door" },
+      { korean: "무대 서면 we fake it", english: "When we stand on stage, we fake it", words: [
+        { hangul: "무대", roman: "mu-dae", meaning: "stage" },
+        { hangul: "서면", roman: "seo-myeon", meaning: "if/when (we) stand" }
+      ]},
+      { korean: "No white collar, 근데 얜 좀 쳐", english: "No white collar, but she hits different", words: [
+        { hangul: "근데", roman: "geun-de", meaning: "but" },
+        { hangul: "얜", roman: "yaen", meaning: "this person" },
+        { hangul: "좀", roman: "jom", meaning: "a bit" },
+        { hangul: "쳐", roman: "chyeo", meaning: "hits / strikes" }
+      ]},
+      { eng: "When I put mans in their places" },
+      { korean: "모든 시선들은 날 따라와", english: "All eyes follow me", words: [
+        { hangul: "모든", roman: "mo-deun", meaning: "all" },
+        { hangul: "시선들은", roman: "shi-seon-deu-reun", meaning: "gazes (topic)" },
+        { hangul: "날", roman: "nal", meaning: "me" },
+        { hangul: "따라와", roman: "dda-ra-wa", meaning: "follow" }
+      ]},
+      { eng: "But we ain't even famous" }
+    ]},
+    { label: "Verse 3", lines: [
+      { korean: "I'm stacking my dollars", english: "", words: [] },
+      { korean: "난 뿌리부터 달라, 초록 빛깔 color", english: "I'm different from the root — green-tinted color", words: [
+        { hangul: "난", roman: "nan", meaning: "I (topic)" },
+        { hangul: "뿌리부터", roman: "ppu-ri-bu-teo", meaning: "from the root" },
+        { hangul: "달라", roman: "dal-la", meaning: "different" },
+        { hangul: "초록", roman: "cho-rok", meaning: "green" },
+        { hangul: "빛깔", roman: "bit-kkal", meaning: "tint / hue" }
+      ], note: "뿌리부터 다르다 — \"different from the root.\" An expression meaning fundamentally different, not just surface-level. 초록 빛깔 = green tint, referencing money (dollars). The wordplay with \"color\" and \"dollar\" (달라/dollar) is intentional." },
+      { korean: "감출 수 없어, 나잖아 빛이", english: "Can't hide it — it's me, I'm the light", words: [
+        { hangul: "감출 수 없어", roman: "gam-chul su eop-seo", meaning: "can't hide" },
+        { hangul: "나잖아", roman: "na-ja-na", meaning: "it's me, you know" },
+        { hangul: "빛이", roman: "bi-chi", meaning: "light (subject)" }
+      ], note: "나잖아 — \"it's me, obviously.\" The 잖아 ending means \"you know that\" or \"as you can see.\" It's self-evident: of course the light is me." },
+      { eng: "Not even famous, but they wanna be us" },
+      { korean: "같은 공기지만 우린 너무 다른 위치", english: "Same air, but we're in a totally different position", words: [
+        { hangul: "같은", roman: "ga-teun", meaning: "same" },
+        { hangul: "공기지만", roman: "gong-gi-ji-man", meaning: "air, but" },
+        { hangul: "우린", roman: "u-rin", meaning: "we" },
+        { hangul: "너무", roman: "neo-mu", meaning: "too / very" },
+        { hangul: "다른", roman: "da-reun", meaning: "different" },
+        { hangul: "위치", roman: "wi-chi", meaning: "position / place" }
+      ], note: "같은 공기 = same air. We breathe the same air, we're in the same room, but our levels are completely different. Cold." },
+      { korean: "비교 말어 걔넨 전부 구려", english: "Don't compare — they all suck", words: [
+        { hangul: "비교", roman: "bi-gyo", meaning: "comparison" },
+        { hangul: "말어", roman: "ma-reo", meaning: "don't (casual)" },
+        { hangul: "걔넨", roman: "gyae-nen", meaning: "those people" },
+        { hangul: "전부", roman: "jeon-bu", meaning: "all of them" },
+        { hangul: "구려", roman: "gu-ryeo", meaning: "suck / are lame" }
+      ], note: "구리다 = to suck, to be lame/wack. Very casual slang. 걔넨 is a contraction of 걔네는 (those kids/people). No filter here." },
+      { korean: "똑같은 걸 해도, I do it better", english: "Even doing the same thing, I do it better", words: [
+        { hangul: "똑같은", roman: "ttok-ga-teun", meaning: "exactly the same" },
+        { hangul: "걸", roman: "geol", meaning: "thing (object)" },
+        { hangul: "해도", roman: "hae-do", meaning: "even if (I) do" }
+      ]},
+      { korean: "말해 뭐해, I'm a trendsetter", english: "What's the point of saying it — I'm a trendsetter", words: [
+        { hangul: "말해", roman: "mal-hae", meaning: "say / speak" },
+        { hangul: "뭐해", roman: "mwo-hae", meaning: "what's the point" }
+      ], note: "말해 뭐해 — a set expression meaning \"what's even the point of saying it?\" It's so obvious it doesn't need to be stated. Like \"goes without saying.\"" },
+      { korean: "ALLDAY, I show 'em, 끝없는 체력", english: "ALLDAY, I show 'em — endless stamina", words: [
+        { hangul: "끝없는", roman: "kkeut-eom-neun", meaning: "endless / limitless" },
+        { hangul: "체력", roman: "che-ryeok", meaning: "stamina / physical strength" }
+      ], note: "끝없다 = without end. 체력 = physical stamina/endurance. Playing off the group name ALLDAY — they go all day because their energy never runs out." }
+    ]},
+    { label: "Pre-Chorus", lines: [
+      { korean: "내 표적은 네 머리", english: "My target is your head", words: [
+        { hangul: "내", roman: "nae", meaning: "my" },
+        { hangul: "표적은", roman: "pyo-jeok-eun", meaning: "target (topic)" },
+        { hangul: "네", roman: "ne", meaning: "your" },
+        { hangul: "머리", roman: "meo-ri", meaning: "head" }
+      ]},
+      { korean: "When I walk, 다 돌아봐", english: "When I walk, everyone turns around", words: [
+        { hangul: "다", roman: "da", meaning: "everyone" },
+        { hangul: "돌아봐", roman: "do-ra-bwa", meaning: "turn around" }
+      ]},
+      { eng: "I be gettin' what I need" },
+      { eng: "Those things I've got" },
+      { eng: "Think it's going to my head" },
+      { eng: "Know you lookin' when I dance" },
+      { eng: "Take a quick pic for your friend" },
+      { korean: "내 이름 알아둬", english: "Remember my name", words: [
+        { hangul: "내", roman: "nae", meaning: "my" },
+        { hangul: "이름", roman: "i-reum", meaning: "name" },
+        { hangul: "알아둬", roman: "a-ra-dweo", meaning: "remember it" }
+      ]}
+    ]},
+    { label: "Final Verse", lines: [
+      { korean: "분명 나쁜 아이는 아니어도", english: "Sure, I'm not a bad kid, but even so", words: [
+        { hangul: "분명", roman: "bun-myeong", meaning: "clearly" },
+        { hangul: "나쁜", roman: "na-bbeun", meaning: "bad" },
+        { hangul: "아이는", roman: "a-i-neun", meaning: "kid (topic)" },
+        { hangul: "아니어도", roman: "a-ni-eo-do", meaning: "even if not" }
+      ]},
+      { korean: "또 틀에 가두면, we break it", english: "If you box me in again, we break it", words: [
+        { hangul: "또", roman: "tto", meaning: "again" },
+        { hangul: "틀에", roman: "teu-re", meaning: "in a frame" },
+        { hangul: "가두면", roman: "ga-du-myeon", meaning: "if you trap" }
+      ]},
+      { korean: "범 무서운지 모르고 덤벼", english: "Charging in not knowing how scary the tiger is", words: [
+        { hangul: "범", roman: "beom", meaning: "tiger" },
+        { hangul: "무서운지", roman: "mu-seo-un-ji", meaning: "how scary" },
+        { hangul: "모르고", roman: "mo-reu-go", meaning: "not knowing" },
+        { hangul: "덤벼", roman: "deom-byeo", meaning: "charge in / come at" }
+      ], note: "This references the proverb 하룻강아지 범 무서운 줄 모른다 — \"A one-day-old puppy doesn't know to fear the tiger.\" Meaning someone is recklessly challenging someone way above their level. 덤비다 = to charge at, to pick a fight." },
+      { korean: "겁 없이, I just face it", english: "Fearlessly, I just face it", words: [
+        { hangul: "겁 없이", roman: "geop eop-shi", meaning: "without fear / fearlessly" }
+      ]},
+      { korean: "No white collar, 근데 얜 좀 쳐", english: "No white collar, but she hits different", words: [
+        { hangul: "근데", roman: "geun-de", meaning: "but" },
+        { hangul: "얜", roman: "yaen", meaning: "this person" },
+        { hangul: "좀", roman: "jom", meaning: "a bit" },
+        { hangul: "쳐", roman: "chyeo", meaning: "hits" }
+      ]},
+      { eng: "When I put mans in their places" },
+      { korean: "모든 시선들은 날 따라와", english: "All eyes follow me", words: [
+        { hangul: "모든", roman: "mo-deun", meaning: "all" },
+        { hangul: "시선들은", roman: "shi-seon-deu-reun", meaning: "gazes" },
+        { hangul: "날", roman: "nal", meaning: "me" },
+        { hangul: "따라와", roman: "dda-ra-wa", meaning: "follow" }
+      ]},
+      { eng: "But we ain't even famous (we ain't even famous)" }
+    ]},
+    { label: "Chorus (Outro)", lines: [
+      { eng: "Don't you try me, I want some more" },
+      { eng: "Don't you play me, we on the floor" },
+      { eng: "Don't you try me, I want some more" },
+      { eng: "We ain't even famous" },
+      { eng: "Don't you try me, I want some more" },
+      { eng: "Don't you play me, we on the floor" },
+      { eng: "Don't you try me, I want some more" },
+      { eng: "We ain't even famous" }
     ]}
   ]
 }
