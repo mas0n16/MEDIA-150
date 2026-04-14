@@ -286,20 +286,28 @@
         }
 
         /* ── Responsive ── */
+        @media (max-width: 600px) {
+            .kl-song-list {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                max-width: 100%;
+                padding: 0 16px;
+            }
+            .kl-song-list > * { flex: unset; }
+            .kl-song-btn { width: 100%; padding: 20px 16px; }
+            .kl-song-btn .title { font-size: 20px; }
+        }
+
         @media (max-width: 500px) {
             .kl-logo { font-size: 52px; }
             .kl-line-korean { font-size: 20px; }
             .kl-word .hangul { font-size: 18px; }
-            .kl-song-btn { min-width: unset; }
         }
 
         ::selection { background: rgba(200,162,230,0.3); color: #fff; }
     </style>
 </head>
 <body>
-
-<!-- Shared sidebar -->
-<div id="sidebar-container"></div>
 
 
 <!-- ════════════════════════════════════ HOME ════════════════════════════════════ -->
@@ -317,41 +325,41 @@
 
     <div class="kl-song-list">
         <div class="kl-fade d2">
+            <button class="kl-song-btn" onclick="showSong('whiplash')">
+                <div class="title">Whiplash</div>
+                <div class="artist">aespa</div>
+                <div class="start-pill">START →</div>
+            </button>
+        </div>
+        <div class="kl-fade d2">
+            <button class="kl-song-btn" onclick="showSong('famous')">
+                <div class="title">Famous</div>
+                <div class="artist">ALLDAY PROJECT</div>
+                <div class="start-pill">START →</div>
+            </button>
+        </div>
+        <div class="kl-fade d2">
             <button class="kl-song-btn" onclick="showSong('two_point_oh')">
                 <div class="title">2.0</div>
                 <div class="artist">BTS (방탄소년단)</div>
                 <div class="start-pill">START →</div>
             </button>
         </div>
-        <div class="kl-fade d25">
+        <div class="kl-fade d3">
             <button class="kl-song-btn" onclick="showSong('body_to_body')">
                 <div class="title">Body to Body</div>
                 <div class="artist">BTS (방탄소년단)</div>
                 <div class="start-pill">START →</div>
             </button>
         </div>
-        <div class="kl-fade d25">
-    <button class="kl-song-btn" onclick="showSong('whiplash')">
-        <div class="title">Whiplash</div>
-        <div class="artist">aespa</div>
-        <div class="start-pill">START →</div>
-    </button>
+        <div class="kl-fade d3">
+            <button class="kl-song-btn" onclick="showSong('jump')">
+                <div class="title">Jump</div>
+                <div class="artist">BLACKPINK</div>
+                <div class="start-pill">START →</div>
+            </button>
+        </div>
     </div>
-    <div class="kl-fade d3">
-    <button class="kl-song-btn" onclick="showSong('jump')">
-        <div class="title">Jump</div>
-        <div class="artist">BLACKPINK</div>
-        <div class="start-pill">START →</div>
-    </button>
-    </div>
-    <div class="kl-fade d3">
-    <button class="kl-song-btn" onclick="showSong('famous')">
-        <div class="title">Famous</div>
-        <div class="artist">ALLDAY PROJECT</div>
-        <div class="start-pill">START →</div>
-    </button>
-</div>
-</div>
 </div>
 
     <div class="kl-footer">k-learn.com</div>
@@ -1318,18 +1326,6 @@ function initHome() {
     }, 100);
 }
 
-// ── Load sidebar ──
-fetch('sidebar.html')
-    .then(r => r.text())
-    .then(html => {
-        document.getElementById('sidebar-container').innerHTML = html;
-        document.getElementById('sidebar-container').querySelectorAll('script').forEach(old => {
-            const s = document.createElement('script');
-            s.textContent = old.textContent;
-            old.replaceWith(s);
-        });
-    })
-    .catch(() => {});
 
 initHome();
 </script>
