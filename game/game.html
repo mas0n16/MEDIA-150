@@ -1,0 +1,1604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Day Off</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #f5f0e8;
+    --warm-white: #faf7f2;
+    --amber: #c8873a;
+    --amber-light: #e8a855;
+    --brown: #3d2b1f;
+    --brown-mid: #6b4c38;
+    --dusk: #7b6fa0;
+    --night: #1a1630;
+    --sage: #7a9e7e;
+    --text: #2e1f14;
+    --muted: #8c7060;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  /* ═══════════════════════════════════════
+     PIXEL SCENE VIEWPORT
+     ═══════════════════════════════════════ */
+  .scene-viewport {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    max-height: 55vh;
+    position: relative;
+    overflow: hidden;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+    transition: opacity 0.6s ease;
+  }
+
+  .scene-viewport.fading { opacity: 0; }
+
+  .scene-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .scene-bg canvas {
+    width: 100%;
+    height: 100%;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+    display: block;
+  }
+
+  /* Grain overlay on scene */
+  .scene-viewport::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    opacity: 0.15;
+    pointer-events: none;
+    z-index: 5;
+  }
+
+  /* Character canvas layer */
+  .character-layer {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    pointer-events: none;
+  }
+
+  .character-layer canvas {
+    width: 100%;
+    height: 100%;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+  }
+
+  /* Choice markers in the scene */
+  .scene-choices {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-around;
+    padding: 0 10%;
+    z-index: 4;
+    pointer-events: none;
+  }
+
+  .scene-choice-marker {
+    pointer-events: all;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 10px 18px 16px;
+    transition: transform 0.2s ease;
+    position: relative;
+  }
+
+  .scene-choice-marker:hover { transform: translateY(-4px); }
+
+  .marker-bubble {
+    background: rgba(250,247,242,0.92);
+    backdrop-filter: blur(8px);
+    border: 2px solid var(--amber);
+    border-radius: 12px;
+    padding: 10px 16px;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(61,43,31,0.2);
+    min-width: 120px;
+    max-width: 180px;
+    transition: all 0.2s ease;
+  }
+
+  .scene-choice-marker:hover .marker-bubble {
+    background: rgba(255,255,255,0.98);
+    box-shadow: 0 6px 28px rgba(200,135,58,0.35);
+    border-color: var(--amber-light);
+  }
+
+  .marker-icon { font-size: 20px; margin-bottom: 2px; }
+
+  .marker-label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--brown);
+    line-height: 1.3;
+  }
+
+  .marker-arrow {
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 8px solid var(--amber);
+  }
+
+  /* Bounce animation on markers */
+  .scene-choice-marker {
+    animation: markerBounce 2s ease-in-out infinite;
+  }
+
+  .scene-choice-marker:nth-child(2) {
+    animation-delay: 0.3s;
+  }
+
+  @keyframes markerBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+  }
+
+  .scene-choice-marker:hover {
+    animation: none;
+    transform: translateY(-4px);
+  }
+
+  /* ═══════════════════════════════════════
+     BOTTOM PANEL (story text + UI)
+     ═══════════════════════════════════════ */
+  .bottom-panel {
+    width: 100%;
+    position: relative;
+    z-index: 10;
+    background: var(--cream);
+    border-top: 3px solid var(--amber);
+    min-height: 45vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .panel-inner {
+    max-width: 580px;
+    width: 100%;
+    padding: 28px 24px 40px;
+    opacity: 0;
+    transform: translateY(12px);
+    animation: slideUp 0.5s cubic-bezier(0.22,1,0.36,1) 0.3s forwards;
+  }
+
+  /* Night mode */
+  body.time-night .bottom-panel {
+    background: #1a1630;
+    border-top-color: #6a5acd;
+  }
+
+  body.time-night .bottom-panel * {
+    color: #e8e0f5;
+  }
+
+  body.time-night .marker-bubble {
+    background: rgba(26,22,48,0.92);
+    border-color: #9b8ee0;
+  }
+
+  body.time-night .marker-label { color: #e8e0f5; }
+  body.time-night .marker-arrow { border-top-color: #9b8ee0; }
+
+  /* Time bar */
+  .time-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  .time-dots { display: flex; gap: 6px; }
+
+  .time-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(61,43,31,0.15);
+    transition: all 0.4s ease;
+  }
+  .time-dot.active { background: var(--amber); transform: scale(1.3); }
+  .time-dot.done { background: var(--brown-mid); opacity: 0.4; }
+
+  body.time-night .time-dot { background: rgba(232,224,245,0.15); }
+  body.time-night .time-dot.active { background: var(--amber-light); }
+  body.time-night .time-dot.done { background: rgba(232,224,245,0.3); }
+
+  .time-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  body.time-night .time-label { color: rgba(232,224,245,0.5); }
+
+  .stage-label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 10px;
+    display: block;
+  }
+
+  body.time-night .stage-label { color: var(--amber-light); }
+
+  .story-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(26px, 5vw, 36px);
+    font-weight: 600;
+    line-height: 1.15;
+    color: var(--brown);
+    margin-bottom: 14px;
+    letter-spacing: -0.01em;
+  }
+
+  body.time-night .story-title { color: #f0eaff; }
+
+  .story-text {
+    font-size: 14px;
+    line-height: 1.75;
+    color: var(--brown-mid);
+    font-weight: 300;
+  }
+
+  body.time-night .story-text { color: rgba(232,224,245,0.65); }
+
+  .hint-text {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 16px;
+    font-style: italic;
+    opacity: 0.7;
+  }
+
+  body.time-night .hint-text { color: rgba(232,224,245,0.35); }
+
+  /* Ending */
+  .ending-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: linear-gradient(135deg, var(--amber), var(--amber-light));
+    color: white;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border-radius: 20px;
+    margin-bottom: 16px;
+  }
+
+  body.time-night .ending-badge {
+    background: linear-gradient(135deg, #6a5acd, #9b8ee0);
+  }
+
+  .ending-score {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 52px;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--amber);
+    line-height: 1;
+    margin: 16px 0 4px;
+  }
+
+  body.time-night .ending-score { color: #c9b8ff; }
+
+  .ending-score-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+    margin-bottom: 24px;
+  }
+
+  .restart-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--brown);
+    color: var(--cream);
+    border: none;
+    border-radius: 30px;
+    padding: 14px 28px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    margin-top: 8px;
+    transition: all 0.2s ease;
+  }
+
+  body.time-night .restart-btn {
+    background: rgba(232,224,245,0.12);
+    color: #e8e0f5;
+    border: 1px solid rgba(232,224,245,0.2);
+  }
+
+  .restart-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(61,43,31,0.25);
+  }
+
+  .path-trail {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(61,43,31,0.08);
+  }
+
+  body.time-night .path-trail { border-top-color: rgba(232,224,245,0.08); }
+
+  .trail-item {
+    font-size: 10px;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  body.time-night .trail-item { color: rgba(232,224,245,0.35); }
+
+  .trail-item::after { content: '→'; margin-left: 4px; opacity: 0.5; }
+  .trail-item:last-child::after { display: none; }
+
+  /* Ending overlay bubble inside the scene */
+  .ending-overlay {
+    display: none;
+    position: absolute;
+    inset: 0;
+    z-index: 10;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    background: rgba(0,0,0,0.35);
+    backdrop-filter: blur(2px);
+  }
+
+  .ending-overlay.visible {
+    display: flex;
+    animation: slideUp 0.5s cubic-bezier(0.22,1,0.36,1) both;
+  }
+
+  .ending-bubble {
+    background: rgba(250,247,242,0.96);
+    border: 2px solid var(--amber);
+    border-radius: 18px;
+    padding: 22px 26px;
+    max-width: 360px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 8px 40px rgba(61,43,31,0.35);
+  }
+
+  body.time-night .ending-bubble {
+    background: rgba(26,22,48,0.97);
+    border-color: #6a5acd;
+  }
+
+  .ending-bubble .ending-badge { margin-bottom: 10px; }
+
+  .ending-bubble .story-title {
+    font-size: clamp(18px, 3vw, 24px);
+    margin-bottom: 8px;
+  }
+
+  .ending-bubble .story-text {
+    font-size: 12px;
+    line-height: 1.65;
+    margin-bottom: 10px;
+  }
+
+  .ending-bubble .ending-score {
+    font-size: 36px;
+    margin: 8px 0 2px;
+  }
+
+  .ending-bubble .ending-score-label {
+    margin-bottom: 14px;
+  }
+
+  .ending-bubble .path-trail {
+    margin-top: 12px;
+    padding-top: 10px;
+    justify-content: center;
+  }
+
+  /* Title screen overrides */
+  .title-mode .panel-inner { text-align: center; }
+
+  .title-eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--amber);
+    font-weight: 500;
+    margin-bottom: 8px;
+    display: block;
+  }
+
+  .title-mode .story-title {
+    font-size: clamp(34px, 7vw, 48px);
+    font-style: italic;
+    margin-bottom: 10px;
+  }
+
+  .title-sub {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 17px;
+    color: var(--muted);
+    margin-bottom: 24px;
+  }
+
+  .start-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: linear-gradient(135deg, var(--amber), #d4924a);
+    color: white;
+    border: none;
+    border-radius: 30px;
+    padding: 16px 36px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    box-shadow: 0 4px 20px rgba(200,135,58,0.35);
+  }
+
+  .start-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(200,135,58,0.45);
+  }
+
+  @keyframes slideUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+</head>
+<body class="time-morning">
+
+<div class="scene-viewport" id="sceneViewport">
+  <div class="scene-bg"><canvas id="bgCanvas"></canvas></div>
+  <div class="character-layer"><canvas id="charCanvas"></canvas></div>
+  <div class="scene-choices" id="sceneChoices"></div>
+  <div class="ending-overlay" id="endingOverlay">
+    <div class="ending-bubble" id="endingBubble"></div>
+  </div>
+</div>
+
+<div class="bottom-panel" id="bottomPanel">
+  <div class="panel-inner" id="panelInner"></div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════
+// PIXEL ART RENDERING ENGINE
+// ═══════════════════════════════════════════════
+
+const PX = 4; // each "pixel" is 4x4 real pixels on the low-res canvas
+const SCENE_W = 160;
+const SCENE_H = 120;
+
+const bgCanvas = document.getElementById('bgCanvas');
+const bgCtx = bgCanvas.getContext('2d');
+bgCanvas.width = SCENE_W;
+bgCanvas.height = SCENE_H;
+
+const charCanvas = document.getElementById('charCanvas');
+const charCtx = charCanvas.getContext('2d');
+charCanvas.width = SCENE_W;
+charCanvas.height = SCENE_H;
+
+// ─── COLOR PALETTES ───
+const PAL = {
+  // Character
+  skin: '#f0c8a0',
+  skinShade: '#d4a878',
+  hair: '#5c3a1e',
+  hairLight: '#7a5030',
+  shirtMain: '#3a8a6a',
+  shirtLight: '#50b888',
+  shirtDark: '#2a6a50',
+  pants: '#3a5a8a',
+  pantsLight: '#4a70a0',
+  pantsDark: '#2a4a70',
+  shoes: '#4a4040',
+  shoesLight: '#6a5a55',
+
+  // Scenes
+  skyMorning1: '#ffe8b0', skyMorning2: '#ffd480',
+  skyMidday1: '#90d0f0', skyMidday2: '#b8e4ff',
+  skyAfternoon1: '#ffc888', skyAfternoon2: '#ff9060',
+  skyEvening1: '#c07888', skyEvening2: '#7050a0',
+  skyNight1: '#1a1830', skyNight2: '#282050',
+
+  sunYellow: '#ffe060',
+  sunOrange: '#ffa830',
+  cloud: '#fff8f0',
+  cloudShade: '#e8ddd0',
+
+  // Buildings
+  bldgLight: '#e8d8c0', bldgMid: '#c0a888', bldgDark: '#907860',
+  bldg2: '#d0b898', bldg3: '#b09070',
+  windowLit: '#fff0a0', windowDark: '#504838',
+  roofDark: '#685040',
+
+  // Nature
+  treeTrunk: '#6a4830', treeGreen: '#50a050', treeGreenDark: '#388038', treeGreenLight: '#70c060',
+  grass: '#60a850', grassDark: '#48883a', grassLight: '#80c870',
+  path: '#d8c8a0', pathDark: '#c0b088',
+  water: '#60a0d0', waterLight: '#80c0e8', waterDark: '#4080b0',
+
+  // Interior
+  floor: '#c8b090', floorDark: '#a89070',
+  wallInt: '#e8dcc8', wallInt2: '#d8ccb0',
+  furniture: '#8a7050', furnitureLight: '#a89070',
+  bedWhite: '#f0ece0', bedBlue: '#7090c0',
+};
+
+// ─── PIXEL DRAWING HELPERS ───
+function px(ctx, x, y, color) {
+  ctx.fillStyle = color;
+  ctx.fillRect(x, y, 1, 1);
+}
+
+function rect(ctx, x, y, w, h, color) {
+  ctx.fillStyle = color;
+  ctx.fillRect(x, y, w, h);
+}
+
+function line(ctx, x1, y1, x2, y2, color) {
+  ctx.fillStyle = color;
+  const dx = Math.abs(x2 - x1), dy = Math.abs(y2 - y1);
+  const sx = x1 < x2 ? 1 : -1, sy = y1 < y2 ? 1 : -1;
+  let err = dx - dy;
+  while (true) {
+    ctx.fillRect(x1, y1, 1, 1);
+    if (x1 === x2 && y1 === y2) break;
+    const e2 = 2 * err;
+    if (e2 > -dy) { err -= dy; x1 += sx; }
+    if (e2 < dx) { err += dx; y1 += sy; }
+  }
+}
+
+// ─── SKY GRADIENT (vertical) ───
+function drawSky(ctx, col1, col2) {
+  const r1 = parseInt(col1.slice(1,3),16), g1 = parseInt(col1.slice(3,5),16), b1 = parseInt(col1.slice(5,7),16);
+  const r2 = parseInt(col2.slice(1,3),16), g2 = parseInt(col2.slice(3,5),16), b2 = parseInt(col2.slice(5,7),16);
+  for (let y = 0; y < 70; y++) {
+    const t = y / 70;
+    const r = Math.round(r1 + (r2 - r1) * t);
+    const g = Math.round(g1 + (g2 - g1) * t);
+    const b = Math.round(b1 + (b2 - b1) * t);
+    rect(ctx, 0, y, SCENE_W, 1, `rgb(${r},${g},${b})`);
+  }
+}
+
+// ─── CLOUDS ───
+function drawCloud(ctx, x, y, size) {
+  const s = size;
+  rect(ctx, x, y, s*3, s, PAL.cloud);
+  rect(ctx, x+s, y-s, s*2, s, PAL.cloud);
+  rect(ctx, x-1, y+1, s*3+2, 1, PAL.cloudShade);
+}
+
+// ─── SIMPLE TREE ───
+function drawTree(ctx, x, y) {
+  rect(ctx, x+2, y+5, 2, 5, PAL.treeTrunk);
+  rect(ctx, x, y+1, 6, 5, PAL.treeGreen);
+  rect(ctx, x+1, y, 4, 2, PAL.treeGreenDark);
+  px(ctx, x+2, y, PAL.treeGreenLight);
+  px(ctx, x+4, y+2, PAL.treeGreenLight);
+}
+
+// ─── SUN / MOON ───
+function drawSun(ctx, x, y) {
+  rect(ctx, x, y, 6, 6, PAL.sunYellow);
+  rect(ctx, x+1, y+1, 4, 4, PAL.sunOrange);
+}
+
+function drawMoon(ctx, x, y) {
+  rect(ctx, x, y, 5, 5, '#e8e0c8');
+  rect(ctx, x+1, y+1, 3, 3, '#f0ecd8');
+  px(ctx, x+3, y+1, '#d8d0b8');
+}
+
+function drawStars(ctx) {
+  const spots = [[10,8],[30,5],[55,12],[80,3],[100,10],[130,7],[145,15],[20,20],[70,18],[110,22],[42,6],[90,14],[120,4]];
+  spots.forEach(([sx,sy]) => {
+    px(ctx, sx, sy, Math.random() > 0.5 ? '#e8e0f0' : '#c0b8d8');
+  });
+}
+
+// ─── BUILDING ───
+function drawBuilding(ctx, x, y, w, h, color, windowColor) {
+  rect(ctx, x, y, w, h, color);
+  rect(ctx, x, y, w, 2, PAL.roofDark);
+  // windows
+  for (let wy = y + 4; wy < y + h - 3; wy += 5) {
+    for (let wx = x + 2; wx < x + w - 2; wx += 4) {
+      rect(ctx, wx, wy, 2, 2, windowColor);
+    }
+  }
+}
+
+// ═══════════════════════════════════════════════
+// SCENE DRAWING FUNCTIONS
+// ═══════════════════════════════════════════════
+
+const scenes = {
+  bedroom: (ctx) => {
+    drawSky(ctx, PAL.skyMorning1, PAL.skyMorning2);
+    drawSun(ctx, 130, 10);
+    drawCloud(ctx, 20, 12, 3);
+    drawCloud(ctx, 90, 8, 2);
+    // Room interior
+    rect(ctx, 0, 50, SCENE_W, 70, PAL.wallInt);
+    rect(ctx, 0, 85, SCENE_W, 35, PAL.floor);
+    rect(ctx, 0, 84, SCENE_W, 2, PAL.floorDark);
+    // Window
+    rect(ctx, 100, 54, 24, 28, '#c8e8ff');
+    rect(ctx, 99, 53, 26, 1, PAL.furniture);
+    rect(ctx, 99, 82, 26, 1, PAL.furniture);
+    rect(ctx, 99, 53, 1, 30, PAL.furniture);
+    rect(ctx, 125, 53, 1, 30, PAL.furniture);
+    rect(ctx, 111, 53, 1, 30, PAL.furniture);
+    // Bed
+    rect(ctx, 10, 78, 40, 16, PAL.bedBlue);
+    rect(ctx, 10, 76, 40, 3, PAL.bedWhite);
+    rect(ctx, 8, 70, 4, 24, PAL.furniture);
+    rect(ctx, 48, 70, 4, 24, PAL.furniture);
+    // Pillow
+    rect(ctx, 12, 74, 10, 4, PAL.bedWhite);
+    // Nightstand
+    rect(ctx, 56, 80, 12, 14, PAL.furniture);
+    rect(ctx, 58, 78, 8, 3, PAL.furnitureLight);
+    // Lamp
+    rect(ctx, 60, 70, 4, 8, '#d8c898');
+    rect(ctx, 58, 68, 8, 3, '#f0e8c0');
+    // Rug
+    rect(ctx, 70, 96, 30, 8, '#c07060');
+    rect(ctx, 72, 98, 26, 4, '#d08878');
+    // Ground shadow
+    rect(ctx, 0, SCENE_H-2, SCENE_W, 2, PAL.floorDark);
+  },
+
+  street_morning: (ctx) => {
+    drawSky(ctx, PAL.skyMorning1, PAL.skyMorning2);
+    drawSun(ctx, 20, 8);
+    drawCloud(ctx, 60, 6, 3);
+    drawCloud(ctx, 110, 14, 2);
+    // Buildings bg
+    drawBuilding(ctx, 0, 30, 22, 50, PAL.bldgLight, PAL.windowLit);
+    drawBuilding(ctx, 24, 38, 18, 42, PAL.bldg2, PAL.windowDark);
+    drawBuilding(ctx, 44, 32, 20, 48, PAL.bldgMid, PAL.windowLit);
+    drawBuilding(ctx, 100, 35, 24, 45, PAL.bldg2, PAL.windowDark);
+    drawBuilding(ctx, 126, 28, 34, 52, PAL.bldgLight, PAL.windowLit);
+    // Sidewalk
+    rect(ctx, 0, 80, SCENE_W, 10, '#d0c4a8');
+    rect(ctx, 0, 79, SCENE_W, 1, '#b8a888');
+    // Road
+    rect(ctx, 0, 90, SCENE_W, 30, '#707070');
+    rect(ctx, 0, 90, SCENE_W, 1, '#606060');
+    // Road lines
+    for (let lx = 5; lx < SCENE_W; lx += 14) {
+      rect(ctx, lx, 103, 7, 1, '#c0c0a0');
+    }
+    // Trees
+    drawTree(ctx, 70, 70);
+    drawTree(ctx, 90, 72);
+    // Bench
+    rect(ctx, 74, 84, 14, 2, PAL.furniture);
+    rect(ctx, 75, 86, 1, 3, PAL.furniture);
+    rect(ctx, 86, 86, 1, 3, PAL.furniture);
+  },
+
+  home_cozy: (ctx) => {
+    drawSky(ctx, PAL.skyMidday1, PAL.skyMidday2);
+    drawCloud(ctx, 30, 10, 3);
+    // Interior
+    rect(ctx, 0, 40, SCENE_W, 80, PAL.wallInt2);
+    rect(ctx, 0, 80, SCENE_W, 40, PAL.floor);
+    rect(ctx, 0, 79, SCENE_W, 2, PAL.floorDark);
+    // Window left
+    rect(ctx, 10, 44, 20, 24, '#a8d8f0');
+    rect(ctx, 9, 43, 22, 1, PAL.furniture);
+    rect(ctx, 9, 68, 22, 1, PAL.furniture);
+    // Couch
+    rect(ctx, 40, 82, 50, 14, '#7a6a5a');
+    rect(ctx, 42, 78, 46, 6, '#8a7a68');
+    rect(ctx, 38, 78, 4, 18, '#6a5a4a');
+    rect(ctx, 88, 78, 4, 18, '#6a5a4a');
+    // Pillows on couch
+    rect(ctx, 44, 80, 8, 4, '#c09050');
+    rect(ctx, 78, 80, 8, 4, '#90a8c0');
+    // TV
+    rect(ctx, 108, 62, 30, 20, '#282828');
+    rect(ctx, 110, 64, 26, 16, '#4080c0');
+    rect(ctx, 118, 82, 12, 8, PAL.furniture);
+    // Coffee table
+    rect(ctx, 52, 98, 28, 6, PAL.furnitureLight);
+    rect(ctx, 54, 104, 2, 4, PAL.furniture);
+    rect(ctx, 76, 104, 2, 4, PAL.furniture);
+    // Plant
+    rect(ctx, 2, 85, 6, 8, '#8a5a30');
+    drawTree(ctx, 0, 74);
+    // Rug
+    rect(ctx, 45, 108, 40, 6, '#b86840');
+    rect(ctx, 47, 110, 36, 2, '#c88060');
+  },
+
+  coffee_shop: (ctx) => {
+    drawSky(ctx, PAL.skyMidday1, PAL.skyMidday2);
+    drawCloud(ctx, 50, 8, 2);
+    drawCloud(ctx, 100, 12, 3);
+    // Buildings
+    drawBuilding(ctx, -5, 28, 30, 52, PAL.bldgLight, PAL.windowDark);
+    drawBuilding(ctx, 110, 32, 50, 48, PAL.bldg2, PAL.windowLit);
+    // Coffee shop front
+    rect(ctx, 30, 34, 76, 46, '#c8a878');
+    rect(ctx, 30, 34, 76, 4, '#8a6840');
+    // Awning
+    for (let ax = 30; ax < 106; ax += 6) {
+      rect(ctx, ax, 38, 3, 8, '#c04030');
+      rect(ctx, ax+3, 38, 3, 8, '#e0e0d8');
+    }
+    // Door & windows
+    rect(ctx, 60, 52, 14, 28, '#4a3828');
+    rect(ctx, 64, 54, 6, 10, '#90c8e0');
+    rect(ctx, 36, 52, 18, 16, '#80b8d8');
+    rect(ctx, 82, 52, 18, 16, '#80b8d8');
+    // Sign
+    rect(ctx, 48, 42, 38, 8, '#f0e8d0');
+    // Sidewalk
+    rect(ctx, 0, 80, SCENE_W, 10, '#d0c4a8');
+    rect(ctx, 0, 90, SCENE_W, 30, '#707070');
+    for (let lx = 5; lx < SCENE_W; lx += 14) rect(ctx, lx, 103, 7, 1, '#c0c0a0');
+    // Outdoor table
+    rect(ctx, 36, 82, 12, 1, PAL.furnitureLight);
+    rect(ctx, 40, 83, 2, 5, PAL.furniture);
+    rect(ctx, 34, 84, 3, 5, PAL.furniture);
+    rect(ctx, 49, 84, 3, 5, PAL.furniture);
+  },
+
+  park: (ctx) => {
+    drawSky(ctx, PAL.skyAfternoon1, PAL.skyAfternoon2);
+    drawSun(ctx, 130, 15);
+    drawCloud(ctx, 20, 8, 3);
+    drawCloud(ctx, 70, 5, 2);
+    // Distant buildings
+    drawBuilding(ctx, 0, 40, 15, 30, '#c8b898', PAL.windowDark);
+    drawBuilding(ctx, 130, 38, 30, 32, '#b8a888', PAL.windowLit);
+    // Hills
+    for (let hx = 0; hx < SCENE_W; hx++) {
+      const hy = 65 + Math.sin(hx * 0.04) * 5;
+      rect(ctx, hx, Math.floor(hy), 1, SCENE_H - Math.floor(hy), PAL.grass);
+    }
+    rect(ctx, 0, 72, SCENE_W, SCENE_H - 72, PAL.grassDark);
+    // Path
+    for (let px = 20; px < 140; px++) {
+      const py = 90 + Math.sin(px * 0.03) * 3;
+      rect(ctx, px, Math.floor(py), 1, 4, PAL.path);
+    }
+    // Trees
+    drawTree(ctx, 15, 56);
+    drawTree(ctx, 55, 60);
+    drawTree(ctx, 100, 58);
+    drawTree(ctx, 135, 62);
+    // Pond
+    rect(ctx, 65, 98, 20, 8, PAL.water);
+    rect(ctx, 67, 100, 16, 4, PAL.waterLight);
+    // Bench
+    rect(ctx, 30, 88, 14, 2, PAL.furniture);
+    rect(ctx, 31, 90, 1, 3, PAL.furniture);
+    rect(ctx, 42, 90, 1, 3, PAL.furniture);
+    // Flowers
+    px(ctx, 50, 85, '#e05050');
+    px(ctx, 52, 87, '#e0c040');
+    px(ctx, 115, 82, '#d060a0');
+    px(ctx, 118, 84, '#e0c040');
+  },
+
+  gallery: (ctx) => {
+    // Interior gallery
+    rect(ctx, 0, 0, SCENE_W, SCENE_H, '#f0ece0');
+    rect(ctx, 0, 80, SCENE_W, 40, '#d8d0c0');
+    rect(ctx, 0, 79, SCENE_W, 2, '#c0b8a0');
+    // Walls
+    rect(ctx, 0, 20, SCENE_W, 60, '#e8e0d0');
+    // Paintings on wall
+    rect(ctx, 15, 30, 22, 18, '#282020');
+    rect(ctx, 17, 32, 18, 14, '#c04030');
+    rect(ctx, 20, 35, 6, 6, '#f0c040');
+    rect(ctx, 28, 34, 4, 8, '#3060a0');
+
+    rect(ctx, 55, 28, 26, 22, '#282020');
+    rect(ctx, 57, 30, 22, 18, '#2850a0');
+    rect(ctx, 62, 34, 12, 8, '#f0e080');
+    rect(ctx, 66, 38, 4, 6, '#c04030');
+
+    rect(ctx, 100, 32, 20, 16, '#282020');
+    rect(ctx, 102, 34, 16, 12, '#308050');
+    rect(ctx, 106, 37, 8, 6, '#e0d0a0');
+    // Sculpture
+    rect(ctx, 78, 85, 6, 14, '#d0c8b8');
+    rect(ctx, 76, 84, 10, 2, '#b8b0a0');
+    rect(ctx, 75, 99, 12, 4, '#a09080');
+    // Bench
+    rect(ctx, 25, 94, 20, 4, '#404040');
+    rect(ctx, 27, 98, 2, 4, '#404040');
+    rect(ctx, 41, 98, 2, 4, '#404040');
+    // Spotlights
+    rect(ctx, 24, 22, 4, 3, '#f0e8d0');
+    rect(ctx, 66, 22, 4, 3, '#f0e8d0');
+    rect(ctx, 108, 22, 4, 3, '#f0e8d0');
+  },
+
+  rooftop: (ctx) => {
+    drawSky(ctx, PAL.skyEvening1, PAL.skyEvening2);
+    // Distant skyline
+    drawBuilding(ctx, 0, 35, 12, 35, '#7060558', PAL.windowLit);
+    drawBuilding(ctx, 14, 30, 16, 40, '#605048', PAL.windowLit);
+    drawBuilding(ctx, 32, 25, 10, 45, '#504038', PAL.windowLit);
+    drawBuilding(ctx, 50, 32, 20, 38, '#605048', PAL.windowLit);
+    drawBuilding(ctx, 95, 28, 14, 42, '#504038', PAL.windowLit);
+    drawBuilding(ctx, 112, 34, 18, 36, '#605048', PAL.windowLit);
+    drawBuilding(ctx, 132, 30, 28, 40, '#706058', PAL.windowLit);
+    // Rooftop floor
+    rect(ctx, 0, 70, SCENE_W, 50, '#585048');
+    rect(ctx, 0, 70, SCENE_W, 2, '#484038');
+    // Railing
+    for (let rx = 0; rx < SCENE_W; rx += 8) {
+      rect(ctx, rx, 66, 1, 6, '#404040');
+    }
+    rect(ctx, 0, 66, SCENE_W, 1, '#505050');
+    // String lights
+    for (let lx = 10; lx < SCENE_W; lx += 10) {
+      px(ctx, lx, 60 + Math.sin(lx * 0.15) * 2, '#ffe880');
+    }
+    // Bar/table
+    rect(ctx, 60, 84, 30, 10, '#705840');
+    rect(ctx, 62, 82, 8, 3, '#c0a870'); // glass
+    rect(ctx, 78, 82, 8, 3, '#c0a870');
+    // Chairs
+    rect(ctx, 55, 96, 8, 6, '#585048');
+    rect(ctx, 92, 96, 8, 6, '#585048');
+    // Plant pots
+    rect(ctx, 10, 78, 8, 10, '#8a6040');
+    drawTree(ctx, 9, 68);
+    rect(ctx, 140, 78, 8, 10, '#8a6040');
+    drawTree(ctx, 139, 68);
+  },
+
+  farmers_market: (ctx) => {
+    drawSky(ctx, PAL.skyMidday1, PAL.skyMidday2);
+    drawCloud(ctx, 40, 6, 3);
+    // Buildings bg
+    drawBuilding(ctx, 0, 30, 18, 50, PAL.bldgLight, PAL.windowDark);
+    drawBuilding(ctx, 130, 34, 30, 46, PAL.bldg2, PAL.windowLit);
+    // Market stalls
+    // Stall 1 - produce
+    rect(ctx, 20, 56, 30, 4, '#c04030');
+    rect(ctx, 22, 60, 26, 16, '#c8a060');
+    rect(ctx, 24, 62, 6, 4, '#e04040'); // tomatoes
+    rect(ctx, 32, 62, 6, 4, '#40a040'); // lettuce
+    rect(ctx, 40, 62, 6, 4, '#f0a020'); // oranges
+    // Stall 2 - flowers
+    rect(ctx, 70, 58, 28, 4, '#e0e0d0');
+    rect(ctx, 72, 62, 24, 14, '#c8a060');
+    rect(ctx, 74, 60, 4, 4, '#e05080');
+    rect(ctx, 80, 59, 4, 5, '#f0c040');
+    rect(ctx, 86, 60, 4, 4, '#d050d0');
+    // Stall 3
+    rect(ctx, 110, 56, 24, 4, '#4080a0');
+    rect(ctx, 112, 60, 20, 16, '#c8a060');
+    // Ground
+    rect(ctx, 0, 76, SCENE_W, 44, '#d0c4a8');
+    rect(ctx, 0, 76, SCENE_W, 1, '#b8a888');
+    // String pennants
+    for (let fx = 25; fx < 130; fx += 7) {
+      const colors = ['#c04030', '#f0c040', '#4080a0', '#40a040'];
+      rect(ctx, fx, 50, 3, 4, colors[Math.floor(fx/7) % 4]);
+    }
+    rect(ctx, 20, 49, 115, 1, '#808080');
+  },
+
+  brunch: (ctx) => {
+    // Interior restaurant
+    rect(ctx, 0, 0, SCENE_W, SCENE_H, '#e8dcc8');
+    rect(ctx, 0, 75, SCENE_W, 45, '#c8b898');
+    rect(ctx, 0, 74, SCENE_W, 2, '#b0a080');
+    // Windows
+    rect(ctx, 5, 20, 30, 35, '#a8d8f0');
+    rect(ctx, 4, 19, 32, 1, PAL.furniture);
+    rect(ctx, 4, 55, 32, 1, PAL.furniture);
+    rect(ctx, 19, 19, 1, 37, PAL.furniture);
+    // Tables with food
+    rect(ctx, 50, 80, 24, 4, '#f0e8d8');
+    rect(ctx, 58, 84, 2, 8, PAL.furniture);
+    // Plates
+    rect(ctx, 52, 78, 6, 3, '#f8f8f0');
+    rect(ctx, 64, 78, 6, 3, '#f8f8f0');
+    rect(ctx, 54, 77, 2, 2, '#e0a020'); // eggs
+    rect(ctx, 66, 77, 2, 2, '#c07040'); // pancakes
+    // Chairs
+    rect(ctx, 44, 84, 5, 8, PAL.furniture);
+    rect(ctx, 75, 84, 5, 8, PAL.furniture);
+    // Another table bg
+    rect(ctx, 100, 60, 20, 3, '#f0e8d8');
+    rect(ctx, 108, 63, 2, 6, PAL.furniture);
+    // Bar area
+    rect(ctx, 90, 30, 60, 8, '#8a6840');
+    rect(ctx, 92, 22, 6, 8, '#60a060'); // bottles
+    rect(ctx, 100, 24, 4, 6, '#c04040');
+    rect(ctx, 106, 22, 5, 8, '#d0a030');
+    // Pendant lights
+    rect(ctx, 30, 8, 2, 10, '#808080');
+    rect(ctx, 28, 18, 6, 3, '#f0e8b0');
+    rect(ctx, 80, 6, 2, 12, '#808080');
+    rect(ctx, 78, 18, 6, 3, '#f0e8b0');
+  },
+
+  kitchen: (ctx) => {
+    // Interior kitchen
+    rect(ctx, 0, 0, SCENE_W, SCENE_H, '#e8e0d0');
+    rect(ctx, 0, 75, SCENE_W, 45, '#c8b898');
+    rect(ctx, 0, 74, SCENE_W, 2, '#b0a080');
+    // Cabinets
+    rect(ctx, 5, 15, 60, 25, '#d0b890');
+    rect(ctx, 7, 17, 18, 21, '#c0a878');
+    rect(ctx, 27, 17, 18, 21, '#c0a878');
+    rect(ctx, 47, 17, 16, 21, '#c0a878');
+    // Counter
+    rect(ctx, 0, 40, 70, 8, '#e0d8c8');
+    rect(ctx, 0, 48, 70, 3, '#b0a080');
+    // Stove
+    rect(ctx, 80, 38, 28, 14, '#d8d0c0');
+    rect(ctx, 82, 40, 10, 10, '#404040');
+    rect(ctx, 96, 40, 10, 10, '#404040');
+    // Pan on stove
+    rect(ctx, 84, 38, 6, 3, '#505050');
+    rect(ctx, 86, 36, 2, 2, '#f0c040'); // egg
+    // Window
+    rect(ctx, 115, 15, 30, 28, '#a8d8f0');
+    rect(ctx, 114, 14, 32, 1, PAL.furniture);
+    rect(ctx, 114, 43, 32, 1, PAL.furniture);
+    // Plant on counter
+    rect(ctx, 12, 34, 6, 6, '#8a6040');
+    rect(ctx, 13, 30, 4, 4, '#50a050');
+    // Coffee mug
+    rect(ctx, 50, 36, 4, 5, '#e8e0d0');
+    rect(ctx, 54, 38, 2, 2, '#e8e0d0');
+    // Floor
+    for (let fx = 0; fx < SCENE_W; fx += 10) {
+      rect(ctx, fx, 80, 5, 40, '#c0b090');
+      rect(ctx, fx+5, 80, 5, 40, '#b8a888');
+    }
+  },
+
+  desk: (ctx) => {
+    // Interior workspace
+    rect(ctx, 0, 0, SCENE_W, SCENE_H, '#e0dcd0');
+    rect(ctx, 0, 70, SCENE_W, 50, '#c8c0b0');
+    rect(ctx, 0, 69, SCENE_W, 2, '#b0a898');
+    // Window
+    rect(ctx, 80, 10, 40, 40, '#f0d8a0');
+    rect(ctx, 79, 9, 42, 1, PAL.furniture);
+    rect(ctx, 79, 50, 42, 1, PAL.furniture);
+    rect(ctx, 99, 9, 1, 42, PAL.furniture);
+    // Desk
+    rect(ctx, 15, 60, 60, 6, '#a08868');
+    rect(ctx, 17, 66, 4, 20, '#907858');
+    rect(ctx, 71, 66, 4, 20, '#907858');
+    // Monitor
+    rect(ctx, 30, 40, 28, 20, '#303030');
+    rect(ctx, 32, 42, 24, 16, '#4080c0');
+    rect(ctx, 42, 60, 4, 3, '#404040');
+    // Keyboard
+    rect(ctx, 34, 63, 20, 3, '#d0d0d0');
+    // Coffee
+    rect(ctx, 60, 58, 4, 4, '#f0e8d8');
+    rect(ctx, 64, 60, 2, 1, '#f0e8d8');
+    // Bookshelf
+    rect(ctx, 130, 20, 24, 50, '#a08060');
+    rect(ctx, 132, 22, 8, 10, '#c04040');
+    rect(ctx, 141, 22, 6, 10, '#4060a0');
+    rect(ctx, 132, 36, 10, 8, '#40a060');
+    rect(ctx, 143, 36, 8, 8, '#d0a030');
+    // Chair
+    rect(ctx, 30, 80, 18, 12, '#505050');
+    rect(ctx, 33, 72, 12, 8, '#606060');
+  },
+
+  neighborhood: (ctx) => {
+    drawSky(ctx, PAL.skyAfternoon1, PAL.skyAfternoon2);
+    drawSun(ctx, 140, 20);
+    // Distant skyline
+    drawBuilding(ctx, 0, 40, 20, 30, '#d0c0a8', PAL.windowDark);
+    drawBuilding(ctx, 22, 36, 16, 34, '#c0b098', PAL.windowLit);
+    drawBuilding(ctx, 60, 42, 20, 28, '#b8a888', PAL.windowDark);
+    drawBuilding(ctx, 120, 38, 40, 32, '#c8b898', PAL.windowLit);
+    // Bookshop
+    rect(ctx, 40, 50, 36, 30, '#a07850');
+    rect(ctx, 40, 50, 36, 3, '#806030');
+    rect(ctx, 46, 56, 10, 14, '#80b8d8');
+    rect(ctx, 60, 56, 10, 14, '#80b8d8');
+    rect(ctx, 54, 60, 4, 20, '#604830');
+    // Sign
+    rect(ctx, 46, 52, 24, 5, '#f0e8d0');
+    // Sidewalk
+    rect(ctx, 0, 80, SCENE_W, 10, '#d0c4a8');
+    rect(ctx, 0, 90, SCENE_W, 30, '#707070');
+    // Tree
+    drawTree(ctx, 90, 68);
+    drawTree(ctx, 110, 72);
+    // Fire hydrant
+    rect(ctx, 98, 82, 3, 6, '#c04040');
+  },
+
+  night_city: (ctx) => {
+    drawSky(ctx, PAL.skyNight1, PAL.skyNight2);
+    drawMoon(ctx, 130, 8);
+    drawStars(ctx);
+    // Buildings
+    drawBuilding(ctx, 0, 30, 20, 50, '#282028', PAL.windowLit);
+    drawBuilding(ctx, 22, 25, 18, 55, '#302838', PAL.windowLit);
+    drawBuilding(ctx, 42, 35, 22, 45, '#282028', PAL.windowLit);
+    drawBuilding(ctx, 66, 28, 16, 52, '#302838', PAL.windowLit);
+    drawBuilding(ctx, 84, 32, 24, 48, '#282028', PAL.windowLit);
+    drawBuilding(ctx, 110, 26, 18, 54, '#302838', PAL.windowLit);
+    drawBuilding(ctx, 130, 30, 30, 50, '#282028', PAL.windowLit);
+    // Street
+    rect(ctx, 0, 80, SCENE_W, 10, '#383030');
+    rect(ctx, 0, 90, SCENE_W, 30, '#303030');
+    // Street lights
+    rect(ctx, 30, 60, 2, 22, '#505050');
+    rect(ctx, 26, 60, 10, 2, '#505050');
+    px(ctx, 28, 58, '#ffe880');
+    px(ctx, 34, 58, '#ffe880');
+    rect(ctx, 110, 60, 2, 22, '#505050');
+    rect(ctx, 106, 60, 10, 2, '#505050');
+    px(ctx, 108, 58, '#ffe880');
+    px(ctx, 114, 58, '#ffe880');
+    // Light pools on ground
+    rect(ctx, 24, 84, 14, 2, '#404038');
+    rect(ctx, 104, 84, 14, 2, '#404038');
+    // Neon sign
+    rect(ctx, 48, 50, 14, 5, '#ff6080');
+  },
+
+  evening_home: (ctx) => {
+    drawSky(ctx, PAL.skyEvening1, PAL.skyEvening2);
+    // Interior
+    rect(ctx, 0, 40, SCENE_W, 80, '#e0d8c8');
+    rect(ctx, 0, 78, SCENE_W, 42, PAL.floor);
+    rect(ctx, 0, 77, SCENE_W, 2, PAL.floorDark);
+    // Window showing sunset
+    rect(ctx, 100, 44, 26, 24, '#f0a070');
+    rect(ctx, 99, 43, 28, 1, PAL.furniture);
+    rect(ctx, 99, 68, 28, 1, PAL.furniture);
+    // Couch
+    rect(ctx, 10, 82, 45, 12, '#7a6a58');
+    rect(ctx, 12, 78, 41, 5, '#8a7a68');
+    rect(ctx, 8, 78, 4, 16, '#6a5a48');
+    rect(ctx, 53, 78, 4, 16, '#6a5a48');
+    // Blanket on couch
+    rect(ctx, 20, 80, 14, 8, '#90a8c0');
+    // Table with dinner
+    rect(ctx, 66, 82, 24, 4, '#c8b898');
+    rect(ctx, 68, 80, 6, 3, '#f0e8e0'); // plate
+    rect(ctx, 70, 79, 2, 2, '#90a060'); // food
+    rect(ctx, 82, 80, 6, 3, '#f0e8e0');
+    rect(ctx, 78, 86, 2, 8, PAL.furniture);
+    // Candle
+    rect(ctx, 76, 78, 2, 4, '#f0e8d0');
+    px(ctx, 76, 77, '#f0a030');
+    // Lamp glow
+    rect(ctx, 132, 60, 8, 12, '#d8c898');
+    rect(ctx, 130, 58, 12, 3, '#f8f0d0');
+    rect(ctx, 134, 72, 4, 14, PAL.furniture);
+  }
+};
+
+// Scene mapping for each story node
+const sceneMap = {
+  start: 'bedroom',
+  lazy_morning: 'bedroom',
+  active_morning: 'street_morning',
+  home_midday: 'home_cozy',
+  out_midday: 'coffee_shop',
+  run_midday: 'park',
+  breakfast_midday: 'kitchen',
+  ending_couchday: 'home_cozy',
+  ending_lateout: 'park',
+  ending_artday: 'gallery',
+  ending_nightout: 'night_city',
+  ending_cooknight: 'kitchen',
+  ending_allday: 'brunch',
+  ending_creative: 'desk',
+  ending_explore: 'neighborhood'
+};
+
+// ═══════════════════════════════════════════════
+// CHARACTER SPRITE
+// ═══════════════════════════════════════════════
+
+const CHARACTER = {
+  x: 80,
+  y: 0,
+  targetX: 80,
+  frame: 0,
+  facing: 1, // 1=right, -1=left
+  walking: false,
+  bobPhase: 0,
+};
+
+function drawCharacter(ctx, x, groundY, frame, facing) {
+  ctx.save();
+  const cx = Math.floor(x);
+  const cy = Math.floor(groundY);
+
+  // Walk bob
+  const bob = CHARACTER.walking ? Math.sin(CHARACTER.bobPhase) * 1 : 0;
+  const legSwing = CHARACTER.walking ? Math.sin(CHARACTER.bobPhase) * 2 : 0;
+
+  // Shadow
+  ctx.fillStyle = 'rgba(0,0,0,0.15)';
+  ctx.fillRect(cx - 3, cy + 1, 8, 2);
+
+  // We draw at cx, cy where cy is feet position, so character goes upward
+  const bx = cx; // base x (left foot area)
+  const by = cy + Math.floor(bob); // base y adjusted for bob
+
+  // Shoes / feet
+  rect(ctx, bx, by - 2, 3, 2, PAL.shoes);
+  rect(ctx, bx + Math.floor(legSwing > 0 ? legSwing : 0), by - 2, 3, 2, PAL.shoesLight);
+  // If facing left, mirror
+  if (facing < 0) {
+    rect(ctx, bx + 1, by - 2, 3, 2, PAL.shoes);
+    rect(ctx, bx + 1 + Math.floor(legSwing < 0 ? -legSwing : 0), by - 2, 3, 2, PAL.shoesLight);
+  }
+
+  // Legs (pants)
+  rect(ctx, bx, by - 7, 3, 5, PAL.pants);
+  rect(ctx, bx + 2, by - 7, 3, 5, PAL.pantsLight);
+
+  // Torso (shirt)
+  rect(ctx, bx - 1, by - 13, 7, 6, PAL.shirtMain);
+  rect(ctx, bx, by - 13, 5, 6, PAL.shirtLight);
+  rect(ctx, bx + 1, by - 12, 3, 4, PAL.shirtMain);
+  // Shirt collar
+  rect(ctx, bx + 1, by - 13, 3, 1, PAL.shirtDark);
+
+  // Arms
+  const armSwing = CHARACTER.walking ? Math.sin(CHARACTER.bobPhase + 1.5) * 1 : 0;
+  rect(ctx, bx - 2, by - 12 + Math.floor(armSwing), 2, 5, PAL.shirtDark);
+  rect(ctx, bx + 5, by - 12 - Math.floor(armSwing), 2, 5, PAL.shirtDark);
+  // Hands
+  px(ctx, bx - 2, by - 7 + Math.floor(armSwing), PAL.skin);
+  px(ctx, bx + 6, by - 7 - Math.floor(armSwing), PAL.skin);
+
+  // Head
+  rect(ctx, bx, by - 18, 5, 5, PAL.skin);
+  rect(ctx, bx + 1, by - 17, 3, 3, PAL.skinShade);
+  // Eyes
+  if (facing >= 0) {
+    px(ctx, bx + 3, by - 16, '#2a1a10');
+    px(ctx, bx + 1, by - 16, '#2a1a10');
+  } else {
+    px(ctx, bx + 1, by - 16, '#2a1a10');
+    px(ctx, bx + 3, by - 16, '#2a1a10');
+  }
+
+  // Hair
+  rect(ctx, bx - 1, by - 20, 7, 3, PAL.hair);
+  rect(ctx, bx, by - 21, 5, 2, PAL.hair);
+  rect(ctx, bx + 1, by - 21, 3, 1, PAL.hairLight);
+  // Side hair
+  if (facing >= 0) {
+    rect(ctx, bx - 1, by - 18, 1, 3, PAL.hair);
+  } else {
+    rect(ctx, bx + 5, by - 18, 1, 3, PAL.hair);
+  }
+
+  ctx.restore();
+}
+
+// ═══════════════════════════════════════════════
+// ANIMATION LOOP
+// ═══════════════════════════════════════════════
+
+let animFrame = 0;
+let onArriveCallback = null;
+const WALK_SPEED = 0.8;
+const GROUND_Y_RATIO = 0.82; // character stands at 82% of scene height
+
+function updateCharacter() {
+  const dx = CHARACTER.targetX - CHARACTER.x;
+  if (Math.abs(dx) > 1) {
+    CHARACTER.walking = true;
+    CHARACTER.facing = dx > 0 ? 1 : -1;
+    CHARACTER.x += Math.sign(dx) * WALK_SPEED;
+    CHARACTER.bobPhase += 0.35;
+  } else {
+    if (CHARACTER.walking && onArriveCallback) {
+      CHARACTER.walking = false;
+      const cb = onArriveCallback;
+      onArriveCallback = null;
+      setTimeout(cb, 200);
+    }
+    CHARACTER.walking = false;
+  }
+}
+
+function renderLoop() {
+  charCtx.clearRect(0, 0, SCENE_W, SCENE_H);
+  updateCharacter();
+  const groundY = Math.floor(SCENE_H * GROUND_Y_RATIO);
+  drawCharacter(charCtx, CHARACTER.x, groundY, animFrame, CHARACTER.facing);
+  animFrame++;
+  requestAnimationFrame(renderLoop);
+}
+
+function drawScene(sceneKey) {
+  bgCtx.clearRect(0, 0, SCENE_W, SCENE_H);
+  if (scenes[sceneKey]) {
+    scenes[sceneKey](bgCtx);
+  }
+}
+
+// ═══════════════════════════════════════════════
+// STORY DATA
+// ═══════════════════════════════════════════════
+
+const story = {
+  start: {
+    time: 'morning', timeLabel: 'Morning', stage: 0,
+    title: 'Your Day Off',
+    eyebrow: 'A choose your own adventure',
+    text: "No alarm. No plans. The whole day is yours — and it's barely 8am. You lie in bed, phone face-down, the city already humming outside your window. What do you do?",
+    choices: [
+      { icon: '😴', label: 'Sleep in', sub: 'Close your eyes, let it ride', next: 'lazy_morning' },
+      { icon: '☀️', label: 'Get up early', sub: 'Make the most of the quiet hours', next: 'active_morning' }
+    ],
+    isStart: true
+  },
+  lazy_morning: {
+    time: 'morning', timeLabel: 'Late Morning', stage: 1,
+    title: 'You sleep in.',
+    text: "You drift back to sleep twice. By the time you're really awake, it's past 11. The light through your blinds is golden and warm. Your body feels heavy in the best way. You pick up your phone — no urgent texts. It's officially your day.",
+    choices: [
+      { icon: '🛋️', label: 'Stay in, order breakfast', sub: 'You earned this. Delivery, TV, zero obligations.', next: 'home_midday' },
+      { icon: '☕', label: 'Go get coffee outside', sub: 'Drag yourself out into the world', next: 'out_midday' }
+    ]
+  },
+  active_morning: {
+    time: 'morning', timeLabel: 'Morning', stage: 1,
+    title: 'You get up with the city.',
+    text: "You're dressed and out the door by 8:30. The streets are quieter than usual — fewer suits, more dogs, better energy. There's something about being up early on a day off that feels like a secret. You have the whole morning ahead of you.",
+    choices: [
+      { icon: '🏃', label: 'Go for a run', sub: 'Let your body wake itself all the way up', next: 'run_midday' },
+      { icon: '🥯', label: 'Bagel in the park', sub: 'Your favorite spot, no rush', next: 'breakfast_midday' }
+    ]
+  },
+  home_midday: {
+    time: 'midday', timeLabel: 'Afternoon', stage: 2,
+    title: 'Pure, uncut laziness.',
+    text: "Breakfast arrives in 30 minutes. You finish two episodes of something you've been meaning to watch. You feel absolutely zero guilt. By 2pm, you're fed, horizontal, and weighing your next move.",
+    choices: [
+      { icon: '💤', label: 'Lean in — full rest day', sub: 'Nap, show, repeat. You need this.', next: 'ending_couchday' },
+      { icon: '🌳', label: 'Head outside for the afternoon', sub: 'You rested enough. Go feel the sun.', next: 'ending_lateout' }
+    ]
+  },
+  out_midday: {
+    time: 'midday', timeLabel: 'Afternoon', stage: 2,
+    title: 'The city is yours.',
+    text: "You find a coffee shop a few blocks away. Good music, light crowd. You sit for a while just watching people, no agenda. When you're done, you linger on the corner. Nothing's pulling you anywhere specific — which means you can go anywhere.",
+    choices: [
+      { icon: '🖼️', label: 'Wander into a gallery', sub: 'No plan, just see what pulls you in', next: 'ending_artday' },
+      { icon: '🥂', label: 'Find a rooftop, start early', sub: 'Your day off. The rules are loose.', next: 'ending_nightout' }
+    ]
+  },
+  run_midday: {
+    time: 'midday', timeLabel: 'Midday', stage: 2,
+    title: 'Endorphins. Actual endorphins.',
+    text: "Three miles. You pushed a little harder than usual and now you feel electric. You cool down walking through the neighborhood, noticing things you always pass without seeing. Back home, you shower, make coffee, and feel almost uncomfortably good.",
+    choices: [
+      { icon: '🥬', label: 'Hit the farmers market', sub: 'Pick up something fresh, cook tonight', next: 'ending_cooknight' },
+      { icon: '👫', label: 'Text your friends — brunch?', sub: 'You have the energy to actually show up', next: 'ending_allday' }
+    ]
+  },
+  breakfast_midday: {
+    time: 'midday', timeLabel: 'Midday', stage: 2,
+    title: 'A real, unhurried morning.',
+    text: "You make eggs the slow way. Good coffee, not rushed. You sit at your table — actually sit — and eat without looking at your phone. By noon, you feel like a different person. Calm, present. You've already had a better morning than most of the week.",
+    choices: [
+      { icon: '🎨', label: 'Work on that project', sub: 'You have the headspace. Use it.', next: 'ending_creative' },
+      { icon: '🗺️', label: 'Explore a new neighborhood', sub: 'No destination, just different streets', next: 'ending_explore' }
+    ]
+  },
+  ending_couchday: {
+    time: 'night', timeLabel: 'Night', stage: 4, isEnding: true, endingIcon: '🛋️',
+    title: 'The Perfect Nothing Day',
+    text: "You ordered pizza around 6. You finished the show. You fell asleep on the couch at 9:30pm and woke up at 11 just enough to make it to your bed. Tomorrow you'll do something. Today? Today was exactly right.",
+    score: '9.5', scoreLabel: 'rest achieved', badge: 'Ending I'
+  },
+  ending_lateout: {
+    time: 'evening', timeLabel: 'Evening', stage: 4, isEnding: true, endingIcon: '🌅',
+    title: 'Golden Hour, Late Start',
+    text: "You hit the park around 4pm. The light was doing something ridiculous — orange and warm, everything glowing. You walked for two hours and didn't look at your phone once. You got home just as it got dark, made dinner, felt genuinely restored.",
+    score: '8.8', scoreLabel: 'restoration level', badge: 'Ending II'
+  },
+  ending_artday: {
+    time: 'evening', timeLabel: 'Evening', stage: 4, isEnding: true, endingIcon: '🖼️',
+    title: 'The Accidental Discovery',
+    text: "You walked into a small gallery almost by accident. Three hours later you were still there. You found an artist you'd never heard of and stood in front of one piece for a full twenty minutes. You left with a print and a completely different perspective.",
+    score: '10', scoreLabel: 'cultural richness', badge: 'Ending III'
+  },
+  ending_nightout: {
+    time: 'night', timeLabel: 'Night', stage: 4, isEnding: true, endingIcon: '🌃',
+    title: 'The Long, Good Night',
+    text: "Two drinks became four. You ended up talking to a group of strangers for two hours about something you can't fully explain sober. You got home at 1am, laughing at nothing in particular. Those are always the best ones.",
+    score: '9.2', scoreLabel: 'chaos index', badge: 'Ending IV'
+  },
+  ending_cooknight: {
+    time: 'evening', timeLabel: 'Evening', stage: 4, isEnding: true, endingIcon: '🍽️',
+    title: 'The Slow, Good Evening',
+    text: "You came home from the market with more than you planned. You cooked for two hours — real cooking, with music on, no rush. The meal was incredible. You ate alone and didn't mind at all. You went to bed at 10pm feeling like you'd actually lived your day.",
+    score: '9.7', scoreLabel: 'satisfaction rating', badge: 'Ending V'
+  },
+  ending_allday: {
+    time: 'night', timeLabel: 'Night', stage: 4, isEnding: true, endingIcon: '🥂',
+    title: 'Brunch to Midnight',
+    text: "Brunch started at noon. By 3pm no one had moved. Someone suggested a walk. The walk turned into drinks. The drinks turned into dinner at a place no one planned. You got home just before midnight, your face tired from laughing.",
+    score: '10', scoreLabel: 'memories made', badge: 'Ending VI'
+  },
+  ending_creative: {
+    time: 'evening', timeLabel: 'Evening', stage: 4, isEnding: true, endingIcon: '✨',
+    title: 'The Day You Actually Did It',
+    text: "You sat down at 1pm and worked until 6. Not because you had to — because you finally had the space to. You made real progress. The kind you can see. By evening you were done, and the whole night was yours to do absolutely nothing in.",
+    score: '9.4', scoreLabel: 'momentum built', badge: 'Ending VII'
+  },
+  ending_explore: {
+    time: 'evening', timeLabel: 'Evening', stage: 4, isEnding: true, endingIcon: '🗺️',
+    title: 'The City Reminded You',
+    text: "You took the train to a neighborhood you'd passed through but never really walked. A bookshop, a good slice, a park you didn't know existed. You sat there for an hour just reading. You remembered why you live here.",
+    score: '9.6', scoreLabel: 'city love restored', badge: 'Ending VIII'
+  }
+};
+
+// ═══════════════════════════════════════════════
+// GAME ENGINE
+// ═══════════════════════════════════════════════
+
+let pathTaken = [];
+let currentStage = 'start';
+let activeChoices = [];
+
+const timeClasses = {
+  morning: 'time-morning',
+  midday: 'time-midday',
+  afternoon: 'time-afternoon',
+  evening: 'time-evening',
+  night: 'time-night'
+};
+
+function setTimeClass(time) {
+  document.body.className = timeClasses[time] || 'time-morning';
+}
+
+function getTimeDots(stageNum) {
+  const labels = ['Morning', 'Midday', 'Afternoon', 'Evening', 'Night'];
+  return `
+    <div class="time-bar">
+      <div class="time-dots">
+        ${labels.map((_, i) => `
+          <div class="time-dot ${i < stageNum ? 'done' : i === stageNum ? 'active' : ''}"></div>
+        `).join('')}
+      </div>
+      <span class="time-label">${labels[stageNum] || 'Night'}</span>
+    </div>
+  `;
+}
+
+function placeChoiceMarkers(choices) {
+  const container = document.getElementById('sceneChoices');
+  if (!choices || choices.length === 0) {
+    container.innerHTML = '';
+    return;
+  }
+  container.innerHTML = choices.map((c, i) => `
+    <div class="scene-choice-marker" data-next="${c.next}" data-index="${i}" data-target-x="${i === 0 ? 40 : 120}">
+      <div class="marker-bubble">
+        <div class="marker-icon">${c.icon}</div>
+        <div class="marker-label">${c.label}</div>
+      </div>
+      <div class="marker-arrow"></div>
+    </div>
+  `).join('');
+
+  container.querySelectorAll('.scene-choice-marker').forEach(marker => {
+    marker.addEventListener('click', () => {
+      const next = marker.dataset.next;
+      const idx = parseInt(marker.dataset.index);
+      const targetX = parseInt(marker.dataset.targetX);
+      const label = activeChoices[idx] ? activeChoices[idx].label : '';
+      pathTaken.push(label);
+
+      // Remove markers
+      container.innerHTML = '';
+
+      // Walk character toward the choice
+      CHARACTER.targetX = targetX;
+      onArriveCallback = () => {
+        currentStage = next;
+        transitionToStage(next);
+      };
+    });
+  });
+}
+
+function transitionToStage(key) {
+  const viewport = document.getElementById('sceneViewport');
+  const panel = document.getElementById('panelInner');
+
+  // Fade out
+  viewport.classList.add('fading');
+  panel.style.opacity = '0';
+  panel.style.transform = 'translateY(12px)';
+  panel.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+
+  setTimeout(() => {
+    const node = story[key];
+    setTimeClass(node.time);
+    const sceneKey = sceneMap[key] || 'bedroom';
+    drawScene(sceneKey);
+
+    // Reset character position
+    CHARACTER.x = 80;
+    CHARACTER.targetX = 80;
+    CHARACTER.walking = false;
+
+    // Render panel
+    renderPanel(key);
+
+    // Fade in
+    setTimeout(() => {
+      viewport.classList.remove('fading');
+      panel.style.opacity = '1';
+      panel.style.transform = 'translateY(0)';
+
+      // Place choice markers after fade in
+      setTimeout(() => {
+        if (node.choices) {
+          placeChoiceMarkers(node.choices);
+        }
+      }, 300);
+    }, 100);
+  }, 500);
+}
+
+function renderPanel(key) {
+  const panel = document.getElementById('panelInner');
+  const node = story[key];
+  activeChoices = node.choices || [];
+
+  if (node.isStart) {
+    document.getElementById('bottomPanel').classList.add('title-mode');
+    panel.innerHTML = `
+      ${getTimeDots(0)}
+      <span class="title-eyebrow">${node.eyebrow}</span>
+      <h1 class="story-title">${node.title}</h1>
+      <p class="title-sub">No plans. No alarms. Just choices.</p>
+      <p class="story-text">${node.text}</p>
+      <p class="hint-text">↑ Click a choice in the scene above</p>
+    `;
+    return;
+  }
+
+  document.getElementById('bottomPanel').classList.remove('title-mode');
+
+  if (node.isEnding) {
+    // Show ending in the scene bubble overlay
+    const overlay = document.getElementById('endingOverlay');
+    const bubble = document.getElementById('endingBubble');
+    bubble.innerHTML = `
+      <span class="ending-badge">✦ End of Your Day</span>
+      <h2 class="story-title">${node.title}</h2>
+      <p class="story-text">${node.text}</p>
+      <div class="ending-score">${node.score}</div>
+      <div class="ending-score-label">${node.scoreLabel}</div>
+      <button class="restart-btn" id="restartBtn">↺ &nbsp;Try a different day</button>
+      ${pathTaken.length ? `
+        <div class="path-trail">
+          ${pathTaken.map(p => `<span class="trail-item">${p}</span>`).join('')}
+          <span class="trail-item">${node.endingIcon} ${node.title}</span>
+        </div>
+      ` : ''}
+    `;
+    overlay.classList.add('visible');
+    document.getElementById('restartBtn').addEventListener('click', restart);
+    // Clear the bottom panel
+    panel.innerHTML = `${getTimeDots(4)}`;
+    return;
+  }
+
+  panel.innerHTML = `
+    ${getTimeDots(node.stage)}
+    <span class="stage-label">${node.timeLabel}</span>
+    <h2 class="story-title">${node.title}</h2>
+    <p class="story-text">${node.text}</p>
+    <p class="hint-text">↑ Click a choice in the scene above</p>
+  `;
+}
+
+function restart() {
+  pathTaken = [];
+  currentStage = 'start';
+  CHARACTER.x = 80;
+  CHARACTER.targetX = 80;
+  CHARACTER.walking = false;
+  document.getElementById('endingOverlay').classList.remove('visible');
+  transitionToStage('start');
+}
+
+// ═══════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════
+
+drawScene('bedroom');
+renderPanel('start');
+placeChoiceMarkers(story.start.choices);
+renderLoop();
+</script>
+</body>
+</html>
