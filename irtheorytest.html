@@ -44,6 +44,10 @@
   .v-btn.v6-btn.active{background:#ec4899;color:#fff;} .v-btn.v6-btn:not(.active):hover{background:rgba(236,72,153,0.1);color:#ec4899;}
   .v-new{font-family:'IBM Plex Mono',monospace;font-size:0.45rem;letter-spacing:0.1em;text-transform:uppercase;border:1px solid;padding:0.05rem 0.25rem;line-height:1.4;margin-left:0.1rem;}
   .v-btn.active .v-new{color:#fff;border-color:rgba(255,255,255,0.5);}
+  .prev-version-select{font-family:'IBM Plex Mono',monospace;font-size:0.72rem;font-weight:500;letter-spacing:0.08em;padding:0.38rem 0.85rem;background:transparent;border:none;border-left:1px solid var(--border);color:var(--muted);cursor:pointer;transition:all 0.18s ease;appearance:none;-webkit-appearance:none;outline:none;}
+  .prev-version-select:hover{background:rgba(91,141,217,0.08);color:var(--accent2);}
+  .prev-version-select.has-selection{color:var(--text);}
+  .prev-version-select option{background:#1a1a26;color:var(--text);}
   .score-badge{font-family:'IBM Plex Mono',monospace;font-size:0.8rem;color:var(--accent);border:1px solid var(--accent);padding:0.4rem 0.9rem;letter-spacing:0.05em;white-space:nowrap;}
   .progress-bar-wrap{background:var(--border);height:2px;width:100%;}
   .progress-bar{height:2px;transition:width 0.5s ease,background 0.3s;width:0%;}
@@ -136,11 +140,19 @@
     <div id="version-toggle-wrap" style="display:flex;flex-direction:column;align-items:flex-end;gap:0.5rem;">
       <div class="version-toggle">
         <button class="v-btn v6-btn active" id="btn-v6" onclick="switchVersion(6)"><span class="v-dot"></span>M3<span class="v-new" style="color:#ec4899;border-color:#ec4899;">NEW</span></button>
-        <button class="v-btn v1-btn" id="btn-v1" onclick="switchVersion(1)"><span class="v-dot"></span>V1</button>
-        <button class="v-btn v2-btn" id="btn-v2" onclick="switchVersion(2)"><span class="v-dot"></span>V2</button>
-        <button class="v-btn v3-btn" id="btn-v3" onclick="switchVersion(3)"><span class="v-dot"></span>V3</button>
-        <button class="v-btn v4-btn" id="btn-v4" onclick="switchVersion(4)"><span class="v-dot"></span>Gabe's</button>
-        <button class="v-btn v5-btn" id="btn-v5" onclick="switchVersion(5)"><span class="v-dot"></span>LRC</button>
+        <select id="prev-version-select" class="prev-version-select" onchange="if(this.value){switchVersion(Number(this.value));}">
+          <option value="">Previous ▾</option>
+          <option value="1">V1</option>
+          <option value="2">V2</option>
+          <option value="3">V3</option>
+          <option value="4">Gabe's</option>
+          <option value="5">LRC</option>
+        </select>
+        <button class="v-btn v1-btn" id="btn-v1" style="display:none" onclick="switchVersion(1)"></button>
+        <button class="v-btn v2-btn" id="btn-v2" style="display:none" onclick="switchVersion(2)"></button>
+        <button class="v-btn v3-btn" id="btn-v3" style="display:none" onclick="switchVersion(3)"></button>
+        <button class="v-btn v4-btn" id="btn-v4" style="display:none" onclick="switchVersion(4)"></button>
+        <button class="v-btn v5-btn" id="btn-v5" style="display:none" onclick="switchVersion(5)"></button>
       </div>
     </div>
     <div class="score-badge" id="score-display">Score: 0 / 0</div>
@@ -370,6 +382,8 @@ function switchVersion(v){
   pb.className='progress-bar '+cfg.progressClass;
   pb.style.width='0%';
   [1,2,3,4,5,6].forEach(n=>document.getElementById('btn-v'+n).classList.toggle('active',n===v));
+  const sel=document.getElementById('prev-version-select');
+  if(sel){sel.value=(v===6)?'':String(v);sel.classList.toggle('has-selection',v!==6);}
   document.getElementById('intro-desc').textContent=cfg.introDesc;
   document.getElementById('full-bank-num').textContent=cfg.fullBankCount;
   const grid=document.getElementById('cat-grid');
