@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Your Day Off — Your Day Off</title>
+<title>Your Day Off — The Slow, Good Evening</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap');
 
@@ -245,17 +245,13 @@
 
 <div class="card">
   <div class="time-bar"><div class="dots"><div class="dot active"></div><div class="dot "></div><div class="dot "></div><div class="dot "></div></div><span class="time-label">Morning</span></div>
-  <span class="eyebrow">A choose-your-own-adventure</span>
-  <h1>Your Day Off</h1>
-  <p>No alarm. No plans. The whole day is yours — and it's barely 8am. You lie in bed, phone face-down, the city already humming outside your window. What do you do?</p>
-  <div class="choices"><a class="btn" href="morning_lazy.html">
-  <span class="btn-icon">😴</span>
-  <span><span class="btn-label">Sleep in</span><span class="btn-sub">Close your eyes, let it ride</span></span>
-</a><a class="btn" href="morning_active.html">
-  <span class="btn-icon">☀️</span>
-  <span><span class="btn-label">Get up early</span><span class="btn-sub">Make the most of the quiet hours</span></span>
-</a></div>
-  
+  <span class="eyebrow">The End of Your Day</span>
+  <h2>The Slow, Good Evening</h2>
+  <p>You came home from the market with more than you planned. You cooked for two hours — real cooking, with music on, no rush. The meal was incredible. You ate alone and didn't mind at all. You went to bed at 10pm feeling like you'd actually lived your day.</p>
+  <div class="badge">✦ Ending V</div>
+  <div class="score">9.7</div>
+<div class="score-label">satisfaction rating</div>
+<a class="restart" href="game.html">↺ &nbsp;Try a different day</a>
 </div>
 
 <script>
@@ -320,14 +316,17 @@ function stars(){
 }
 
 
-sky(P.skyM1,P.skyM2); sun(130,10); cloud(20,12,3); cloud(90,8,2);
-r(0,50,W,70,P.wall); r(0,85,W,35,P.floor); r(0,84,W,2,P.floorD);
-r(100,54,24,28,'#c8e8ff'); r(99,53,26,1,P.furn); r(99,82,26,1,P.furn);
-r(99,53,1,30,P.furn); r(125,53,1,30,P.furn); r(111,53,1,30,P.furn);
-r(10,78,40,16,P.bedB); r(10,76,40,3,P.bed); r(8,70,4,24,P.furn); r(48,70,4,24,P.furn);
-r(12,74,10,4,P.bed); r(56,80,12,14,P.furn); r(58,78,8,3,P.furnL);
-r(60,70,4,8,'#d8c898'); r(58,68,8,3,'#f0e8c0');
-r(70,96,30,8,'#c07060'); r(72,98,26,4,'#d08878');
+sky(P.skyD1,P.skyD2); cloud(40,6,3);
+bld(0,30,18,50,P.bL,P.wD); bld(130,34,30,46,P.b2,P.wL);
+r(20,56,30,4,'#c04030'); r(22,60,26,16,'#c8a060');
+r(24,62,6,4,'#e04040'); r(32,62,6,4,'#40a040'); r(40,62,6,4,'#f0a020');
+r(70,58,28,4,'#e0e0d0'); r(72,62,24,14,'#c8a060');
+r(74,60,4,4,'#e05080'); r(80,59,4,5,'#f0c040'); r(86,60,4,4,'#d050d0');
+r(110,56,24,4,'#4080a0'); r(112,60,20,16,'#c8a060');
+r(0,76,W,44,'#d0c4a8'); r(0,76,W,1,'#b8a888');
+const fc=['#c04030','#f0c040','#4080a0','#40a040'];
+for(let x=25;x<130;x+=7) r(x,50,3,4,fc[Math.floor(x/7)%4]);
+r(20,49,115,1,'#808080');
 
 </script>
 </body>

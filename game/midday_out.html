@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Your Day Off — Your Day Off</title>
+<title>Your Day Off — The city is yours.</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap');
 
@@ -244,16 +244,16 @@
 </div>
 
 <div class="card">
-  <div class="time-bar"><div class="dots"><div class="dot active"></div><div class="dot "></div><div class="dot "></div><div class="dot "></div></div><span class="time-label">Morning</span></div>
-  <span class="eyebrow">A choose-your-own-adventure</span>
-  <h1>Your Day Off</h1>
-  <p>No alarm. No plans. The whole day is yours — and it's barely 8am. You lie in bed, phone face-down, the city already humming outside your window. What do you do?</p>
-  <div class="choices"><a class="btn" href="morning_lazy.html">
-  <span class="btn-icon">😴</span>
-  <span><span class="btn-label">Sleep in</span><span class="btn-sub">Close your eyes, let it ride</span></span>
-</a><a class="btn" href="morning_active.html">
-  <span class="btn-icon">☀️</span>
-  <span><span class="btn-label">Get up early</span><span class="btn-sub">Make the most of the quiet hours</span></span>
+  <div class="time-bar"><div class="dots"><div class="dot done"></div><div class="dot active"></div><div class="dot "></div><div class="dot "></div></div><span class="time-label">Midday</span></div>
+  <span class="eyebrow">Midday</span>
+  <h2>The city is yours.</h2>
+  <p>You find a coffee shop a few blocks away. Good music, light crowd. You sit for a while just watching people, no agenda. When you're done, you linger on the corner. Nothing's pulling you anywhere — which means you can go anywhere.</p>
+  <div class="choices"><a class="btn" href="ending_artday.html">
+  <span class="btn-icon">🖼️</span>
+  <span><span class="btn-label">Wander into a gallery</span><span class="btn-sub">No plan, just see what pulls you in</span></span>
+</a><a class="btn" href="ending_nightout.html">
+  <span class="btn-icon">🥂</span>
+  <span><span class="btn-label">Find a rooftop, start early</span><span class="btn-sub">Your day off. The rules are loose.</span></span>
 </a></div>
   
 </div>
@@ -320,14 +320,16 @@ function stars(){
 }
 
 
-sky(P.skyM1,P.skyM2); sun(130,10); cloud(20,12,3); cloud(90,8,2);
-r(0,50,W,70,P.wall); r(0,85,W,35,P.floor); r(0,84,W,2,P.floorD);
-r(100,54,24,28,'#c8e8ff'); r(99,53,26,1,P.furn); r(99,82,26,1,P.furn);
-r(99,53,1,30,P.furn); r(125,53,1,30,P.furn); r(111,53,1,30,P.furn);
-r(10,78,40,16,P.bedB); r(10,76,40,3,P.bed); r(8,70,4,24,P.furn); r(48,70,4,24,P.furn);
-r(12,74,10,4,P.bed); r(56,80,12,14,P.furn); r(58,78,8,3,P.furnL);
-r(60,70,4,8,'#d8c898'); r(58,68,8,3,'#f0e8c0');
-r(70,96,30,8,'#c07060'); r(72,98,26,4,'#d08878');
+sky(P.skyD1,P.skyD2); cloud(50,8,2); cloud(100,12,3);
+bld(-5,28,30,52,P.bL,P.wD); bld(110,32,50,48,P.b2,P.wL);
+r(30,34,76,46,'#c8a878'); r(30,34,76,4,'#8a6840');
+for(let x=30;x<106;x+=6){r(x,38,3,8,'#c04030');r(x+3,38,3,8,'#e0e0d8');}
+r(60,52,14,28,'#4a3828'); r(64,54,6,10,'#90c8e0');
+r(36,52,18,16,'#80b8d8'); r(82,52,18,16,'#80b8d8');
+r(48,42,38,8,'#f0e8d0');
+r(0,80,W,10,'#d0c4a8'); r(0,90,W,30,'#707070');
+for(let x=5;x<W;x+=14) r(x,103,7,1,'#c0c0a0');
+r(36,82,12,1,P.furnL); r(40,83,2,5,P.furn); r(34,84,3,5,P.furn); r(49,84,3,5,P.furn);
 
 </script>
 </body>

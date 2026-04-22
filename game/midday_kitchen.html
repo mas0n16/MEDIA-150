@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Your Day Off — Your Day Off</title>
+<title>Your Day Off — A real, unhurried morning.</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap');
 
@@ -244,16 +244,16 @@
 </div>
 
 <div class="card">
-  <div class="time-bar"><div class="dots"><div class="dot active"></div><div class="dot "></div><div class="dot "></div><div class="dot "></div></div><span class="time-label">Morning</span></div>
-  <span class="eyebrow">A choose-your-own-adventure</span>
-  <h1>Your Day Off</h1>
-  <p>No alarm. No plans. The whole day is yours — and it's barely 8am. You lie in bed, phone face-down, the city already humming outside your window. What do you do?</p>
-  <div class="choices"><a class="btn" href="morning_lazy.html">
-  <span class="btn-icon">😴</span>
-  <span><span class="btn-label">Sleep in</span><span class="btn-sub">Close your eyes, let it ride</span></span>
-</a><a class="btn" href="morning_active.html">
-  <span class="btn-icon">☀️</span>
-  <span><span class="btn-label">Get up early</span><span class="btn-sub">Make the most of the quiet hours</span></span>
+  <div class="time-bar"><div class="dots"><div class="dot done"></div><div class="dot active"></div><div class="dot "></div><div class="dot "></div></div><span class="time-label">Midday</span></div>
+  <span class="eyebrow">Midday</span>
+  <h2>A real, unhurried morning.</h2>
+  <p>You make eggs the slow way. Good coffee, not rushed. You sit at your table — actually sit — and eat without looking at your phone. By noon, you feel like a different person. Calm, present. You've already had a better morning than most of the week.</p>
+  <div class="choices"><a class="btn" href="ending_creative.html">
+  <span class="btn-icon">🎨</span>
+  <span><span class="btn-label">Work on that project</span><span class="btn-sub">You have the headspace. Use it.</span></span>
+</a><a class="btn" href="ending_explore.html">
+  <span class="btn-icon">🗺️</span>
+  <span><span class="btn-label">Explore a new neighborhood</span><span class="btn-sub">No destination, just different streets</span></span>
 </a></div>
   
 </div>
@@ -320,14 +320,15 @@ function stars(){
 }
 
 
-sky(P.skyM1,P.skyM2); sun(130,10); cloud(20,12,3); cloud(90,8,2);
-r(0,50,W,70,P.wall); r(0,85,W,35,P.floor); r(0,84,W,2,P.floorD);
-r(100,54,24,28,'#c8e8ff'); r(99,53,26,1,P.furn); r(99,82,26,1,P.furn);
-r(99,53,1,30,P.furn); r(125,53,1,30,P.furn); r(111,53,1,30,P.furn);
-r(10,78,40,16,P.bedB); r(10,76,40,3,P.bed); r(8,70,4,24,P.furn); r(48,70,4,24,P.furn);
-r(12,74,10,4,P.bed); r(56,80,12,14,P.furn); r(58,78,8,3,P.furnL);
-r(60,70,4,8,'#d8c898'); r(58,68,8,3,'#f0e8c0');
-r(70,96,30,8,'#c07060'); r(72,98,26,4,'#d08878');
+r(0,0,W,H,'#e8e0d0'); r(0,75,W,45,'#c8b898'); r(0,74,W,2,'#b0a080');
+r(5,15,60,25,'#d0b890'); r(7,17,18,21,'#c0a878'); r(27,17,18,21,'#c0a878'); r(47,17,16,21,'#c0a878');
+r(0,40,70,8,'#e0d8c8'); r(0,48,70,3,'#b0a080');
+r(80,38,28,14,'#d8d0c0'); r(82,40,10,10,'#404040'); r(96,40,10,10,'#404040');
+r(84,38,6,3,'#505050'); r(86,36,2,2,'#f0c040');
+r(115,15,30,28,'#a8d8f0'); r(114,14,32,1,P.furn); r(114,43,32,1,P.furn);
+r(12,34,6,6,'#8a6040'); r(13,30,4,4,'#50a050');
+r(50,36,4,5,'#e8e0d0'); r(54,38,2,2,'#e8e0d0');
+for(let x=0;x<W;x+=10){r(x,80,5,40,'#c0b090');r(x+5,80,5,40,'#b8a888');}
 
 </script>
 </body>

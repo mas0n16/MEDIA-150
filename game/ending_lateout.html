@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Your Day Off — Your Day Off</title>
+<title>Your Day Off — Golden Hour, Late Start</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap');
 
@@ -245,17 +245,13 @@
 
 <div class="card">
   <div class="time-bar"><div class="dots"><div class="dot active"></div><div class="dot "></div><div class="dot "></div><div class="dot "></div></div><span class="time-label">Morning</span></div>
-  <span class="eyebrow">A choose-your-own-adventure</span>
-  <h1>Your Day Off</h1>
-  <p>No alarm. No plans. The whole day is yours — and it's barely 8am. You lie in bed, phone face-down, the city already humming outside your window. What do you do?</p>
-  <div class="choices"><a class="btn" href="morning_lazy.html">
-  <span class="btn-icon">😴</span>
-  <span><span class="btn-label">Sleep in</span><span class="btn-sub">Close your eyes, let it ride</span></span>
-</a><a class="btn" href="morning_active.html">
-  <span class="btn-icon">☀️</span>
-  <span><span class="btn-label">Get up early</span><span class="btn-sub">Make the most of the quiet hours</span></span>
-</a></div>
-  
+  <span class="eyebrow">The End of Your Day</span>
+  <h2>Golden Hour, Late Start</h2>
+  <p>You hit the park around 4pm. The light was doing something ridiculous — orange and warm, everything glowing. You walked for two hours and didn't look at your phone once. You got home just as it got dark, made dinner, felt genuinely restored.</p>
+  <div class="badge">✦ Ending II</div>
+  <div class="score">8.8</div>
+<div class="score-label">restoration level</div>
+<a class="restart" href="game.html">↺ &nbsp;Try a different day</a>
 </div>
 
 <script>
@@ -320,14 +316,15 @@ function stars(){
 }
 
 
-sky(P.skyM1,P.skyM2); sun(130,10); cloud(20,12,3); cloud(90,8,2);
-r(0,50,W,70,P.wall); r(0,85,W,35,P.floor); r(0,84,W,2,P.floorD);
-r(100,54,24,28,'#c8e8ff'); r(99,53,26,1,P.furn); r(99,82,26,1,P.furn);
-r(99,53,1,30,P.furn); r(125,53,1,30,P.furn); r(111,53,1,30,P.furn);
-r(10,78,40,16,P.bedB); r(10,76,40,3,P.bed); r(8,70,4,24,P.furn); r(48,70,4,24,P.furn);
-r(12,74,10,4,P.bed); r(56,80,12,14,P.furn); r(58,78,8,3,P.furnL);
-r(60,70,4,8,'#d8c898'); r(58,68,8,3,'#f0e8c0');
-r(70,96,30,8,'#c07060'); r(72,98,26,4,'#d08878');
+sky(P.skyA1,P.skyA2); sun(130,15); cloud(20,8,3); cloud(70,5,2);
+bld(0,40,15,30,'#c8b898',P.wD); bld(130,38,30,32,'#b8a888',P.wL);
+for(let x=0;x<W;x++){const y=65+Math.sin(x*0.04)*5;r(x,Math.floor(y),1,H-Math.floor(y),P.grass);}
+r(0,72,W,H-72,P.grassD);
+for(let x=20;x<140;x++){const y=90+Math.sin(x*0.03)*3;r(x,Math.floor(y),1,4,P.path);}
+tree(15,56); tree(55,60); tree(100,58); tree(135,62);
+r(65,98,20,8,P.water); r(67,100,16,4,P.waterL);
+r(30,88,14,2,P.furn); r(31,90,1,3,P.furn); r(42,90,1,3,P.furn);
+p(50,85,'#e05050'); p(52,87,'#e0c040'); p(115,82,'#d060a0');
 
 </script>
 </body>

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Your Day Off — Your Day Off</title>
+<title>Your Day Off — The Long, Good Night</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap');
 
@@ -237,25 +237,21 @@
   body.night .restart { background: rgba(232,224,245,0.12); color: var(--night-text); border: 1px solid rgba(232,224,245,0.2); }
 </style>
 </head>
-<body class="">
+<body class="night">
 
 <div class="scene">
   <canvas id="bg"></canvas>
 </div>
 
 <div class="card">
-  <div class="time-bar"><div class="dots"><div class="dot active"></div><div class="dot "></div><div class="dot "></div><div class="dot "></div></div><span class="time-label">Morning</span></div>
-  <span class="eyebrow">A choose-your-own-adventure</span>
-  <h1>Your Day Off</h1>
-  <p>No alarm. No plans. The whole day is yours — and it's barely 8am. You lie in bed, phone face-down, the city already humming outside your window. What do you do?</p>
-  <div class="choices"><a class="btn" href="morning_lazy.html">
-  <span class="btn-icon">😴</span>
-  <span><span class="btn-label">Sleep in</span><span class="btn-sub">Close your eyes, let it ride</span></span>
-</a><a class="btn" href="morning_active.html">
-  <span class="btn-icon">☀️</span>
-  <span><span class="btn-label">Get up early</span><span class="btn-sub">Make the most of the quiet hours</span></span>
-</a></div>
-  
+  <div class="time-bar"><div class="dots"><div class="dot done"></div><div class="dot done"></div><div class="dot done"></div><div class="dot active"></div></div><span class="time-label">Night</span></div>
+  <span class="eyebrow">The End of Your Day</span>
+  <h2>The Long, Good Night</h2>
+  <p>Two drinks became four. You ended up talking to a group of strangers for two hours about something you can't fully explain sober. You got home at 1am, laughing at nothing in particular. Those are always the best ones.</p>
+  <div class="badge">✦ Ending IV</div>
+  <div class="score">9.2</div>
+<div class="score-label">chaos index</div>
+<a class="restart" href="game.html">↺ &nbsp;Try a different day</a>
 </div>
 
 <script>
@@ -320,14 +316,18 @@ function stars(){
 }
 
 
-sky(P.skyM1,P.skyM2); sun(130,10); cloud(20,12,3); cloud(90,8,2);
-r(0,50,W,70,P.wall); r(0,85,W,35,P.floor); r(0,84,W,2,P.floorD);
-r(100,54,24,28,'#c8e8ff'); r(99,53,26,1,P.furn); r(99,82,26,1,P.furn);
-r(99,53,1,30,P.furn); r(125,53,1,30,P.furn); r(111,53,1,30,P.furn);
-r(10,78,40,16,P.bedB); r(10,76,40,3,P.bed); r(8,70,4,24,P.furn); r(48,70,4,24,P.furn);
-r(12,74,10,4,P.bed); r(56,80,12,14,P.furn); r(58,78,8,3,P.furnL);
-r(60,70,4,8,'#d8c898'); r(58,68,8,3,'#f0e8c0');
-r(70,96,30,8,'#c07060'); r(72,98,26,4,'#d08878');
+sky(P.skyN1,P.skyN2); moon(130,8); stars();
+bld(0,30,20,50,'#282028',P.wL); bld(22,25,18,55,'#302838',P.wL);
+bld(42,35,22,45,'#282028',P.wL); bld(66,28,16,52,'#302838',P.wL);
+bld(84,32,24,48,'#282028',P.wL); bld(110,26,18,54,'#302838',P.wL);
+bld(130,30,30,50,'#282028',P.wL);
+r(0,80,W,10,'#383030'); r(0,90,W,30,'#303030');
+r(30,60,2,22,'#505050'); r(26,60,10,2,'#505050');
+p(28,58,'#ffe880'); p(34,58,'#ffe880');
+r(110,60,2,22,'#505050'); r(106,60,10,2,'#505050');
+p(108,58,'#ffe880'); p(114,58,'#ffe880');
+r(24,84,14,2,'#404038'); r(104,84,14,2,'#404038');
+r(48,50,14,5,'#ff6080');
 
 </script>
 </body>
