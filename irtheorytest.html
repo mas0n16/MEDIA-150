@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>POLSC 120 — Midterm 3 Quiz</title>
+<title>POLSC 120 &mdash; Midterm 3 Quiz</title>
 <style>
 :root {
   --bg: #f5f2ec;
@@ -29,7 +28,9 @@
   --tag-m3: #5c2d6b;
   --tag-review: #7a4a00;
 }
+
 * { box-sizing: border-box; margin: 0; padding: 0; }
+
 body {
   background: var(--bg);
   color: var(--ink);
@@ -38,6 +39,8 @@ body {
   font-size: 16px;
   line-height: 1.6;
 }
+
+/* &#9472;&#9472; TOP BAR &#9472;&#9472; */
 .top-bar {
   background: var(--ink);
   color: #fff;
@@ -48,14 +51,14 @@ body {
   justify-content: space-between;
 }
 .top-bar-label {
-  font-family: 'SF Mono', monospace;
+  font-family: 'SF Mono', 'Cascadia Code', 'Fira Code', 'Consolas', 'Courier New', monospace;
   font-size: 0.65rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   opacity: 0.7;
 }
 .top-bar-mode {
-  font-family: 'SF Mono', monospace;
+  font-family: 'SF Mono', 'Cascadia Code', 'Fira Code', 'Consolas', 'Courier New', monospace;
   font-size: 0.7rem;
   font-weight: 500;
   letter-spacing: 0.08em;
@@ -68,6 +71,8 @@ body {
 .top-bar-mode.mode-exam     { background: rgba(26,92,58,0.5); }
 .top-bar-mode.mode-m3       { background: rgba(92,45,107,0.5); }
 .top-bar-mode.mode-review   { background: rgba(122,74,0,0.5); }
+
+/* &#9472;&#9472; HEADER &#9472;&#9472; */
 header {
   background: var(--surface);
   border-bottom: 2px solid var(--ink);
@@ -78,6 +83,7 @@ header {
   flex-wrap: wrap;
   gap: 1.2rem;
 }
+.header-left {}
 .header-title {
   font-family: Georgia, 'Times New Roman', serif;
   font-size: clamp(1.6rem, 3.5vw, 2.4rem);
@@ -86,9 +92,12 @@ header {
   color: var(--ink);
   letter-spacing: -0.01em;
 }
-.header-title em { font-style: italic; color: var(--accent-mid); }
+.header-title em {
+  font-style: italic;
+  color: var(--accent-mid);
+}
 .header-sub {
-  font-family: 'SF Mono', monospace;
+  font-family: 'SF Mono', 'Cascadia Code', 'Fira Code', 'Consolas', 'Courier New', monospace;
   font-size: 0.65rem;
   color: var(--ink3);
   text-transform: uppercase;
@@ -102,6 +111,8 @@ header {
   gap: 0.8rem;
   min-width: 0;
 }
+
+/* &#9472;&#9472; VERSION TABS &#9472;&#9472; */
 .version-tabs {
   display: flex;
   gap: 0.3rem;
@@ -111,7 +122,7 @@ header {
   border: 1px solid var(--border);
 }
 .v-btn {
-  font-family: 'SF Mono', monospace;
+  font-family: 'SF Mono', 'Cascadia Code', 'Fira Code', 'Consolas', 'Courier New', monospace;
   font-size: 0.68rem;
   font-weight: 500;
   padding: 0.4rem 0.9rem;
@@ -129,8 +140,10 @@ header {
 .v-btn.active.v7-btn { background: var(--tag-exam); }
 .v-btn.active.v6-btn { background: var(--tag-m3); }
 .v-btn.active.v8-btn { background: var(--tag-review); }
+
+/* &#9472;&#9472; SCORE BADGE &#9472;&#9472; */
 .score-badge {
-  font-family: 'SF Mono', monospace;
+  font-family: 'SF Mono', 'Cascadia Code', 'Fira Code', 'Consolas', 'Courier New', monospace;
   font-size: 0.75rem;
   font-weight: 500;
   color: var(--ink);
@@ -138,18 +151,29 @@ header {
   border: 1px solid var(--border-strong);
   padding: 0.35rem 1rem;
   border-radius: 4px;
+  min-width: 0;
   text-align: center;
 }
-.progress-bar-wrap { background: var(--border); height: 3px; width: 100%; }
+
+/* &#9472;&#9472; PROGRESS BAR &#9472;&#9472; */
+.progress-bar-wrap {
+  background: var(--border);
+  height: 3px;
+  width: 100%;
+}
 .progress-bar {
   height: 100%;
   background: var(--accent);
   transition: width 0.4s cubic-bezier(0.4,0,0.2,1);
 }
+
+/* &#9472;&#9472; MAIN LAYOUT &#9472;&#9472; */
 main { max-width: 760px; margin: 0 auto; padding: 2.5rem 1.5rem; }
 #intro { text-align: left; }
+
+/* &#9472;&#9472; INTRO SECTIONS &#9472;&#9472; */
 .section-heading {
-  font-family: 'SF Mono', monospace;
+  font-family: 'SF Mono', 'Cascadia Code', 'Fira Code', 'Consolas', 'Courier New', monospace;
   font-size: 0.62rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -159,8 +183,15 @@ main { max-width: 760px; margin: 0 auto; padding: 2.5rem 1.5rem; }
   align-items: center;
   gap: 0.5rem;
 }
-.section-heading::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+.section-heading::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
 .picker-section { margin-bottom: 2rem; }
+
+/* &#9472;&#9472; BANK TOGGLES &#9472;&#9472; */
 .combine-box { margin-bottom: 2rem; display: none; }
 .check-item {
   display: flex;
@@ -180,7 +211,8 @@ main { max-width: 760px; margin: 0 auto; padding: 2.5rem 1.5rem; }
 .check-item:hover { border-color: var(--accent-mid); background: var(--accent-light); }
 .check-item.checked { border-color: var(--accent); background: var(--accent-light); color: var(--ink); font-weight: 500; }
 .check-icon {
-  width: 1.1rem; height: 1.1rem;
+  width: 1.1rem;
+  height: 1.1rem;
   border: 1.5px solid var(--border-strong);
   border-radius: 3px;
   display: grid;
@@ -189,7 +221,13 @@ main { max-width: 760px; margin: 0 auto; padding: 2.5rem 1.5rem; }
   font-size: 0.7rem;
   transition: all 0.15s;
 }
-.check-item.checked .check-icon { background: var(--accent); border-color: var(--accent); color: #fff; }
+.check-item.checked .check-icon {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+/* &#9472;&#9472; DIFFICULTY / LENGTH PICKERS &#9472;&#9472; */
 .picker-grid { display: flex; gap: 0.6rem; flex-wrap: wrap; }
 .pick-btn {
   flex: 1;
@@ -207,16 +245,34 @@ main { max-width: 760px; margin: 0 auto; padding: 2.5rem 1.5rem; }
   border-radius: 5px;
 }
 .pick-btn:hover:not(.active) { border-color: var(--border-strong); background: var(--surface2); }
-.pick-btn.active { border-color: var(--accent); background: var(--accent-light); color: var(--accent); }
-.pick-num { font-family: Georgia, serif; font-size: 1.6rem; line-height: 1; color: inherit; }
-.pick-desc { font-family: 'SF Mono', monospace; font-size: 0.58rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink3); }
+.pick-btn.active {
+  border-color: var(--accent);
+  background: var(--accent-light);
+  color: var(--accent);
+}
+.pick-num {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 1.6rem;
+  line-height: 1;
+  color: inherit;
+}
+.pick-desc {
+  font-family: 'SF Mono', 'Cascadia Code', 'Fira Code', 'Consolas', 'Courier New', monospace;
+  font-size: 0.58rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink3);
+}
 .pick-btn.active .pick-desc { color: var(--accent-mid); }
+
+/* &#9472;&#9472; SLIDER &#9472;&#9472; */
 .slider-wrap { width: 100%; }
 .q-slider {
   width: 100%;
   appearance: none;
   -webkit-appearance: none;
   height: 3px;
+  touch-action: pan-y;
   background: var(--border);
   outline: none;
   margin: 1.2rem 0 0.5rem;
@@ -224,15 +280,23 @@ main { max-width: 760px; margin: 0 auto; padding: 2.5rem 1.5rem; }
 }
 .q-slider::-webkit-slider-thumb {
   appearance: none;
-  width: 18px; height: 18px;
+  width: 18px;
+  height: 18px;
   border-radius: 50%;
   background: var(--accent);
   cursor: pointer;
   border: 3px solid var(--surface);
   box-shadow: 0 0 0 1.5px var(--accent);
 }
-.slider-readout { font-family: 'SF Mono', monospace; font-size: 0.8rem; color: var(--ink2); text-align: center; }
+.slider-readout {
+  font-family: 'SF Mono', 'Cascadia Code', 'Fira Code', 'Consolas', 'Courier New', monospace;
+  font-size: 0.8rem;
+  color: var(--ink2);
+  text-align: center;
+}
 .slider-readout span { font-weight: 500; color: var(--ink); }
+
+/* &#9472;&#9472; START BUTTON &#9472;&#9472; */
 .btn-start {
   display: block;
   width: 100%;
@@ -243,12 +307,16 @@ main { max-width: 760px; margin: 0 auto; padding: 2.5rem 1.5rem; }
   color: #fff;
   border: none;
   border-radius: 5px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
   font-size: 0.95rem;
   font-weight: 600;
+  letter-spacing: 0.02em;
   cursor: pointer;
   transition: all 0.15s;
 }
 .btn-start:hover { background: var(--accent); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(26,58,92,0.18); }
+
+/* &#9472;&#9472; QUESTION CARD &#9472;&#9472; */
 .q-card {
   background: var(--surface);
   border: 1.5px solid var(--border);
@@ -263,6 +331,7 @@ main { max-width: 760px; margin: 0 auto; padding: 2.5rem 1.5rem; }
   from { opacity: 0; transform: translateY(12px); }
   to   { opacity: 1; transform: translateY(0); }
 }
+
 .q-meta {
   display: flex;
   align-items: center;
@@ -271,9 +340,14 @@ main { max-width: 760px; margin: 0 auto; padding: 2.5rem 1.5rem; }
   flex-wrap: wrap;
   gap: 0.4rem;
 }
-.q-num-label { font-family: 'SF Mono', monospace; font-size: 0.65rem; color: var(--ink3); letter-spacing: 0.06em; }
+.q-num-label {
+  font-family: 'SF Mono', 'Cascadia Code', 'Fira Code', 'Consolas', 'Courier New', monospace;
+  font-size: 0.65rem;
+  color: var(--ink3);
+  letter-spacing: 0.06em;
+}
 .section-tag {
-  font-family: 'SF Mono', monospace;
+  font-family: 'SF Mono', 'Cascadia Code', 'Fira Code', 'Consolas', 'Courier New', monospace;
   font-size: 0.6rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -282,13 +356,17 @@ main { max-width: 760px; margin: 0 auto; padding: 2.5rem 1.5rem; }
   padding: 0.2rem 0.6rem;
   border-radius: 3px;
 }
+
 .q-text {
   font-family: Georgia, 'Times New Roman', serif;
   font-size: 1.2rem;
   line-height: 1.55;
   color: var(--ink);
   margin-bottom: 1.5rem;
+  font-weight: 400;
 }
+
+/* &#9472;&#9472; ANSWER OPTIONS &#9472;&#9472; */
 .option-btn {
   width: 100%;
   text-align: left;
@@ -305,15 +383,21 @@ main { max-width: 760px; margin: 0 auto; padding: 2.5rem 1.5rem; }
   align-items: flex-start;
   gap: 0.75rem;
   border-radius: 5px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
   word-break: break-word;
   hyphens: auto;
 }
-.option-btn:hover:not(:disabled) { border-color: var(--accent-mid); background: var(--accent-light); color: var(--ink); }
+.option-btn:hover:not(:disabled) {
+  border-color: var(--accent-mid);
+  background: var(--accent-light);
+  color: var(--ink);
+}
 .option-letter {
-  font-family: 'SF Mono', monospace;
+  font-family: 'SF Mono', 'Cascadia Code', 'Fira Code', 'Consolas', 'Courier New', monospace;
   font-size: 0.7rem;
   font-weight: 500;
-  width: 1.4rem; height: 1.4rem;
+  width: 1.4rem;
+  height: 1.4rem;
   border-radius: 3px;
   background: var(--border);
   display: grid;
@@ -321,14 +405,39 @@ main { max-width: 760px; margin: 0 auto; padding: 2.5rem 1.5rem; }
   flex-shrink: 0;
   margin-top: 0.05rem;
   color: var(--ink3);
+  letter-spacing: 0;
 }
-.selected-m { border-color: var(--accent-mid); background: var(--accent-light); color: var(--ink); }
+
+/* States */
+.selected-m {
+  border-color: var(--accent-mid);
+  background: var(--accent-light);
+  color: var(--ink);
+}
 .selected-m .option-letter { background: var(--accent-mid); color: #fff; }
-.correct-ans { border-color: var(--success); background: var(--success-bg); color: var(--success); }
+
+.correct-ans {
+  border-color: var(--success);
+  background: var(--success-bg);
+  color: var(--success);
+}
 .correct-ans .option-letter { background: var(--success); color: #fff; }
-.wrong-ans { border-color: var(--danger); background: var(--danger-bg); color: var(--danger); }
+
+.wrong-ans {
+  border-color: var(--danger);
+  background: var(--danger-bg);
+  color: var(--danger);
+}
 .wrong-ans .option-letter { background: var(--danger); color: #fff; }
-.missed-ans { border-color: var(--accent-mid); border-style: dashed; background: var(--accent-light); color: var(--accent-mid); }
+
+.missed-ans {
+  border-color: var(--accent-mid);
+  border-style: dashed;
+  background: var(--accent-light);
+  color: var(--accent-mid);
+}
+
+/* &#9472;&#9472; EXPLANATION &#9472;&#9472; */
 .explanation {
   margin-top: 1.2rem;
   padding: 1rem 1.1rem;
@@ -342,7 +451,10 @@ main { max-width: 760px; margin: 0 auto; padding: 2.5rem 1.5rem; }
 }
 .explanation.show { display: block; }
 .explanation strong { color: var(--ink); font-weight: 600; }
+
+/* &#9472;&#9472; SUBMIT / NEXT BUTTONS &#9472;&#9472; */
 .btn {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
   font-size: 0.88rem;
   font-weight: 600;
   padding: 0.8rem 1.8rem;
@@ -351,12 +463,19 @@ main { max-width: 760px; margin: 0 auto; padding: 2.5rem 1.5rem; }
   background: var(--surface);
   color: var(--ink2);
   border-radius: 5px;
+  letter-spacing: 0.01em;
   transition: all 0.15s;
 }
 .btn:hover:not(:disabled) { border-color: var(--ink); color: var(--ink); background: var(--surface2); }
-.btn.primary { background: var(--ink); color: #fff; border-color: var(--ink); }
+.btn.primary {
+  background: var(--ink);
+  color: #fff;
+  border-color: var(--ink);
+}
 .btn.primary:hover:not(:disabled) { background: var(--accent); border-color: var(--accent); }
 .btn:disabled { opacity: 0.35; cursor: not-allowed; }
+
+/* &#9472;&#9472; RESULTS &#9472;&#9472; */
 .results-area { text-align: center; padding: 4rem 1rem; }
 .results-card {
   display: inline-block;
@@ -366,431 +485,692 @@ main { max-width: 760px; margin: 0 auto; padding: 2.5rem 1.5rem; }
   padding: 3rem 4rem;
   box-shadow: 4px 4px 0 var(--ink);
 }
-.final-score { font-family: Georgia, serif; font-size: 5rem; font-weight: 400; color: var(--accent); line-height: 1; margin-bottom: 0.25rem; }
-.final-label { font-family: 'SF Mono', monospace; font-size: 0.75rem; color: var(--ink3); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 2rem; }
-.bank-count { margin-left: auto; font-family: 'SF Mono', monospace; font-size: 0.7rem; color: #8a8480; }
-.multi-hint { font-size: 0.78rem; color: #8a8480; font-family: 'SF Mono', monospace; font-style: normal; }
-
-@media (max-width: 600px) {
-.top-bar { padding: 0 1rem; }
-.top-bar-label { display: none; }
-header { padding: 1rem; flex-direction: column; align-items: flex-start; gap: 0.8rem; }
-.header-title { font-size: 1.5rem; }
-.header-right { width: 100%; flex-direction: row; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; }
-.version-tabs { flex-wrap: wrap; gap: 0.2rem; width: 100%; }
-.v-btn { padding: 0.35rem 0.6rem; font-size: 0.62rem; flex: 1; text-align: center; min-width: 0; }
-.score-badge { min-width: 0; font-size: 0.7rem; padding: 0.3rem 0.6rem; white-space: nowrap; }
-main { padding: 1.2rem 0.9rem; }
-.pick-btn { min-width: 70px; padding: 0.7rem 0.4rem; }
-.pick-num { font-size: 1.3rem; }
-.pick-desc { font-size: 0.52rem; }
-.picker-grid { gap: 0.4rem; }
-.q-card { padding: 1.2rem 1rem 1rem; }
-.q-text { font-size: 1.05rem; margin-bottom: 1.1rem; }
-.q-meta { flex-direction: column; align-items: flex-start; gap: 0.35rem; }
-.option-btn { padding: 0.8rem 0.7rem; font-size: 0.88rem; gap: 0.6rem; margin-bottom: 0.4rem; }
-.option-letter { width: 1.3rem; height: 1.3rem; font-size: 0.62rem; margin-top: 0.1rem; }
-.btn { font-size: 0.85rem; padding: 0.85rem 1.2rem; }
-.btn-start { font-size: 0.9rem; padding: 0.9rem 1.5rem; max-width: 100%; }
-.results-card { padding: 2rem 1.5rem; }
-.final-score { font-size: 4rem; }
-.check-item { font-size: 0.85rem; padding: 0.75rem 0.9rem; }
+.final-score {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 5rem;
+  font-weight: 400;
+  color: var(--accent);
+  line-height: 1;
+  margin-bottom: 0.25rem;
 }
+.final-label {
+  font-family: 'SF Mono', 'Cascadia Code', 'Fira Code', 'Consolas', 'Courier New', monospace;
+  font-size: 0.75rem;
+  color: var(--ink3);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+}
+
+/* &#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;
+   MOBILE-FIRST RESPONSIVE FIXES
+   &#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552; */
+
+/* Header stacks cleanly on small screens */
+@media (max-width: 600px) {
+
+  /* Top bar - hide label, keep mode pill */
+  .top-bar { padding: 0 1rem; }
+  .top-bar-label { display: none; }
+
+  /* Header becomes single column */
+  header {
+    padding: 1rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.8rem;
+  }
+  .header-title { font-size: 1.5rem; }
+  .header-right {
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  /* Tabs - smaller, allow wrap, no fixed widths */
+  .version-tabs {
+    flex-wrap: wrap;
+    gap: 0.2rem;
+    width: 100%;
+  }
+  .v-btn {
+    padding: 0.35rem 0.6rem;
+    font-size: 0.62rem;
+    white-space: normal;
+    flex: 1;
+    text-align: center;
+    min-width: 0;
+  }
+
+  /* Score badge - shrink, no min-width */
+  .score-badge {
+    min-width: 0;
+    font-size: 0.7rem;
+    padding: 0.3rem 0.6rem;
+    white-space: nowrap;
+  }
+
+  /* Main padding */
+  main { padding: 1.2rem 0.9rem; }
+
+  /* Intro pickers */
+  .pick-btn { min-width: 70px; padding: 0.7rem 0.4rem; }
+  .pick-num { font-size: 1.3rem; }
+  .pick-desc { font-size: 0.52rem; }
+  .picker-grid { gap: 0.4rem; }
+
+  /* Question card */
+  .q-card { padding: 1.2rem 1rem 1rem; }
+  .q-text { font-size: 1.05rem; margin-bottom: 1.1rem; }
+  .q-meta { flex-direction: column; align-items: flex-start; gap: 0.35rem; }
+
+  /* Option buttons - make tap targets big, wrap text properly */
+  .option-btn {
+    padding: 0.8rem 0.7rem;
+    font-size: 0.88rem;
+    align-items: flex-start;
+    gap: 0.6rem;
+    margin-bottom: 0.4rem;
+  }
+  .option-letter {
+    width: 1.3rem;
+    height: 1.3rem;
+    font-size: 0.62rem;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+
+  /* Submit / Next buttons */
+  .btn { font-size: 0.85rem; padding: 0.85rem 1.2rem; }
+  .btn-start { font-size: 0.9rem; padding: 0.9rem 1.5rem; max-width: 100%; }
+
+  /* Results */
+  .results-card { padding: 2rem 1.5rem; }
+  .final-score { font-size: 4rem; }
+
+  /* Check items in combine-box */
+  .check-item { font-size: 0.85rem; padding: 0.75rem 0.9rem; }
+}
+
+/* Intermediate breakpoint - tablets / narrow windows */
 @media (max-width: 480px) {
-.v-btn { padding: 0.3rem 0.45rem; font-size: 0.58rem; }
-.header-title { font-size: 1.3rem; }
+  .v-btn { padding: 0.3rem 0.45rem; font-size: 0.58rem; }
+  .header-title { font-size: 1.3rem; }
+}
+
+/* Utility classes replacing inline var() styles */
+.bank-count {
+  margin-left: auto;
+  font-family: 'SF Mono', 'Cascadia Code', 'Fira Code', 'Consolas', 'Courier New', monospace;
+  font-size: 0.7rem;
+  color: #8a8480;
+}
+.multi-hint {
+  font-size: 0.78rem;
+  color: #8a8480;
+  font-family: 'SF Mono', 'Cascadia Code', 'Fira Code', 'Consolas', 'Courier New', monospace;
+  font-style: normal;
 }
 </style>
-
 </head>
 <body>
 
 <div class="top-bar">
-  <span class="top-bar-label">POLSC 120 &middot; Midterm 3</span>
-  <span class="top-bar-mode mode-combined" id="top-bar-mode">Combined</span>
+    <span class="top-bar-label">POLSC 120 &#183; Midterm 3</span>
+    <span class="top-bar-mode mode-combined" id="top-bar-mode">Combined</span>
 </div>
 
 <header>
-  <div class="header-left">
-    <div class="header-title">Practice <em>Quiz</em></div>
-    <div class="header-sub" id="header-sub">Combined Question Bank &middot; 167 Questions</div>
-  </div>
-  <div class="header-right">
-    <div class="version-tabs">
-      <button class="v-btn v0-btn active" id="btn-v0" onclick="switchVersion(0)">Combined</button>
-      <button class="v-btn v7-btn" id="btn-v7" onclick="switchVersion(7)">Exam Prep</button>
-      <button class="v-btn v6-btn" id="btn-v6" onclick="switchVersion(6)">M3 Bank</button>
-      <button class="v-btn v8-btn" id="btn-v8" onclick="switchVersion(8)">Review</button>
+    <div class="header-left">
+        <div class="header-title">Practice <em>Quiz</em></div>
+        <div class="header-sub" id="header-sub">Combined Question Bank &#183; 167 Questions</div>
     </div>
-    <div class="score-badge" id="score-display">Score: &mdash; / &mdash;</div>
-  </div>
+    <div class="header-right">
+        <div class="version-tabs">
+            <button class="v-btn v0-btn active" id="btn-v0" onclick="switchVersion(0)">Combined</button>
+            <button class="v-btn v7-btn" id="btn-v7" onclick="switchVersion(7)">Exam Prep</button>
+            <button class="v-btn v6-btn" id="btn-v6" onclick="switchVersion(6)">M3 Bank</button>
+            <button class="v-btn v8-btn" id="btn-v8" onclick="switchVersion(8)">Review</button>
+        </div>
+        <div class="score-badge" id="score-display">Score: &mdash; / &mdash;</div>
+    </div>
 </header>
 
-<div class="progress-bar-wrap"><div class="progress-bar" id="progress-bar" style="width:0%"></div></div>
+<div class="progress-bar-wrap"><div class="progress-bar" id="progress-bar" style="width: 0%;"></div></div>
 
 <main>
-  <div id="intro">
-    <div id="combine-box" class="combine-box">
-      <div class="section-heading">Question Banks</div>
-      <div class="check-item checked" id="chk-v7" onclick="toggleBank(this)">
-        <span class="check-icon">&#10003;</span><span>Exam Prep</span><span class="bank-count">90Q</span>
-      </div>
-      <div class="check-item checked" id="chk-v6" onclick="toggleBank(this)">
-        <span class="check-icon">&#10003;</span><span>M3 Bank</span><span class="bank-count">50Q</span>
-      </div>
-      <div class="check-item checked" id="chk-v8" onclick="toggleBank(this)">
-        <span class="check-icon">&#10003;</span><span>Review Lecture</span><span class="bank-count">25Q</span>
-      </div>
+    <div id="intro">
+        <div id="combine-box" class="combine-box">
+            <div class="section-heading">Question Banks</div>
+            <div class="check-item checked" id="chk-v7" onclick="toggleBank(this)">
+                <span class="check-icon">&#10003;</span>
+                <span>Exam Prep</span>
+                <span class="bank-count">90Q</span>
+            </div>
+            <div class="check-item checked" id="chk-v6" onclick="toggleBank(this)">
+                <span class="check-icon">&#10003;</span>
+                <span>M3 Bank</span>
+                <span class="bank-count">50Q</span>
+            </div>
+            <div class="check-item checked" id="chk-v8" onclick="toggleBank(this)">
+                <span class="check-icon">&#10003;</span>
+                <span>Review Lecture</span>
+                <span class="bank-count">25Q</span>
+            </div>
+        </div>
+
+        <div class="picker-section">
+            <div class="section-heading">Difficulty</div>
+            <div class="picker-grid">
+                <button class="pick-btn active diff-btn" onclick="setDiff('all', this)"><span class="pick-num">All</span><span class="pick-desc">Mixed</span></button>
+                <button class="pick-btn diff-btn" onclick="setDiff(1, this)"><span class="pick-num">1</span><span class="pick-desc">Foundational</span></button>
+                <button class="pick-btn diff-btn" onclick="setDiff(2, this)"><span class="pick-num">2</span><span class="pick-desc">Standard</span></button>
+                <button class="pick-btn diff-btn" onclick="setDiff(3, this)"><span class="pick-num">3</span><span class="pick-desc">Advanced</span></button>
+            </div>
+        </div>
+
+        <div class="picker-section">
+            <div class="section-heading">Question Count</div>
+            <div id="length-ui"></div>
+        </div>
+
+        <button class="btn-start" onclick="startQuiz()">Begin Quiz &rarr;</button>
     </div>
-    <div class="picker-section">
-      <div class="section-heading">Difficulty</div>
-      <div class="picker-grid">
-        <button class="pick-btn active diff-btn" onclick="setDiff('all',this)"><span class="pick-num">All</span><span class="pick-desc">Mixed</span></button>
-        <button class="pick-btn diff-btn" onclick="setDiff(1,this)"><span class="pick-num">1</span><span class="pick-desc">Foundational</span></button>
-        <button class="pick-btn diff-btn" onclick="setDiff(2,this)"><span class="pick-num">2</span><span class="pick-desc">Standard</span></button>
-        <button class="pick-btn diff-btn" onclick="setDiff(3,this)"><span class="pick-num">3</span><span class="pick-desc">Advanced</span></button>
-      </div>
-    </div>
-    <div class="picker-section">
-      <div class="section-heading">Question Count</div>
-      <div id="length-ui"></div>
-    </div>
-    <button class="btn-start" onclick="startQuiz()">Begin Quiz &rarr;</button>
-  </div>
-  <div id="quiz-area" style="display:none;"></div>
-  <div id="results" style="display:none;"></div>
+
+    <div id="quiz-area" style="display:none;"></div>
+    <div id="results" style="display:none;"></div>
 </main>
 
 <script>
+/* &#9472;&#9472; V7 QUESTION BANK (Exam Prep &mdash; 90Q, multi-select) &#9472;&#9472; */
 const v7Questions = [
-  {section:"Unit 1: Federalism & Constitution",difficulty:1,q:"Which of the following are core features of the U.S. Constitution according to the course?",opts:["Federalism","Separation of powers","Checks and balances","Direct democracy","Patriotic reverence"],ans:[0,1,2,4],exp:"The Constitution features <strong>federalism</strong>, <strong>separation of powers</strong>, <strong>checks and balances</strong>, and has inspired <strong>patriotic reverence</strong>. Direct democracy is NOT a feature."},
-  {section:"Unit 1: Federalism & Constitution",difficulty:1,q:"According to the 'veto players' concept (Tsebelis 2003), which of the following serve as blocking mechanisms in the U.S.?",opts:["Three branches of government","The filibuster","Two chambers of Congress","Judicial review","Presidential veto and veto override"],ans:[0,1,2,3,4],exp:"ALL five are veto players: <strong>three branches</strong>, the <strong>filibuster</strong>, <strong>bicameralism</strong>, <strong>judicial review</strong>, and the <strong>veto/override</strong>."},
-  {section:"Unit 1: Federalism & Constitution",difficulty:1,q:"George Will's 2010 quote argues which of the following about gridlock?",opts:["Gridlock is a failure of the American system","Gridlock is an achievement, not a problem","Madison designed government to be safe, not efficient","The Framers wanted blocking mechanisms","Gridlock benefits only the wealthy"],ans:[1,2,3],exp:"Will argued gridlock is an <strong>achievement</strong>; that <strong>Madison designed a safe -- not efficient -- government</strong>; and that the <strong>Framers deliberately built blocking mechanisms</strong>."},
-  {section:"Unit 1: Federalism & Constitution",difficulty:1,q:"Elizabeth Warren's complicating claim about veto players argues:",opts:["Big-money players can overcome gridlock","Gridlock only stops legislation that helps ordinary citizens","Gridlock is beneficial for democracy","The blocking mechanisms serve elite interests","Both Will and Warren agree a lot of legislation gets stopped"],ans:[0,1,3,4],exp:"Warren argues: <strong>big-money players CAN overcome gridlock</strong>; <strong>gridlock only stops legislation helping ordinary citizens</strong>; and <strong>blocking mechanisms serve elite interests</strong>."},
-  {section:"Unit 1: Federalism & Constitution",difficulty:1,q:"Which of the following are formal methods of amending the U.S. Constitution?",opts:["A two-thirds vote in both houses of Congress","Presidential executive order","A two-thirds vote of state legislatures calling a convention","Ratification by three-fourths of states","Judicial interpretation by SCOTUS"],ans:[0,2,3],exp:"Formal amendment requires: <strong>2/3 vote in Congress</strong> OR <strong>2/3 of states calling a convention</strong>; then <strong>ratification by 3/4 of states</strong>."},
-  {section:"Unit 1: Federalism & Constitution",difficulty:1,q:"Which of the following are 'informal' methods by which the Constitution changes?",opts:["Judges change their interpretation","New social developments prompt new judicial precedents","Constitutional conventions","Technological change forces constitutional rethinking","Two-thirds congressional vote"],ans:[0,1,3],exp:"Informal change occurs through <strong>judicial interpretation</strong>, <strong>social developments</strong>, and <strong>technological change</strong>."},
-  {section:"Unit 1: Federalism & Constitution",difficulty:1,q:"Which powers are reserved exclusively to the states under the Constitution?",opts:["Coin money","Public health and safety legislation","Establish local governments","Declare war","State criminal law"],ans:[1,2,4],exp:"Reserved state powers include <strong>health/safety</strong>, <strong>local governments</strong>, and <strong>state criminal law</strong>."},
-  {section:"Unit 1: Federalism & Constitution",difficulty:1,q:"Which of the following are concurrent powers shared by both the national and state governments?",opts:["Taxation","Borrow money","Declare war","Establish courts","Coin money"],ans:[0,1,3],exp:"Concurrent powers include <strong>taxation</strong>, <strong>borrowing money</strong>, and <strong>establishing courts</strong>."},
-  {section:"Unit 1: Federalism & Constitution",difficulty:1,q:"According to the Supremacy Clause (Article VI), which of the following are the 'supreme law of the land'?",opts:["U.S. Constitution","Federal laws","Treaties","State constitutions","Executive agreements"],ans:[0,1,2],exp:"The Clause names: <strong>U.S. Constitution</strong>, <strong>federal laws</strong>, and <strong>treaties</strong>."},
-  {section:"Unit 2: Congress",difficulty:1,q:"The U.S. Senate's equal representation (2 senators per state) has which of the following characteristics?",opts:["It is exempt from constitutional amendment","It means the 26 least-populous states elect 52 senators","It makes the U.S. the world's most geographically distorting upper chamber","It was established in Article II of the Constitution","The ratio of best-represented to worst-represented states is 66:1"],ans:[0,1,2,4],exp:"Senate representation is <strong>exempt from amendment</strong>; <strong>26 small states elect 52 senators</strong>; and the <strong>66:1 ratio</strong> is globally unique."},
-  {section:"Unit 2: Congress",difficulty:1,q:"Which of the following are features of the U.S. House of Representatives?",opts:["435 voting members apportioned by population","Two-year terms","Initiates all revenue bills","Approves treaties","Tries impeached officials"],ans:[0,1,2],exp:"The House has <strong>435 members</strong>, <strong>2-year terms</strong>, and <strong>initiates revenue bills</strong>."},
-  {section:"Unit 2: Congress",difficulty:1,q:"Which of the following are exclusive powers of the U.S. Senate?",opts:["Advice and consent on presidential appointments","Initiate revenue bills","Try impeached officials","Approve treaties by two-thirds vote","Initiate impeachment"],ans:[0,2,3],exp:"Senate-only: <strong>Advice and consent</strong>, <strong>trying impeached officials</strong>, and <strong>approving treaties (2/3)</strong>."},
-  {section:"Unit 2: Congress",difficulty:2,q:"Which of the following are listed as advantages of incumbency (Table 6.4)?",opts:["Name recognition","Franking privilege","Casework","Unlimited campaign finance","Redistricting to enhance electability"],ans:[0,1,2,4],exp:"Advantages: <strong>name recognition</strong>, <strong>franking</strong> (free mail), <strong>casework</strong>, and <strong>redistricting</strong>."},
-  {section:"Unit 2: Congress",difficulty:2,q:"The filibuster in the Senate is best described by which of the following?",opts:["A mechanism to halt Senate action through unlimited debate","It effectively requires 60 votes to bring a bill to a final vote","Ended by a cloture motion requiring 60 senators' signatures","It can be used to block Supreme Court nominations since 2017","It represents a major veto point in the legislative process"],ans:[0,1,2,4],exp:"Filibuster requires <strong>60 votes for cloture</strong> and is a <strong>major veto point</strong>. Not allowed for SCOTUS since 2017."},
-  {section:"Unit 2: Congress",difficulty:1,q:"Under the Law-Making Function (6.5), which steps must a bill pass through?",opts:["Committee referral and markup","Floor debate","Conference committee if House and Senate versions differ","Presidential signing or veto","Supreme Court review"],ans:[0,1,2,3],exp:"Standard steps: <strong>Committee markup</strong>, <strong>Floor debate</strong>, <strong>Conference committee</strong>, and <strong>Presidential action</strong>."},
-  {section:"Unit 2: Congress",difficulty:2,q:"The War Powers Resolution (1973) requires which of the following?",opts:["Presidential notification of Congress within 48 hours of troop deployment","Withdrawal within 60 days unless Congress declares war","Senate ratification of military treaties","Prior consultation with Congress when possible","All presidents since Nixon have recognized its constitutionality"],ans:[0,1,3],exp:"Requires <strong>48-hour notification</strong>, <strong>60-day withdrawal</strong>, and <strong>prior consultation</strong>."},
-  {section:"Unit 2: Congress",difficulty:1,q:"Which of the following are political actors that influence how members of Congress vote (6.6)?",opts:["Political parties","Constituents","Interest groups and lobbyists","Staff and support agencies","The Supreme Court's most recent rulings"],ans:[0,1,2,3],exp:"Influences include <strong>parties</strong>, <strong>constituents</strong>, <strong>interest groups</strong>, and <strong>support staff</strong>."},
-  {section:"Unit 2: Congress",difficulty:2,q:"Baker v. Carr (1962) established which of the following?",opts:["Redistricting is a justiciable question that courts can rule on","Districts may be apportioned by population","Purposeful gerrymandering to dilute votes of people of color is illegal","The Supreme Court has no role in redistricting","State legislatures must use nonpartisan commissions"],ans:[0,1,2],exp:"Established redistricting as <strong>justiciable</strong> and protected against minority <strong>vote dilution</strong>."},
-  {section:"Unit 2: Congress",difficulty:2,q:"Gerrymandering is best described by which of the following?",opts:["Drawing district lines to produce a specific electoral outcome","Named for Governor Elbridge Gerry and the shape of a salamander","Always ruled unconstitutional by the Supreme Court","Can be used to enhance or dilute the votes of communities of color","Driven by population growth, partisan goals, and Voting Rights Act requirements"],ans:[0,1,3,4],exp:"Gerrymandering is <strong>drawing lines for outcomes</strong>, named for <strong>Elbridge Gerry</strong>, and affects minority votes."},
-  {section:"Unit 2: Congress",difficulty:2,q:"The Congressional Budget Office (CBO) was created in 1974 and serves which functions?",opts:["Evaluates the economic effect of different spending programs","Provides information on the cost of proposed policies","Analyzes the president's budget and economic projections","Provides a nonpartisan 'second opinion' in budget debates","Audits executive branch financial expenditures"],ans:[0,1,2,3],exp:"CBO provides <strong>nonpartisan cost analysis</strong> and <strong>budget evaluations</strong>. Audit is GAO's job."},
-  {section:"Unit 3: Presidency & Executive Branch",difficulty:1,q:"Which of the following are formal constitutional powers of the President (7.2)?",opts:["Appointment power (with Senate advice and consent)","Veto proposals from Congress","Pardon criminals and suspects","Declare war unilaterally","Negotiate international treaties"],ans:[0,1,2,4],exp:"Formal powers: <strong>Appointments</strong>, <strong>Veto</strong>, <strong>Pardons</strong>, and <strong>Treaties</strong>. Only Congress declares war."},
-  {section:"Unit 3: Presidency & Executive Branch",difficulty:2,q:"Which of the following are accurate regarding the presidential veto power?",opts:["Congress can override a veto with a two-thirds vote in each chamber","The president can veto constitutional amendments","A veto threat alone can force Congress to modify legislation","Biden issued zero vetoes in the first half of his term","Vetoes are rare when Congress and president share the same party"],ans:[0,2,3,4],exp:"Veto: <strong>2/3 override</strong>, <strong>veto threats</strong> influence law, and <strong>rare in unified govt</strong>."},
-  {section:"Unit 3: Presidency & Executive Branch",difficulty:2,q:"Which of the following are true about executive agreements (vs. formal treaties)?",opts:["They do not require Senate approval","They are not binding on future administrations","They have been used since the Washington administration","Courts have approved their use","They require a two-thirds Senate vote"],ans:[0,1,2,3],exp:"Agreements <strong>don't require Senate approval</strong> and <strong>aren't binding</strong> on successors."},
-  {section:"Unit 3: Presidency & Executive Branch",difficulty:1,q:"FDR's legacy to future presidents included which of the following (7.3)?",opts:["A burgeoning federal bureaucracy","An active presidential role in domestic and foreign policy","A nationalized executive office using technology to connect with the public","The tradition of two-term limits now codified in the 22nd Amendment","The elimination of the separation of powers doctrine"],ans:[0,1,2],exp:"FDR left a <strong>big bureaucracy</strong>, an <strong>active leadership role</strong>, and <strong>nationalized the office</strong>."},
-  {section:"Unit 3: Presidency & Executive Branch",difficulty:2,q:"Executive orders have which of the following characteristics?",opts:["They have the force of law within the executive branch","They do not require congressional approval","They can be retracted by future presidents","They are explicitly authorized by Article II of the Constitution","Truman used one to end military segregation"],ans:[0,1,2,4],exp:"Orders have <strong>force of law</strong>, no Congress approval, and are <strong>retractable</strong>."},
-  {section:"Unit 3: Presidency & Executive Branch",difficulty:3,q:"Lincoln justified his unprecedented wartime actions as:",opts:["Inherent presidential powers necessary to preserve the Union","His duty to 'faithfully execute' the laws even when circumventing the Constitution","Explicit grants of power in Article II","Congressional authorizations passed in advance","The precedent set by Washington's use of inherent powers"],ans:[0,1,4],exp:"Lincoln cited <strong>inherent powers</strong>, <strong>faithful execution</strong>, and <strong>Washington's precedent</strong>."},
-  {section:"Unit 3: Presidency & Executive Branch",difficulty:2,q:"The Miller reading ('Immune, Immune, Immune') covers which of the following?",opts:["The Supreme Court ruled 6-3 that former presidents are shielded for 'official acts'","Immunity IS explicitly stated in the Constitution","Sotomayor dissented, warning of 'disastrous consequences for democracy'","The majority based its reasoning on the 'chilling effect' argument","Barrett agreed on immunity but objected to one clause of the ruling"],ans:[0,2,3,4],exp:"Ruling <strong>granted immunity for official acts</strong> (6-3). Immunity is NOT explicit in the text."},
-  {section:"Unit 3: Presidency & Executive Branch",difficulty:1,q:"The four categories of federal agencies are:",opts:["Cabinet departments","Independent executive agencies","Independent regulatory commissions","Government corporations","State regulatory agencies"],ans:[0,1,2,3],exp:"Categories: <strong>Cabinet</strong>, <strong>Independent Executive</strong>, <strong>Regulatory Commissions</strong>, and <strong>Government Corporations</strong>."},
-  {section:"Unit 3: Presidency & Executive Branch",difficulty:2,q:"Independent regulatory commissions have which of the following characteristics?",opts:["Created by Congress to regulate a specific economic activity","5-7 members with fixed, staggered terms","President cannot easily remove members","Examples include SEC, FCC, NLRB, and the Federal Reserve","Their heads serve at the pleasure of the president"],ans:[0,1,2,3],exp:"Commissioners have <strong>fixed terms</strong> and <strong>protection from removal</strong>."},
-  {section:"Unit 3: Presidency & Executive Branch",difficulty:1,q:"The Hatch Act (1939) and its amendments allow federal employees to do which of the following?",opts:["Run for office in nonpartisan elections","Donate to political organizations","Campaign for candidates while off-duty","Engage in political activity while on duty","Solicit contributions from the general public"],ans:[0,1,2],exp:"Allows <strong>off-duty campaigning</strong> and <strong>nonpartisan runs</strong>."},
-  {section:"Unit 3: Presidency & Executive Branch",difficulty:2,q:"Max Weber's model bureaucracy includes which of the following features?",opts:["A chain of command with authority flowing top to bottom","Division of labor among specialized workers","Impersonality -- employees treated by merit, clients served equally","Goal orientation determining structure, authority, and rules","Democratic elections for all leadership positions"],ans:[0,1,2,3],exp:"Weber: <strong>Chain of command</strong>, <strong>specialization</strong>, and <strong>merit-based service</strong>."},
-  {section:"Unit 3: Presidency & Executive Branch",difficulty:1,q:"An iron triangle consists of which three actors?",opts:["Federal agency workers","Interest groups","The president and Cabinet","Relevant congressional committees/subcommittees","State governments"],ans:[0,1,3],exp:"Components: <strong>Agency</strong>, <strong>Interest Group</strong>, and <strong>Congressional Committee</strong>."},
-  {section:"Unit 3: Presidency & Executive Branch",difficulty:2,q:"Issue networks differ from iron triangles in which of the following ways?",opts:["They are broader and include lawyers, consultants, academics, and PR specialists","They constantly change as new parties with expertise get involved","They are more stable and closed than iron triangles","They sometimes include courts","They are sometimes called 'policy coordinating committees'"],ans:[0,1,3],exp:"Issue networks are <strong>broader</strong>, <strong>more fluid</strong>, and <strong>include experts/courts</strong>."},
-  {section:"Unit 3: Presidency & Executive Branch",difficulty:2,q:"Rule making by federal agencies involves which of the following steps?",opts:["Publishing notice of proposed rule in the Federal Register","A 30-60 day public comment period","OMB review of objectives and costs","A vote in Congress to approve the rule","Final publication of the rule in the Federal Register"],ans:[0,1,2,4],exp:"Steps: <strong>Notice</strong>, <strong>Comment period</strong>, <strong>OMB review</strong>, and <strong>Final Publication</strong>."},
-  {section:"Unit 3: Presidency & Executive Branch",difficulty:1,q:"The EPA was created with which of the following characteristics?",opts:["Created in 1970 by President Nixon","An independent executive agency (not placed under Interior)","Enforces the Clean Air Act (1970) and Clean Water Act (1972)","Created by the Clinton administration","Air pollution in the U.S. dropped by one-third to one-half between 1970-1990"],ans:[0,1,2,4],exp:"Created <strong>1970 by Nixon</strong>; independent; enforces <strong>Clean Air/Water Acts</strong>."},
-  {section:"Unit 4: Judiciary",difficulty:1,q:"Marbury v. Madison (1803) established which of the following?",opts:["The power of judicial review","Courts can strike down acts of Congress that violate the Constitution","The Court is the final arbiter of constitutional questions","Judicial review is explicitly stated in Article III","The Marshall Court established the Court as a co-equal branch"],ans:[0,1,2,4],exp:"Established <strong>judicial review</strong>. It is NOT explicit in the Constitution."},
-  {section:"Unit 4: Judiciary",difficulty:2,q:"Bowie's historical evidence includes which of the following examples of SCOTUS acting antidemocratically?",opts:["Striking down six Reconstruction-era laws protecting voting rights","Shelby County v. Holder gutting the Voting Rights Act","Citizens United overturning campaign finance laws","Brown v. Board of Education establishing school desegregation","Pollock v. Farmers' Loan striking down the federal income tax"],ans:[0,1,2,4],exp:"Examples: <strong>gutting voting rights</strong>, <strong>Citizens United</strong>, and <strong>Pollock</strong>."},
-  {section:"Unit 4: Judiciary",difficulty:3,q:"Bowie argues that Brown v. Board of Education worked because:",opts:["The Court enforced the Ku Klux Klan Act of 1871 (a federal law) against recalcitrant states","It was an example of the Court overruling Congress","Real desegregation only came after the Civil Rights Act and VRA (1964-65)","It showed judicial review at its most democratic","The Court was acting as an agent of Congress's democratic will"],ans:[0,2,4],exp:"Worked because it <strong>enforced federal law</strong> and <strong>CRA/VRA delivered</strong>."},
-  {section:"Unit 4: Judiciary",difficulty:3,q:"According to Bowie, the 'countermajoritarian difficulty' is demonstrated by which of the following?",opts:["When the Court invalidates a law, 5 justices override the president + 500+ Congress members","To overrule the Court via amendment requires 2/3 of both houses + 3/4 of states","Overturning a Court decision is nearly impossible","The Court has historically protected the poor and marginalized","Wealthy litigants have resources to repeatedly challenge laws in court"],ans:[0,1,2,4],exp:"Difficulty: <strong>5 override all</strong>; <strong>amendments are nearly impossible</strong>."},
-  {section:"Unit 4: Judiciary",difficulty:1,q:"The federal court hierarchy from lowest to highest is:",opts:["U.S. District Courts to U.S. Courts of Appeals to U.S. Supreme Court","U.S. Courts of Appeals to U.S. District Courts to U.S. Supreme Court","State Trial Courts are part of the federal hierarchy","The Supreme Court handles 97-99% of cases under appellate jurisdiction","There are 94 U.S. District Courts and 13 Courts of Appeals"],ans:[0,3,4],exp:"Hierarchy: <strong>District -> Circuit (Appeals) -> SCOTUS</strong>."},
-  {section:"Unit 1: Federalism & Constitution",difficulty:2,q:"Which of the following connect the veto players concept to specific institutions?",opts:["The Senate filibuster is a veto point","The president's veto is a veto play","The Supreme Court's judicial review is a veto mechanism","Congressional committee referral where bills can die is a veto gate","The Electoral College only applies to domestic legislation"],ans:[0,1,2,3],exp:"Includes <strong>filibuster</strong>, <strong>veto</strong>, <strong>judicial review</strong>, and <strong>committees</strong>."},
-  {section:"Unit 3: Presidency & Executive Branch",difficulty:2,q:"In the iron triangle diagram (Figure 8.6), which relationships are accurately described?",opts:["Interest groups provide electoral support to Congress","Congress provides funding and political support to bureaucracy","Bureaucracy gives low regulations and special favors to interest groups","The White House directly controls all three corners of the triangle","Congress provides friendly oversight and legislation to interest groups"],ans:[0,1,2,4],exp:"Relationships: <strong>IG gives support to Congress</strong>, <strong>Congress funds Agency</strong>."},
-  {section:"Unit 3: Presidency & Executive Branch",difficulty:2,q:"Which of the following statements about the modern presidency are accurate?",opts:["Presidents today typically propose legislation and submit budgets","FDR broke the model that lawmaking was solely Congress's responsibility","The Office of Management and Budget prepares the annual budget proposal","The modern presidency began with George Washington","LBJ noted that legislative speed depends on 'constant attention from the administration'"],ans:[0,1,2,4],exp:"Modern POTUS (post-FDR) <strong>proposes budgets</strong> and <strong>leads lawmaking</strong>."},
-  {section:"Unit 3: Presidency & Executive Branch",difficulty:2,q:"The 'revolving door' phenomenon in bureaucracy refers to:",opts:["Decision makers in the executive branch ending up working for industries they previously regulated","The movement of members of Congress to and from lobbying jobs","A key mechanism of regulatory capture","A formal process established by the Administrative Procedures Act","Something the course will address more fully in later units on political money and lobbying"],ans:[0,1,2,4],exp:"Movement of <strong>officials to regulated industries</strong>; causes <strong>capture</strong>."},
-  {section:"Unit 3: Presidency & Executive Branch",difficulty:2,q:"Which of the following are true about the relationship between the president and Congress on war powers?",opts:["Only Congress can formally declare war","Presidents have frequently deployed troops without a formal declaration of war","The War Powers Resolution has been recognized as constitutional by all presidents","The War Powers Resolution requires withdrawal within 60 days without congressional approval","Nixon vetoed the War Powers Resolution but Congress overrode it"],ans:[0,1,3,4],exp:"Only <strong>Congress declares war</strong>; POTUS <strong>must withdraw troops</strong> in 60 days."},
-  {section:"Unit 4: Judiciary",difficulty:3,q:"The following connect the Bowie reading to the broader course themes:",opts:["SCOTUS justices are near-totally Harvard and Yale graduates -- a 'judicial aristocracy'","Bowie argues Congress, not courts, should have the final say on constitutional interpretation","The primary 'minority' protected by judicial review is the wealthy class (according to Bowie)","Bowie is more accepting of SCOTUS acting as national enforcer against states","Bowie argues judicial review of STATE laws is equally problematic as review of federal laws"],ans:[0,1,2,3],exp:"Bowie: <strong>Judicial Aristocracy</strong>; protects the <strong>wealthy</strong>; <strong>Congress</strong> should decide."},
-  {section:"Unit 2: Congress",difficulty:2,q:"Which of the following best describe the politics of redistricting?",opts:["It is largely a political process in most states","Partisan state legislatures draw district lines to protect their majority","Gerrymandering can dilute or enhance the votes of communities of color","The Supreme Court has ruled partisan gerrymandering is always unconstitutional","Some states (Iowa, Arizona) use nonpartisan commissions to draw lines"],ans:[0,1,2,4],exp:"Redistricting is <strong>highly political</strong>; some states use <strong>commissions</strong>."},
-  {section:"Unit 3: Presidency & Executive Branch",difficulty:2,q:"Which of the following are true about independent regulatory commissioners?",opts:["Each president can appoint up to ~100 commissioners","They become independent of the president's direct political influence once in office","The president can fire them at will","Their terms are fixed and staggered to ensure bipartisan composition","A 1935 Supreme Court ruling affirmed their independence from political pressures"],ans:[0,1,3,4],exp:"Once in office, they are <strong>independent</strong> and <strong>protected from removal</strong>."},
-  {section:"Unit 3: Presidency & Executive Branch",difficulty:1,q:"The Administrative Procedures Act (1946) established which of the following?",opts:["A specific process for agency rule making","Public notice of proceedings must be published in the Federal Register","Interested parties may submit written arguments and facts","Rules take effect immediately upon drafting","At least 30 days must elapse after publication before rules take effect"],ans:[0,1,2,4],exp:"Established <strong>formal rulemaking</strong> and the <strong>30-day wait</strong> period."},
-  {section:"Unit 3: Presidency & Executive Branch",difficulty:2,q:"Which of the following are accurate about presidential appointments?",opts:["The president can make nearly 3,500 appointments to the administration","About 1,125 appointments require Senate confirmation","The president can remove most appointees at will","Presidential influence through judicial appointments can outlast the president's time in office","The president can remove federal judges at will"],ans:[0,1,2,3],exp:"POTUS can remove <strong>most appointees</strong> at will, but <strong>not federal judges</strong>."},
-  {section:"Unit 1: Federalism & Constitution",difficulty:2,q:"The Schoolhouse Rock video's treatment of the Constitution is criticized for:",opts:["It oversimplifies and 'idealizes' checks and balances","It presents gridlock as entirely positive","It serves as an example of patriotic reverence toward the Constitution","It accurately depicts how veto players function","It emphasizes the role of political parties"],ans:[0,1,2],exp:"Criticized for <strong>oversimplifying</strong> and <strong>patriotic reverence</strong>."},
-  {section:"Unit 2: Congress",difficulty:2,q:"The Senate's equal representation rule has which of the following implications?",opts:["It is 'exempt from constitutional amendment' per Chemerinsky","It gives equal weight to all Americans regardless of where they live","Small-state senators hold disproportionate power","This is why large states like California wouldn't want to split into multiple states","This distortion is unique globally -- no other federal democracy comes close to 66:1"],ans:[0,2,3,4],exp:"Exempt from <strong>amendment</strong>; gives <strong>small states power</strong>."},
-  {section:"Unit 3: Presidency & Executive Branch",difficulty:1,q:"Which correctly describe the pardoning power?",opts:["Complete pardoning power for federal offenses","Includes power to pardon in cases of impeachment","May issue commutations","Can grant general amnesties","Biden pardoned convictions for simple marijuana possession"],ans:[0,2,3,4],exp:"Complete for <strong>federal offenses</strong>; NO pardons for <strong>impeachment</strong>."},
-  {section:"Unit 3: Presidency & Executive Branch",difficulty:2,q:"The Truman quote about Eisenhower ('Poor Ike -- nothing will happen') illustrates:",opts:["The limits of presidential power despite formal authority","That most presidents find goals harder than anticipated","The gap between formal and informal powers","That Congress has all the power","The importance of military experience"],ans:[0,1,2],exp:"Illustrates the <strong>limits</strong> and <strong>gap between formal/informal power</strong>."},
-  {section:"Unit 3: Presidency & Executive Branch",difficulty:2,q:"Which correctly describe the federal budget process?",opts:["The OMB prepares the annual budget proposal","The Congressional Budget Act of 1974 created the CBO","The federal fiscal year runs from October 1 to September 30","The budget process schedule is strictly followed each year","Reconciliation limits Senate debate to 20 hours"],ans:[0,1,2,4],exp:"<strong>OMB prepares</strong>; <strong>CBO created 1974</strong>; <strong>Reconciliation</strong> bypasses filibuster."},
-  {section:"Unit 3: Presidency & Executive Branch",difficulty:2,q:"An 'executive agreement' differs from a treaty in which ways?",opts:["Does not require Senate approval","Is not binding on future administrations","Has been used since the Washington administration","Is explicitly authorized in Article II","Trump withdrew from the JCPOA using this mechanism"],ans:[0,1,2,4],exp:"<strong>No Senate approval</strong>; <strong>non-binding</strong>. Not explicit in Article II."},
-  {section:"Unit 3: Presidency & Executive Branch",difficulty:2,q:"The course describes 'signing statements' as:",opts:["Written comments attached to a bill when signed into law","May signal intent to ignore provisions deemed unconstitutional","George W. Bush used on more than 1,200 laws","Their legal force remains unclear","Always legally binding on executive agencies"],ans:[0,1,2,3],exp:"Comments attached at <strong>signing</strong>; legal force is <strong>unclear</strong>."},
-  {section:"Unit 2: Congress",difficulty:2,q:"Which are true about congressional oversight?",opts:["Committee hearings are the primary tool","Congress can issue subpoenas","Hearings are visible during divided government","Oversight can include impeachment","The CBO conducts financial audits"],ans:[0,1,2,3],exp:"Primary tool is <strong>hearings</strong>; includes <strong>subpoenas</strong> and <strong>impeachment</strong>."},
-  {section:"Unit 3: Presidency & Executive Branch",difficulty:1,q:"Government corporations have which of the following characteristics?",opts:["Established by Congress for functions private businesses won't provide","Examples include USPS and Amtrak","They charge a fee for services","They are always more efficient","The USPS is a massive employer"],ans:[0,1,2,4],exp:"<strong>USPS/Amtrak</strong>; they <strong>charge fees</strong> for services."},
-  {section:"Unit 3: Presidency & Executive Branch",difficulty:2,q:"The Administrative Discretion concept means:",opts:["Bureaucrats choose how to implement intentions","Applies at all GS levels","Two procedures: rule making and adjudication","Bureaucrats have unlimited power","Exercised when interacting with citizens"],ans:[0,1,2,4],exp:"Bureaucrats choose <strong>implementation methods</strong>; use <strong>rulemaking/adjudication</strong>."},
-  {section:"Unit 4: Judiciary",difficulty:3,q:"Bowie's argument about Marbury v. Madison is:",opts:["Marshall 'begged the question'","The real issue was WHO gets to decide constitutionality","Marshall's reasoning was logically airtight","Everyone should follow their own interpretation","Marshall established courts as final arbiter"],ans:[0,1],exp:"Marshall <strong>begged the question</strong>; real issue is <strong>who decides</strong>."},
-  {section:"Unit 4: Judiciary",difficulty:3,q:"Lincoln's argument about Dred Scott was:",opts:["If SCOTUS irrevocably fixes vital questions, people cease to rule","Courts have absolute authority","A self-governing people must control fundamental law meaning","President should have final say","Congress should resolve disagreements democratically"],ans:[0,2,4],exp:"If SCOTUS is final, <strong>people cease to rule</strong> themselves."},
-  {section:"Unit 3: Presidency & Executive Branch",difficulty:3,q:"The Miller (FT) immunity ruling reading notes:",opts:["Ruling was 6-3 along ideological lines","Shielded for conduct within 'exclusive sphere of authority'","Cited Article II explicitly","Roberts cited Hamilton's 'vigorous' executive","Sotomayor dissent used extreme hypotheticals"],ans:[0,1,3,4],exp:"<strong>6-3 ruling</strong>; shield for <strong>official acts</strong>; <strong>Hamilton</strong> citation."},
-  {section:"Unit 4: Judiciary",difficulty:2,q:"Bowie notes which about voting rights history?",opts:["Congress passed ~6 laws; SCOTUS gutted them","Court dismissed charges against a White mob in 1876","Jim Crow had tacit Court approval","SCOTUS consistently defended voting rights","Multiracial democracy began in 1965"],ans:[0,1,2,4],exp:"SCOTUS <strong>gutted post-Civil War laws</strong> and allowed <strong>Jim Crow</strong>."},
-  {section:"Unit 3: Presidency & Executive Branch",difficulty:2,q:"The EPA Britannica reading notes:",opts:["Created 1970 by Nixon","Consolidated multiple departments","Brokered catalytic converter deal","Is a Cabinet department","Superfund was 1980"],ans:[0,1,2,4],exp:"<strong>Nixon 1970</strong>; consolidated <strong>Agriculture/Interior/HEW</strong>; <strong>Superfund</strong>."},
-  {section:"Unit 1: Federalism & Constitution",difficulty:2,q:"'Patriotic reverence' refers to:",opts:["Treating Constitution as sacred","Unique to the U.S.","Debated by scholars like Rana","Explicit design intent of 1787","Insulates structures from criticism"],ans:[0,1,2,4],exp:"Treating text as <strong>sacred</strong>; <strong>insulates from critique</strong>."},
-  {section:"Unit 3: Presidency & Executive Branch",difficulty:2,q:"How policy becomes regulation (Figure 8.7):",opts:["Triggered by judicial decision","OMB can block at multiple stages","Must be in Federal Register","30-60 day comment period","Congress votes to approve every rule"],ans:[0,1,2,3],exp:"Triggered by <strong>judges</strong>; <strong>OMB blocking</strong>; <strong>comment period</strong>."},
-  {section:"Unit 3: Presidency & Executive Branch",difficulty:2,q:"'Administrative adjudication' means:",opts:["Quasi-judicial process settling disputes","Used for non-compliance","Called 'quasi-judicial' for separation of powers reasons","ALJs removed at will","Decisions reviewable in courts"],ans:[0,1,2,4],exp:"<strong>Settles disputes</strong>; used for <strong>non-compliance</strong>; <strong>reviewable</strong>."},
-  {section:"Unit 2: Congress",difficulty:2,q:"True about oversight of appointees:",opts:["Senate confirms by simple majority","Senatorial courtesy for district courts","'Blue slip' process","Confirmations increasingly politicized","McConnell refused Merrick Garland hearings"],ans:[0,1,2,3,4],exp:"ALL true: <strong>majority confirm</strong>, <strong>blue slips</strong>, <strong>Garland refusal</strong>."},
-  {section:"Unit 1: Federalism & Constitution",difficulty:1,q:"'Separation of powers' (Figure 2.2) checks:",opts:["Legislative can impeach","Executive can veto","Judiciary can strike executive actions","Executive appoints judges","Legislature can change court size"],ans:[0,1,2,3,4],exp:"ALL true: checks include <strong>impeachment</strong>, <strong>veto</strong>, and <strong>judicial review</strong>."},
-  {section:"Unit 2: Congress",difficulty:1,q:"Lobbyists represent which distribution?",opts:["0% poor","70% businesses","2% unions","Equal income shares","Mostly individual citizens"],ans:[0,1,2],exp:"Skewed: <strong>0% poor</strong>, <strong>70% business</strong>, <strong>2% union</strong>."},
-  {section:"Unit 2: Congress",difficulty:2,q:"True about the filibuster:",opts:["Prohibited for lower courts (2013)","Prohibited for SCOTUS (2017)","Cloture needs 60 senators","30 more hours after cloture","No content limits"],ans:[0,1,2,3,4],exp:"ALL true: <strong>nuclear options</strong>, <strong>60 votes</strong>, and <strong>no content limits</strong>."},
-  {section:"Unit 2: Congress",difficulty:2,q:"Budget Act (1974) response to:",opts:["Congress vs Nixon impoundment","Nixon refusal to spend funds","Watergate","Vietnam","Created the CBO"],ans:[0,1,4],exp:"Response to <strong>impoundment</strong>; <strong>created CBO</strong>."},
-  {section:"Unit 3: Presidency & Executive Branch",difficulty:2,q:"Modern bureaucracy political character:",opts:["Civil servants serve nation equally","Not actively politically polarized","Shielded from partisan pressure","Pendleton/Hatch Acts insulate","Trump II pushes re-politicization"],ans:[0,1,2,3,4],exp:"ALL true: <strong>merit-based</strong>, <strong>shielded</strong>, but <strong>facing re-politicization</strong>."},
-  {section:"Unit 4: Judiciary",difficulty:2,q:"Dred Scott (1857) discussed as:",opts:["Reinforcing slavery","Power grab making SCOTUS supreme","Precedent for judicial supremacy","Example of protecting democracy","Bowie argument for antidemocratic origins"],ans:[0,1,2,4],exp:"Reinforced <strong>slavery</strong>; created <strong>judicial supremacy</strong>."},
-  {section:"Unit 4: Judiciary",difficulty:2,q:"Ways Congress checks judiciary:",opts:["Change number/jurisdiction","Impeach judges","Propose amendments","Reverse decisions by majority vote","Reject nominees"],ans:[0,1,2,4],exp:"Checks: <strong>Size/Jurisdiction</strong>, <strong>Impeachment</strong>, <strong>Nominee rejection</strong>."},
-  {section:"Unit 3: Presidency & Executive Branch",difficulty:2,q:"Commander in Chief role:",opts:["POTUS Army/Navy head","Congress exclusively declares war","POTUS frequently commits troops","Vietnam had formal declaration","Pentagon Papers revealed falsified data"],ans:[0,1,2,4],exp:"Only <strong>Congress declares war</strong>; <strong>frequent deployments</strong> without it."},
-  {section:"Unit 3: Presidency & Executive Branch",difficulty:2,q:"Appointment and removal power:",opts:["Remove most appointees at will","Cannot remove independent commissioners at will","Cannot remove federal judges","~1,125 require Senate","Recess appointments bypass Senate"],ans:[0,1,2,3,4],exp:"ALL true: <strong>at-will removal</strong> for some; <strong>protections</strong> for others."},
-  {section:"Unit 3: Presidency & Executive Branch",difficulty:3,q:"Immunity (Miller) vs Inherent Powers:",opts:["Washington established inherent powers","Immunity expands personal power","Both make accountability harder","Congress easily overrides both","Liberal justices opposed immunity"],ans:[0,1,2,4],exp:"Both <strong>expand power</strong> and <strong>limit accountability</strong>."},
-  {section:"Unit 4: Judiciary",difficulty:2,q:"Judiciary Big Patterns:",opts:["Cases funnel up","Constrains welfare agencies","Enlarges personal power vs led agencies","Republicans celebrate separation-of-powers rulings","Federal judges elected"],ans:[0,1,2,3],exp:"Patterns: <strong>cases funnel up</strong>; <strong>POTUS personal power</strong> vs <strong>agencies</strong>."},
-  {section:"Unit 3: Presidency & Executive Branch",difficulty:2,q:"Facilitating legislation:",opts:["FDR 'propose/dispose' quote","Achievement in first 100 days","LBJ 'constant attention' quote","Party leader builds coalitions","No formal role"],ans:[0,1,2,3],exp:"POTUS has <strong>formal veto role</strong> and <strong>informal leadership role</strong>."},
-  {section:"Unit 3: Presidency & Executive Branch",difficulty:2,q:"Cabinet vs Independent agencies:",opts:["Cabinet = ~60% workforce","Independent = narrower scope","Both appointed by POTUS","Cabinet serve fixed terms","Independent perform services"],ans:[0,1,2,4],exp:"Cabinet heads <strong>do NOT serve fixed terms</strong>."},
-  {section:"Unit 2: Congress",difficulty:1,q:"Schoolhouse Rock Bill video illustrate:",opts:["Simplified model","Checks and balances popularized","Full complexity of veto players","Conference committee process","Gridlock as positive"],ans:[0,1],exp:"<strong>Simplified/idealized</strong> version of lawmaking."},
-  {section:"Unit 2: Congress",difficulty:2,q:"Senate role in constitutional system:",opts:["Directly elected since 1913","Originally chosen by legislatures","Governors appoint temporary replacements","No role in budget","Advice and consent for treaties/appointments"],ans:[0,1,2,4],exp:"<strong>17th Amendment</strong>; <strong>Advice & Consent</strong>."},
-  {section:"Unit 1: Federalism & Constitution",difficulty:2,q:"George Will perspective:",opts:["Safe govt not efficient","Blocking protects liberty","Gridlock is achievement","Progressive Democrat","Madison design intent"],ans:[0,1,2,4],exp:"Will is <strong>conservative</strong>; gridlock <strong>protects liberty</strong>."},
-  {section:"Unit 2: Congress",difficulty:2,q:"CRA (1996) allows Congress to:",opts:["Nullify rules by resolution","Within 60 days","Override veto by simple majority","Apply to DC Council","Trump used for Obama rules"],ans:[0,1,3,4],exp:"<strong>Nullify via resolution</strong>; Trump used <strong>~20 times</strong>."},
-  {section:"Unit 2: Congress",difficulty:2,q:"Parties in congressional decision-making:",opts:["90% party-line voting","Committees as rewards","POTUS as party chief","Divided govt empowers Congress party","Unified govt only 2 years"],ans:[0,1,2,3,4],exp:"ALL true: <strong>90% party-line</strong>; <strong>divided govt</strong> dynamics."},
-  {section:"Unit 3: Presidency & Executive Branch",difficulty:3,q:"Revolving door context:",opts:["Officials moving to industry","Hazy accountability","Naive textbook view","Courts shaping links","Hatch Act mechanism"],ans:[0,1,2,3],exp:"Moving to <strong>regulated industries</strong>; <strong>regulatory capture</strong>."},
-  {section:"Unit 1: Federalism & Constitution",difficulty:2,q:"Supremacy and interstate relations:",opts:["Full Faith and Credit","Extradition","Privileges and Immunities","Disputes settled by SCOTUS","Compacts need SCOTUS approval"],ans:[0,1,2,3],exp:"Compacts need <strong>Congressional</strong>, not SCOTUS, approval."},
-  {section:"Unit 4: Judiciary",difficulty:3,q:"Overall argument of Bowie (2021):",opts:["Review costs democracy","Congress should be final arbiter","Courts as democratic agents","Antidemocratic rulings benefit public","Accepts review of state laws"],ans:[0,1,2,4],exp:"Bowie: <strong>Review hurts democracy</strong>; <strong>Congress</strong> final say."}
+  {section:"Unit 1: Federalism & Constitution",difficulty:1,q:"Which of the following are core features of the U.S. Constitution according to the course?",opts:["Federalism","Separation of powers","Checks and balances","Direct democracy","Patriotic reverence"],ans:[0, 1, 2, 4],exp:"The Constitution features <strong>federalism</strong>, <strong>separation of powers</strong>, <strong>checks and balances</strong>, and has inspired <strong>patriotic reverence</strong>. Direct democracy is NOT a feature."},
+  {section:"Unit 1: Federalism & Constitution",difficulty:1,q:"According to the 'veto players' concept (Tsebelis 2003), which of the following serve as blocking mechanisms in the U.S.?",opts:["Three branches of government","The filibuster","Two chambers of Congress","Judicial review","Presidential veto and veto override"],ans:[0, 1, 2, 3, 4],exp:"ALL five are veto players: <strong>three branches</strong>, the <strong>filibuster</strong>, <strong>bicameralism</strong>, <strong>judicial review</strong>, and the <strong>veto/override</strong>."},
+  {section:"Unit 1: Federalism & Constitution",difficulty:1,q:"George Will's 2010 quote argues which of the following about gridlock?",opts:["Gridlock is a failure of the American system","Gridlock is an achievement, not a problem","Madison designed government to be safe, not efficient","The Framers wanted blocking mechanisms","Gridlock benefits only the wealthy"],ans:[1, 2, 3],exp:"Will argued gridlock is an <strong>achievement</strong>; that <strong>Madison designed a safe &mdash; not efficient &mdash; government</strong>; and that the <strong>Framers deliberately built blocking mechanisms</strong>."},
+  {section:"Unit 1: Federalism & Constitution",difficulty:1,q:"Elizabeth Warren's complicating claim about veto players argues:",opts:["Big-money players can overcome gridlock","Gridlock only stops legislation that helps ordinary citizens","Gridlock is beneficial for democracy","The blocking mechanisms serve elite interests","Both Will and Warren agree a lot of legislation gets stopped"],ans:[0, 1, 3, 4],exp:"Warren argues: <strong>big-money players CAN overcome gridlock</strong>; <strong>gridlock only stops legislation helping ordinary citizens</strong>; and <strong>blocking mechanisms serve elite interests</strong>."},
+  {section:"Unit 1: Federalism & Constitution",difficulty:1,q:"Which of the following are formal methods of amending the U.S. Constitution?",opts:["A two-thirds vote in both houses of Congress","Presidential executive order","A two-thirds vote of state legislatures calling a convention","Ratification by three-fourths of states","Judicial interpretation by SCOTUS"],ans:[0, 2, 3],exp:"Formal amendment requires: <strong>2/3 vote in Congress</strong> OR <strong>2/3 of states calling a convention</strong>; then <strong>ratification by 3/4 of states</strong>."},
+  {section:"Unit 1: Federalism & Constitution",difficulty:1,q:"Which of the following are 'informal' methods by which the Constitution changes?",opts:["Judges change their interpretation","New social developments prompt new judicial precedents","Constitutional conventions","Technological change forces constitutional rethinking","Two-thirds congressional vote"],ans:[0, 1, 3],exp:"Informal change occurs through <strong>judicial interpretation</strong>, <strong>social developments</strong>, and <strong>technological change</strong>."},
+  {section:"Unit 1: Federalism & Constitution",difficulty:1,q:"Which powers are reserved exclusively to the states under the Constitution?",opts:["Coin money","Public health and safety legislation","Establish local governments","Declare war","State criminal law"],ans:[1, 2, 4],exp:"Reserved state powers include <strong>health/safety</strong>, <strong>local governments</strong>, and <strong>state criminal law</strong>."},
+  {section:"Unit 1: Federalism & Constitution",difficulty:1,q:"Which of the following are concurrent powers shared by both the national and state governments?",opts:["Taxation","Borrow money","Declare war","Establish courts","Coin money"],ans:[0, 1, 3],exp:"Concurrent powers include <strong>taxation</strong>, <strong>borrowing money</strong>, and <strong>establishing courts</strong>."},
+  {section:"Unit 1: Federalism & Constitution",difficulty:1,q:"According to the Supremacy Clause (Article VI), which of the following are the 'supreme law of the land'?",opts:["U.S. Constitution","Federal laws","Treaties","State constitutions","Executive agreements"],ans:[0, 1, 2],exp:"The Clause names: <strong>U.S. Constitution</strong>, <strong>federal laws</strong>, and <strong>treaties</strong>."},
+  {section:"Unit 2: Congress",difficulty:1,q:"The U.S. Senate's equal representation (2 senators per state) has which of the following characteristics?",opts:["It is exempt from constitutional amendment","It means the 26 least-populous states elect 52 senators","It makes the U.S. the world's most geographically distorting upper chamber","It was established in Article II of the Constitution","The ratio of best-represented to worst-represented states is 66:1"],ans:[0, 1, 2, 4],exp:"Senate representation is <strong>exempt from amendment</strong>; <strong>26 small states elect 52 senators</strong>; and the <strong>66:1 ratio</strong> is globally unique."},
+  {section:"Unit 2: Congress",difficulty:1,q:"Which of the following are features of the U.S. House of Representatives?",opts:["435 voting members apportioned by population","Two-year terms","Initiates all revenue bills","Approves treaties","Tries impeached officials"],ans:[0, 1, 2],exp:"The House has <strong>435 members</strong>, <strong>2-year terms</strong>, and <strong>initiates revenue bills</strong>."},
+  {section:"Unit 2: Congress",difficulty:1,q:"Which of the following are exclusive powers of the U.S. Senate?",opts:["Advice and consent on presidential appointments","Initiate revenue bills","Try impeached officials","Approve treaties by two-thirds vote","Initiate impeachment"],ans:[0, 2, 3],exp:"Senate-only: <strong>Advice and consent</strong>, <strong>trying impeached officials</strong>, and <strong>approving treaties (2/3)</strong>."},
+  {section:"Unit 2: Congress",difficulty:2,q:"Which of the following are listed as advantages of incumbency (Table 6.4)?",opts:["Name recognition","Franking privilege","Casework","Unlimited campaign finance","Redistricting to enhance electability"],ans:[0, 1, 2, 4],exp:"Advantages: <strong>name recognition</strong>, <strong>franking</strong> (free mail), <strong>casework</strong>, and <strong>redistricting</strong>."},
+  {section:"Unit 2: Congress",difficulty:2,q:"The filibuster in the Senate is best described by which of the following?",opts:["A mechanism to halt Senate action through unlimited debate","It effectively requires 60 votes to bring a bill to a final vote","Ended by a cloture motion requiring 60 senators' signatures","It can be used to block Supreme Court nominations since 2017","It represents a major veto point in the legislative process"],ans:[0, 1, 2, 4],exp:"Filibuster requires <strong>60 votes for cloture</strong> and is a <strong>major veto point</strong>. Not allowed for SCOTUS since 2017."},
+  {section:"Unit 2: Congress",difficulty:1,q:"Under the Law-Making Function (6.5), which steps must a bill pass through?",opts:["Committee referral and markup","Floor debate","Conference committee if House and Senate versions differ","Presidential signing or veto","Supreme Court review"],ans:[0, 1, 2, 3],exp:"Standard steps: <strong>Committee markup</strong>, <strong>Floor debate</strong>, <strong>Conference committee</strong>, and <strong>Presidential action</strong>."},
+  {section:"Unit 2: Congress",difficulty:2,q:"The War Powers Resolution (1973) requires which of the following?",opts:["Presidential notification of Congress within 48 hours of troop deployment","Withdrawal within 60 days unless Congress declares war","Senate ratification of military treaties","Prior consultation with Congress when possible","All presidents since Nixon have recognized its constitutionality"],ans:[0, 1, 3],exp:"Requires <strong>48-hour notification</strong>, <strong>60-day withdrawal</strong>, and <strong>prior consultation</strong>."},
+  {section:"Unit 2: Congress",difficulty:1,q:"Which of the following are political actors that influence how members of Congress vote (6.6)?",opts:["Political parties","Constituents","Interest groups and lobbyists","Staff and support agencies","The Supreme Court's most recent rulings"],ans:[0, 1, 2, 3],exp:"Influences include <strong>parties</strong>, <strong>constituents</strong>, <strong>interest groups</strong>, and <strong>support staff</strong>."},
+  {section:"Unit 2: Congress",difficulty:2,q:"Baker v. Carr (1962) established which of the following?",opts:["Redistricting is a justiciable question that courts can rule on","Districts may be apportioned by population","Purposeful gerrymandering to dilute votes of people of color is illegal","The Supreme Court has no role in redistricting","State legislatures must use nonpartisan commissions"],ans:[0, 1, 2],exp:"Established redistricting as <strong>justiciable</strong> and protected against minority <strong>vote dilution</strong>."},
+  {section:"Unit 2: Congress",difficulty:2,q:"Gerrymandering is best described by which of the following?",opts:["Drawing district lines to produce a specific electoral outcome","Named for Governor Elbridge Gerry and the shape of a salamander","Always ruled unconstitutional by the Supreme Court","Can be used to enhance or dilute the votes of communities of color","Driven by population growth, partisan goals, and Voting Rights Act requirements"],ans:[0, 1, 3, 4],exp:"Gerrymandering is <strong>drawing lines for outcomes</strong>, named for <strong>Elbridge Gerry</strong>, and affects minority votes."},
+  {section:"Unit 2: Congress",difficulty:2,q:"The Congressional Budget Office (CBO) was created in 1974 and serves which functions?",opts:["Evaluates the economic effect of different spending programs","Provides information on the cost of proposed policies","Analyzes the president's budget and economic projections","Provides a nonpartisan 'second opinion' in budget debates","Audits executive branch financial expenditures"],ans:[0, 1, 2, 3],exp:"CBO provides <strong>nonpartisan cost analysis</strong> and <strong>budget evaluations</strong>. Audit is GAO's job."},
+  {section:"Unit 3: Presidency & Executive Branch",difficulty:1,q:"Which of the following are formal constitutional powers of the President (7.2)?",opts:["Appointment power (with Senate advice and consent)","Veto proposals from Congress","Pardon criminals and suspects","Declare war unilaterally","Negotiate international treaties"],ans:[0, 1, 2, 4],exp:"Formal powers: <strong>Appointments</strong>, <strong>Veto</strong>, <strong>Pardons</strong>, and <strong>Treaties</strong>. Only Congress declares war."},
+  {section:"Unit 3: Presidency & Executive Branch",difficulty:2,q:"Which of the following are accurate regarding the presidential veto power?",opts:["Congress can override a veto with a two-thirds vote in each chamber","The president can veto constitutional amendments","A veto threat alone can force Congress to modify legislation","Biden issued zero vetoes in the first half of his term","Vetoes are rare when Congress and president share the same party"],ans:[0, 2, 3, 4],exp:"Veto: <strong>2/3 override</strong>, <strong>veto threats</strong> influence law, and <strong>rare in unified govt</strong>."},
+  {section:"Unit 3: Presidency & Executive Branch",difficulty:2,q:"Which of the following are true about executive agreements (vs. formal treaties)?",opts:["They do not require Senate approval","They are not binding on future administrations","They have been used since the Washington administration","Courts have approved their use","They require a two-thirds Senate vote"],ans:[0, 1, 2, 3],exp:"Agreements <strong>don't require Senate approval</strong> and <strong>aren't binding</strong> on successors."},
+  {section:"Unit 3: Presidency & Executive Branch",difficulty:1,q:"FDR's legacy to future presidents included which of the following (7.3)?",opts:["A burgeoning federal bureaucracy","An active presidential role in domestic and foreign policy","A nationalized executive office using technology to connect with the public","The tradition of two-term limits now codified in the 22nd Amendment","The elimination of the separation of powers doctrine"],ans:[0, 1, 2],exp:"FDR left a <strong>big bureaucracy</strong>, an <strong>active leadership role</strong>, and <strong>nationalized the office</strong>."},
+  {section:"Unit 3: Presidency & Executive Branch",difficulty:2,q:"Executive orders have which of the following characteristics?",opts:["They have the force of law within the executive branch","They do not require congressional approval","They can be retracted by future presidents","They are explicitly authorized by Article II of the Constitution","Truman used one to end military segregation"],ans:[0, 1, 2, 4],exp:"Orders have <strong>force of law</strong>, no Congress approval, and are <strong>retractable</strong>."},
+  {section:"Unit 3: Presidency & Executive Branch",difficulty:3,q:"Lincoln justified his unprecedented wartime actions as:",opts:["Inherent presidential powers necessary to preserve the Union","His duty to 'faithfully execute' the laws even when circumventing the Constitution","Explicit grants of power in Article II","Congressional authorizations passed in advance","The precedent set by Washington's use of inherent powers"],ans:[0, 1, 4],exp:"Lincoln cited <strong>inherent powers</strong>, <strong>faithful execution</strong>, and <strong>Washington's precedent</strong>."},
+  {section:"Unit 3: Presidency & Executive Branch",difficulty:2,q:"The Miller reading ('Immune, Immune, Immune') covers which of the following?",opts:["The Supreme Court ruled 6-3 that former presidents are shielded for 'official acts'","Immunity IS explicitly stated in the Constitution","Sotomayor dissented, warning of 'disastrous consequences for democracy'","The majority based its reasoning on the 'chilling effect' argument","Barrett agreed on immunity but objected to one clause of the ruling"],ans:[0, 2, 3, 4],exp:"Ruling <strong>granted immunity for official acts</strong> (6-3). Immunity is NOT explicit in the text."},
+  {section:"Unit 3: Presidency & Executive Branch",difficulty:1,q:"The four categories of federal agencies are:",opts:["Cabinet departments","Independent executive agencies","Independent regulatory commissions","Government corporations","State regulatory agencies"],ans:[0, 1, 2, 3],exp:"Categories: <strong>Cabinet</strong>, <strong>Independent Executive</strong>, <strong>Regulatory Commissions</strong>, and <strong>Government Corporations</strong>."},
+  {section:"Unit 3: Presidency & Executive Branch",difficulty:2,q:"Independent regulatory commissions have which of the following characteristics?",opts:["Created by Congress to regulate a specific economic activity","5-7 members with fixed, staggered terms","President cannot easily remove members","Examples include SEC, FCC, NLRB, and the Federal Reserve","Their heads serve at the pleasure of the president"],ans:[0, 1, 2, 3],exp:"Commissioners have <strong>fixed terms</strong> and <strong>protection from removal</strong>."},
+  {section:"Unit 3: Presidency & Executive Branch",difficulty:1,q:"The Hatch Act (1939) and its amendments allow federal employees to do which of the following?",opts:["Run for office in nonpartisan elections","Donate to political organizations","Campaign for candidates while off-duty","Engage in political activity while on duty","Solicit contributions from the general public"],ans:[0, 1, 2],exp:"Allows <strong>off-duty campaigning</strong> and <strong>nonpartisan runs</strong>."},
+  {section:"Unit 3: Presidency & Executive Branch",difficulty:2,q:"Max Weber's model bureaucracy includes which of the following features?",opts:["A chain of command with authority flowing top to bottom","Division of labor among specialized workers","Impersonality &mdash; employees treated by merit, clients served equally","Goal orientation determining structure, authority, and rules","Democratic elections for all leadership positions"],ans:[0, 1, 2, 3],exp:"Weber: <strong>Chain of command</strong>, <strong>specialization</strong>, and <strong>merit-based service</strong>."},
+  {section:"Unit 3: Presidency & Executive Branch",difficulty:1,q:"An iron triangle consists of which three actors?",opts:["Federal agency workers","Interest groups","The president and Cabinet","Relevant congressional committees/subcommittees","State governments"],ans:[0, 1, 3],exp:"Components: <strong>Agency</strong>, <strong>Interest Group</strong>, and <strong>Congressional Committee</strong>."},
+  {section:"Unit 3: Presidency & Executive Branch",difficulty:2,q:"Issue networks differ from iron triangles in which of the following ways?",opts:["They are broader and include lawyers, consultants, academics, and PR specialists","They constantly change as new parties with expertise get involved","They are more stable and closed than iron triangles","They sometimes include courts","They are sometimes called 'policy coordinating committees'"],ans:[0, 1, 3],exp:"Issue networks are <strong>broader</strong>, <strong>more fluid</strong>, and <strong>include experts/courts</strong>."},
+  {section:"Unit 3: Presidency & Executive Branch",difficulty:2,q:"Rule making by federal agencies involves which of the following steps?",opts:["Publishing notice of proposed rule in the Federal Register","A 30-60 day public comment period","OMB review of objectives and costs","A vote in Congress to approve the rule","Final publication of the rule in the Federal Register"],ans:[0, 1, 2, 4],exp:"Steps: <strong>Notice</strong>, <strong>Comment period</strong>, <strong>OMB review</strong>, and <strong>Final Publication</strong>."},
+  {section:"Unit 3: Presidency & Executive Branch",difficulty:1,q:"The EPA was created with which of the following characteristics?",opts:["Created in 1970 by President Nixon","An independent executive agency (not placed under Interior)","Enforces the Clean Air Act (1970) and Clean Water Act (1972)","Created by the Clinton administration","Air pollution in the U.S. dropped by one-third to one-half between 1970-1990"],ans:[0, 1, 2, 4],exp:"Created <strong>1970 by Nixon</strong>; independent; enforces <strong>Clean Air/Water Acts</strong>."},
+  {section:"Unit 4: Judiciary",difficulty:1,q:"Marbury v. Madison (1803) established which of the following?",opts:["The power of judicial review","Courts can strike down acts of Congress that violate the Constitution","The Court is the final arbiter of constitutional questions","Judicial review is explicitly stated in Article III","The Marshall Court established the Court as a co-equal branch"],ans:[0, 1, 2, 4],exp:"Established <strong>judicial review</strong>. It is NOT explicit in the Constitution."},
+  {section:"Unit 4: Judiciary",difficulty:2,q:"Bowie's historical evidence includes which of the following examples of SCOTUS acting antidemocratically?",opts:["Striking down six Reconstruction-era laws protecting voting rights","Shelby County v. Holder gutting the Voting Rights Act","Citizens United overturning campaign finance laws","Brown v. Board of Education establishing school desegregation","Pollock v. Farmers' Loan striking down the federal income tax"],ans:[0, 1, 2, 4],exp:"Examples: <strong>gutting voting rights</strong>, <strong>Citizens United</strong>, and <strong>Pollock</strong>."},
+  {section:"Unit 4: Judiciary",difficulty:3,q:"Bowie argues that Brown v. Board of Education worked because:",opts:["The Court enforced the Ku Klux Klan Act of 1871 (a federal law) against recalcitrant states","It was an example of the Court overruling Congress","Real desegregation only came after the Civil Rights Act and VRA (1964-65)","It showed judicial review at its most democratic","The Court was acting as an agent of Congress's democratic will"],ans:[0, 2, 4],exp:"Worked because it <strong>enforced federal law</strong> and <strong>CRA/VRA delivered</strong>."},
+  {section:"Unit 4: Judiciary",difficulty:3,q:"According to Bowie, the 'countermajoritarian difficulty' is demonstrated by which of the following?",opts:["When the Court invalidates a law, 5 justices override the president + 500+ Congress members","To overrule the Court via amendment requires 2/3 of both houses + 3/4 of states","Overturning a Court decision is nearly impossible","The Court has historically protected the poor and marginalized","Wealthy litigants have resources to repeatedly challenge laws in court"],ans:[0, 1, 2, 4],exp:"Difficulty: <strong>5 override all</strong>; <strong>amendments are nearly impossible</strong>."},
+  {section:"Unit 4: Judiciary",difficulty:1,q:"The federal court hierarchy from lowest to highest is:",opts:["U.S. District Courts &rarr; U.S. Courts of Appeals &rarr; U.S. Supreme Court","U.S. Courts of Appeals &rarr; U.S. District Courts &rarr; U.S. Supreme Court","State Trial Courts are part of the federal hierarchy","The Supreme Court handles 97-99% of cases under appellate jurisdiction","There are 94 U.S. District Courts and 13 Courts of Appeals"],ans:[0, 3, 4],exp:"Hierarchy: <strong>District -> Circuit (Appeals) -> SCOTUS</strong>."},
+  {section:"Unit 1: Federalism & Constitution",difficulty:2,q:"Which of the following connect the veto players concept to specific institutions?",opts:["The Senate filibuster is a veto point","The president's veto is a veto play","The Supreme Court's judicial review is a veto mechanism","Congressional committee referral where bills can die is a veto gate","The Electoral College only applies to domestic legislation"],ans:[0, 1, 2, 3],exp:"Includes <strong>filibuster</strong>, <strong>veto</strong>, <strong>judicial review</strong>, and <strong>committees</strong>."},
+  {section:"Unit 3: Presidency & Executive Branch",difficulty:2,q:"In the iron triangle diagram (Figure 8.6), which relationships are accurately described?",opts:["Interest groups provide electoral support to Congress","Congress provides funding and political support to bureaucracy","Bureaucracy gives low regulations and special favors to interest groups","The White House directly controls all three corners of the triangle","Congress provides friendly oversight and legislation to interest groups"],ans:[0, 1, 2, 4],exp:"Relationships: <strong>IG gives support to Congress</strong>, <strong>Congress funds Agency</strong>."},
+  {section:"Unit 3: Presidency & Executive Branch",difficulty:2,q:"Which of the following statements about the modern presidency are accurate?",opts:["Presidents today typically propose legislation and submit budgets","FDR broke the model that lawmaking was solely Congress's responsibility","The Office of Management and Budget prepares the annual budget proposal","The modern presidency began with George Washington","LBJ noted that legislative speed depends on 'constant attention from the administration'"],ans:[0, 1, 2, 4],exp:"Modern POTUS (post-FDR) <strong>proposes budgets</strong> and <strong>leads lawmaking</strong>."},
+  {section:"Unit 3: Presidency & Executive Branch",difficulty:2,q:"The 'revolving door' phenomenon in bureaucracy refers to:",opts:["Decision makers in the executive branch ending up working for industries they previously regulated","The movement of members of Congress to and from lobbying jobs","A key mechanism of regulatory capture","A formal process established by the Administrative Procedures Act","Something the course will address more fully in later units on political money and lobbying"],ans:[0, 1, 2, 4],exp:"Movement of <strong>officials to regulated industries</strong>; causes <strong>capture</strong>."},
+  {section:"Unit 3: Presidency & Executive Branch",difficulty:2,q:"Which of the following are true about the relationship between the president and Congress on war powers?",opts:["Only Congress can formally declare war","Presidents have frequently deployed troops without a formal declaration of war","The War Powers Resolution has been recognized as constitutional by all presidents","The War Powers Resolution requires withdrawal within 60 days without congressional approval","Nixon vetoed the War Powers Resolution but Congress overrode it"],ans:[0, 1, 3, 4],exp:"Only <strong>Congress declares war</strong>; POTUS <strong>must withdraw troops</strong> in 60 days."},
+  {section:"Unit 4: Judiciary",difficulty:3,q:"The following connect the Bowie reading to the broader course themes:",opts:["SCOTUS justices are near-totally Harvard and Yale graduates &mdash; a 'judicial aristocracy'","Bowie argues Congress, not courts, should have the final say on constitutional interpretation","The primary 'minority' protected by judicial review is the wealthy class (according to Bowie)","Bowie is more accepting of SCOTUS acting as national enforcer against states","Bowie argues judicial review of STATE laws is equally problematic as review of federal laws"],ans:[0, 1, 2, 3],exp:"Bowie: <strong>Judicial Aristocracy</strong>; protects the <strong>wealthy</strong>; <strong>Congress</strong> should decide."},
+  {section:"Unit 2: Congress",difficulty:2,q:"Which of the following best describe the politics of redistricting?",opts:["It is largely a political process in most states","Partisan state legislatures draw district lines to protect their majority","Gerrymandering can dilute or enhance the votes of communities of color","The Supreme Court has ruled partisan gerrymandering is always unconstitutional","Some states (Iowa, Arizona) use nonpartisan commissions to draw lines"],ans:[0, 1, 2, 4],exp:"Redistricting is <strong>highly political</strong>; some states use <strong>commissions</strong>."},
+  {section:"Unit 3: Presidency & Executive Branch",difficulty:2,q:"Which of the following are true about independent regulatory commissioners?",opts:["Each president can appoint up to ~100 commissioners","They become independent of the president's direct political influence once in office","The president can fire them at will","Their terms are fixed and staggered to ensure bipartisan composition","A 1935 Supreme Court ruling affirmed their independence from political pressures"],ans:[0, 1, 3, 4],exp:"Once in office, they are <strong>independent</strong> and <strong>protected from removal</strong>."},
+  {section:"Unit 3: Presidency & Executive Branch",difficulty:1,q:"The Administrative Procedures Act (1946) established which of the following?",opts:["A specific process for agency rule making","Public notice of proceedings must be published in the Federal Register","Interested parties may submit written arguments and facts","Rules take effect immediately upon drafting","At least 30 days must elapse after publication before rules take effect"],ans:[0, 1, 2, 4],exp:"Established <strong>formal rulemaking</strong> and the <strong>30-day wait</strong> period."},
+  {section:"Unit 3: Presidency & Executive Branch",difficulty:2,q:"Which of the following are accurate about presidential appointments?",opts:["The president can make nearly 3,500 appointments to the administration","About 1,125 appointments require Senate confirmation","The president can remove most appointees at will","Presidential influence through judicial appointments can outlast the president's time in office","The president can remove federal judges at will"],ans:[0, 1, 2, 3],exp:"POTUS can remove <strong>most appointees</strong> at will, but <strong>not federal judges</strong>."},
+  {section:"Unit 1: Federalism & Constitution",difficulty:2,q:"The Schoolhouse Rock video's treatment of the Constitution is criticized for:",opts:["It oversimplifies and 'idealizes' checks and balances","It presents gridlock as entirely positive","It serves as an example of patriotic reverence toward the Constitution","It accurately depicts how veto players function","It emphasizes the role of political parties"],ans:[0, 1, 2],exp:"Criticized for <strong>oversimplifying</strong> and <strong>patriotic reverence</strong>."},
+  {section:"Unit 2: Congress",difficulty:2,q:"The Senate's equal representation rule has which of the following implications?",opts:["It is 'exempt from constitutional amendment' per Chemerinsky","It gives equal weight to all Americans regardless of where they live","Small-state senators hold disproportionate power","This is why large states like California wouldn't want to split into multiple states","This distortion is unique globally &mdash; no other federal democracy comes close to 66:1"],ans:[0, 2, 3, 4],exp:"Exempt from <strong>amendment</strong>; gives <strong>small states power</strong>."},
+  {section:"Unit 3: Presidency & Executive Branch",difficulty:1,q:"Which correctly describe the pardoning power?",opts:["Complete pardoning power for federal offenses","Includes power to pardon in cases of impeachment","May issue commutations","Can grant general amnesties","Biden pardoned convictions for simple marijuana possession"],ans:[0, 2, 3, 4],exp:"Complete for <strong>federal offenses</strong>; NO pardons for <strong>impeachment</strong>."},
+  {section:"Unit 3: Presidency & Executive Branch",difficulty:2,q:"The Truman quote about Eisenhower ('Poor Ike &mdash; nothing will happen') illustrates:",opts:["The limits of presidential power despite formal authority","That most presidents find goals harder than anticipated","The gap between formal and informal powers","That Congress has all the power","The importance of military experience"],ans:[0, 1, 2],exp:"Illustrates the <strong>limits</strong> and <strong>gap between formal/informal power</strong>."},
+  {section:"Unit 3: Presidency & Executive Branch",difficulty:2,q:"Which correctly describe the federal budget process?",opts:["The OMB prepares the annual budget proposal","The Congressional Budget Act of 1974 created the CBO","The federal fiscal year runs from October 1 to September 30","The budget process schedule is strictly followed each year","Reconciliation limits Senate debate to 20 hours"],ans:[0, 1, 2, 4],exp:"<strong>OMB prepares</strong>; <strong>CBO created 1974</strong>; <strong>Reconciliation</strong> bypasses filibuster."},
+  {section:"Unit 3: Presidency & Executive Branch",difficulty:2,q:"An 'executive agreement' differs from a treaty in which ways?",opts:["Does not require Senate approval","Is not binding on future administrations","Has been used since the Washington administration","Is explicitly authorized in Article II","Trump withdrew from the JCPOA using this mechanism"],ans:[0, 1, 2, 4],exp:"<strong>No Senate approval</strong>; <strong>non-binding</strong>. Not explicit in Article II."},
+  {section:"Unit 3: Presidency & Executive Branch",difficulty:2,q:"The course describes 'signing statements' as:",opts:["Written comments attached to a bill when signed into law","May signal intent to ignore provisions deemed unconstitutional","George W. Bush used on more than 1,200 laws","Their legal force remains unclear","Always legally binding on executive agencies"],ans:[0, 1, 2, 3],exp:"Comments attached at <strong>signing</strong>; legal force is <strong>unclear</strong>."},
+  {section:"Unit 2: Congress",difficulty:2,q:"Which are true about congressional oversight?",opts:["Committee hearings are the primary tool","Congress can issue subpoenas","Hearings are visible during divided government","Oversight can include impeachment","The CBO conducts financial audits"],ans:[0, 1, 2, 3],exp:"Primary tool is <strong>hearings</strong>; includes <strong>subpoenas</strong> and <strong>impeachment</strong>."},
+  {section:"Unit 3: Presidency & Executive Branch",difficulty:1,q:"Government corporations have which of the following characteristics?",opts:["Established by Congress for functions private businesses won't provide","Examples include USPS and Amtrak","They charge a fee for services","They are always more efficient","The USPS is a massive employer"],ans:[0, 1, 2, 4],exp:"<strong>USPS/Amtrak</strong>; they <strong>charge fees</strong> for services."},
+  {section:"Unit 3: Presidency & Executive Branch",difficulty:2,q:"The Administrative Discretion concept means:",opts:["Bureaucrats choose how to implement intentions","Applies at all GS levels","Two procedures: rule making and adjudication","Bureaucrats have unlimited power","Exercised when interacting with citizens"],ans:[0, 1, 2, 4],exp:"Bureaucrats choose <strong>implementation methods</strong>; use <strong>rulemaking/adjudication</strong>."},
+  {section:"Unit 4: Judiciary",difficulty:3,q:"Bowie's argument about Marbury v. Madison is:",opts:["Marshall 'begged the question'","The real issue was WHO gets to decide constitutionality","Marshall's reasoning was logically airtight","Everyone should follow their own interpretation","Marshall established courts as final arbiter"],ans:[0, 1],exp:"Marshall <strong>begged the question</strong>; real issue is <strong>who decides</strong>."},
+  {section:"Unit 4: Judiciary",difficulty:3,q:"Lincoln's argument about Dred Scott was:",opts:["If SCOTUS irrevocably fixes vital questions, people cease to rule","Courts have absolute authority","A self-governing people must control fundamental law meaning","President should have final say","Congress should resolve disagreements democratically"],ans:[0, 2, 4],exp:"If SCOTUS is final, <strong>people cease to rule</strong> themselves."},
+  {section:"Unit 3: Presidency & Executive Branch",difficulty:3,q:"The Miller (FT) immunity ruling reading notes:",opts:["Ruling was 6-3 along ideological lines","Shielded for conduct within 'exclusive sphere of authority'","Cited Article II explicitly","Roberts cited Hamilton's 'vigorous' executive","Sotomayor dissent used extreme hypotheticals"],ans:[0, 1, 3, 4],exp:"<strong>6-3 ruling</strong>; shield for <strong>official acts</strong>; <strong>Hamilton</strong> citation."},
+  {section:"Unit 4: Judiciary",difficulty:2,q:"Bowie notes which about voting rights history?",opts:["Congress passed ~6 laws; SCOTUS gutted them","Court dismissed charges against a White mob in 1876","Jim Crow had tacit Court approval","SCOTUS consistently defended voting rights","Multiracial democracy began in 1965"],ans:[0, 1, 2, 4],exp:"SCOTUS <strong>gutted post-Civil War laws</strong> and allowed <strong>Jim Crow</strong>."},
+  {section:"Unit 3: Presidency & Executive Branch",difficulty:2,q:"Which of the following are true about the EPA according to the course readings?",opts:["Created in 1970 by President Nixon","It consolidated agencies from Agriculture, Interior, and HEW","It brokered the catalytic converter deal with automakers","It is a Cabinet department reporting to the president","The Superfund program was created in 1980"],ans:[0, 1, 2, 4],exp:"<strong>Nixon 1970</strong>; consolidated <strong>Agriculture/Interior/HEW</strong>; <strong>Superfund</strong>."},
+  {section:"Unit 1: Federalism & Constitution",difficulty:2,q:"Which of the following accurately describe the concept of 'patriotic reverence' toward the Constitution?",opts:["Treating the Constitution as a sacred, near-religious document","It is a phenomenon largely unique to the U.S.","It has been debated and criticized by scholars like Rana","It was the explicit design intent of the 1787 Framers","It tends to insulate constitutional structures from criticism"],ans:[0, 1, 2, 4],exp:"Treating text as <strong>sacred</strong>; <strong>insulates from critique</strong>."},
+  {section:"Unit 3: Presidency & Executive Branch",difficulty:2,q:"Which of the following accurately describe how a policy becomes a federal regulation (Figure 8.7)?",opts:["The process can be triggered by a judicial decision","The OMB can block the rule at multiple stages","Proposed rules must be published in the Federal Register","There is a 30-60 day public comment period","Congress must vote to approve every final rule"],ans:[0, 1, 2, 3],exp:"Triggered by <strong>judges</strong>; <strong>OMB blocking</strong>; <strong>comment period</strong>."},
+  {section:"Unit 3: Presidency & Executive Branch",difficulty:2,q:"Which of the following accurately describe administrative adjudication?",opts:["It is a quasi-judicial process used to settle disputes","It is used when a party is found in non-compliance with agency rules","It is called 'quasi-judicial' for constitutional separation of powers reasons","Administrative Law Judges (ALJs) can be removed at will by the president","Decisions made through adjudication are reviewable by courts"],ans:[0, 1, 2, 4],exp:"<strong>Settles disputes</strong>; used for <strong>non-compliance</strong>; <strong>reviewable</strong>."},
+  {section:"Unit 2: Congress",difficulty:2,q:"True about oversight of appointees:",opts:["Senate confirms by simple majority","Senatorial courtesy for district courts","'Blue slip' process","Confirmations increasingly politicized","McConnell refused Merrick Garland hearings"],ans:[0, 1, 2, 3, 4],exp:"ALL true: <strong>majority confirm</strong>, <strong>blue slips</strong>, <strong>Garland refusal</strong>."},
+  {section:"Unit 1: Federalism & Constitution",difficulty:1,q:"'Separation of powers' (Figure 2.2) checks:",opts:["Legislative can impeach","Executive can veto","Judiciary can strike executive actions","Executive appoints judges","Legislature can change court size"],ans:[0, 1, 2, 3, 4],exp:"ALL true: checks include <strong>impeachment</strong>, <strong>veto</strong>, and <strong>judicial review</strong>."},
+  {section:"Unit 2: Congress",difficulty:1,q:"Lobbyists represent which distribution?",opts:["0% poor","70% businesses","2% unions","Equal income shares","Mostly individual citizens"],ans:[0, 1, 2],exp:"Skewed: <strong>0% poor</strong>, <strong>70% business</strong>, <strong>2% union</strong>."},
+  {section:"Unit 2: Congress",difficulty:2,q:"True about the filibuster:",opts:["Prohibited for lower courts (2013)","Prohibited for SCOTUS (2017)","Cloture needs 60 senators","30 more hours after cloture","No content limits"],ans:[0, 1, 2, 3, 4],exp:"ALL true: <strong>nuclear options</strong>, <strong>60 votes</strong>, and <strong>no content limits</strong>."},
+  {section:"Unit 2: Congress",difficulty:2,q:"The Congressional Budget Act of 1974 was primarily a response to which of the following?",opts:["A power struggle between Congress and Nixon over impoundment","Nixon's refusal to spend congressionally appropriated funds","The Watergate scandal and broader concerns about executive overreach","Congressional opposition to the Vietnam War","It also created the Congressional Budget Office (CBO)"],ans:[0, 1, 4],exp:"Response to <strong>impoundment</strong>; <strong>created CBO</strong>."},
+  {section:"Unit 3: Presidency & Executive Branch",difficulty:2,q:"Modern bureaucracy political character:",opts:["Civil servants serve nation equally","Not actively politically polarized","Shielded from partisan pressure","Pendleton/Hatch Acts insulate","Trump II pushes re-politicization"],ans:[0, 1, 2, 3, 4],exp:"ALL true: <strong>merit-based</strong>, <strong>shielded</strong>, but <strong>facing re-politicization</strong>."},
+  {section:"Unit 4: Judiciary",difficulty:2,q:"How does the course discuss Dred Scott v. Sandford (1857)?",opts:["As a ruling that reinforced and entrenched slavery","As a judicial power grab that asserted SCOTUS supremacy","As a precedent establishing judicial supremacy over other branches","As an example of the Court protecting democracy","As Bowie's key example of judicial review's antidemocratic origins"],ans:[0, 1, 2, 4],exp:"Reinforced <strong>slavery</strong>; created <strong>judicial supremacy</strong>."},
+  {section:"Unit 4: Judiciary",difficulty:2,q:"Which of the following are ways Congress can check the federal judiciary?",opts:["Change the number of justices or limit court jurisdiction","Impeach and remove federal judges","Propose constitutional amendments to override court decisions","Reverse Supreme Court decisions by simple majority vote","Reject presidential nominees to the federal bench"],ans:[0, 1, 2, 4],exp:"Checks: <strong>Size/Jurisdiction</strong>, <strong>Impeachment</strong>, <strong>Nominee rejection</strong>."},
+  {section:"Unit 3: Presidency & Executive Branch",difficulty:2,q:"Which of the following accurately describe the Commander in Chief role and U.S. war powers?",opts:["The president serves as head of the Army and Navy","Only Congress has the formal constitutional power to declare war","Presidents have frequently committed troops without a formal declaration of war","The Vietnam War was fought without a formal congressional declaration of war","The Pentagon Papers revealed that government officials had falsified data about the war"],ans:[0, 1, 2, 4],exp:"Only <strong>Congress declares war</strong>; <strong>frequent deployments</strong> without it."},
+  {section:"Unit 3: Presidency & Executive Branch",difficulty:2,q:"Which of the following are accurate regarding presidential appointment and removal power?",opts:["The president can remove most executive appointees at will","The president cannot easily remove independent regulatory commissioners","The president cannot remove federal judges","Approximately 1,125 appointments require Senate confirmation","The president can make recess appointments that bypass Senate confirmation"],ans:[0, 1, 2, 3, 4],exp:"ALL true: <strong>at-will removal</strong> for some; <strong>protections</strong> for others."},
+  {section:"Unit 3: Presidency & Executive Branch",difficulty:3,q:"Which of the following connect the Trump immunity ruling (Miller) to the broader concept of inherent presidential powers?",opts:["Washington's presidency established the precedent for inherent executive powers","The immunity ruling effectively expands the personal power of the president","Both immunity and inherent powers make presidential accountability harder","Congress can easily override both immunity claims and inherent power assertions","Liberal justices dissented from the immunity ruling"],ans:[0, 1, 2, 4],exp:"Both <strong>expand power</strong> and <strong>limit accountability</strong>."},
+  {section:"Unit 4: Judiciary",difficulty:2,q:"Which of the following describe key patterns in how the federal judiciary exercises power?",opts:["Cases funnel upward through the court hierarchy to SCOTUS","Recent rulings have constrained administrative and welfare agencies","Courts have tended to enlarge presidential personal power while limiting agency-led power","Republicans have celebrated recent separation-of-powers rulings limiting agencies","Federal judges are elected by popular vote"],ans:[0, 1, 2, 3],exp:"Patterns: <strong>cases funnel up</strong>; <strong>POTUS personal power</strong> vs <strong>agencies</strong>."},
+  {section:"Unit 3: Presidency & Executive Branch",difficulty:2,q:"Which of the following describe the modern president's role in facilitating legislation?",opts:["FDR coined the 'president proposes, Congress disposes' framework","Major legislative achievement in the first 100 days is now a key benchmark","LBJ noted that legislative success requires 'constant attention from the administration'","The president acts as party leader to build congressional coalitions","The president has no formal role in the legislative process"],ans:[0, 1, 2, 3],exp:"POTUS has <strong>formal veto role</strong> and <strong>informal leadership role</strong>."},
+  {section:"Unit 3: Presidency & Executive Branch",difficulty:2,q:"Which of the following distinguish Cabinet departments from independent executive agencies?",opts:["Cabinet departments employ roughly 60% of the federal civilian workforce","Independent agencies tend to have a narrower, more specific scope","Heads of both Cabinet and independent agencies are appointed by the president","Cabinet secretaries serve fixed terms and cannot be removed by the president","Independent agencies often perform specific services or regulatory functions"],ans:[0, 1, 2, 4],exp:"Cabinet heads <strong>do NOT serve fixed terms</strong>."},
+  {section:"Unit 2: Congress",difficulty:1,q:"What does the Schoolhouse Rock 'I'm Just a Bill' video illustrate about how Americans learn civics?",opts:["It presents a highly simplified and idealized model of how a bill becomes law","It helped popularize the idea of checks and balances for generations of Americans","It accurately conveys the full complexity of veto players in the legislative process","It correctly explains the conference committee process","It presents gridlock as a positive feature of American democracy"],ans:[0, 1],exp:"<strong>Simplified/idealized</strong> version of lawmaking."},
+  {section:"Unit 2: Congress",difficulty:2,q:"Which of the following accurately describe the Senate's role and structure in the constitutional system?",opts:["Senators have been directly elected by voters since the 17th Amendment (1913)","Originally, senators were chosen by state legislatures, not voters","When a Senate seat is vacated, governors typically appoint temporary replacements","The Senate plays no role in the federal budget process","The Senate exercises advice and consent over treaties and presidential appointments"],ans:[0, 1, 2, 4],exp:"<strong>17th Amendment</strong>; <strong>Advice & Consent</strong>."},
+  {section:"Unit 1: Federalism & Constitution",difficulty:2,q:"Which of the following accurately represent George Will's perspective on gridlock and the American political system?",opts:["The Founders designed a government to be safe, not efficient","Blocking mechanisms protect liberty by preventing hasty government action","Gridlock is an achievement of constitutional design, not a failure","Will is a progressive Democrat who supports expanding government power","Will argues the blocking mechanisms reflect Madison's original design intent"],ans:[0, 1, 2, 4],exp:"Will is <strong>conservative</strong>; gridlock <strong>protects liberty</strong>."},
+  {section:"Unit 2: Congress",difficulty:2,q:"Which of the following accurately describe the Congressional Review Act (CRA) of 1996?",opts:["It allows Congress to nullify federal agency rules by passing a joint resolution","Congress must act within 60 days of a rule being submitted to nullify it","Congress can override a presidential veto of such a resolution by simple majority","The CRA also applies to rules issued by the DC Council","President Trump used the CRA approximately 20 times to roll back Obama-era regulations"],ans:[0, 1, 3, 4],exp:"<strong>Nullify via resolution</strong>; Trump used <strong>~20 times</strong>."},
+  {section:"Unit 2: Congress",difficulty:2,q:"Which of the following accurately describe the role of parties in congressional decision-making?",opts:["Members of Congress vote along party lines roughly 90% of the time","Committee assignments are used as rewards and tools of party discipline","The president serves as the de facto chief of their party in Congress","Divided government tends to empower the congressional opposition party","Unified government — same party controlling Congress and White House — often lasts only 2 years"],ans:[0, 1, 2, 3, 4],exp:"ALL true: <strong>90% party-line</strong>; <strong>divided govt</strong> dynamics."},
+  {section:"Unit 3: Presidency & Executive Branch",difficulty:3,q:"Which of the following accurately describe the 'revolving door' phenomenon in U.S. bureaucracy?",opts:["It refers to executive branch officials leaving government to work in industries they once regulated","It creates hazy lines of accountability between government and private interests","The traditional textbook view of bureaucracy is criticized as naive for ignoring this dynamic","Courts have played a role in shaping the legal boundaries of revolving door relationships","The Hatch Act is the primary mechanism limiting the revolving door"],ans:[0, 1, 2, 3],exp:"Moving to <strong>regulated industries</strong>; <strong>regulatory capture</strong>."},
+  {section:"Unit 1: Federalism & Constitution",difficulty:2,q:"Which of the following are constitutional provisions governing interstate relations and the supremacy of federal law?",opts:["The Full Faith and Credit Clause requires states to honor other states' laws and judgments","The Constitution requires states to extradite fugitives to other states","The Privileges and Immunities Clause protects citizens' rights across state lines","Interstate disputes are ultimately settled by the Supreme Court","Interstate compacts require Supreme Court approval to take effect"],ans:[0, 1, 2, 3],exp:"Compacts need <strong>Congressional</strong>, not SCOTUS, approval."},
+  {section:"Unit 4: Judiciary",difficulty:3,q:"Which of the following accurately represent the overall argument of Bowie (2021) on judicial review?",opts:["Judicial review imposes significant costs on democratic self-governance","Congress, not the courts, should be the final arbiter of constitutional meaning","Courts can serve as democratic agents when enforcing federal law against states","The Court's historically antidemocratic rulings have actually benefited the public","Bowie accepts judicial review of state laws as a legitimate exception to his critique"],ans:[0, 1, 2, 4],exp:"Bowie: <strong>Review hurts democracy</strong>; <strong>Congress</strong> final say."}
 ];
 
+/* &#9472;&#9472; V6 QUESTION BANK (M3 Bank &mdash; 50Q, single-select) &#9472;&#9472; */
 const v6Questions = [
-  {section:"Unit 1: Federalism & Constitution",difficulty:1,q:"Under U.S. federalism, governmental power is divided over how many levels?",opts:["Two -- national and state only","Three -- national, the 50 states, and municipal/local","Four -- national, regional, state, and local","Five -- national, regional, state, municipal, and tribal"],ans:1,exp:"U.S. federalism divides power across <strong>three levels</strong>."},
-  {section:"Unit 1: Federalism & Constitution",difficulty:1,q:"The Supremacy Clause of the U.S. Constitution establishes that:",opts:["The Supreme Court is the final arbiter of all law","The national government is supreme -- when federal law conflicts with state law, federal law prevails","The president has supreme authority over all executive branch agencies","State governments are supreme within their borders on all matters of public health"],ans:1,exp:"The <strong>Supremacy Clause</strong> makes national law supreme over conflicting state laws."},
+  {section:"Unit 1: Federalism & Constitution",difficulty:1,q:"Under U.S. federalism, governmental power is divided over how many levels?",opts:["Two &mdash; national and state only","Three &mdash; national, the 50 states, and municipal/local","Four &mdash; national, regional, state, and local","Five &mdash; national, regional, state, municipal, and tribal"],ans:1,exp:"U.S. federalism divides power across <strong>three levels</strong>."},
+  {section:"Unit 1: Federalism & Constitution",difficulty:1,q:"The Supremacy Clause of the U.S. Constitution establishes that:",opts:["The Supreme Court is the final arbiter of all law","The national government is supreme &mdash; when federal law conflicts with state law, federal law prevails","The president has supreme authority over all executive branch agencies","State governments are supreme within their borders on all matters of public health"],ans:1,exp:"The <strong>Supremacy Clause</strong> makes national law supreme over conflicting state laws."},
   {section:"Unit 1: Federalism & Constitution",difficulty:1,q:"Declaring and conducting war is an example of which type of power?",opts:["Reserved (state) power","Concurrent power shared by both levels","National (enumerated) power","Inherent power derived from natural law"],ans:2,exp:"<strong>Declaring war</strong> is an Enumerated Power."},
-  {section:"Unit 1: Federalism & Constitution",difficulty:1,q:"Taxing is a classic example of which category in the federalism power structure?",opts:["National only","Reserved only","Concurrent -- shared by both","Implied power"],ans:2,exp:"<strong>Taxing</strong> is a <strong>concurrent power</strong>."},
+  {section:"Unit 1: Federalism & Constitution",difficulty:1,q:"Taxing is a classic example of which category in the federalism power structure?",opts:["National only","Reserved only","Concurrent &mdash; shared by both","Implied power"],ans:2,exp:"<strong>Taxing</strong> is a <strong>concurrent power</strong>."},
   {section:"Unit 1: Federalism & Constitution",difficulty:1,q:"Which of the following is a State (Reserved) Power under the 10th Amendment?",opts:["Coin money","Regulate interstate commerce","Establish local governments","Declare war"],ans:2,exp:"<strong>Establishing local governments</strong> is a reserved state power."},
   {section:"Unit 1: Federalism & Constitution",difficulty:1,q:"Approximately how many constitutional amendments have been proposed since 1787, and how many ratified?",opts:["500 / 15","1,200 / 27","12,000 / 27","12,000 / 100"],ans:2,exp:"<strong>12,000 proposed</strong>; only <strong>27 ratified</strong>."},
   {section:"Unit 1: Federalism & Constitution",difficulty:2,q:"To formally propose a constitutional amendment through Congress, what is required?",opts:["Simple majority","2/3 vote in BOTH chambers","Presidential signature + 2/3 Senate","3/4 vote in House"],ans:1,exp:"Requires a <strong>2/3 vote</strong> in both chambers."},
   {section:"Unit 1: Federalism & Constitution",difficulty:2,q:"After a constitutional amendment is proposed, ratification requires:",opts:["Simple majority of states","Presidential signature","2/3 of states","3/4 of states"],ans:3,exp:"Requires <strong>3/4 of states (38/50)</strong>."},
-  {section:"Unit 1: Federalism & Constitution",difficulty:2,q:"The 26 smallest U.S. states hold what share of the population -- while electing 52 senators?",opts:["About 40%","About 18%","About 30%","About 50%"],ans:1,exp:"Smallest 26 states hold only <strong>18% of population</strong>."},
-  {section:"Unit 1: Federalism & Constitution",difficulty:2,q:"Can the equal representation of states in the Senate be changed via amendment?",opts:["Yes (2/3 + 3/4)","Yes (unanimous states)","No -- explicitly exempt","No -- protected by 1st Amend"],ans:2,exp:"It is <strong>explicitly exempt</strong> from constitutional amendment."},
+  {section:"Unit 1: Federalism & Constitution",difficulty:2,q:"The 26 smallest U.S. states hold what share of the population &mdash; while electing 52 senators?",opts:["About 40%","About 18%","About 30%","About 50%"],ans:1,exp:"Smallest 26 states hold only <strong>18% of population</strong>."},
+  {section:"Unit 1: Federalism & Constitution",difficulty:2,q:"Can the equal representation of states in the Senate be changed via amendment?",opts:["Yes (2/3 + 3/4)","Yes (unanimous states)","No &mdash; explicitly exempt","No &mdash; protected by 1st Amend"],ans:2,exp:"It is <strong>explicitly exempt</strong> from constitutional amendment."},
   {section:"Unit 1: Federalism & Constitution",difficulty:1,q:"George Tsebelis (2003) developed the 'Veto Players' framework to:",opts:["Justify checks and balances","Compare how institutional structures block lawmaking","Argue for eliminating filibuster","Measure POTUS veto use"],ans:1,exp:"Used to <strong>compare systems</strong> based on blocking power."},
   {section:"Unit 1: Federalism & Constitution",difficulty:2,q:"George Will argued gridlock is an 'achievement' because:",opts:["Increases cooperation","Founders wanted 'safe' not efficient govt","Benefits working class","Filibuster is recent"],ans:1,exp:"Will says Founders wanted <strong>safety (blocking) over efficiency</strong>."},
   {section:"Unit 1: Federalism & Constitution",difficulty:3,q:"Warren's critique of Will argues that:",opts:["Filibuster should be abolished","Gridlock protects all equally","Money can navigate around veto points","Need fewer amendments"],ans:2,exp:"Warren says <strong>money/elites</strong> navigate gridlock while others can't."},
   {section:"Unit 2: Congress",difficulty:1,q:"How many voting members in the House, and how long is the term?",opts:["100 / 4yr","435 / 2yr","535 / 2yr","435 / 4yr"],ans:1,exp:"<strong>435 members</strong>; <strong>2-year terms</strong>."},
   {section:"Unit 2: Congress",difficulty:1,q:"How many voting members in the Senate, and how long is the term?",opts:["50 / 4yr","100 / 4yr","100 / 6yr","50 / 6yr"],ans:2,exp:"<strong>100 members</strong>; <strong>6-year terms</strong>."},
-  {section:"Unit 2: Congress",difficulty:1,q:"Senate-only power?",opts:["Initiate revenue bills","Initiate impeachment","Advice and Consent on treaties/appointments","Override veto"],ans:2,exp:"<strong>Advice and Consent</strong> is Senate-only."},
-  {section:"Unit 2: Congress",difficulty:1,q:"House-only power?",opts:["Approve treaties","Confirm Cabinet","Initiate revenue bills","Try impeached officials"],ans:2,exp:"<strong>Revenue bills</strong> must start in the House."},
+  {section:"Unit 2: Congress",difficulty:1,q:"Which of the following is an exclusive power of the U.S. Senate?",opts:["Initiate revenue bills","Initiate impeachment","Advice and Consent on treaties/appointments","Override veto"],ans:2,exp:"<strong>Advice and Consent</strong> is Senate-only."},
+  {section:"Unit 2: Congress",difficulty:1,q:"Which of the following is an exclusive power of the U.S. House of Representatives?",opts:["Approve treaties","Confirm Cabinet","Initiate revenue bills","Try impeached officials"],ans:2,exp:"<strong>Revenue bills</strong> must start in the House."},
   {section:"Unit 2: Congress",difficulty:2,q:"What incumbency advantage is free newsletters with a signature?",opts:["Credit claiming","Casework","Franking privilege","Redistricting"],ans:2,exp:"This is the <strong>franking privilege</strong>."},
-  {section:"Unit 2: Congress",difficulty:2,q:"Gerrymandering primarily affects which chamber?",opts:["Senate (statewide)","House (districts)","Both equally","Neither"],ans:1,exp:"Affects the <strong>House</strong> due to district drawing."},
+  {section:"Unit 2: Congress",difficulty:2,q:"Gerrymandering primarily affects which chamber of Congress, and why?",opts:["Senate (statewide)","House (districts)","Both equally","Neither"],ans:1,exp:"Affects the <strong>House</strong> due to district drawing."},
   {section:"Unit 2: Congress",difficulty:1,q:"Filibuster votes required to end debate (cloture)?",opts:["51","60","67","75"],ans:1,exp:"Requires <strong>60 votes</strong>."},
-  {section:"Unit 2: Congress",difficulty:2,q:"A 'pocket veto' happens when:",opts:["Signed privately","Leader refuses floor vote","POTUS does nothing + Congress adjourns","Committee kills bill"],ans:2,exp:"POTUS <strong>waits + Congress adjourns</strong> within 10 days."},
-  {section:"Unit 2: Congress",difficulty:2,q:"At which stage do MOST bills die?",opts:["Floor debate","Conference","Committee referral","Veto"],ans:2,exp:"Most bills die at <strong>committee referral</strong>."},
-  {section:"Unit 2: Congress",difficulty:2,q:"War Powers Resolution (1973) was:",opts:["Nixon signed it","Passed over Nixon's veto to limit deployments","Grant broader war powers","Eliminate declarations"],ans:1,exp:"Passed <strong>over Nixon's veto</strong>."},
+  {section:"Unit 2: Congress",difficulty:2,q:"A president issues a 'pocket veto' when which of the following conditions is met?",opts:["Signed privately","Leader refuses floor vote","POTUS does nothing + Congress adjourns","Committee kills bill"],ans:2,exp:"POTUS <strong>waits + Congress adjourns</strong> within 10 days."},
+  {section:"Unit 2: Congress",difficulty:2,q:"At which stage of the legislative process do the vast majority of bills die?",opts:["Floor debate","Conference","Committee referral","Veto"],ans:2,exp:"Most bills die at <strong>committee referral</strong>."},
+  {section:"Unit 2: Congress",difficulty:2,q:"Which statement best describes the War Powers Resolution of 1973 and how it became law?",opts:["Nixon signed it","Passed over Nixon's veto to limit deployments","Grant broader war powers","Eliminate declarations"],ans:1,exp:"Passed <strong>over Nixon's veto</strong>."},
   {section:"Unit 2: Congress",difficulty:2,q:"Group providing 'campaign contributions, info, access' per O'C&S?",opts:["Support agencies","Interest Groups/Lobbyists","Party Leadership","Colleagues"],ans:1,exp:"This is <strong>Interest Groups/PACs</strong>."},
   {section:"Unit 3: Presidency & Executive Branch",difficulty:1,q:"How many POTUS appointments require Senate confirmation?",opts:["All 3,500","~500","~1,125","None"],ans:2,exp:"About <strong>1,125</strong> require confirmation."},
   {section:"Unit 3: Presidency & Executive Branch",difficulty:1,q:"Difference between treaty and executive agreement?",opts:["Treaties temporary","Treaties need 2/3 Senate; agreements do not","Agreements only for allies","Both same"],ans:1,exp:"<strong>Agreements don't need Senate</strong> ratification."},
-  {section:"Unit 3: Presidency & Executive Branch",difficulty:1,q:"KEY limitation of executive orders?",opts:["2/3 Congress needed","Only foreign policy","Retractable by successors","Expire in 4yr"],ans:2,exp:"They are <strong>easily retracted</strong>."},
-  {section:"Unit 3: Presidency & Executive Branch",difficulty:2,q:"What did FDR leave to successors?",opts:["Reduced bureaucracy","Burgeoning bureaucracy and active leadership role","1-term tradition","Fixed NSC"],ans:1,exp:"Left a <strong>big bureaucracy</strong> and <strong>active role</strong>."},
-  {section:"Unit 3: Presidency & Executive Branch",difficulty:2,q:"'Business-like' agency (USPS/Amtrak)?",opts:["Cabinet","Independent Exec","Independent Regulatory","Government Corporation"],ans:3,exp:"These are <strong>Government Corporations</strong>."},
-  {section:"Unit 3: Presidency & Executive Branch",difficulty:2,q:"Distinction of Regulatory Commissions?",opts:["Cabinet heads","No oversight","Independent of political influence once appointed","Only write rules"],ans:2,exp:"They are <strong>politically independent</strong> once in office."},
-  {section:"Unit 3: Presidency & Executive Branch",difficulty:1,q:"Hatch Act (1939)?",opts:["Rulemaking process","Limits political activities of employees","Hire/fire all","Agency categories"],ans:1,exp:"<strong>Limits political activities</strong> of civil servants."},
-  {section:"Unit 3: Presidency & Executive Branch",difficulty:2,q:"Iron triangle components?",opts:["POTUS/Speaker/Leader","Committees, Agencies, Interest Groups","SCOTUS/POTUS/Joint Chiefs","Lobbyists/Judges/Governors"],ans:1,exp:"<strong>Agencies, Committees, Interest Groups</strong>."},
-  {section:"Unit 3: Presidency & Executive Branch",difficulty:2,q:"Administrative Procedures Act (1946)?",opts:["Confirmations","Formal rulemaking process","Oversight","Impeachment"],ans:1,exp:"Established the <strong>rulemaking process</strong>."},
-  {section:"Unit 3: Presidency & Executive Branch",difficulty:2,q:"Weber's 'impersonality'?",opts:["No public contact","Avoid relationships","Merit-based + equal service","Algorithms"],ans:2,exp:"Means <strong>merit-based</strong> treatment for all."},
-  {section:"Unit 3: Presidency & Executive Branch",difficulty:2,q:"Trump v. United States (2024)?",opts:["Unanimous","6-3 granted broad immunity for official acts","War Powers","Narrow expansion"],ans:1,exp:"Granted <strong>immunity for official acts</strong> (6-3)."},
-  {section:"Unit 3: Presidency & Executive Branch",difficulty:3,q:"Truman's 'Poor Ike' quote illustrates:",opts:["Military experience reliance","Office is far harder/constrained than expected","Ike weak","Military make better leaders"],ans:1,exp:"The office is <strong>constrained</strong> and harder to lead than it seems."},
-  {section:"Unit 4: Judiciary",difficulty:1,q:"District Courts count and cases?",opts:["13 / 50k","94 / 426k","9 / 60","50 / 100k"],ans:1,exp:"<strong>94 courts</strong>; ~426,000 cases."},
-  {section:"Unit 4: Judiciary",difficulty:1,q:"Courts of Appeals count?",opts:["9","50","13","3"],ans:2,exp:"There are <strong>13 circuits</strong>."},
-  {section:"Unit 4: Judiciary",difficulty:1,q:"SCOTUS justices and cases?",opts:["9 / 60","9 / 500","12 / 60","9 / 1,000"],ans:0,exp:"<strong>9 justices</strong>; decided <strong>~60 cases</strong>."},
-  {section:"Unit 4: Judiciary",difficulty:1,q:"Percentage of criminal law at STATE level?",opts:["25%","50%","75%","90%"],ans:3,exp:"Approximately <strong>90%</strong>."},
-  {section:"Unit 4: Judiciary",difficulty:1,q:"Marbury v. Madison (1803) principle?",opts:["POTUS appointments","Judicial Review","Supremacy Clause","Sole Congress"],ans:1,exp:"Established <strong>judicial review</strong>."},
-  {section:"Unit 4: Judiciary",difficulty:2,q:"TRUE about judicial review?",opts:["Explicit in Art III","Endorsed by Jefferson","NOT in Constitution; claimed by Marshall","14th Amend"],ans:2,exp:"<strong>Not explicit</strong>; claimed in 1803."},
-  {section:"Unit 4: Judiciary",difficulty:2,q:"Bowie's core thesis?",opts:["Review essential","Expand to 13","Review fundamentally anti-democratic","SCOTUS too reluctant"],ans:2,exp:"Review is <strong>fundamentally anti-democratic</strong>."},
-  {section:"Unit 4: Judiciary",difficulty:2,q:"Why Bowie emphasizes Dred Scott?",opts:["Fairer process","Reinforced slavery + anti-democratic power grab","Protected civil rights","Brown precedent"],ans:1,exp:"Shows the <strong>harm of judicial supremacy</strong>."},
-  {section:"Unit 4: Judiciary",difficulty:2,q:"Shelby County v. Holder (2013)?",opts:["Upheld VRA","Campaign finance","Gutted key VRA provisions","Gerrymandering"],ans:2,exp:"<strong>Gutted the Voting Rights Act</strong>."},
-  {section:"Unit 4: Judiciary",difficulty:2,q:"Citizens United (2010)?",opts:["Affirmative action","Voting rights","Overturned campaign finance limits","Reparations"],ans:2,exp:"Allowed <strong>corporate political spending</strong>."},
-  {section:"Unit 4: Judiciary",difficulty:1,q:"Federal judge service length?",opts:["10 yr","Life (federal) / Elected (state)","10 yr both","Age 70"],ans:1,exp:"Federal is <strong>Life</strong>; most states are <strong>Elected</strong>."},
-  {section:"Unit 4: Judiciary",difficulty:2,q:"Fact showing Courts ARE political?",opts:["Lottery selection","POTUS nominates, Senate confirms, IGs seek test cases","Independent","No challenge"],ans:1,exp:"Nomination/Confirmation is <strong>deeply political</strong>."},
-  {section:"Unit 4: Judiciary",difficulty:2,q:"Bowie on Brown v. Board?",opts:["Democratic model","Worked because it enforced federal law vs states","Always beneficial","Wrongly decided"],ans:1,exp:"Acceptable because it <strong>enforced federal law</strong>."},
-  {section:"Unit 4: Judiciary",difficulty:3,q:"Lincoln on judicial supremacy (1861)?",opts:["Supported SCOTUS","People cease to rule if SCOTUS is final","Opposed all review","Umpire metaphor"],ans:1,exp:"Self-governing people must <strong>control fundamental law</strong>."},
-  {section:"Unit 4: Judiciary",difficulty:3,q:"Bowie response to 'balls and strikes' umpire metaphor?",opts:["Agrees","Accurate for lower","More like horse driver pulling reins on status","Useful"],ans:2,exp:"SCOTUS <strong>pulls reins on change</strong>."}
+  {section:"Unit 3: Presidency & Executive Branch",difficulty:1,q:"What is the most significant limitation of presidential executive orders?",opts:["2/3 Congress needed","Only foreign policy","Retractable by successors","Expire in 4yr"],ans:2,exp:"They are <strong>easily retracted</strong>."},
+  {section:"Unit 3: Presidency & Executive Branch",difficulty:2,q:"FDR is credited with transforming the presidency. What did he leave to all future presidents?",opts:["Reduced bureaucracy","Burgeoning bureaucracy and active leadership role","1-term tradition","Fixed NSC"],ans:1,exp:"Left a <strong>big bureaucracy</strong> and <strong>active role</strong>."},
+  {section:"Unit 3: Presidency & Executive Branch",difficulty:2,q:"USPS and Amtrak are examples of which category of federal agency?",opts:["Cabinet","Independent Exec","Independent Regulatory","Government Corporation"],ans:3,exp:"These are <strong>Government Corporations</strong>."},
+  {section:"Unit 3: Presidency & Executive Branch",difficulty:2,q:"What most distinguishes independent regulatory commissions from other federal agencies?",opts:["Cabinet heads","No oversight","Independent of political influence once appointed","Only write rules"],ans:2,exp:"They are <strong>politically independent</strong> once in office."},
+  {section:"Unit 3: Presidency & Executive Branch",difficulty:1,q:"What is the primary purpose of the Hatch Act (1939)?",opts:["It established the federal rulemaking process","Limits political activities of employees","It gives presidents power to hire and fire all federal employees","It defines the four categories of federal agencies"],ans:1,exp:"<strong>Limits political activities</strong> of civil servants."},
+  {section:"Unit 3: Presidency & Executive Branch",difficulty:2,q:"An iron triangle in U.S. policymaking consists of which three actors?",opts:["POTUS/Speaker/Leader","Committees, Agencies, Interest Groups","SCOTUS/POTUS/Joint Chiefs","Lobbyists/Judges/Governors"],ans:1,exp:"<strong>Agencies, Committees, Interest Groups</strong>."},
+  {section:"Unit 3: Presidency & Executive Branch",difficulty:2,q:"What did the Administrative Procedures Act of 1946 primarily establish?",opts:["It standardized the Senate confirmation process","Formal rulemaking process","It created the congressional oversight framework","It codified the impeachment process"],ans:1,exp:"Established the <strong>rulemaking process</strong>."},
+  {section:"Unit 3: Presidency & Executive Branch",difficulty:2,q:"In Weber's model bureaucracy, what does 'impersonality' mean in practice?",opts:["Bureaucrats avoid all contact with the public","Officials avoid personal relationships with colleagues","Merit-based + equal service","Decisions are made by automated systems"],ans:2,exp:"Means <strong>merit-based</strong> treatment for all."},
+  {section:"Unit 3: Presidency & Executive Branch",difficulty:2,q:"What was the Supreme Court's ruling in Trump v. United States (2024)?",opts:["Unanimous","6-3 granted broad immunity for official acts","It expanded presidential war powers","It granted a narrow expansion of executive privilege"],ans:1,exp:"Granted <strong>immunity for official acts</strong> (6-3)."},
+  {section:"Unit 3: Presidency & Executive Branch",difficulty:3,q:"Truman's remark 'Poor Ike &mdash; nothing will happen' about Eisenhower best illustrates which concept?",opts:["Military experience reliance","Office is far harder/constrained than expected","Eisenhower was an ineffective president","Military experience makes someone a better president"],ans:1,exp:"The office is <strong>constrained</strong> and harder to lead than it seems."},
+  {section:"Unit 4: Judiciary",difficulty:1,q:"How many U.S. District Courts exist, and approximately how many cases do they handle annually?",opts:["13 / 50k","94 / 426k","9 / 60","50 / 100k"],ans:1,exp:"<strong>94 courts</strong>; ~426,000 cases."},
+  {section:"Unit 4: Judiciary",difficulty:1,q:"How many U.S. Courts of Appeals (circuit courts) are there?",opts:["9","50","13","3"],ans:2,exp:"There are <strong>13 circuits</strong>."},
+  {section:"Unit 4: Judiciary",difficulty:1,q:"How many justices sit on the Supreme Court, and approximately how many cases does it decide per term?",opts:["9 / 60","9 / 500","12 / 60","9 / 1,000"],ans:0,exp:"<strong>9 justices</strong>; decided <strong>~60 cases</strong>."},
+  {section:"Unit 4: Judiciary",difficulty:1,q:"Approximately what percentage of criminal law in the United States is handled at the state level?",opts:["25%","50%","75%","90%"],ans:3,exp:"Approximately <strong>90%</strong>."},
+  {section:"Unit 4: Judiciary",difficulty:1,q:"What foundational legal principle did Marbury v. Madison (1803) establish?",opts:["POTUS appointments","Judicial Review","Supremacy Clause","Sole Congress"],ans:1,exp:"Established <strong>judicial review</strong>."},
+  {section:"Unit 4: Judiciary",difficulty:2,q:"Which of the following is accurate about the origins of judicial review?",opts:["Explicit in Art III","Endorsed by Jefferson","NOT in Constitution; claimed by Marshall","14th Amend"],ans:2,exp:"<strong>Not explicit</strong>; claimed in 1803."},
+  {section:"Unit 4: Judiciary",difficulty:2,q:"What is the central argument of Bowie's (2021) critique of judicial review?",opts:["Judicial review is essential to protect individual rights","The Court should be expanded to 13 justices","Review fundamentally anti-democratic","The Supreme Court is too reluctant to use its review power"],ans:2,exp:"Review is <strong>fundamentally anti-democratic</strong>."},
+  {section:"Unit 4: Judiciary",difficulty:2,q:"Why does Bowie use Dred Scott v. Sandford (1857) as a key example in his argument?",opts:["It demonstrated a fairer judicial process than modern courts use","Reinforced slavery + anti-democratic power grab","It protected the civil rights of enslaved people","It set the precedent that led directly to Brown v. Board"],ans:1,exp:"Shows the <strong>harm of judicial supremacy</strong>."},
+  {section:"Unit 4: Judiciary",difficulty:2,q:"What was the significance of Shelby County v. Holder (2013)?",opts:["Upheld VRA","It struck down campaign finance restrictions","Gutted key VRA provisions","It ruled partisan gerrymandering unconstitutional"],ans:2,exp:"<strong>Gutted the Voting Rights Act</strong>."},
+  {section:"Unit 4: Judiciary",difficulty:2,q:"What did the Supreme Court's ruling in Citizens United v. FEC (2010) do?",opts:["Affirmative action","Voting rights","Overturned campaign finance limits","Reparations"],ans:2,exp:"Allowed <strong>corporate political spending</strong>."},
+  {section:"Unit 4: Judiciary",difficulty:1,q:"How long do federal judges serve, and how does that differ from most state judges?",opts:["10 yr","Life (federal) / Elected (state)","10 yr both","Age 70"],ans:1,exp:"Federal is <strong>Life</strong>; most states are <strong>Elected</strong>."},
+  {section:"Unit 4: Judiciary",difficulty:2,q:"Which fact best demonstrates that the federal judiciary is a political institution, not a purely neutral one?",opts:["Judges are selected by random lottery to ensure neutrality","POTUS nominates, Senate confirms, IGs seek test cases","Federal courts operate completely independent of political pressure","Judicial decisions cannot be challenged by the other branches"],ans:1,exp:"Nomination/Confirmation is <strong>deeply political</strong>."},
+  {section:"Unit 4: Judiciary",difficulty:2,q:"How does Bowie explain why Brown v. Board of Education was an acceptable use of judicial power?",opts:["It is Bowie's model of judicial review working democratically","Worked because it enforced federal law vs states","Judicial review is always beneficial when used for civil rights","It was wrongly decided and should be overturned"],ans:1,exp:"Acceptable because it <strong>enforced federal law</strong>."},
+  {section:"Unit 4: Judiciary",difficulty:3,q:"What was Lincoln's argument against treating Supreme Court decisions as permanently binding on all branches?",opts:["Lincoln believed SCOTUS should have final say on all legal questions","People cease to rule if SCOTUS is final","Lincoln opposed judicial review entirely","Lincoln used the umpire metaphor to defend SCOTUS authority"],ans:1,exp:"Self-governing people must <strong>control fundamental law</strong>."},
+  {section:"Unit 4: Judiciary",difficulty:3,q:"Bowie response to 'balls and strikes' umpire metaphor?",opts:["Agrees","Accurate for lower","More like horse driver pulling reins on status","Useful"],ans:2,exp:"SCOTUS <strong>pulls reins on change</strong>."},
 ];
 
+/* &#9472;&#9472; V8 QUESTION BANK (Review Lecture &mdash; April 21, 25Q, single-select) &#9472;&#9472; */
 const v8Questions = [
-  {section:"Spy Agencies: Classification",difficulty:1,q:"The professor's notes mark spy agencies with bold emphasis. These agencies are best classified as:",opts:["Political actors -- they lobby Congress","Policy domains -- they make foreign policy","Structure of State -- part of the institutional machinery","Interest groups -- they advocate for defense spending"],ans:2,exp:"The notes explicitly flag this: <strong>Structure of State</strong> -- spy agencies are part of the institutional apparatus of government, not actors lobbying within it."},
-  {section:"Spy Agencies: Classification",difficulty:1,q:"According to the 2002 Economist report cited in lecture, approximately how many U.S. spy agencies existed at that time?",opts:["3-5 (CIA, FBI, NSA, DHS)","Exactly 17, per official count","Possibly 13-100 (!)","Around 50, one per state"],ans:2,exp:"The notes put a <strong>(!)</strong> here for emphasis: the Economist found possibly <strong>13-100</strong> U.S. spy agencies -- far more than the public-facing few most people know."},
-  {section:"Spy Agencies: Classification",difficulty:2,q:"The 2002 Economist report put the intel budget at $30-50 billion. Adjusted to 2024 dollars, that becomes approximately:",opts:["$10-20 billion","$30-50 billion (unchanged)","$50-85 billion","$200 billion"],ans:2,exp:"The notes give both figures: <strong>$30-50B in 2002</strong> to <strong>$50-85B in 2024 dollars</strong>."},
-  {section:"Spy Agencies: Classification",difficulty:2,q:"The U.S. intelligence budget from the 1950s to 2002 did which of the following?",opts:["Grew rapidly after each major conflict","Declined after the Cold War ended","Remained largely flat for roughly 50 years","Doubled every decade due to Cold War spending"],ans:2,exp:"The budget <strong>hardly changed from the 1950s to 2002</strong>."},
-  {section:"Spy Agencies: Classification",difficulty:1,q:"Which correctly matches a spy agency to its primary role as described in lecture?",opts:["CIA = domestic federal detective agency","FBI = foreign intelligence collection","NSA = intercepts internet communications from Virginia","DHS = foreign espionage and covert operations"],ans:2,exp:"Per the notes: <strong>CIA = foreign spies</strong>, <strong>FBI = federal (domestic) detective</strong>, <strong>NSA = internet interception from Virginia</strong>, <strong>DHS = post-9/11 domestic defense</strong>."},
-  {section:"Spy Agencies: Classification",difficulty:2,q:"The NSA's surveillance capability, as described in lecture, extends to:",opts:["Monitoring only foreign nationals abroad","Tracking financial transactions via Treasury","Tapping almost every internet communication from a facility in Virginia","Overseeing airport screening nationwide"],ans:2,exp:"Notes: <strong>'Almost every internet communication can be tapped by NSA from Virginia.'</strong>"},
-  {section:"Spy Agencies: Classification",difficulty:2,q:"Regarding oversight of the intelligence community, the lecture characterizes lines of managerial accountability as:",opts:["Transparent and publicly auditable","Clearly defined by the Administrative Procedures Act","Murky","Controlled directly by Congress through intelligence committees"],ans:2,exp:"Managerial lines of accountability are <strong>murky</strong>."},
-  {section:"Spy Agencies: Classification",difficulty:2,q:"The professor notes the 2002 Economist diagram was made 'long before GenAI.' The most likely point of that observation is:",opts:["AI has made spying unnecessary","The diagram is now outdated and irrelevant","The structural complexity and opacity of the intel apparatus predates current AI surveillance concerns","The CIA now uses GenAI for all operations"],ans:2,exp:"<strong>Structural complexity and surveillance reach</strong> of these agencies was already enormous before AI."},
-  {section:"Foreign Policy: Contending Powers",difficulty:1,q:"In practice, U.S. foreign policy is primarily led by which actor, according to the lecture?",opts:["Congress, through the War Powers Resolution","The State Department and CIA jointly","The President and executive branch -- formally State Dept. leads diplomacy, but in reality the military drives","The National Security Council, independent of POTUS"],ans:2,exp:"Notes: <strong>President and subordinate executives have come to lead mostly.</strong> In reality <strong>the military</strong> drives."},
-  {section:"Foreign Policy: Contending Powers",difficulty:2,q:"'The Blobs' refers to which group in U.S. foreign policy?",opts:["The CIA's covert operations units","Career policy bureaucrats within the executive branch whose influence is debated","Lobbyists from the military-industrial complex","NSC members appointed by the president"],ans:1,exp:"<strong>'The blobs'</strong> = <strong>career policy bureaucrats</strong> in the executive branch."},
-  {section:"Foreign Policy: Contending Powers",difficulty:2,q:"The War Powers Resolution of 1973 -- designed to constrain presidential military action -- has in practice:",opts:["Successfully forced every president to withdraw troops within 60 days","Been declared unconstitutional by SCOTUS","Proven weak -- POTUS and executive agencies continue to push the limits","Been strengthened by congressional amendments after Vietnam"],ans:2,exp:"The War Powers Resolution <strong>'has proven weak'</strong> -- POTUS and executive agencies push the limits."},
-  {section:"Foreign Policy: Contending Powers",difficulty:2,q:"Compared to domestic policy, parties and interest groups in foreign policy tend to:",opts:["Polarize more -- foreign threats produce sharper partisan divides","Polarize less, though they still appear on specific issues","Play no role -- foreign policy is entirely executive","Be more active and visible than in domestic debates"],ans:1,exp:"Parties and IGs <strong>polarize less in foreign policy</strong> compared with domestic -- but they appear on specific issues."},
-  {section:"Foreign Policy: Contending Powers",difficulty:2,q:"On foreign policy, how constrained are U.S. elites by public opinion?",opts:["Strongly constrained -- the public mobilizes quickly","Moderately constrained -- elections check elite choices","Little constrained -- public opinion on foreign policy is usually weak","Fully constrained -- the Guns and Butter dynamic forces responsiveness"],ans:2,exp:"<strong>'Elites seem little constrained by public opinion, usually weak.'</strong>"},
-  {section:"Foreign Policy: Contending Powers",difficulty:1,q:"The U.S. 'hard force' military footprint includes approximately how many foreign bases?",opts:["75","250","750","1,200"],ans:2,exp:"<strong>750 foreign bases</strong>."},
-  {section:"Foreign Policy: Contending Powers",difficulty:1,q:"In the lecture notes, Cyber Command is listed under which category?",opts:["Intelligence agencies (Structure of State)","The State Department's diplomatic tools","'Hard' force -- alongside Army, Navy, Air Force, Marines, Coast Guard","Homeland Security's domestic defense apparatus"],ans:2,exp:"<strong>Cyber Command</strong> is listed under <strong>'hard force'</strong> alongside traditional military branches."},
-  {section:"Foreign Policy: Contending Powers",difficulty:1,q:"The Department of Homeland Security was established specifically in response to:",opts:["The 1993 World Trade Center bombing","The Oklahoma City bombing (1995)","The 9/11 attacks","The Cold War Soviet threat"],ans:2,exp:"DHS was <strong>'established after 9/11 to coordinate defenses on U.S. terrain.'</strong>"},
-  {section:"Friedman & Payne / Guns & Butter",difficulty:2,q:"Friedman and Payne's central argument about U.S. voters and foreign policy is:",opts:["Voters punish presidents who use military force unnecessarily","Voters have favored presidents who look/sound tough and masculine -- even when those same voters say they prefer gentler policies when asked directly","Voters are primarily driven by economic concerns, not foreign policy aesthetics","Voters reward diplomacy over military action in the long run"],ans:1,exp:"U.S. voters favor a <strong>tough/masculine aesthetic</strong> in foreign policy -- even when they <strong>say they prefer gentler options</strong>."},
-  {section:"Friedman & Payne / Guns & Butter",difficulty:3,q:"What does the Friedman/Payne finding imply about elite accountability in foreign policy?",opts:["It confirms that elites are tightly constrained by genuine democratic preferences","It shows elites must mirror public opinion precisely","It reinforces the lecture's point that elites are little constrained -- the 'public opinion' that exists is weak and responds to image over substance","It suggests Congress effectively checks presidential war-making via electoral pressure"],ans:2,exp:"If voters respond to aesthetics over policy, 'public opinion' provides <strong>weak accountability</strong> -- elites can act while managing their image."},
-  {section:"Friedman & Payne / Guns & Butter",difficulty:1,q:"In the 'Guns and Butter' framework, 'Butter' refers to:",opts:["Military spending and hardware procurement","Defense alliances and NATO obligations","Domestic policy issues that most citizens care about because of their everyday impact","Crisis management and emergency foreign policy"],ans:2,exp:"<strong>Butter = domestic policy</strong> -- most citizens care more because of <strong>greater everyday impact</strong>."},
-  {section:"Friedman & Payne / Guns & Butter",difficulty:1,q:"The 'Guns' half of the framework describes when citizens actually engage with foreign policy. That condition is:",opts:["Whenever election season begins","During trade negotiations with major allies","Only in cases of emergency or times of crisis","When a president publicly announces military action"],ans:2,exp:"<strong>Guns = foreign policy engagement</strong>, but <strong>only in cases of emergency or crisis</strong>."},
-  {section:"Course Learning Goals",difficulty:2,q:"Learning Goal #2 focuses on recognizing the 'U.S. structure of state.' Which elements does it specifically include?",opts:["Political parties and interest group competition","Divided powers, multiple levels, chokepoints, pathways, and veto players","The history of U.S. foreign policy since WWII","How voters make decisions in presidential elections"],ans:1,exp:"Goal #2 lists: <strong>divided powers, multiple levels, chokepoints, pathways, and veto players</strong>."},
-  {section:"Course Learning Goals",difficulty:2,q:"Under Learning Goal #3, which of the following is listed as an example of an ethnic interest group?",opts:["The Heritage Foundation","The military-industrial complex","AIPAC","Foreign governments lobbying against hostile legislation"],ans:2,exp:"<strong>Ethnic Interest Groups (e.g. AIPAC)</strong> is listed as an example."},
-  {section:"Course Learning Goals",difficulty:2,q:"'Foreign Governments and Companies' appear in the notes as a type of interest group with what primary goal?",opts:["Promoting U.S. military aid abroad","Influencing Supreme Court appointments","Preventing hostile legislation from being passed","Advocating for free trade agreements"],ans:2,exp:"They operate to prevent <strong>'hostile legislation from being passed'</strong>."},
-  {section:"Course Learning Goals",difficulty:3,q:"Learning Goal #3 notes that patterns of power plays among political actors are sometimes nested, mutual, or hierarchical. The notes also say they are sometimes:",opts:["Fixed and permanent -- power relationships stabilize over time","Independent and conflicted despite outward claims of a shared basis","Purely competitive with no overlap","Resolved by the courts through judicial review"],ans:1,exp:"Patterns are <strong>'sometimes independent and conflicted despite outward claims of shared basis'</strong> -- NOT fixed or permanent."},
-  {section:"Course Learning Goals",difficulty:2,q:"Learning Goal #1 asks students to recognize U.S. policy domains in historical context. Beyond noticing controversies, it specifically asks students to:",opts:["Memorize names and dates of all major foreign policy events","Compare and contrast U.S. policies with other countries -- especially other rich democracies","Evaluate the constitutional basis of each policy domain","Focus only on contemporary controversies, not historical ones"],ans:1,exp:"Goal #1 includes <strong>'compare and contrast U.S. policies with those of other countries -- especially other rich democracies'</strong>."}
+  {section:"Spy Agencies: Classification",difficulty:1,
+   q:"The professor's notes mark spy agencies with bold emphasis. These agencies are best classified as:",
+   opts:["Political actors &mdash; they lobby Congress","Policy domains &mdash; they make foreign policy","Structure of State &mdash; part of the institutional machinery","Interest groups &mdash; they advocate for defense spending"],
+   ans:2,
+   exp:"The notes explicitly flag this: <strong>Structure of State</strong> &mdash; spy agencies are part of the institutional apparatus of government, not actors lobbying within it."},
+  {section:"Spy Agencies: Classification",difficulty:1,
+   q:"According to the 2002 Economist report cited in lecture, approximately how many U.S. spy agencies existed at that time?",
+   opts:["3&ndash;5 (CIA, FBI, NSA, DHS)","Exactly 17, per official count","Possibly 13&ndash;100 (!)","Around 50, one per state"],
+   ans:2,
+   exp:"The notes put a <strong>(!)</strong> here for emphasis: the Economist found possibly <strong>13&ndash;100</strong> U.S. spy agencies &mdash; far more than the public-facing few most people know."},
+  {section:"Spy Agencies: Classification",difficulty:2,
+   q:"The 2002 Economist report put the intel budget at $30&ndash;50 billion. Adjusted to 2024 dollars, that becomes approximately:",
+   opts:["$10&ndash;20 billion","$30&ndash;50 billion (unchanged)","$50&ndash;85 billion","$200 billion"],
+   ans:2,
+   exp:"The notes give both figures: <strong>$30&ndash;50B in 2002</strong> &rarr; <strong>$50&ndash;85B in 2024 dollars</strong>. The scale is part of why the professor flags it."},
+  {section:"Spy Agencies: Classification",difficulty:2,
+   q:"The U.S. intelligence budget from the 1950s to 2002 did which of the following?",
+   opts:["Grew rapidly after each major conflict","Declined after the Cold War ended","Remained largely flat for roughly 50 years","Doubled every decade due to Cold War spending"],
+   ans:2,
+   exp:"The notes highlight this as a key pattern: the budget <strong>hardly changed from the 1950s to 2002</strong> &mdash; remarkable given the scope of these agencies."},
+  {section:"Spy Agencies: Classification",difficulty:1,
+   q:"Which correctly matches a spy agency to its primary role as described in lecture?",
+   opts:["CIA = domestic federal detective agency","FBI = foreign intelligence collection","NSA = intercepts internet communications from Virginia","DHS = foreign espionage and covert operations"],
+   ans:2,
+   exp:"Per the notes: <strong>CIA = foreign spies</strong>, <strong>FBI = federal (domestic) detective</strong>, <strong>NSA = internet interception from Virginia</strong>, <strong>DHS = post-9/11 domestic defense coordination</strong>."},
+  {section:"Spy Agencies: Classification",difficulty:2,
+   q:"The NSA's surveillance capability, as described in lecture, extends to:",
+   opts:["Monitoring only foreign nationals abroad","Tracking financial transactions via Treasury","Tapping almost every internet communication from a facility in Virginia","Overseeing airport screening nationwide"],
+   ans:2,
+   exp:"The notes state: <strong>'Almost every internet communication can be tapped by NSA from Virginia.'</strong> This domestic reach is what distinguishes NSA from the CIA's foreign focus."},
+  {section:"Spy Agencies: Classification",difficulty:2,
+   q:"Regarding oversight of the intelligence community, the lecture characterizes lines of managerial accountability as:",
+   opts:["Transparent and publicly auditable","Clearly defined by the Administrative Procedures Act","Murky","Controlled directly by Congress through intelligence committees"],
+   ans:2,
+   exp:"The notes flag this plainly: managerial lines of accountability are <strong>murky</strong> &mdash; a key structural problem for agencies with enormous power and limited public visibility."},
+  {section:"Spy Agencies: Classification",difficulty:2,
+   q:"The professor notes the 2002 Economist diagram was made 'long before GenAI.' The most likely point of that observation is:",
+   opts:["AI has made spying unnecessary","The diagram is now outdated and irrelevant","The structural complexity and opacity of the intel apparatus predates current AI surveillance concerns","The CIA now uses GenAI for all operations"],
+   ans:2,
+   exp:"The note signals that <strong>structural complexity and surveillance reach</strong> of these agencies was already enormous before AI-era concerns &mdash; the opacity and scale are not new."},
+  {section:"Foreign Policy: Contending Powers",difficulty:1,
+   q:"In practice, U.S. foreign policy is primarily led by which actor, according to the lecture?",
+   opts:["Congress, through the War Powers Resolution","The State Department and CIA jointly","The President and executive branch &mdash; formally State Dept. leads diplomacy, but in reality the military drives","The National Security Council, independent of POTUS"],
+   ans:2,
+   exp:"Notes: <strong>President and subordinate executives have come to lead mostly.</strong> Formally State Dept. leads diplomacy, but in reality <strong>the military</strong> drives. The exec branch pushes limits."},
+  {section:"Foreign Policy: Contending Powers",difficulty:2,
+   q:"'The Blobs' refers to which group in U.S. foreign policy?",
+   opts:["The CIA's covert operations units","Career policy bureaucrats within the executive branch whose influence is debated","Lobbyists from the military-industrial complex","NSC members appointed by the president"],
+   ans:1,
+   exp:"Notes: <strong>'The blobs'</strong> = <strong>career policy bureaucrats</strong> in the executive branch. Analysts debate how much actual influence they wield over foreign policy decisions."},
+  {section:"Foreign Policy: Contending Powers",difficulty:2,
+   q:"The War Powers Resolution of 1973 &mdash; designed to constrain presidential military action &mdash; has in practice:",
+   opts:["Successfully forced every president to withdraw troops within 60 days","Been declared unconstitutional by SCOTUS","Proven weak &mdash; POTUS and executive agencies continue to push the limits","Been strengthened by congressional amendments after Vietnam"],
+   ans:2,
+   exp:"The notes are direct: the War Powers Resolution <strong>'has proven weak'</strong> &mdash; <strong>POTUS and executive agencies push the limits.</strong> No president has recognized it as fully binding."},
+  {section:"Foreign Policy: Contending Powers",difficulty:2,
+   q:"Compared to domestic policy, parties and interest groups in foreign policy tend to:",
+   opts:["Polarize more &mdash; foreign threats produce sharper partisan divides","Polarize less, though they still appear on specific issues","Play no role &mdash; foreign policy is entirely executive","Be more active and visible than in domestic debates"],
+   ans:1,
+   exp:"Notes: parties and IGs <strong>'square off (polarize) less in foreign policy compared with domestic'</strong> &mdash; but they're not absent. They appear on specific issues."},
+  {section:"Foreign Policy: Contending Powers",difficulty:2,
+   q:"On foreign policy, how constrained are U.S. elites by public opinion?",
+   opts:["Strongly constrained &mdash; the public mobilizes quickly","Moderately constrained &mdash; elections check elite choices","Little constrained &mdash; public opinion on foreign policy is usually weak","Fully constrained &mdash; the Guns and Butter dynamic forces responsiveness"],
+   ans:2,
+   exp:"The notes state: <strong>'Elites seem little constrained by public opinion, usually weak.'</strong> This is key context for understanding the Friedman/Payne argument."},
+  {section:"Foreign Policy: Contending Powers",difficulty:1,
+   q:"The U.S. 'hard force' military footprint includes approximately how many foreign bases?",
+   opts:["75","250","750","1,200"],
+   ans:2,
+   exp:"The notes list this specifically: <strong>750 foreign bases</strong> &mdash; part of the 'hard force' that includes Army, Navy, Air Force, Marines, Coast Guard, and Cyber Command."},
+  {section:"Foreign Policy: Contending Powers",difficulty:1,
+   q:"In the lecture notes, Cyber Command is listed under which category?",
+   opts:["Intelligence agencies (Structure of State)","The State Department's diplomatic tools","'Hard' force &mdash; alongside Army, Navy, Air Force, Marines, Coast Guard","Homeland Security's domestic defense apparatus"],
+   ans:2,
+   exp:"The notes list <strong>Cyber Command</strong> explicitly under <strong>'hard force'</strong> alongside traditional military branches &mdash; digital warfare is now institutionally equivalent to conventional military power."},
+  {section:"Foreign Policy: Contending Powers",difficulty:1,
+   q:"The Department of Homeland Security was established specifically in response to:",
+   opts:["The 1993 World Trade Center bombing","The Oklahoma City bombing (1995)","The 9/11 attacks","The Cold War Soviet threat"],
+   ans:2,
+   exp:"Notes: DHS was <strong>'established after 9/11 to coordinate defenses on U.S. terrain.'</strong> It also includes the TSA (airport screening oversight)."},
+  {section:"Friedman & Payne / Guns & Butter",difficulty:2,
+   q:"Friedman and Payne's central argument about U.S. voters and foreign policy is:",
+   opts:["Voters punish presidents who use military force unnecessarily","Voters have favored presidents who look/sound tough and masculine &mdash; even when those same voters say they prefer gentler policies when asked directly","Voters are primarily driven by economic concerns, not foreign policy aesthetics","Voters reward diplomacy over military action in the long run"],
+   ans:1,
+   exp:"The key tension: U.S. voters favor a <strong>tough/masculine aesthetic</strong> in foreign policy &mdash; even when, if directly asked about policies, they <strong>say they prefer gentler options.</strong> Aesthetic preference beats stated preference."},
+  {section:"Friedman & Payne / Guns & Butter",difficulty:3,
+   q:"What does the Friedman/Payne finding imply about elite accountability in foreign policy?",
+   opts:["It confirms that elites are tightly constrained by genuine democratic preferences","It shows elites must mirror public opinion precisely","It reinforces the lecture's point that elites are little constrained &mdash; the 'public opinion' that exists is weak and responds to image over substance","It suggests Congress effectively checks presidential war-making via electoral pressure"],
+   ans:2,
+   exp:"Friedman/Payne connects to the lecture's claim that <strong>elites are little constrained.</strong> If voters respond to aesthetics over policy, 'public opinion' provides weak accountability &mdash; elites can act while managing their image."},
+  {section:"Friedman & Payne / Guns & Butter",difficulty:1,
+   q:"In the 'Guns and Butter' framework, 'Butter' refers to:",
+   opts:["Military spending and hardware procurement","Defense alliances and NATO obligations","Domestic policy issues that most citizens care about because of their everyday impact","Crisis management and emergency foreign policy"],
+   ans:2,
+   exp:"<strong>Butter = domestic policy</strong> &mdash; most citizens are more interested in domestic issues because they have a <strong>greater impact on their everyday lives.</strong>"},
+  {section:"Friedman & Payne / Guns & Butter",difficulty:1,
+   q:"The 'Guns' half of the framework describes when citizens actually engage with foreign policy. That condition is:",
+   opts:["Whenever election season begins","During trade negotiations with major allies","Only in cases of emergency or times of crisis","When a president publicly announces military action"],
+   ans:2,
+   exp:"<strong>Guns = foreign policy engagement</strong>, but only under one condition: <strong>'only in cases of emergency or times of crisis'</strong> do citizens express significant concern over foreign policy."},
+  {section:"Course Learning Goals",difficulty:2,
+   q:"Learning Goal #2 focuses on recognizing the 'U.S. structure of state.' Which elements does it specifically include?",
+   opts:["Political parties and interest group competition","Divided powers, multiple levels, chokepoints, pathways, and veto players","The history of U.S. foreign policy since WWII","How voters make decisions in presidential elections"],
+   ans:1,
+   exp:"Goal #2 explicitly lists: <strong>divided powers, multiple levels, chokepoints, pathways, and veto players.</strong> The course emphasizes national (federal) structures while also touching on sub-national and comparative dimensions."},
+  {section:"Course Learning Goals",difficulty:2,
+   q:"Under Learning Goal #3, which of the following is listed as an example of an ethnic interest group?",
+   opts:["The Heritage Foundation","The military-industrial complex","AIPAC","Foreign governments lobbying against hostile legislation"],
+   ans:2,
+   exp:"The notes list: Business groups (e.g. military-industrial complex), <strong>Ethnic Interest Groups (e.g. AIPAC)</strong>, Foreign Governments/Companies (preventing hostile legislation), and Ideological groups (e.g. Heritage Foundation)."},
+  {section:"Course Learning Goals",difficulty:2,
+   q:"'Foreign Governments and Companies' appear in the notes as a type of interest group with what primary goal?",
+   opts:["Promoting U.S. military aid abroad","Influencing Supreme Court appointments","Preventing hostile legislation from being passed","Advocating for free trade agreements"],
+   ans:2,
+   exp:"The notes identify this group as operating to prevent <strong>'hostile legislation from being passed'</strong> &mdash; a key distinction from ideological or ethnic IGs."},
+  {section:"Course Learning Goals",difficulty:3,
+   q:"Learning Goal #3 notes that patterns of power plays among political actors are sometimes nested, mutual, or hierarchical. The notes also say they are sometimes:",
+   opts:["Fixed and permanent &mdash; power relationships stabilize over time","Independent and conflicted despite outward claims of a shared basis","Purely competitive with no overlap","Resolved by the courts through judicial review"],
+   ans:1,
+   exp:"The full description: patterns are <strong>'sometimes nested, sometimes mutual, sometimes hierarchical &mdash; and sometimes independent and conflicted despite outward claims of shared basis.'</strong> NOT fixed or permanent."},
+  {section:"Course Learning Goals",difficulty:2,
+   q:"Learning Goal #1 asks students to recognize U.S. policy domains in historical context. Beyond noticing controversies, it specifically asks students to:",
+   opts:["Memorize names and dates of all major foreign policy events","Compare and contrast U.S. policies with other countries &mdash; especially other rich democracies","Evaluate the constitutional basis of each policy domain","Focus only on contemporary controversies, not historical ones"],
+   ans:1,
+   exp:"Goal #1 explicitly includes <strong>'compare and contrast U.S. policies with those of other countries &mdash; especially other rich democracies'</strong> and covers both contemporary AND historical situations."},
 ];
 
-let questions=[], score=0, answered=0, selectedDifficulty='all', selectedLength=50, activeVersion=0;
 
-const config={
-  0:{cls:"v0",lab:"Combined Bank",getPool:()=>[...v7Questions,...v6Questions,...v8Questions],lens:[20,50,167]},
-  7:{cls:"v7",lab:"Exam Prep (90Q)",getPool:()=>v7Questions,lens:[20,45,90]},
-  6:{cls:"v6",lab:"M3 Bank (50Q)",getPool:()=>v6Questions,lens:[15,25,50]},
-  8:{cls:"v8",lab:"Review Lecture (25Q)",getPool:()=>v8Questions,lens:[10,15,25]}
+/* --- ENGINE LOGIC --- */
+let questions = []; 
+let score = 0, answered = 0;
+let selectedDifficulty = 'all';
+let selectedLength = 50;
+let activeVersion = 0;
+
+const config = {
+    0: { cls: "v0", lab: "Combined Bank", getPool: () => [...v7Questions, ...v6Questions, ...v8Questions], lens: [20, 50, 167] },
+    7: { cls: "v7", lab: "Exam Prep (90Q)", getPool: () => v7Questions, lens: [20, 45, 90] },
+    6: { cls: "v6", lab: "M3 Bank (50Q)", getPool: () => v6Questions, lens: [15, 25, 50] },
+    8: { cls: "v8", lab: "Review Lecture (25Q)", getPool: () => v8Questions, lens: [10, 15, 25] }
 };
 
-function switchVersion(v){
-  activeVersion=v;
-  const cfg=config[v];
-  document.getElementById('intro').style.display='block';
-  document.getElementById('quiz-area').style.display='none';
-  document.getElementById('results').style.display='none';
-  document.getElementById('score-display').innerText='Score: \u2014 / \u2014';
-  document.getElementById('progress-bar').style.width='0%';
-  score=0; answered=0;
-  const modeMap={0:'mode-combined',7:'mode-exam',6:'mode-m3',8:'mode-review'};
-  const modeLabel={0:'Combined',7:'Exam Prep',6:'M3 Bank',8:'Review'};
-  const el=document.getElementById('top-bar-mode');
-  el.className='top-bar-mode '+(modeMap[v]||'mode-combined');
-  el.innerText=modeLabel[v]||'Combined';
-  document.getElementById('header-sub').innerText=cfg.lab;
-  document.querySelectorAll('.v-btn').forEach(b=>b.classList.remove('active'));
-  document.getElementById('btn-v'+v).classList.add('active');
-  document.getElementById('combine-box').style.display=(v===0)?'block':'none';
-  const lUI=document.getElementById('length-ui');
-  if(v===0){
-    lUI.innerHTML=`<div class="slider-wrap"><input type="range" class="q-slider" min="10" max="167" value="50" oninput="selectedLength=parseInt(this.value);document.getElementById('sl').innerText=this.value"><div class="slider-readout"><span id="sl">50</span> Questions</div></div>`;
-    selectedLength=50;
-  } else {
-    lUI.innerHTML=`<div class="picker-grid" id="l-grid"></div>`;
-    cfg.lens.forEach((l,i)=>{
-      const b=document.createElement('button');
-      b.className='pick-btn len-btn'+(i===2?' active':'');
-      b.onclick=()=>{selectedLength=l;document.querySelectorAll('.len-btn').forEach(e=>e.classList.remove('active'));b.classList.add('active');};
-      const desc=["Quick","Standard","Full Bank"][i];
-      b.innerHTML=`<span class="pick-num">${l}</span><span class="pick-desc">${desc}</span>`;
-      document.getElementById('l-grid').appendChild(b);
-    });
-    selectedLength=cfg.lens[2];
-  }
+function switchVersion(v) {
+    activeVersion = v;
+    const cfg = config[v];
+    
+    document.getElementById('intro').style.display = 'block';
+    document.getElementById('quiz-area').style.display = 'none';
+    document.getElementById('results').style.display = 'none';
+    document.getElementById('score-display').innerText = "Score: — / —";
+    document.getElementById('progress-bar').style.width = "0%";
+    score = 0; answered = 0;
+
+    const modeMap = {0:'mode-combined',7:'mode-exam',6:'mode-m3',8:'mode-review'};
+    const modeLabel = {0:'Combined',7:'Exam Prep',6:'M3 Bank',8:'Review'};
+    const el = document.getElementById('top-bar-mode');
+    el.className = 'top-bar-mode ' + (modeMap[v]||'mode-combined');
+    el.innerText = modeLabel[v]||'Combined';
+    document.getElementById('header-sub').innerText = cfg.lab;
+    
+    document.querySelectorAll('.v-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('btn-v'+v).classList.add('active');
+
+    document.getElementById('combine-box').style.display = (v === 0) ? 'block' : 'none';
+
+    const lUI = document.getElementById('length-ui');
+    if (v === 0) {
+        lUI.innerHTML = `<div class="slider-wrap"><input type="range" class="q-slider" min="10" max="167" value="50" oninput="selectedLength=parseInt(this.value); document.getElementById('sl').innerText=this.value"><div class="slider-readout"><span id="sl">50</span> Questions</div></div>`;
+        selectedLength = 50;
+    } else {
+        lUI.innerHTML = `<div class="picker-grid" id="l-grid"></div>`;
+        cfg.lens.forEach((l, i) => {
+            const b = document.createElement('button');
+            b.className = "pick-btn len-btn" + (i === 2 ? " active" : "");
+            b.onclick = () => {
+                selectedLength = l;
+                document.querySelectorAll('.len-btn').forEach(el => el.classList.remove('active'));
+                b.classList.add('active');
+            };
+            const desc = ["Quick", "Standard", "Full Bank"][i];
+            b.innerHTML = `<span class="pick-num">${l}</span><span class="pick-desc">${desc}</span>`;
+            document.getElementById('l-grid').appendChild(b);
+        });
+        selectedLength = cfg.lens[2];
+    }
 }
 
-function setDiff(d,btn){
-  selectedDifficulty=d;
-  document.querySelectorAll('.diff-btn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
+function setDiff(d, btn) {
+    selectedDifficulty = d;
+    document.querySelectorAll('.diff-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
 }
 
-function startQuiz(){
-  let pool=[];
-  if(activeVersion===0){
-    if(document.getElementById('chk-v7').classList.contains('checked')) pool.push(...v7Questions);
-    if(document.getElementById('chk-v6').classList.contains('checked')) pool.push(...v6Questions);
-    if(document.getElementById('chk-v8').classList.contains('checked')) pool.push(...v8Questions);
-  } else { pool=config[activeVersion].getPool(); }
-  if(selectedDifficulty!=='all') pool=pool.filter(q=>q.difficulty==selectedDifficulty);
-  questions=pool.sort(()=>Math.random()-0.5).slice(0,selectedLength);
-  if(questions.length===0){alert("No questions found for this difficulty in the selected bank.");return;}
-  document.getElementById('intro').style.display='none';
-  document.getElementById('quiz-area').style.display='block';
-  renderQuestion(0);
+function startQuiz() {
+    let pool = [];
+    if (activeVersion === 0) {
+        if (document.getElementById('chk-v7').classList.contains('checked')) pool.push(...v7Questions);
+        if (document.getElementById('chk-v6').classList.contains('checked')) pool.push(...v6Questions);
+        if (document.getElementById('chk-v8').classList.contains('checked')) pool.push(...v8Questions);
+    } else {
+        pool = config[activeVersion].getPool();
+    }
+
+    if (selectedDifficulty !== 'all') {
+        pool = pool.filter(q => q.difficulty == selectedDifficulty);
+    }
+
+    questions = pool.sort(() => Math.random() - 0.5).slice(0, selectedLength);
+    
+    if (questions.length === 0) {
+        alert("No questions found for this difficulty in the selected bank.");
+        return;
+    }
+
+    document.getElementById('intro').style.display = 'none';
+    document.getElementById('quiz-area').style.display = 'block';
+    renderQuestion(0);
 }
 
-function renderQuestion(idx){
-  const q=questions[idx];
-  const area=document.getElementById('quiz-area');
-  const isMulti=Array.isArray(q.ans);
-  const letters=['A','B','C','D','E','F'];
-  area.innerHTML=`
-    <div class="q-card">
-      <div class="q-meta">
-        <span class="q-num-label">Question ${idx+1} of ${questions.length}</span>
-        <span class="section-tag">${q.section}</span>
-      </div>
-      <div class="q-text">${q.q}</div>
-      <div id="opts">
-        ${q.opts.map((o,i)=>`<button class="option-btn" id="o-${i}" onclick="${isMulti?`toggleM(${i})`:`selectS(${idx},${i})`}"><span class="option-letter">${letters[i]}</span><span>${o}</span></button>`).join('')}
-      </div>
-      ${isMulti?`<div style="margin-top:0.5rem"><em class="multi-hint">Select all that apply</em></div><button class="btn primary" id="sub-m" style="margin-top:0.8rem;width:100%;" onclick="submitM(${idx})" disabled>Submit Answer</button>`:''}
-      <div class="explanation" id="exp-${idx}">${q.exp}</div>
-      <button class="btn primary" id="next-btn" style="display:none;margin-top:1.2rem;width:100%" onclick="nextQ(${idx})">${idx===questions.length-1?'Finish & See Results':'Next Question \u2192'}</button>
-    </div>`;
-  document.getElementById('progress-bar').style.width=(answered/questions.length*100)+'%';
+function shuffleOpts(q) {
+    // Returns {opts, ans} with options shuffled and answer index/indices remapped
+    const indices = q.opts.map((_, i) => i);
+    for (let i = indices.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [indices[i], indices[j]] = [indices[j], indices[i]];
+    }
+    const newOpts = indices.map(i => q.opts[i]);
+    const isMulti = Array.isArray(q.ans);
+    const newAns = isMulti
+        ? q.ans.map(a => indices.indexOf(a))
+        : indices.indexOf(q.ans);
+    return { opts: newOpts, ans: newAns };
 }
 
-function selectS(qIdx,i){
-  const q=questions[qIdx];
-  const isCorrect=i===q.ans;
-  if(isCorrect) score++;
-  answered++;
-  document.getElementById('o-'+i).classList.add(isCorrect?'correct-ans':'wrong-ans');
-  document.getElementById('o-'+q.ans).classList.add('correct-ans');
-  document.querySelectorAll('.option-btn').forEach(b=>b.disabled=true);
-  document.getElementById('exp-'+qIdx).classList.add('show');
-  document.getElementById('next-btn').style.display='block';
-  document.getElementById('score-display').innerText=`${score} / ${answered} correct`;
-}
-
-function toggleM(i){
-  const btn=document.getElementById('o-'+i);
-  btn.classList.toggle('selected-m');
-  document.getElementById('sub-m').disabled=document.querySelectorAll('.selected-m').length===0;
-}
-
-function submitM(qIdx){
-  const q=questions[qIdx];
-  const userSels=Array.from(document.querySelectorAll('.selected-m')).map(b=>parseInt(b.id.split('-')[1]));
-  const correctSet=new Set(q.ans);
-  const isCorrect=userSels.length===q.ans.length&&userSels.every(v=>correctSet.has(v));
-  if(isCorrect) score++;
-  answered++;
-  q.opts.forEach((_,i)=>{
-    const btn=document.getElementById('o-'+i);
-    btn.disabled=true;
-    const wasSelected=userSels.includes(i);
-    const isAnswer=correctSet.has(i);
-    btn.classList.remove('selected-m');
-    if(isAnswer&&wasSelected) btn.classList.add('correct-ans');
-    else if(!isAnswer&&wasSelected) btn.classList.add('wrong-ans');
-    else if(isAnswer&&!wasSelected) btn.classList.add('missed-ans');
-  });
-  document.getElementById('exp-'+qIdx).classList.add('show');
-  document.getElementById('next-btn').style.display='block';
-  document.getElementById('score-display').innerText=`${score} / ${answered} correct`;
-}
-
-function nextQ(idx){
-  if(idx+1<questions.length){renderQuestion(idx+1);}
-  else{
-    document.getElementById('quiz-area').style.display='none';
-    document.getElementById('results').style.display='block';
-    const finalPct=Math.round((score/questions.length)*100);
-    document.getElementById('results').innerHTML=`
-      <div class="results-area">
-        <div class="results-card">
-          <div class="final-score">${finalPct}%</div>
-          <div class="final-label">${score} correct of ${questions.length} questions</div>
-          <button class="btn primary" onclick="switchVersion(activeVersion)">Try Another Round</button>
+function renderQuestion(idx) {
+    const q = questions[idx];
+    const shuffled = shuffleOpts(q);
+    q._opts = shuffled.opts;
+    q._ans  = shuffled.ans;
+    const area = document.getElementById('quiz-area');
+    const isMulti = Array.isArray(q.ans);
+    
+    const letters = ['A','B','C','D','E','F'];
+    area.innerHTML = `
+        <div class="q-card">
+            <div class="q-meta">
+                <span class="q-num-label">Question ${idx + 1} of ${questions.length}</span>
+                <span class="section-tag">${q.section}</span>
+            </div>
+            <div class="q-text">${q.q}</div>
+            <div id="opts">
+                ${q._opts.map((o, i) => `<button class="option-btn" id="o-${i}" onclick="${isMulti ? `toggleM(${i})` : `selectS(${idx}, ${i})`}"><span class="option-letter">${letters[i]}</span><span>${isMulti ? '' : ''}${o}</span></button>`).join('')}
+            </div>
+            ${isMulti ? `<div style="margin-top:0.5rem"><em class="multi-hint">Select all that apply</em></div><button class="btn primary" id="sub-m" style="margin-top:0.8rem; width:100%;" onclick="submitM(${idx})" disabled>Submit Answer</button>` : ''}
+            <div class="explanation" id="exp-${idx}">${q.exp}</div>
+            <button class="btn primary" id="next-btn" style="display:none; margin-top:1.2rem; width:100%" onclick="nextQ(${idx})">${idx === questions.length - 1 ? 'Finish & See Results' : 'Next Question &rarr;'}</button>
         </div>
-      </div>`;
-  }
+    `;
+    document.getElementById('progress-bar').style.width = (answered / questions.length * 100) + "%";
 }
 
-function toggleBank(el){
-  el.classList.toggle('checked');
-  const icon=el.querySelector('.check-icon');
-  if(icon) icon.innerText=el.classList.contains('checked')?'\u2713':'';
+function selectS(qIdx, i) {
+    const q = questions[qIdx];
+    const isCorrect = i === q._ans;
+    if (isCorrect) score++;
+    answered++;
+    
+    document.getElementById('o-'+i).classList.add(isCorrect ? 'correct-ans' : 'wrong-ans');
+    document.getElementById('o-'+q._ans).classList.add('correct-ans');
+    document.querySelectorAll('.option-btn').forEach(b => b.disabled = true);
+    document.getElementById('exp-'+qIdx).classList.add('show');
+    document.getElementById('next-btn').style.display = 'block';
+    document.getElementById('score-display').innerText = `${score} / ${answered} correct`;
+}
+
+function toggleM(i) {
+    const btn = document.getElementById('o-'+i);
+    btn.classList.toggle('selected-m');
+    const hasSelection = document.querySelectorAll('.selected-m').length > 0;
+    document.getElementById('sub-m').disabled = !hasSelection;
+}
+
+function submitM(qIdx) {
+    const q = questions[qIdx];
+    const userSels = Array.from(document.querySelectorAll('.selected-m')).map(b => parseInt(b.id.split('-')[1]));
+    const correctSet = new Set(q._ans);
+    
+    const isCorrect = userSels.length === q._ans.length && userSels.every(v => correctSet.has(v));
+    
+    if (isCorrect) score++;
+    answered++;
+
+    q._opts.forEach((_, i) => {
+        const btn = document.getElementById('o-'+i);
+        btn.disabled = true;
+        const wasSelected = userSels.includes(i);
+        const isAnswer = correctSet.has(i);
+        btn.classList.remove('selected-m');
+        
+        if (isAnswer && wasSelected) btn.classList.add('correct-ans');
+        else if (!isAnswer && wasSelected) btn.classList.add('wrong-ans');
+        else if (isAnswer && !wasSelected) btn.classList.add('missed-ans');
+    });
+
+    document.getElementById('exp-'+qIdx).classList.add('show');
+    document.getElementById('next-btn').style.display = 'block';
+    document.getElementById('score-display').innerText = `${score} / ${answered} correct`;
+}
+
+function nextQ(idx) {
+    if (idx + 1 < questions.length) {
+        renderQuestion(idx + 1);
+    } else {
+        document.getElementById('quiz-area').style.display = 'none';
+        document.getElementById('results').style.display = 'block';
+        const finalPct = Math.round((score/questions.length)*100);
+        document.getElementById('results').innerHTML = `
+            <div class="results-area">
+                <div class="results-card">
+                    <div class="final-score">${finalPct}%</div>
+                    <div class="final-label">${score} correct of ${questions.length} questions</div>
+                    <button class="btn primary" onclick="switchVersion(activeVersion)">Try Another Round</button>
+                </div>
+            </div>
+        `;
+    }
+}
+
+function toggleBank(el) {
+    el.classList.toggle('checked');
+    const icon = el.querySelector('.check-icon');
+    if (icon) icon.innerText = el.classList.contains('checked') ? '&#10003;' : '';
 }
 
 switchVersion(0);
 </script>
-
 </body>
 </html>
