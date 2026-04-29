@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>No Plans NYC: Interactive Day</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: linear-gradient(135deg, #0b1020, #1a2a44);
+      color: #fff;
+      height: 100vh;
+      width: 100vw;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .game {
+      height: 100vh;
+      width: 100vw;
+      display: flex;
+      flex-direction: column;
+      padding: 50px 24px;
+      box-sizing: border-box;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(1.8rem, 3vw, 3rem);
+      letter-spacing: 0.4px;
+    }
+
+    p {
+      margin: 18px 0 40px;
+      font-size: clamp(1.1rem, 1.8vw, 1.5rem);
+      max-width: 850px;
+      line-height: 1.5;
+      opacity: 0.95;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 40px;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      margin-top: 10px;
+    }
+
+    .choice {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.15s ease, opacity 0.2s ease;
+      padding: 10px;
+    }
+
+    .choice:hover {
+      transform: scale(1.12);
+      opacity: 0.95;
+    }
+
+    .emoji {
+      font-size: clamp(5rem, 10vw, 9rem);
+      line-height: 1;
+    }
+
+    .caption {
+      margin-top: 14px;
+      font-size: clamp(1rem, 1.5vw, 1.3rem);
+      opacity: 0.9;
+      letter-spacing: 0.3px;
+    }
+
+    .meta {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      right: 20px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.95rem;
+      opacity: 0.75;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .restart {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      border: none;
+      border-radius: 999px;
+      padding: 12px 18px;
+      font-size: 1rem;
+      cursor: pointer;
+      background: rgba(255, 255, 255, 0.12);
+      color: white;
+      transition: background 0.2s ease;
+    }
+
+    .restart:hover {
+      background: rgba(255, 255, 255, 0.22);
+    }
+  </style>
+</head>
+<body>
+  <div class="game">
+    <button class="restart" onclick="restart()">Restart 🔄</button>
+
+    <h1 id="title">A Day With No Plans in NYC</h1>
+    <p id="story"></p>
+
+    <div class="buttons" id="buttons"></div>
+
+    <div class="meta">
+      <div id="step">Step: 1 / 4</div>
+      <div id="path">Your vibe: undecided</div>
+    </div>
+  </div>
+
+  <script>
+    let currentStep = 1;
+    let vibePath = [];
+
+    const storyEl = document.getElementById("story");
+    const buttonsEl = document.getElementById("buttons");
+    const stepEl = document.getElementById("step");
+    const pathEl = document.getElementById("path");
+
+    function updateMeta() {
+      stepEl.textContent = `Step: ${currentStep} / 4`;
+      pathEl.textContent = vibePath.length
+        ? `Your vibe: ${vibePath.join(" → ")}`
+        : "Your vibe: undecided";
+    }
+
+    function renderStep(step) {
+      buttonsEl.innerHTML = "";
+
+      if (step === 1) {
+        storyEl.textContent =
+          "You wake up in New York City with no meetings, no schedule, and no pressure. The streets feel like a menu. What’s your first move?";
+
+        addChoice("🏋️", "Work out", () => choose(1, "Workout"));
+        addChoice("☕", "Get coffee", () => choose(1, "Coffee"));
+      }
+
+      if (step === 2) {
+        storyEl.textContent =
+          "The city starts buzzing. Your energy is up, your playlist is hitting, and you’ve got the whole day open. Where do you wander next?";
+
+        addChoice("🌳", "Go to the park", () => choose(2, "Park"));
+        addChoice("🛍️", "Go shopping", () => choose(2, "Shopping"));
+      }
+
+      if (step === 3) {
+        storyEl.textContent =
+          "The afternoon slips into evening. Lights turn golden, people move faster, and you feel that classic NYC shift. What’s the night looking like?";
+
+        addChoice("🎶", "Go to a concert", () => choose(3, "Concert"));
+        addChoice("🍜", "Go out to eat", () => choose(3, "Food"));
+      }
+
+      if (step === 4) {
+        storyEl.textContent =
+          "It’s late. The city is still alive, but you’re at the fork in the road: chaos or comfort. How do you end your no-plans NYC day?";
+
+        addChoice("🪩", "Go to the club", () => finish("Club"));
+        addChoice("🛌", "Go to bed", () => finish("Sleep"));
+      }
+
+      updateMeta();
+    }
+
+    function addChoice(emoji, caption, action) {
+      const btn = document.createElement("button");
+      btn.className = "choice";
+      btn.onclick = action;
+
+      btn.innerHTML = `
+        <div class="emoji">${emoji}</div>
+        <div class="caption">${caption}</div>
+      `;
+
+      buttonsEl.appendChild(btn);
+    }
+
+    function choose(step, choice) {
+      vibePath.push(choice);
+      currentStep = step + 1;
+      renderStep(currentStep);
+    }
+
+    function finish(finalChoice) {
+      vibePath.push(finalChoice);
+
+      let ending = "";
+
+      if (finalChoice === "Club") {
+        ending =
+          "You step into the night like you own it. The bass hits, the sidewalks glow, and the city feels infinite. Tomorrow can deal with tomorrow.";
+      } else {
+        ending =
+          "You head home as the city hums outside your window. Cozy sheets, quiet streets, and that perfect NYC feeling: you did a lot without ever planning a thing.";
+      }
+
+      storyEl.textContent = ending;
+
+      buttonsEl.innerHTML = "";
+      stepEl.textContent = "Complete ✅";
+      pathEl.textContent = `Your vibe: ${vibePath.join(" → ")}`;
+    }
+
+    function restart() {
+      currentStep = 1;
+      vibePath = [];
+      renderStep(1);
+    }
+
+    // Start
+    renderStep(1);
+  </script>
+</body>
+</html>
