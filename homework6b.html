@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="media/website-icon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Illustrated Environment</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .montage-container {
+            max-width: 420px;
+            margin: 10px auto;
+            padding: 10px;
+            border: 2px solid #000;
+            border-radius: 8px;
+            background-color: #44b1cccc;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            align-items: center;
+        }
+        .montage-main img {
+            width: 380px;
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="sidebar-container"></div>
+    <script>
+        fetch('sidebar.html')
+            .then(res => res.text())
+            .then(html => {
+                const container = document.getElementById('sidebar-container');
+                container.innerHTML = html;
+                container.querySelectorAll('script').forEach(oldScript => {
+                    const newScript = document.createElement('script');
+                    newScript.textContent = oldScript.textContent;
+                    document.body.appendChild(newScript);
+                });
+            });
+    </script>
+
+    <header style="text-align: center;"><b>Illustrated Environment</b></header>
+
+    <div class="montage-container">
+        <div class="montage-main">
+            <img src="media/illustrate.png" alt="Illustrated Environment">
+        </div>
+    </div>
+
+    <header style="text-align: center; margin-top: 10px;"><b>Original Photo</b></header>
+
+    <div class="montage-container">
+        <div class="montage-main">
+            <img src="media/original-pic.png" alt="Original Photo">
+        </div>
+    </div>
+
+</body>
+</html>
