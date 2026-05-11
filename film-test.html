@@ -2505,10 +2505,17 @@ function updateBar() {
 
 function answer(el, qId, result, explanation) {
   const card = document.getElementById(qId);
-  if (card.querySelector('.locked')) return; // already answered
+  if (card.querySelector('.locked')) return;
   const opts = card.querySelectorAll('.option');
   opts.forEach(o => { o.classList.add('locked'); });
   el.classList.add(result);
+  if (result === 'wrong') {
+    opts.forEach(o => {
+      if (o.getAttribute('onclick') && o.getAttribute('onclick').includes("'correct'")) {
+        o.classList.add('correct');
+      }
+    });
+  }
   const fb = document.getElementById(qId + '-fb');
   fb.textContent = explanation;
   fb.className = 'feedback show ' + result;
