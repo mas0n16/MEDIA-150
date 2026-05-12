@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Internet · MEDP 150 Study Guide</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body data-quiz-topic="internet">
+
+<header class="site-header">
+  <div class="wrap">
+    <a href="index.html" class="brand">MEDP 150 <em>· Exam 02</em></a>
+    <nav>
+      <a href="index.html">Index</a>
+      <a href="gaming.html">Gaming</a>
+      <a href="animation.html">Animation</a>
+      <a href="uxui.html">UX/UI</a>
+      <a href="affordances.html">Affordances</a>
+      <a href="internet.html" class="active">Internet</a>
+    </nav>
+  </div>
+</header>
+
+<main class="study-page">
+
+  <aside class="toc">
+    <a href="index.html" class="toc-back">← All topics</a>
+    <div class="toc-label">On this page</div>
+    <ul>
+      <li><a href="#terms">Key Terms</a></li>
+      <li><a href="#licklider">Licklider</a></li>
+      <li><a href="#ritchie">Dennis Ritchie</a></li>
+      <li><a href="#networks">Network Architectures</a></li>
+      <li><a href="#berners-lee">Tim Berners-Lee</a></li>
+      <li><a href="#web">Web 1.0 vs. 2.0</a></li>
+      <li><a href="#google">Google Business Model</a></li>
+      <li><a href="#cheatsheet">Cheat Sheet</a></li>
+    </ul>
+  </aside>
+
+  <article class="study-content">
+
+    <header class="study-header">
+      <div class="eyebrow">Topic 05 / 05</div>
+      <h1>The <em>Internet</em></h1>
+      <p class="deck-info">Playground, factory &amp; surveillance</p>
+    </header>
+
+    <div class="qa-block">
+      <span class="q-label">Study guide questions</span>
+      <p class="question">Describe HTTP, CSS, JavaScript, URL, and ARPANET. Describe Joseph Licklider's and Dennis Ritchie's contributions to the history of the Internet. Explain the differences between centralized, decentralized, and distributed networks. Explain Tim Berners-Lee's contributions. What are the differences between Web 1.0 and Web 2.0? What is the Google business model?</p>
+    </div>
+    <div class="quiz-launch-bar">
+      <div class="quiz-launch-info">
+        <span class="quiz-launch-label">Practice Test</span>
+        <span class="quiz-launch-title">Test yourself on Internet</span>
+      </div>
+      <button class="quiz-launch-btn" id="quiz-launch">
+        Start Test <span class="arrow">→</span>
+      </button>
+    </div>
+
+
+    <h2 id="terms">Key <em>Terms</em></h2>
+
+    <h3>HTTP — HyperText Transfer Protocol</h3>
+
+    <ul>
+      <li>The <strong>open protocol</strong> for serving web pages — the way computers agree to communicate to deliver websites.</li>
+      <li><strong>Created by Tim Berners-Lee</strong> at CERN.</li>
+      <li>Anyone can use it free of charge — you don't need to pay a licensing fee to put up a web page.</li>
+    </ul>
+
+    <h3>CSS — Cascading Style Sheets</h3>
+
+    <ul>
+      <li><strong>Controls the visual style of a website</strong> — colors, fonts, layout, spacing.</li>
+      <li>Demonstrated by <em>CSS Zen Garden</em>, which shows the same text styled in many different ways with CSS.</li>
+    </ul>
+
+    <h3>JavaScript</h3>
+
+    <ul>
+      <li>A prominent <strong>coding language for the web</strong> that has many <strong>libraries</strong> to enhance and extend programming possibilities.</li>
+      <li>A <span class="def">library</span> is a "JavaScript file that you include in your page, which then lets you use the functions, objects, methods, and properties it contains" (Jon Duckett).</li>
+      <li>Examples: Three.js (3D and WebGL), A-Frame (VR), Juxtapose, Filter.js.</li>
+    </ul>
+
+    <h3>URL — Uniform Resource Locator</h3>
+
+    <ul>
+      <li>The <strong>address of a web page</strong> — how you specify the location of a resource on the internet.</li>
+      <li><strong>Created by Tim Berners-Lee</strong> at CERN.</li>
+    </ul>
+
+    <h3>ARPANET — Advanced Research Projects Agency Network</h3>
+
+    <ul>
+      <li>Project started in <strong>1968</strong> — the <strong>first nationwide interconnected computer network</strong>.</li>
+      <li>Developed because researchers at various universities and labs working on DARPA projects needed to share their work.</li>
+      <li><strong>Fall 1969:</strong> Stanford and UCLA had networked computers.</li>
+      <li><strong>By 1970:</strong> UCSB, University of Utah, MIT, Harvard, Carnegie Mellon.</li>
+      <li><strong>By 1981:</strong> grew to 200 connections.</li>
+      <li><strong>First word ever sent over ARPANET:</strong> "lo" — the system crashed while trying to type "login."</li>
+      <li>Roots: President <strong>Eisenhower formed DARPA on Jan. 7, 1958</strong> in response to <strong>Sputnik (Oct. 4, 1957)</strong>.</li>
+    </ul>
+
+    <h4>Bonus terms</h4>
+
+    <ul>
+      <li><strong>TCP/IP</strong> — Transmission Control Protocol / Internet Protocol. The open protocols that govern the flow of the internet's raw data.</li>
+      <li><strong>Protocol</strong> — "a way that multiple computers agree to communicate with one another" (Steven Johnson).</li>
+      <li><strong>HTML</strong> — Hypertext Markup Language. The standard for marking up web content (HTML5 was published October 28, 2014, adding <code>&lt;video&gt;</code>, <code>&lt;audio&gt;</code>, and <code>&lt;canvas&gt;</code> tags). The <strong>W3C (World Wide Web Consortium)</strong> sets web standards.</li>
+    </ul>
+
+    <h2 id="licklider">Joseph C.R. <em>Licklider</em></h2>
+
+    <ul>
+      <li>Wrote <strong>"Man-Computer Symbiosis"</strong> (1960).</li>
+      <li><strong>Director of DARPA's behavioral science office.</strong></li>
+      <li><strong>Conceived of interconnected computers</strong> — he saw the importance of a <strong>standardized connection</strong> for computers.</li>
+      <li>Searched for top talent to work on what he called an <span class="def">"Intergalactic Computer Network"</span> — a network that would allow access to data from anywhere in the world via connected machines, providing efficient shared access to expensive computers.</li>
+      <li>His vision directly inspired the team that built ARPANET.</li>
+      <li>Bob Taylor (one of the programmers Licklider attracted) was famously frustrated by having to switch between three computers in three locations that couldn't talk to each other — this inefficiency motivated the networking effort.</li>
+    </ul>
+
+    <div class="callout">
+      <span class="callout-label">In short</span>
+      <p>Licklider is the <strong>visionary</strong> who imagined the internet before it existed — articulating both the concept of a global computer network and the necessity of standardized communication between machines.</p>
+    </div>
+
+    <h2 id="ritchie">Dennis <em>Ritchie</em></h2>
+
+    <ul>
+      <li><strong>Co-creator of Unix</strong> (along with Ken Thompson) at <strong>Bell Labs</strong>, 1969–71.</li>
+      <li><strong>Created the C programming language.</strong></li>
+    </ul>
+
+    <h3>Why this matters for the Internet</h3>
+
+    <ol>
+      <li><strong>Unix was rewritten in C in 1972</strong>, which made it <strong>easier to code than assembly language</strong> and — crucially — <strong>hardware independent</strong>. You didn't need to rewrite the OS for every new type of computer.</li>
+      <li>Because of an <strong>antitrust case against AT&amp;T</strong>, Bell Labs <strong>couldn't enter the computer business</strong>, so they <strong>gave Unix away for free</strong> to anyone who requested it.</li>
+      <li>As a result, <strong>universities, government agencies, and companies</strong> got free OS software for their mainframes throughout the late 1970s — exactly when programming was taking off at universities, <em>before</em> the PC era. A whole generation of programmers learned on Unix systems.</li>
+      <li><strong>All Apple computers, iPhones, iPads, and Android OS use a Unix-like system under the hood today.</strong></li>
+    </ol>
+
+    <div class="callout">
+      <span class="callout-label">In short</span>
+      <p>Ritchie built the <strong>technical foundation</strong> that made the internet's software ecosystem possible. Unix + C became the standard environment for networked computing, and most of the servers that run today's internet still run on Unix-like systems (Linux is Unix-like). Without Ritchie's work, the open, hardware-independent, sharable software culture that enabled the internet's growth wouldn't have existed.</p>
+    </div>
+
+    <h2 id="networks">Centralized vs. Decentralized vs. <em>Distributed</em></h2>
+
+    <p>This is essentially the <strong>design question</strong> that the early internet's architects had to answer.</p>
+
+    <h3>The Problem</h3>
+
+    <p><strong>AT&amp;T connected the country with phone lines and switching centers in major cities by 1914.</strong> During the Cold War, the telephone switching centers would be <strong>high-value targets for Soviet missiles</strong> because they were close to major cities — if one was destroyed, the network would fail.</p>
+
+    <h3>The Three Network Types</h3>
+
+    <h4>Centralized Network</h4>
+
+    <ul>
+      <li>A single central hub with all nodes connecting through it.</li>
+      <li><strong>Vulnerability:</strong> if the central hub fails, the entire network collapses.</li>
+    </ul>
+
+    <h4>Decentralized Network</h4>
+
+    <ul>
+      <li>Multiple hubs, each connected to a cluster of nodes (think AT&amp;T's phone system — regional switching centers).</li>
+      <li><strong>Vulnerability:</strong> if a hub fails, that entire region of the network goes down.</li>
+    </ul>
+
+    <h4>Distributed Network</h4>
+
+    <ul>
+      <li>Every node is connected to multiple other nodes — no single hub.</li>
+      <li><strong>Benefit:</strong> provides <span class="def">redundancy for information delivery in case one node goes down</span> — information can route around damage.</li>
+      <li>Proposed by <strong>Paul Baran</strong> at the <strong>Rand Company</strong> (hired by the Air Force). It took Baran <strong>5 years to convince his peers</strong> this was the right approach.</li>
+      <li><strong>Donald Davies</strong>, a British physicist working independently, also concluded the distributed network was correct. Davies also came up with <strong>packet switching</strong> — <strong>breaking data up into smaller "electronic packets"</strong> that could be dispersed across the network.</li>
+    </ul>
+
+    <div class="callout">
+      <span class="callout-label">In short</span>
+      <p>The distributed model won because it was the only architecture that could survive partial destruction (originally a Cold War concern) and because packet switching made it efficient. <strong>This is the architecture the internet is built on.</strong></p>
+    </div>
+
+    <h2 id="berners-lee">Tim <em>Berners-Lee</em></h2>
+
+    <p>Working at <strong>CERN</strong>, Berners-Lee created the foundation of the <strong>World Wide Web</strong> (which sits on top of the internet — different things). His key contributions:</p>
+
+    <ul>
+      <li><strong>Created HTML</strong> (HyperText Markup Language) so different types of computers and operating systems (DOS, UNIX, Apple) could all access the same information on the Internet.</li>
+      <li><strong>Created HTTP</strong> (HyperText Transfer Protocol) — the protocol for transferring web pages.</li>
+      <li><strong>Created the URL</strong> (Uniform Resource Locator) — the system for addressing web pages.</li>
+      <li><strong>CERN distributed the WWW software for free over the Internet</strong> — a foundational act for the open web.</li>
+    </ul>
+
+    <h3>His motivation</h3>
+
+    <blockquote>
+      Information is constantly being lost. The solution was <strong>hypertext</strong> — "human-readable information linked together in an unconstrained way."
+      <cite>Tim Berners-Lee</cite>
+    </blockquote>
+
+    <p>For Berners-Lee, hypertext was proposed as a solution to <strong>improve the computer's ability to support human memory</strong>.</p>
+
+    <p>The hypertext concept built on <strong>Vannevar Bush's</strong> earlier idea (1940s): rather than organizing knowledge in rigid hierarchies, researchers should create <strong>subjective, associative trails across documents</strong> — "the process of tying two items together is the important thing."</p>
+
+    <h2 id="web">Web 1.0 vs. <em>Web 2.0</em></h2>
+
+    <h3>Web 1.0</h3>
+
+    <ul>
+      <li>Built on <span class="def">"open protocols"</span> — ways of exchanging information that anyone can use, <strong>owned by no one</strong>.</li>
+      <li>Protocols <strong>defined and maintained by academic researchers and international standards bodies</strong>.</li>
+      <li>Examples of Web 1.0 open protocols still in use today:
+        <ul>
+          <li><strong>Email</strong> → POP, SMTP, IMAP</li>
+          <li><strong>Websites</strong> → HTTP</li>
+          <li><strong>Internet itself</strong> → TCP/IP</li>
+        </ul>
+      </li>
+      <li><strong>Key characteristic:</strong> anyone can use these protocols <strong>free of charge</strong>. You don't pay a licensing fee to use HTTP for a webpage; you don't sell part of your identity to send an SMTP email.</li>
+      <li><strong>Mostly read-only</strong> — users consumed content created by site owners.</li>
+    </ul>
+
+    <h3>Web 2.0</h3>
+
+    <blockquote>
+      <strong>"Sites that leverage user-generated content to create a platform for communication and sharing media"</strong> — like Facebook, TikTok, Instagram, and YouTube.
+    </blockquote>
+
+    <h4>Key characteristics</h4>
+
+    <ul>
+      <li><strong>User-generated content</strong> drives the platforms.</li>
+      <li><strong>Centralized platforms</strong> facilitate and regulate interactions between users.</li>
+      <li><strong>Read/write</strong> — users both consume and create.</li>
+    </ul>
+
+    <div class="callout">
+      <span class="callout-label">The shift</span>
+      <p>From open protocols owned by no one → centralized platforms owned by corporations.</p>
+    </div>
+
+    <blockquote>
+      No private company owned the protocols that defined email or GPS or the open web. But one single corporation owns the data that define social identity for two billion people today — and one single person, Mark Zuckerberg, holds the majority of the voting power in that corporation.
+      <cite>Steven Johnson, <em>Beyond the Bitcoin Bubble</em>, NYT</cite>
+    </blockquote>
+
+    <h4>Challenges of Web 2.0</h4>
+
+    <ul>
+      <li>Service providers may be unable to <strong>move data to other platforms</strong> without losing reputation and customer base.</li>
+      <li>Service users have <strong>limited control over how their data is used</strong>.</li>
+      <li>Centralized platforms can <strong>filter user content, limit access,</strong> or otherwise make decisions that significantly impact users.</li>
+    </ul>
+
+    <h2 id="google">The <em>Google</em> Business Model</h2>
+
+    <p>The lecture frames this <strong>critically</strong> — through the lens of <strong>surveillance capitalism</strong>.</p>
+
+    <h3>The Direct Definition</h3>
+
+    <blockquote>
+      To extract as much personal data from as many people in the world at the lowest possible price and to resell that data to as many companies as possible at the highest possible price.
+      <cite>Jonathan Taplin, <em>Move Fast and Break Things</em></cite>
+    </blockquote>
+
+    <h3>How it works</h3>
+
+    <blockquote>
+      Google itself doesn't pirate music; it doesn't have to. <strong>It's selling the traffic — and, just as significant, the data about the traffic.</strong>
+      <cite>Elizabeth Kolbert, <em>The New Yorker</em></cite>
+    </blockquote>
+
+    <h3>Surveillance Capitalism (Shoshana Zuboff)</h3>
+
+    <ul>
+      <li>Google created the <strong>first insanely lucrative markets to trade in human futures</strong> — what we now call <strong>online targeted advertising</strong> — based on <strong>predictions of which ads users would click</strong>.</li>
+      <li><strong>Between 2000 (when this logic emerged) and 2004 (Google's IPO), revenues increased by 3,590%</strong> — Zuboff calls this the <span class="def">"surveillance dividend."</span></li>
+      <li>This <strong>reset the bar for investors</strong>, driving startups, app developers, and established companies to <strong>shift their business models toward surveillance capitalism</strong>.</li>
+      <li>It spread first to Facebook, then through the tech sector, then <strong>throughout the rest of the economy</strong> — insurance, retail, finance, education, healthcare, real estate, entertainment, and <strong>every product called "smart" or "personalized."</strong></li>
+    </ul>
+
+    <blockquote>
+      Surveillance capitalism is "a new economic order that claims human experience as a free source of raw material." We are the resource to be mined.
+      <cite>Jacob Silverman (NYT), on Zuboff</cite>
+    </blockquote>
+
+    <h3>Why doesn't the government stop it?</h3>
+
+    <p>The government has built a surveillance apparatus by <strong>purchasing commercially available data</strong> rather than conducting traditional surveillance — <strong>neatly sidestepping warrant requirements</strong>. As one government consultant put it: <em>"the largest information-gathering enterprise ever conceived by man. And it wasn't built by the government."</em></p>
+
+    <h2 id="cheatsheet">Quick-Recall <em>Cheat Sheet</em></h2>
+
+    <table>
+      <thead>
+        <tr><th>Term / Person</th><th>One-line answer</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>HTTP</strong></td><td>HyperText Transfer Protocol — open protocol for delivering web pages (Berners-Lee)</td></tr>
+        <tr><td><strong>CSS</strong></td><td>Cascading Style Sheets — controls visual style of websites</td></tr>
+        <tr><td><strong>JavaScript</strong></td><td>Web coding language with libraries that extend functionality</td></tr>
+        <tr><td><strong>URL</strong></td><td>Uniform Resource Locator — web page address (Berners-Lee)</td></tr>
+        <tr><td><strong>ARPANET</strong></td><td>First nationwide interconnected computer network (1968); precursor to internet</td></tr>
+        <tr><td><strong>TCP/IP</strong></td><td>Transmission Control Protocol / Internet Protocol — open protocols governing raw data flow</td></tr>
+        <tr><td><strong>Joseph Licklider</strong></td><td>Visionary; "Man-Computer Symbiosis" (1960); imagined "Intergalactic Computer Network"; DARPA</td></tr>
+        <tr><td><strong>Dennis Ritchie</strong></td><td>Co-created <strong>Unix</strong> + created <strong>C language</strong> at Bell Labs; gave free OS to universities (AT&amp;T antitrust); built technical foundation for networked computing</td></tr>
+        <tr><td><strong>Paul Baran</strong></td><td>Proposed distributed network at Rand for the Air Force</td></tr>
+        <tr><td><strong>Donald Davies</strong></td><td>Independently confirmed distributed network; invented <strong>packet switching</strong></td></tr>
+        <tr><td><strong>Tim Berners-Lee</strong></td><td>Created HTML, HTTP, URL at CERN; distributed WWW software free</td></tr>
+        <tr><td><strong>Vannevar Bush</strong></td><td>Early hypertext theorist; associative trails over rigid hierarchies</td></tr>
+        <tr><td><strong>Web 1.0</strong></td><td>Read-only; open protocols (POP, SMTP, IMAP, HTTP, TCP/IP) owned by no one</td></tr>
+        <tr><td><strong>Web 2.0</strong></td><td>User-generated content platforms (Facebook, TikTok, Instagram, YouTube)</td></tr>
+        <tr><td><strong>Google business model</strong></td><td>Extract data cheaply, resell to companies expensively; surveillance capitalism; trading in "human futures"</td></tr>
+        <tr><td><strong>Shoshana Zuboff</strong></td><td>Coined "surveillance capitalism"; "surveillance dividend"</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Network Architectures at a Glance</h3>
+
+    <ul>
+      <li><strong>Centralized:</strong> one hub → fragile</li>
+      <li><strong>Decentralized:</strong> multiple hubs (AT&amp;T model) → still fragile per region</li>
+      <li><strong>Distributed:</strong> every node interconnected → redundant, survives node failures → <strong>what the internet is built on</strong></li>
+    </ul>
+
+    <footer class="study-footer">
+      <a href="affordances.html">← Previous: Affordances</a>
+      <a href="index.html">All topics →</a>
+    </footer>
+
+  </article>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <span>MEDP 150 · Exam 02 · Spring 2026</span>
+    <span>Topic 05 of 05</span>
+  </div>
+</footer>
+
+
+<div class="quiz-overlay" id="quiz-overlay"></div>
+
+<script src="quiz-data.js"></script>
+<script src="quiz.js"></script>
+
+</body>
+</html>

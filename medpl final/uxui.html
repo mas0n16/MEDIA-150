@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UX / UI · MEDP 150 Study Guide</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body data-quiz-topic="uxui">
+
+<header class="site-header">
+  <div class="wrap">
+    <a href="index.html" class="brand">MEDP 150 <em>· Exam 02</em></a>
+    <nav>
+      <a href="index.html">Index</a>
+      <a href="gaming.html">Gaming</a>
+      <a href="animation.html">Animation</a>
+      <a href="uxui.html" class="active">UX/UI</a>
+      <a href="affordances.html">Affordances</a>
+      <a href="internet.html">Internet</a>
+    </nav>
+  </div>
+</header>
+
+<main class="study-page">
+
+  <aside class="toc">
+    <a href="index.html" class="toc-back">← All topics</a>
+    <div class="toc-label">On this page</div>
+    <ul>
+      <li><a href="#defining-ux">Defining UX</a></li>
+      <li><a href="#scanning">How We Scan Sites</a></li>
+      <li><a href="#jakob">Jakob's Law</a></li>
+      <li><a href="#hick">Hick's Law</a></li>
+      <li><a href="#aesthetic">Aesthetic Usability Effect</a></li>
+      <li><a href="#status">Visibility of System Status</a></li>
+      <li><a href="#styles">Design Style Terminology</a></li>
+      <li><a href="#cheatsheet">Cheat Sheet</a></li>
+    </ul>
+  </aside>
+
+  <article class="study-content">
+
+    <header class="study-header">
+      <div class="eyebrow">Topic 03 / 05</div>
+      <h1><em>User Experience</em> &amp;<br>Interaction Design</h1>
+      <p class="deck-info">Heuristics, laws, and design styles</p>
+    </header>
+
+    <div class="qa-block">
+      <span class="q-label">Study guide questions</span>
+      <p class="question">Define 'user experience.' Based on how people read/scan websites, what guidelines should designers follow? What is Jakob's Law and how should websites respond, how can designers lower cognitive load? What is Hick's Law and what methods support visual hierarchies? Describe 'Aesthetic Usability Effect' and 'Visibility of System Status.' Explain flat design, minimalist web design, realism, and skeuomorphic design.</p>
+    </div>
+    <div class="quiz-launch-bar">
+      <div class="quiz-launch-info">
+        <span class="quiz-launch-label">Practice Test</span>
+        <span class="quiz-launch-title">Test yourself on UX / UI</span>
+      </div>
+      <button class="quiz-launch-btn" id="quiz-launch">
+        Start Test <span class="arrow">→</span>
+      </button>
+    </div>
+
+
+    <h2 id="defining-ux">Defining <em>User Experience</em></h2>
+
+    <p><strong>Jakob Nielsen and Don Norman (2014):</strong> UX encompasses <span class="def">"all aspects of the end-user's interaction with the company, its services, and its products."</span></p>
+
+    <blockquote>
+      It is about how people <strong>feel</strong> about a product and their pleasure and satisfaction when using it, looking at it, holding it, and opening or closing it. It includes their overall impression of how good it is to use, right down to the <strong>sensual effect small details</strong> have on them, such as how smoothly a switch rotates or the sound of a click and the touch of a button when pressing it.
+      <cite>Sharp, Rogers &amp; Preece, <em>Interaction Design: Beyond Human-Computer Interaction</em></cite>
+    </blockquote>
+
+    <h3>Marc Hassenzahl's Model (2010)</h3>
+
+    <p>The most well-known UX framework. UX has two dimensions:</p>
+
+    <ul>
+      <li><strong>Pragmatic:</strong> how simple, practical, and obvious it is for the user to achieve their goals.</li>
+      <li><strong>Hedonic:</strong> how evocative and stimulating the interaction is.</li>
+    </ul>
+
+    <h2 id="scanning">How People <em>Scan</em> Websites</h2>
+
+    <div class="callout">
+      <span class="callout-label">Key fact</span>
+      <p>From Steve Krug, <em>Don't Make Me Think Revisited</em>: <strong>People scan websites — they don't read them.</strong> Designers must format around this reality.</p>
+    </div>
+
+    <h3>Six Guidelines for Designers</h3>
+
+    <ol>
+      <li><strong>Format content to support scanning</strong>
+        <ul>
+          <li>Use <strong>frequent and meaningful headings</strong></li>
+          <li><strong>Keep paragraphs short</strong></li>
+          <li><strong>Use lists</strong></li>
+          <li><strong>Highlight key terms</strong></li>
+        </ul>
+      </li>
+      <li><strong>Take advantage of conventions</strong></li>
+      <li><strong>Create effective visual hierarchies</strong></li>
+      <li><strong>Break pages up into clearly defined areas</strong></li>
+      <li><strong>Make it obvious what's clickable</strong></li>
+      <li><strong>Eliminate distractions</strong></li>
+    </ol>
+
+    <p><strong>Cumulative effect of all six</strong> → minimal design.</p>
+
+    <h3>Three Types of Conventions to Leverage</h3>
+
+    <ul>
+      <li><strong>Location</strong> — where things go on the page:
+        <ul>
+          <li>Logo: <strong>top-left</strong></li>
+          <li>Primary navigation: <strong>across the top or down the left side</strong></li>
+          <li>Search: <strong>upper right</strong></li>
+        </ul>
+      </li>
+      <li><strong>How things work</strong> — e.g., shopping cart metaphor, standardized checkout forms.</li>
+      <li><strong>How things look</strong> — e.g., magnifying glass = search, play button = video, share icons for social media.</li>
+    </ul>
+
+    <p>Conventions have also evolved by site category (commerce, colleges, blogs, restaurants, movies) since each category solves a shared set of problems.</p>
+
+    <h2 id="jakob"><em>Jakob's</em> Law</h2>
+
+    <blockquote>
+      Users spend most of their time on other sites, and they prefer your site to work the same way as all the other sites they already know.
+      <cite>Jakob Nielsen</cite>
+    </blockquote>
+
+    <h3>How designers should respond</h3>
+
+    <ul>
+      <li><strong>Leverage common design patterns and conventions</strong> in strategic areas: page structure, workflows, navigation, placement of expected elements like search.</li>
+      <li><strong>Lower cognitive load</strong> by reducing mental effort spent learning the interface — that energy can go toward the user's actual goals.</li>
+      <li><strong>Follow platform and industry conventions</strong> for consistency and standards. Users shouldn't have to wonder if different words/actions mean the same thing.</li>
+      <li><strong>Uncommon conventions</strong> lead to frustration, confusion, and task abandonment.</li>
+    </ul>
+
+    <h3>Lowering Cognitive Load — Methods</h3>
+
+    <ul>
+      <li>Match the user's <strong>mental model</strong> (what users think they know about how a system works, based on past experience).</li>
+      <li>Bridge the gap between the designer's mental model and the user's via: <strong>user interviews, personas, journey maps, empathy maps</strong>.</li>
+      <li>Use consistent language (avoid quirky terms like "Yardbird" instead of standard ones).</li>
+    </ul>
+
+    <div class="callout note">
+      <span class="callout-label">Case study — Snapchat redesign fail</span>
+      <p>Snapchat's redesign combined watching Stories and communicating with friends into one place. It violated users' mental models → ad views and revenue cratered, user count shrank in March. CEO Evan Spiegel reversed the worst parts: separating friends from creators, sorting by recency, moving Stories to the right side.</p>
+    </div>
+
+    <h2 id="hick"><em>Hick's</em> Law</h2>
+
+    <blockquote>
+      The time it takes to make a decision increases with the number and complexity of choices available.
+    </blockquote>
+
+    <h3>How designers should respond</h3>
+
+    <ul>
+      <li><strong>Minimize choices</strong> when response times are critical.</li>
+      <li><strong>Break complex tasks into smaller steps</strong> to decrease mental effort.</li>
+      <li><strong>Highlight recommended options</strong> to avoid overwhelming users.</li>
+      <li><strong>Provide choice at the right time</strong> — don't present all possible choices at once.</li>
+      <li>Use <strong>clear calls to action</strong> and clean information architecture.</li>
+    </ul>
+
+    <h3>Paradox of Choice</h3>
+
+    <p>Popularized by psychologist <strong>Barry Schwartz</strong> (building on <strong>Herbert A. Simon's</strong> 1950s work). More choice → choice overload → not more happiness. Users are paralyzed by too many options.</p>
+
+    <h3>Methods to Support Visual Hierarchies (from Krug)</h3>
+
+    <ul>
+      <li>The <strong>more important</strong> something is, the <strong>more prominent</strong> — larger, bolder, distinctive color, more white space, or nearer the top.</li>
+      <li><strong>Things related logically are related visually:</strong>
+        <ul>
+          <li>Group related items under a heading</li>
+          <li>Display them in the same visual style</li>
+          <li>Put them in a clearly defined area</li>
+        </ul>
+      </li>
+      <li><strong>"Nest" elements visually</strong> to show what's part of what.</li>
+    </ul>
+
+    <h2 id="aesthetic"><em>Aesthetic Usability</em> Effect</h2>
+
+    <blockquote>
+      Users often perceive aesthetically pleasing design as more usable. People are more tolerant of minor usability issues when the design is aesthetically pleasing.
+    </blockquote>
+
+    <h4>Key examples</h4>
+
+    <ul>
+      <li><strong>Braun SK4 by Dieter Rams</strong> — design philosophy of <span class="def">"Less, but better."</span></li>
+      <li><strong>Jonathan Ive</strong> — Apple designer for decades, known for aesthetically pleasing, minimal products.</li>
+    </ul>
+
+    <h2 id="status">Visibility of <em>System Status</em></h2>
+
+    <p>From <strong>Jakob Nielsen's</strong> <em>10 Usability Heuristics for User Interface Design</em>.</p>
+
+    <blockquote>
+      The design should always keep users informed about what is going on, through appropriate feedback within a reasonable amount of time. When users know the current system status, they learn the outcome of their prior interactions and determine next steps. Predictable interactions create trust in the product as well as the brand.
+      <cite>Jakob Nielsen</cite>
+    </blockquote>
+
+    <h4>Examples cited</h4>
+
+    <ul>
+      <li><strong>Determinate vs. indeterminate loading indicators</strong> (the professor said <em>"just focus on the first two for our exam"</em>):
+        <ul>
+          <li><strong>Determinate:</strong> shows specific progress (e.g., a progress bar at 47%).</li>
+          <li><strong>Indeterminate:</strong> shows that <em>something</em> is happening but no specific progress (e.g., a spinning circle).</li>
+        </ul>
+      </li>
+      <li><strong>Color changes or checkmarks on buttons</strong> to confirm a response was registered.</li>
+      <li><strong>Breadcrumbs</strong> showing where you are on a site.</li>
+      <li>Video games (health bars, mini-maps, ammo counts).</li>
+    </ul>
+
+    <h2 id="styles">Design Style <em>Terminology</em></h2>
+
+    <h3>Flat Design</h3>
+
+    <p>A web design movement <strong>against 3D, skeuomorphic, and realistic</strong> design styles.</p>
+
+    <ul>
+      <li>Flat interfaces <strong>don't use highlights, shadows, gradients, or textures</strong> that make UI elements look glossy or three-dimensional.</li>
+      <li>Generally refers to the <strong>textures, icons, or graphics</strong> in an interface.</li>
+      <li><strong>Critique:</strong> if not done well, can create <strong>click uncertainty and decreased user efficiency</strong> (users can't tell what's clickable).</li>
+      <li><strong>Flat 2.0 / semi-flat:</strong> an evolution that <strong>incorporates subtle shadows, highlights, and layers</strong> to create some depth in the UI — keeps the flat look but adds back enough visual cues for clarity.</li>
+    </ul>
+
+    <h3>Minimalist Web Design</h3>
+
+    <blockquote>
+      Translates to <strong>getting the interface out of the way</strong>, in order to allow users to achieve their goals.
+    </blockquote>
+
+    <h4>Characteristics of Minimalist Web Design</h4>
+
+    <ul>
+      <li><strong>Flat design</strong></li>
+      <li><strong>Limited color schemes</strong></li>
+      <li><strong>Few UI elements</strong></li>
+      <li><strong>Use of negative space</strong></li>
+      <li><strong>Dramatic typography</strong></li>
+    </ul>
+
+    <div class="callout">
+      <span class="callout-label">Flat vs. Minimal — important distinction</span>
+      <p><strong>Flat design</strong> refers to textures, icons, graphics in an interface.</p>
+      <p><strong>Minimalist design</strong> applies to the larger content, feature, and layout strategies.</p>
+      <p>A website <strong>can be flat but not minimal</strong>.</p>
+    </div>
+
+    <h4>Minimalism's roots</h4>
+
+    <ul>
+      <li>Connected to <strong>"Less is more"</strong> — Mies van der Rohe (a reaction against ornate 19th-century architecture, ushering in rational/minimalist/functionalist 20th-century design).</li>
+      <li>Apple's homepage progression (2007 → 2012 → 2015) shows the shift toward minimalism.</li>
+    </ul>
+
+    <h4>Critique of minimalism (Robert Venturi: "Less is a bore")</h4>
+
+    <ul>
+      <li>Applied everywhere, not just where cognitive load matters, creates bland, samey "Bauhaus-era UX."</li>
+      <li>Easy to replicate, requires little skill, has no personality. Swap the logo and you can't tell who it is.</li>
+      <li><em>"If a design is difficult to use, it's neither maximalist or minimalist — it's just bad."</em> (Irene Pereyra)</li>
+    </ul>
+
+    <h3>Realism</h3>
+
+    <p>A design style that depicts UI elements as <strong>photorealistic representations of real-world objects</strong> — using detailed textures, lighting, shadows, and materials that closely mimic how things look in physical reality. Goes beyond skeuomorphism by attempting actual visual realism (e.g., a calendar app that looks like a photograph of a leather-bound planner).</p>
+
+    <h3>Skeuomorphic Design</h3>
+
+    <p>A design style in which <strong>digital interface elements imitate their real-world counterparts</strong> — both visually and often in behavior.</p>
+
+    <ul>
+      <li>Classic example: the original iOS Notes app looking like a yellow legal pad; iBooks shelves looking like wooden bookcases; the trash can icon resembling an actual trash can.</li>
+      <li>Uses <strong>3D effects, textures, shadows, and gradients</strong> to make digital objects feel familiar and tangible.</li>
+      <li>Helps users by <strong>leveraging existing mental models</strong> — a button that looks raised invites pressing; a switch that looks like a physical toggle invites flipping.</li>
+      <li>Largely fell out of favor in the 2010s when <strong>flat design</strong> rose in popularity (Apple's iOS 7 redesign in 2013 was the major turning point).</li>
+    </ul>
+
+    <h3>Three-Dimensional Elements (Nielsen Norman Group)</h3>
+
+    <blockquote>
+      Three-dimensional effects give an illusion of depth to an interface, which can help users <strong>interpret visual hierarchy and understand which elements are interactive</strong>.
+    </blockquote>
+
+    <ul>
+      <li><strong>Raised-looking elements</strong> → look pressable → signifier for <strong>buttons</strong>.</li>
+      <li><strong>Sunken/hollow elements</strong> → look fillable → signifier for <strong>input fields/search</strong>.</li>
+    </ul>
+
+    <h2 id="cheatsheet">Quick-Recall <em>Cheat Sheet</em></h2>
+
+    <table>
+      <thead>
+        <tr><th>Concept</th><th>Key person(s)</th><th>One-line takeaway</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>UX definition</strong></td><td>Nielsen &amp; Norman (2014)</td><td>All aspects of end-user's interaction with company, services, products</td></tr>
+        <tr><td><strong>Pragmatic vs. Hedonic</strong></td><td>Marc Hassenzahl (2010)</td><td>Pragmatic = practicality; Hedonic = emotional stimulation</td></tr>
+        <tr><td><strong>Scanning, not reading</strong></td><td>Steve Krug</td><td>Design for scanners, not readers</td></tr>
+        <tr><td><strong>Jakob's Law</strong></td><td>Jakob Nielsen</td><td>Users prefer your site to work like the ones they already know</td></tr>
+        <tr><td><strong>Mental models</strong></td><td>—</td><td>Match user's prior knowledge to lower cognitive load</td></tr>
+        <tr><td><strong>Hick's Law</strong></td><td>William Edmund Hick</td><td>More choices = longer decision time</td></tr>
+        <tr><td><strong>Paradox of Choice</strong></td><td>Barry Schwartz (from Herbert A. Simon)</td><td>More choice ≠ more happiness</td></tr>
+        <tr><td><strong>Visual hierarchy</strong></td><td>Krug</td><td>More important = more prominent; related = visually grouped</td></tr>
+        <tr><td><strong>Aesthetic Usability Effect</strong></td><td>—</td><td>Pretty things feel more usable; users forgive minor flaws</td></tr>
+        <tr><td><strong>Visibility of System Status</strong></td><td>Jakob Nielsen (10 Heuristics)</td><td>Always keep users informed of what's happening</td></tr>
+        <tr><td><strong>Flat design</strong></td><td>—</td><td>Anti-3D, no shadows/gradients/textures</td></tr>
+        <tr><td><strong>Minimalist web design</strong></td><td>—</td><td>Get interface out of the way; flat + limited color + negative space + dramatic typography</td></tr>
+        <tr><td><strong>Skeuomorphic</strong></td><td>—</td><td>Digital imitates real-world objects</td></tr>
+        <tr><td><strong>Realism</strong></td><td>—</td><td>Photorealistic depiction of UI elements</td></tr>
+        <tr><td><strong>"Less is more"</strong></td><td>Mies van der Rohe</td><td>Minimalism's modernist roots</td></tr>
+        <tr><td><strong>"Less is a bore"</strong></td><td>Robert Venturi</td><td>Critique of over-applied minimalism</td></tr>
+      </tbody>
+    </table>
+
+    <footer class="study-footer">
+      <a href="animation.html">← Previous: Animation</a>
+      <a href="affordances.html">Next: Affordances →</a>
+    </footer>
+
+  </article>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <span>MEDP 150 · Exam 02 · Spring 2026</span>
+    <span>Topic 03 of 05</span>
+  </div>
+</footer>
+
+
+<div class="quiz-overlay" id="quiz-overlay"></div>
+
+<script src="quiz-data.js"></script>
+<script src="quiz.js"></script>
+
+</body>
+</html>
