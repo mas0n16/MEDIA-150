@@ -566,6 +566,18 @@ const QUIZ_DATA = {
         q: "Skeuomorphic design helps users by leveraging existing mental models — a button that looks raised invites pressing.",
         answer: true,
         explain: "True. Skeuomorphism uses 3D effects, textures, and shadows to make digital elements feel familiar. The trade-off: it can feel dated, which is why Apple's iOS 7 (2013) shifted toward flat design."
+      },
+      {
+        type: "mc",
+        q: "Realism (as a UI design style) is best described as:",
+        choices: [
+          "A flat, minimal style that avoids all shadows and gradients",
+          "A style that depicts UI elements as photorealistic representations of real-world objects with detailed textures, lighting, and materials",
+          "A code-generated procedural style",
+          "A style that uses dramatic typography and limited color schemes"
+        ],
+        answer: 1,
+        explain: "Realism goes beyond skeuomorphism by attempting actual visual realism — UI elements look like photographs of physical objects (e.g., a calendar app that looks like a photo of a leather-bound planner)."
       }
     ]
   },
@@ -973,6 +985,18 @@ const QUIZ_DATA = {
         q: "Shoshana Zuboff calls Google's revenue growth from 2000 to 2004 — a 3,590% increase — the 'surveillance dividend.'",
         answer: true,
         explain: "True. This rapid growth reset the bar for investors and drove startups, Facebook, and eventually the broader economy toward surveillance capitalism business models."
+      },
+      {
+        type: "mc",
+        q: "A URL (Uniform Resource Locator) is best described as:",
+        choices: [
+          "A protocol for transferring data between servers",
+          "The address of a web page — how you specify the location of a resource on the internet",
+          "A markup language for structuring web content",
+          "A coding language for adding interactivity to websites"
+        ],
+        answer: 1,
+        explain: "The URL is the web page address. Like HTML and HTTP, it was created by Tim Berners-Lee at CERN."
       }
     ]
   }
