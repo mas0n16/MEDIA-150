@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="media/website-icon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Extra Credit: Nancy Baker Cahill</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div id="sidebar-container"></div>
+    <script>
+        fetch('sidebar.html')
+            .then(res => res.text())
+            .then(html => {
+                const container = document.getElementById('sidebar-container');
+                container.innerHTML = html;
+                container.querySelectorAll('script').forEach(oldScript => {
+                    const newScript = document.createElement('script');
+                    newScript.textContent = oldScript.textContent;
+                    document.body.appendChild(newScript);
+                });
+            });
+    </script>
+
+    <div class="page-header">
+        <h1>Extra Credit: Nancy Baker Cahill</h1>
+        <p>Guest Speaker Response</p>
+    </div>
+
+    <div class="text-container">
+        <p>
+            Nancy Baker Cahill was not what I expected from a guest speaker. Most presentations follow a predictable format — here is my work, here is my process, here is what it means. Cahill came in with something closer to a philosophy, and the art was almost secondary to the framework she built around it. By the end I wasn't just thinking about her pieces, I was thinking about consciousness, about what we owe each other, about what technology is actually for. That doesn't happen often.
+        </p>
+        <p>
+            Her medium is augmented reality, but that description undersells it. What she's really doing is insisting on the visibility of the unseen. The 4th Wall platform she founded is free and borderless by design — she made a point of saying that art and its uses cannot be contained, referencing work she's done at the US-Mexico border. AR is the right tool for that mission because it doesn't ask you to go anywhere. It floats in the world you already inhabit and changes what you see there. The Mushroom Cloud piece does exactly that — a catastrophic image that transforms mid-air into something more delicate and regenerative, like cells repairing themselves. Cento at the Whitney took it further, creating a fictional interspecies creature that visitors could collectively evolve through the app. The work only becomes itself through participation. That's not an accident.
+        </p>
+        <p>
+            What fascinated me most was the thinking underneath the visuals. Cahill talked about resonance phenomenon — the idea that brain waves and heartbeats, when people are in proximity and in sync, create a kind of shared consciousness. Collective humming as a literal example of quantum connection. She framed each video as a chapter in a fictional book, which made me think about how she sees her whole body of work as one long argument rather than a collection of separate pieces. The LA fires came up too — she talked about working before, during, and after them, treating fire as essential material, almost like DNA. There was something about the possibility of measuring a planet's changing climate through sound that I haven't stopped thinking about.
+        </p>
+        <p>
+            The line that landed hardest was this: she said she doesn't worry that AI will destroy humanity, but rather the humanity within us. That reframe matters. The threat isn't some external force — it's distraction, inertia, the handful of people who profit from keeping us disengaged. She brought up Marshall McLuhan's hot and cold media in that context, the idea that different media demand different levels of participation from the audience. AR, the way she uses it, is deliberately cold in McLuhan's sense — it requires you to show up, to move, to engage. It resists passive consumption by design.
+        </p>
+        <p>
+            What I kept coming back to is how much her work is about care. Regenerative systems, biomimicry, the idea that we are all we've got — these aren't just aesthetic choices, they're ethical ones. She's building platforms and experiences that assume interdependence as a starting point rather than something to be argued for. Coming from a background in luxury and brand experience, I think about immersion a lot differently than most people in those spaces do. Cahill made me realize that the most powerful immersive experiences aren't the ones that impress you — they're the ones that make you feel like you belong to something larger than yourself. That's a standard worth holding onto.
+        </p>
+    </div>
+
+</body>
+</html>
