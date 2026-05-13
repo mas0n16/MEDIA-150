@@ -86,6 +86,10 @@ body.sidebar-open .menu-toggle span:nth-child(3) {
 }
 
 /* ── Sidebar Nav Links ── */
+.sidebar nav {
+    flex: 1;
+    overflow-y: auto;
+}
 .sidebar nav a {
     display: flex;
     align-items: center;
@@ -141,7 +145,7 @@ body.sidebar-open .overlay {
     color: rgba(255, 255, 255, 0.9) !important;
 }
 .homework-dropdown.open {
-    max-height: 400px;
+    max-height: 1200px;
 }
 
 /* ── Sidebar Subsection Labels ── */
