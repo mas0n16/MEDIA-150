@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>POLSC 120 — Final Exam Study Guide</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap');
+  :root {
+    --ink: #0f0e0b; --paper: #f5f0e8; --accent: #c8392e; --gold: #d4a017;
+    --muted: #7a756a; --ch11: #1a3a5c; --ch12: #2d5a27; --highlight: #ffe066;
+    --warn: #ff6b35; --slide: #e8f0e8; --reading: #eae4f5;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--paper); color: var(--ink); font-family: 'DM Sans', sans-serif; font-weight: 300; line-height: 1.65; }
+  header { background: var(--ink); color: var(--paper); padding: 3rem 2rem 2.5rem; text-align: center; position: relative; overflow: hidden; }
+  header::before { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(-45deg, transparent, transparent 10px, rgba(255,255,255,0.03) 10px, rgba(255,255,255,0.03) 11px); }
+  header .eyebrow { font-family: 'DM Mono', monospace; font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.75rem; position: relative; }
+  header h1 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 900; line-height: 1.1; position: relative; }
+  header .subtitle { margin-top: 1rem; font-size: 0.9rem; color: rgba(245,240,232,0.6); font-family: 'DM Mono', monospace; position: relative; }
+  nav { display: flex; border-bottom: 3px solid var(--ink); background: var(--paper); position: sticky; top: 0; z-index: 100; overflow-x: auto; }
+  nav button { padding: 0.85rem 1.1rem; font-family: 'DM Mono', monospace; font-size: 0.66rem; letter-spacing: 0.07em; text-transform: uppercase; background: none; border: none; cursor: pointer; color: var(--muted); border-bottom: 3px solid transparent; margin-bottom: -3px; white-space: nowrap; transition: all 0.2s; }
+  nav button:hover { color: var(--ink); }
+  nav button.active { color: var(--ink); border-bottom-color: var(--accent); font-weight: 500; }
+  main { max-width: 920px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+  .section { display: none; }
+  .section.active { display: block; animation: fadeIn 0.3s ease; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; } }
+  .chapter-badge { display: inline-block; font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.2rem 0.6rem; border-radius: 2px; margin-bottom: 0.5rem; }
+  .ch11 { background: var(--ch11); color: #fff; }
+  .ch12 { background: var(--ch12); color: #fff; }
+  .ch-slide { background: #4a6741; color: #fff; }
+  .topic-block { margin-bottom: 2.5rem; border-left: 4px solid var(--ink); padding-left: 1.25rem; }
+  .topic-block h2 { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; margin-bottom: 0.4rem; }
+  .prof-note { background: var(--highlight); border: 2px solid var(--ink); padding: 0.9rem 1.1rem; margin: 1rem 0; }
+  .prof-note::before { content: '★ PROFESSOR EMPHASIS'; font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.15em; color: var(--ink); display: block; margin-bottom: 0.4rem; font-weight: 500; }
+  .prof-note p, .prof-note ul { font-size: 0.9rem; }
+  .prof-note ul { padding-left: 1.2rem; }
+  .slide-note { background: var(--slide); border: 2px solid #4a6741; padding: 0.9rem 1.1rem; margin: 1rem 0; }
+  .slide-note::before { content: '📋 FROM CLASS SLIDES'; font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.15em; color: #4a6741; display: block; margin-bottom: 0.4rem; font-weight: 500; }
+  .slide-note p, .slide-note ul, .slide-note li { font-size: 0.88rem; }
+  .slide-note ul { padding-left: 1.2rem; margin-top: 0.3rem; }
+  .quote-box { background: #fff; border-left: 5px solid var(--accent); padding: 1rem 1.2rem; margin: 1rem 0; font-style: italic; font-size: 0.92rem; }
+  .quote-box cite { display: block; margin-top: 0.5rem; font-style: normal; font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--muted); }
+  .terms-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(255px, 1fr)); gap: 1rem; margin-top: 1rem; }
+  .term-card { background: #fff; border: 1.5px solid var(--ink); padding: 0.85rem 1rem; }
+  .term-card strong { font-family: 'DM Mono', monospace; font-size: 0.75rem; display: block; margin-bottom: 0.3rem; color: var(--accent); text-transform: uppercase; letter-spacing: 0.06em; }
+  .term-card p { font-size: 0.83rem; }
+  .timeline { margin: 1.2rem 0; }
+  .timeline-item { display: flex; gap: 1rem; margin-bottom: 1rem; align-items: flex-start; }
+  .timeline-year { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1.05rem; color: var(--ch11); min-width: 70px; padding-top: 0.1rem; }
+  .timeline-text { font-size: 0.88rem; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.84rem; margin-top: 1rem; }
+  th { background: var(--ink); color: var(--paper); font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.6rem 0.8rem; text-align: left; }
+  td { padding: 0.6rem 0.8rem; border-bottom: 1px solid rgba(0,0,0,0.1); vertical-align: top; }
+  tr:nth-child(even) td { background: rgba(0,0,0,0.03); }
+  .study-list { list-style: none; margin: 0.8rem 0; }
+  .study-list li { padding: 0.35rem 0 0.35rem 1.4rem; position: relative; font-size: 0.9rem; border-bottom: 1px dashed rgba(0,0,0,0.1); }
+  .study-list li::before { content: '—'; position: absolute; left: 0; color: var(--muted); }
+  .accordion { margin: 0.75rem 0; }
+  .accordion-trigger { width: 100%; text-align: left; background: #fff; border: 1.5px solid var(--ink); padding: 0.75rem 1rem; cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 0.88rem; font-weight: 500; display: flex; justify-content: space-between; align-items: center; transition: background 0.2s; }
+  .accordion-trigger:hover { background: var(--highlight); }
+  .accordion-trigger::after { content: '+'; font-size: 1.2rem; color: var(--muted); }
+  .accordion-trigger.open::after { content: '−'; }
+  .accordion-content { display: none; background: #fff; border: 1.5px solid var(--ink); border-top: none; padding: 1rem; font-size: 0.87rem; }
+  .accordion-content.open { display: block; }
+  .accordion-content ul { padding-left: 1.2rem; }
+  .accordion-content li { margin-bottom: 0.35rem; }
+  .quiz-card { background: #fff; border: 2px solid var(--ink); padding: 1.25rem 1.25rem 1rem; margin-bottom: 1.2rem; }
+  .quiz-card .q-text { font-weight: 500; margin-bottom: 0.9rem; font-size: 0.92rem; }
+  .quiz-options { display: flex; flex-direction: column; gap: 0.5rem; }
+  .quiz-option { background: var(--paper); border: 1.5px solid rgba(0,0,0,0.2); padding: 0.5rem 0.8rem; cursor: pointer; font-size: 0.85rem; transition: all 0.15s; text-align: left; }
+  .quiz-option:hover { border-color: var(--ink); background: #ede8de; }
+  .quiz-option.correct { background: #d4edda; border-color: #28a745; color: #155724; }
+  .quiz-option.wrong { background: #f8d7da; border-color: #dc3545; color: #721c24; }
+  .quiz-feedback { margin-top: 0.7rem; font-size: 0.8rem; padding: 0.4rem 0.6rem; display: none; }
+  .quiz-feedback.show { display: block; }
+  .quiz-feedback.correct-fb { background: #d4edda; color: #155724; }
+  .quiz-feedback.wrong-fb { background: #f8d7da; color: #721c24; }
+  .divider { border: none; border-top: 2px solid var(--ink); margin: 2.5rem 0; }
+  .warn-box { background: #fff3e0; border-left: 4px solid var(--warn); padding: 0.7rem 1rem; font-size: 0.85rem; margin: 0.75rem 0; }
+  .warn-box strong { color: var(--warn); }
+  .section-header { margin-bottom: 2rem; }
+  .section-header h1 { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 900; }
+  .section-header p { color: var(--muted); margin-top: 0.4rem; font-size: 0.88rem; }
+  .money-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1rem; margin: 1rem 0; }
+  .money-card { background: #fff; border: 2px solid #4a6741; padding: 0.85rem 1rem; }
+  .money-card strong { font-family: 'DM Mono', monospace; font-size: 0.7rem; display: block; margin-bottom: 0.35rem; color: #4a6741; text-transform: uppercase; letter-spacing: 0.07em; }
+  .money-card p { font-size: 0.82rem; }
+  .reading-note { background: var(--reading); border: 2px solid #6b3fa0; padding: 0.9rem 1.1rem; margin: 1rem 0; }
+  .reading-note::before { content: '📖 ASSIGNED READING'; font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.15em; color: #6b3fa0; display: block; margin-bottom: 0.4rem; font-weight: 500; }
+  .reading-note p, .reading-note ul, .reading-note li { font-size: 0.88rem; }
+  .reading-note ul { padding-left: 1.2rem; margin-top: 0.3rem; }
+  .reading-note .cite { font-family: 'DM Mono', monospace; font-size: 0.72rem; font-weight: 500; color: #6b3fa0; display: block; margin-bottom: 0.5rem; }
+</style>
+</head>
+<body>
+<header>
+  <div class="eyebrow">POLSC 120 · American Government · Final Exam Prep</div>
+  <h1>Political Parties, Campaigns,<br>Elections & Voting</h1>
+  <div class="subtitle">Chapters 11 & 12 + All Class Slides — Interactive Study Guide</div>
+</header>
+<nav>
+  <button class="active" onclick="showSection('overview',this)">Overview</button>
+  <button onclick="showSection('ch11-roots',this)">CH11: Party History</button>
+  <button onclick="showSection('ch11-org',this)">CH11: Party Structure</button>
+  <button onclick="showSection('ch11-id',this)">CH11: Party ID</button>
+  <button onclick="showSection('ch12-elections',this)">CH12: Elections</button>
+  <button onclick="showSection('ch12-campaigns',this)">CH12: Campaigns</button>
+  <button onclick="showSection('ch12-finance',this)">CH12: $ & Finance</button>
+  <button onclick="showSection('ch12-voters',this)">CH12: Voters</button>
+  <button onclick="showSection('elites',this)">Elites & Money</button>
+  <button onclick="showSection('quiz',this)">Practice Quiz</button>
+</nav>
+<main>
+
+<!-- OVERVIEW -->
+<div class="section active" id="overview">
+  <div class="section-header"><h1>Big Picture</h1><p>Everything from textbook + class slides, combined.</p></div>
+  <div class="prof-note">
+    <p>Your professor flagged these as highest priority: <strong>candidate-centered politics</strong> (Ch. 11 Modern Era), <strong>winner-take-all vs. proportional representation</strong> (Ch. 11.5), and the <strong>"catatonic electorate" / Shenk/Obama quote</strong>. The broader argument running through class slides is that <strong>American politicians answer to elites</strong> — via money, lobbying, class background, revolving doors, and independent expenditures. The new tab "Elites & Money" covers all of this.</p>
+  </div>
+  <div class="topic-block">
+    <div class="chapter-badge ch11">Chapter 11</div>
+    <h2>Political Parties — Core Ideas</h2>
+    <ul class="study-list">
+      <li><strong>Definition:</strong> organized effort by officeholders, candidates, activists & voters to gain power through elections. Nominating candidates = key distinction from interest groups.</li>
+      <li><strong>3 components:</strong> governmental party (officeholders), organizational party (workers/activists), party in the electorate (voters)</li>
+      <li><strong>Party evolution:</strong> Federalists → Democratic-Republicans → Democrats & Whigs → Democrats & Republicans (1860–present)</li>
+      <li><strong>★ Candidate-centered politics:</strong> post-WWII shift from party loyalty to individual candidates. Caused by single-member districts + winner-take-all. Interest groups fill the void parties left.</li>
+      <li><strong>★ Winner-take-all</strong> = primary structural barrier to third parties (vs. proportional representation elsewhere)</li>
+      <li><strong>Extended party networks:</strong> U.S. party organizations are weak, overlapping coalitions of committees + interest groups ("blobs") + candidate campaigns that compete and collide (Galvin 2016)</li>
+      <li><strong>Partisan polarization; affective polarization; negative partisanship</strong> = key concepts for current era</li>
+    </ul>
+  </div>
+  <div class="topic-block">
+    <div class="chapter-badge ch12">Chapter 12</div>
+    <h2>Campaigns, Elections & Voting — Core Ideas</h2>
+    <ul class="study-list">
+      <li><strong>Primary vs. General:</strong> Primary = select party's candidate; General = fills office. Know this distinction. Sub-types of primaries (delegate allocation mechanics) are less important per prof.</li>
+      <li><strong>Incumbency advantage:</strong> money, name recognition, staff support, constituent service, media access, travel, scare-off effect. Reelection rates 94–97%.</li>
+      <li><strong>Campaign finance:</strong> FECA → BCRA → Citizens United (2010). Courts treat money as free speech. Super PACs = unlimited independent expenditure.</li>
+      <li><strong>Voter turnout:</strong> age is #1 demographic predictor. Interest in politics is #1 individual factor. Voting is "costly" (Holbein & Hillygus) — applies to most voters, not just youth.</li>
+      <li><strong>Party ID = #1 predictor of vote choice.</strong> "Ideology" implies too much coherence — prefer "public opinion" or "political attitudes" (Hoeft). Achen & Bartels challenge retrospective/prospective models.</li>
+      <li><strong>Horse-race coverage</strong> dominates media — not policy substance</li>
+    </ul>
+  </div>
+  <div class="slide-note">
+    <p><strong>The big argument from class slides:</strong> American politicians answer to elites via 5 channels: direct campaign contributions, employers/investors (jobs and investments), lobbying & revolving doors (post-office lucrative jobs), class backgrounds of elected officials (overrepresent high-income occupations), and independent expenditures (Super PACs). These patterns are hardened by SCOTUS decisions. Business interests = 72% of all lobbying spending; labor unions and social service providers = 1% each; zero spent on welfare beneficiaries or incarcerated people (Schlozman). See the "Elites & Money" tab for the full picture.</p>
+    <p style="margin-top:0.6rem"><strong>Assigned readings with full summaries in the guide:</strong></p>
+    <ul>
+      <li><strong>Noel (2014), WaPo "Monkey Cage":</strong> Parties look extreme but are really newly <em>distinct</em> — the party system finally caught up to ideological development driven by activists over decades. Fuse with O'C&S 11.6 for "the great sort." → See Party History tab.</li>
+      <li><strong>Drutman (2016), <em>Chronicle of Higher Ed</em>:</strong> Review of Achen & Bartels' <em>Democracy for Realists</em> — "rationality is a chimera"; voters are uninformed, group-identity driven, and take cues from elites; good-government reform through individual participation is futile. → See Voters tab (full) and Elites & Money tab (summary).</li>
+      <li><strong>Gose, Skocpol & Williamson (2020):</strong> Comparative study of Tea Party and anti-Trump Resistance as grassroots citizen organizing waves — illustrates extended party networks, top-down vs. bottom-up dynamics, and how movements interact with parties without being fully captured by them. → See Elites & Money tab.</li>
+    </ul>
+  </div>
+  <hr class="divider">
+  <div class="topic-block">
+    <h2>Key Terms to Know Cold</h2>
+    <div class="terms-grid">
+      <div class="term-card"><strong>Political Party</strong><p>Organized effort to win elections and influence policy. Key distinction from interest groups: parties nominate candidates.</p></div>
+      <div class="term-card"><strong>Primary Election</strong><p>Candidate selection, usually for a party. Voter picks the party in which to vote. Closed = only registered members; Open = independents/crossover allowed.</p></div>
+      <div class="term-card"><strong>General Election</strong><p>Contest between party nominees to fill elective office.</p></div>
+      <div class="term-card"><strong>★ Candidate-Centered Politics</strong><p>Focus on individual candidates' issues/character rather than party. Result of single-member districts + winner-take-all. Post-WWII phenomenon. ★ Prof emphasis</p></div>
+      <div class="term-card"><strong>Incumbency Advantage</strong><p>Staff support, constituent service, local media access, travel allowances, financial advantages, name recognition, scare-off effect. Reelection rates 94–97%.</p></div>
+      <div class="term-card"><strong>Party Identification</strong><p>Psychological attachment to a party — #1 predictor of vote choice. But 43%+ now identify as Independent.</p></div>
+      <div class="term-card"><strong>Political Socialization</strong><p>How individuals develop party identity. Parents = single greatest influence. Also: social groups, interest groups, media (mediatization).</p></div>
+      <div class="term-card"><strong>Party Realignment</strong><p>Dramatic, durable shift in party coalitions triggered by critical elections: 1800, 1860, 1932, Tea Party/MAGA era.</p></div>
+      <div class="term-card"><strong>Secular Realignment</strong><p>Gradual demographic shift in party coalition — generational replacement, not crisis-driven.</p></div>
+      <div class="term-card"><strong>★ Winner-Take-All</strong><p>Candidate winning even by 1 vote takes everything. Structurally kills third parties. Second place earns nothing. ★ Prof emphasis</p></div>
+      <div class="term-card"><strong>★ Proportional Representation</strong><p>Seats allocated by % of votes — used in most democracies, gives third parties a real chance. U.S. doesn't use this. ★ Prof emphasis</p></div>
+      <div class="term-card"><strong>Partisan Polarization</strong><p>Increasingly divided viewpoints between Dems & Reps. Grown faster in U.S. than other Western democracies over 40 years.</p></div>
+      <div class="term-card"><strong>Affective Polarization</strong><p>Feeling more negatively toward the OPPOSING party than toward your own — emotional hostility, not just policy disagreement.</p></div>
+      <div class="term-card"><strong>Negative Partisanship</strong><p>Party loyalty built more on loathing the other side than positive attachment to your own. Growing trend. (Hoeft slide)</p></div>
+      <div class="term-card"><strong>Super PAC</strong><p>Unlimited independent expenditures; cannot coordinate with campaigns; must disclose donors to FEC. Post-Citizens United. $2.7B spent in 2024.</p></div>
+      <div class="term-card"><strong>Retrospective Judgment</strong><p>Voting based on party in power's PAST performance. Challenged by Achen & Bartels — voters do this irrationally (shark attacks, bad weather).</p></div>
+      <div class="term-card"><strong>Prospective Judgment</strong><p>Voting based on what a candidate PLEDGES to do. Also challenged by Achen & Bartels.</p></div>
+      <div class="term-card"><strong>Veto Players</strong><p>Institutional structures blocking new lawmaking (Tsebelis 2003): 3 branches, 2 legislative chambers, veto, supermajorities, judicial review. BUT wealthy interests can navigate around them (Warren).</p></div>
+      <div class="term-card"><strong>Revolving Door</strong><p>Movement of politicians/staffers between government and lucrative private-sector lobbying jobs. Lobbies lure politicians with post-office opportunities. "Revolving doors can open to penthouses" (Pierson).</p></div>
+      <div class="term-card"><strong>★ Catatonic Electorate</strong><p>Shenk (2022) quoting Obama's description of Illinois state politics: complacent legislators, sovereign lobbyists, disengaged public that can't be appealed to. Connects to Achen & Bartels — applies broadly, not just to youth. ★ Prof emphasis</p></div>
+      <div class="term-card"><strong>Extended Party Networks</strong><p>Political scientists' term for weak, overlapping coalitions of formal party units + interest groups ("blobs") + candidate campaigns. They overlap, compete, and collide. (Galvin 2016)</p></div>
+      <div class="term-card"><strong>Mediatization</strong><p>Transformation of party-to-voter links through media: print → radio → TV → internet. Contributes to negative partisanship; turns conventions into TV shows; produces wedge issues. (Hoeft slide)</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- CH11 ROOTS -->
+<div class="section" id="ch11-roots">
+  <div class="section-header">
+    <div class="chapter-badge ch11">Chapter 11.1 & 11.6</div>
+    <h1>Party History & Polarization</h1>
+    <p>Evolution of parties from 1800 to today, plus polarization causes and consequences.</p>
+  </div>
+  <div class="topic-block">
+    <h2>Party Timeline</h2>
+    <div class="timeline">
+      <div class="timeline-item"><div class="timeline-year">1800–1824</div><div class="timeline-text"><strong>Federalists vs. Democratic-Republicans.</strong> Federalists: strong central govt, mercantile New England. Dem-Reps: free trade, agrarian, pro-France. Jefferson 1800 = first party-nominated president. Monroe era = "Era of Good Feelings" (one party). Nominations informal — local leaders in caucuses.</div></div>
+      <div class="timeline-item"><div class="timeline-year">1824–1860</div><div class="timeline-text"><strong>Jacksonian Democracy.</strong> Property requirements abolished → electorate expands dramatically (300K to 2M+ votes). Democrats form around Jackson; 1832 = first large party convention (Jackson first president nominated this way). Whig Party forms in opposition. Slavery dissolves Whigs; Republican Party forms 1854. Lincoln wins 1860.</div></div>
+      <div class="timeline-item"><div class="timeline-year">1860–1932</div><div class="timeline-text"><strong>Golden Age.</strong> Political machines — jobs, housing, food, entertainment — build intense loyalty. High turnout (75%+). Party and government were "virtually interchangeable" for city dwellers and immigrants. Patronage = the glue.</div></div>
+      <div class="timeline-item"><div class="timeline-year">1900–1930s</div><div class="timeline-text"><strong>Progressive Era reform</strong> strips parties of key functions (running elections, social services). FDR's New Deal makes social services a citizenship right, not party favor. Machine power declines.</div></div>
+      <div class="timeline-item"><div class="timeline-year">Post-WWII</div><div class="timeline-text"><strong>★ Candidate-centered politics emerges.</strong> Weakened parties + single-member districts + winner-take-all → focus shifts to individual candidates' issues and character. Interest groups fill the void. Suburban migration makes party organizing harder.</div></div>
+    </div>
+  </div>
+  <div class="prof-note">
+    <p>The Hoeft party slide makes this explicit: <strong>single-member districts → candidate-centered politics</strong>. Winner-take-all is both the cause of two-party dominance AND the enabler of candidate-centered campaigning, since candidates need to win individually, not represent a party's share of the vote.</p>
+  </div>
+  <div class="topic-block">
+    <h2>Critical Elections & Realignments</h2>
+    <ul class="study-list">
+      <li><strong>1800:</strong> Jefferson's Democratic-Republicans — reaction to Federalist strong centralization</li>
+      <li><strong>1860:</strong> Republicans win with Lincoln — slavery crisis dissolves Whigs</li>
+      <li><strong>1932:</strong> Great Depression → New Deal Democratic coalition (blue-collar workers, unions, White Southerners, poor)</li>
+      <li><strong>Tea Party → MAGA (2009+):</strong> Conservative movement supporting stronger immigration enforcement, opposing government intervention; formed the base for MAGA. Textbook treats this as a 4th major critical election era.</li>
+      <li><strong>Secular realignment:</strong> Nixon's "southern strategy" + Reagan's religious conservative outreach → South becomes solidly Republican by 1980s–90s</li>
+      <li><strong>Post-2024:</strong> women, millennials, college-educated Whites → Democrats; blue-collar, White evangelicals, male Latinos → Republicans. Deep urban/rural geographical sort.</li>
+    </ul>
+  </div>
+  <div class="slide-note">
+    <p><strong>Minnesota Farmer-Labor Party (FLP) 1920s–40s:</strong> the most historically successful U.S. third party — governed Minnesota to the LEFT of Democrats in 1930s–40s. The national Democrats' New Deal eventually subsumed it (Valelly 1989). Case study in both third-party possibility and its limits.</p>
+    <p style="margin-top:0.5rem"><strong>Germany 2021 comparison (Hoeft slide):</strong> Under proportional representation, 6+ parties won seats and had to negotiate coalition government ("Traffic Light," "Jamaica," "Grand Coalition" options). Impossible under U.S. winner-take-all, which structurally produces two parties. The 2000 Florida result (Bush won by 537 votes; Nader took 97,488 Green votes) illustrates the "spoiler effect" of winner-take-all.</p>
+  </div>
+  <div class="topic-block">
+    <h2>Partisan Polarization (11.6)</h2>
+    <div class="accordion">
+      <button class="accordion-trigger" onclick="toggleAcc(this)">Causes of Polarization</button>
+      <div class="accordion-content">
+        <ul>
+          <li>Racial division and demographic realignment of the parties</li>
+          <li>Fragmented media environment — mediatization contributes (Hoeft slide)</li>
+          <li>Geographic sorting: urban = Democrat, rural = Republican ("the great sort" 1940s–1990s; Noel 2014 assigned)</li>
+          <li>Rise of <strong>negative partisanship</strong> — loyalty built on loathing the other party</li>
+          <li>Microtargeting creates stereotypes of opposing partisans</li>
+          <li>In-group/out-group psychology: compromise = betrayal</li>
+          <li>Cultural "wedge issues" (symbolic hot buttons): abortion, same-sex marriage, religious freedom</li>
+          <li>Complex realignment along demographic and issue dimensions over decades</li>
+        </ul>
+      </div>
+    </div>
+    <div class="accordion">
+      <button class="accordion-trigger" onclick="toggleAcc(this)">Consequences of Polarization</button>
+      <div class="accordion-content">
+        <ul>
+          <li>Legislative gridlock — Congress least productive in history</li>
+          <li>Undermines judicial independence; promotes executive power abuse</li>
+          <li>President seen as representing only supporters, not the country</li>
+          <li>Shattering of democratic norms (refusing to concede; Jan. 6)</li>
+          <li>Increased political apathy; lower participation and civic engagement</li>
+          <li>Stress on families, workplaces, schools, neighborhoods, religious organizations</li>
+          <li><em>BUT</em> some scholars see positives: clearer choices for voters, parties more attentive to bases, higher turnout</li>
+        </ul>
+      </div>
+    </div>
+    <div class="accordion">
+      <button class="accordion-trigger" onclick="toggleAcc(this)">Veto Players — How Gridlock Works (Hoeft slide)</button>
+      <div class="accordion-content">
+        <p><strong>Tsebelis (2003):</strong> "veto players" = institutional structures that stop up lawmaking. The U.S. has many: 3 branches, 2 legislative chambers, presidential veto, veto override requirement, supermajorities, judicial review. Near synonyms: veto points, veto gates, veto opportunities.</p>
+        <p style="margin-top:0.5rem"><strong>George Will (conservative, 2010):</strong> "Gridlock is not an American problem, it is an American achievement!" Madison's Framers wanted a safe government, not efficient. They filled it with blocking mechanisms.</p>
+        <p style="margin-top:0.5rem"><strong>★ Elizabeth Warren (complicating claim, 2016):</strong> Big-money players overcome gridlock. Tax carve-outs buried in legal texts; moneyed lobbies win benefits most voters never know about. Gridlock mainly blocks democratic majorities — wealthy interests can navigate around it. This connects the Constitution's design to elite dominance.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-block">
+    <h2>Noel (2014) — "How Ideological Activists Constructed Our Polarized Parties"</h2>
+    <div class="reading-note">
+      <span class="cite">Hans Noel, Washington Post "Monkey Cage," Jan. 15, 2014 — ASSIGNED READING</span>
+      <p><strong>Core argument:</strong> The mental model most people have of "polarization" is wrong. People think parties have moved apart on a fixed liberal-to-conservative dimension. What actually happened is that the <em>party system finally caught up with the development of ideology.</em> That makes it look like we have <em>extreme</em> parties — but what we really have is <em>distinct</em> parties.</p>
+      <ul style="margin-top:0.6rem">
+        <li><strong>The liberal-conservative conflict in its modern form is relatively new.</strong> A hundred years ago, party competition was intense but not over the same issues. Those against teaching evolution in schools were as often for redistributive policies as against them.</li>
+        <li><strong>Strikingly:</strong> Progressive Era progressives — concerned about inequality and government intervention in the market — were <em>generally fairly racist.</em> "Government should help out struggling white workers, but perhaps blacks were destined to be poor and uneducated." Modern liberalism replaced this over the first half of the 20th century.</li>
+        <li><strong>Ideology developed before parties sorted.</strong> Modern liberalism emerged among political intellectuals early 20th century; modern conservatism followed mid-century. But parties are coalitions trying to get elected — they had built constituencies based on idiosyncratic, locally evolved platforms. Southern Democrats were more conservative than most Republicans.</li>
+        <li><strong>Early bipartisanship was not consensus — it was unsorted ideology.</strong> Medicare and Social Security passed with bipartisan coalitions because liberals were in BOTH parties and conservatives were in BOTH parties. The Affordable Care Act passed on party-line votes because by then the parties had sorted ideologically.</li>
+        <li><strong>Ideological activists drove the sorting.</strong> They had to force parties to change — on race, women's rights, defense spending, and so on. Now there are few conservative Democrats and even fewer liberal Republicans. This is Noel's key causal claim: activists pushed parties to align with distinct ideological poles.</li>
+        <li><strong>Is this "polarization"?</strong> Noel prefers "sorting" — the parties have aligned themselves to new poles. It looks like extremism but is really distinctness. The parties are now what their ideologies always implied they should be.</li>
+      </ul>
+      <p style="margin-top:0.6rem"><em>Connect to:</em> O'C&S 11.6 "Causes of Polarization" — Hoeft's slide says to fuse these two sources. Together they explain "the great sort" from the 1940s to 1990s. Noel gives the mechanism (ideological activists inside parties drove ideological alignment over decades); O'C&S gives the contemporary patterns and consequences.</p>
+    </div>
+  </div>
+</div>
+
+<!-- CH11 STRUCTURE -->
+<div class="section" id="ch11-org">
+  <div class="section-header">
+    <div class="chapter-badge ch11">Chapter 11.2 & 11.3</div>
+    <h1>Party Structure & Activities</h1>
+    <p>How parties are organized + what they do, with the "extended party networks" framing from class.</p>
+  </div>
+  <div class="slide-note">
+    <p><strong>Hoeft framing:</strong> U.S. party organizations are <em>weak networks</em> of overlapping, competing, colliding actors — "extended party networks" (Galvin 2016). Formal party units + interest groups that blur in ("blobs" — Schlozman & Rosenfeld) + candidate-driven campaigns. Candidate selection has largely been "bounced to voters" via primaries, which some argue means parties don't fully control their own nominations. Parties cohere mainly on fundraising and voter databases. Democrats post-1960s: "the advocacy party" (Adam Hilton 2021) — interest groups deeply embedded in party structure.</p>
+  </div>
+  <div class="topic-block">
+    <h2>Party Structure — Figure 11.3 (Pyramid)</h2>
+    <table>
+      <tr><th>Level</th><th>Key Elements</th></tr>
+      <tr><td><strong>National</strong></td><td>National chair → National committee (DNC/RNC) → National convention → Congressional campaign committees (DCCC, DSCC, NRCC, NRSC)</td></tr>
+      <tr><td><strong>State</strong></td><td>State central/executive committees, State conventions, Congressional district committees</td></tr>
+      <tr><td><strong>Local</strong></td><td>City/county committees, Precinct & ward committees (fundamental building block — 175,000+ precincts), activists/volunteers, identifiers/voters</td></tr>
+    </table>
+    <div class="warn-box"><strong>Since 1980s:</strong> National parties dominate money and messaging. State/local parties reduced to voter roll clearinghouses and fundraising pass-throughs. If local candidates are only evaluated by R or D, they can't build separate reputations — fate depends entirely on national tides (Hopkins observation). Most obvious with Trump's influence over congressional Republicans in 2024.</div>
+  </div>
+  <div class="topic-block">
+    <h2>National Convention</h2>
+    <ul class="study-list">
+      <li>Every 4 years ("quadrennial"); formally nominates presidential & VP candidates</li>
+      <li>Functions as the <strong>ultimate governing body</strong> for the party — adopts rules and platform</li>
+      <li><em>From Hoeft slide:</em> Modern conventions are <strong>ritualistic TV shows</strong> — candidate usually known before convention. Decisions there don't actually bind politicians to policy resolutions.</li>
+      <li>Seeks "convention bounce" in polls. Research shows voter preferences most volatile around convention time, then harden.</li>
+      <li><strong>Superdelegates:</strong> unpledged delegates; Democrats significantly reduced their power in 2018 after 2016 controversy</li>
+    </ul>
+  </div>
+  <div class="topic-block">
+    <h2>What Parties DO (11.3)</h2>
+    <div class="accordion">
+      <button class="accordion-trigger" onclick="toggleAcc(this)">Run Candidates & Raise Money</button>
+      <div class="accordion-content"><p>Recruit candidates for thousands of open seats annually. <em>From Hoeft slides:</em> Congress members spend <strong>massive</strong> time on fundraising (CBS News 2016 "Congressman Exposes Who Controls DC"). Both parties have developed sophisticated donor networks via mail, phone, email, and digital platforms. Congressional candidates raised over $555M in 6 months of the 2023–24 cycle.</p></div>
+    </div>
+    <div class="accordion">
+      <button class="accordion-trigger" onclick="toggleAcc(this)">Mobilize Voters — GOTV & Microtargeting</button>
+      <div class="accordion-content"><p>Polling, tracking polls, opposition research. <strong>Microtargeting:</strong> using consumer/government data to identify and contact specific voters with tailored messages. <strong>Relational GOTV:</strong> volunteers target friends/family. 77% of Americans disapprove of their data being used for political ads (Pew 2020).</p></div>
+    </div>
+    <div class="accordion">
+      <button class="accordion-trigger" onclick="toggleAcc(this)">Formulate Policy — National Platform</button>
+      <div class="accordion-content"><p>Every 4 years, each party publishes a platform. ~2/3 of winning party's promises are implemented; ~1/2 of losing party's pledges also find their way into policy. 2024 platforms differed sharply on abortion, climate, healthcare, economy, immigration.</p></div>
+    </div>
+    <div class="accordion">
+      <button class="accordion-trigger" onclick="toggleAcc(this)">Organize Government (Congress, Executive, Courts, States)</button>
+      <div class="accordion-content">
+        <ul>
+          <li><strong>Congress:</strong> Parties select leaders, assign committees, enforce discipline via pork-barrel projects and perquisites. Party label = best predictor of congressional vote. "Majorities typically face defections" from members worried about primaries or general elections.</li>
+          <li><strong>Executive:</strong> Presidents are party leaders — appoint party members, rely on party in Congress. Trump 2024: signed numerous Executive Orders bypassing Congressional approval.</li>
+          <li><strong>Federal Courts:</strong> Presidents appoint from their party based on judicial philosophy — attempt to extend ideological influence beyond their term. Creates Senate confirmation conflict.</li>
+          <li><strong>State govt:</strong> Governors often have MORE patronage power than presidents; can help select legislative leaders. State judicial elections vary — Missouri Plan uses nonpartisan nominating commissions in some states.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="accordion">
+      <button class="accordion-trigger" onclick="toggleAcc(this)">Informal Groups — Think Tanks, Interest Groups</button>
+      <div class="accordion-content">
+        <p>Republican-aligned: Heritage Foundation, American Enterprise Institute, Hudson Institute, Cato Institute. Democratic-aligned: Center for American Progress, Center for National Policy, Open Society Foundations.</p>
+        <p style="margin-top:0.5rem">Labor unions, progressive groups, civil rights and women's groups → Democrats. Business groups, Chamber of Commerce, evangelical organizations → Republicans. These interest groups blur into party structure — the line between party and interest group is increasingly blurry ("blobs").</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CH11 PARTY ID -->
+<div class="section" id="ch11-id">
+  <div class="section-header">
+    <div class="chapter-badge ch11">Chapter 11.4 & 11.5</div>
+    <h1>Party Identification & Minor Parties</h1>
+  </div>
+  <div class="topic-block">
+    <h2>What Determines Party ID?</h2>
+    <div class="warn-box"><strong>Trend:</strong> 43%+ of Americans now identify as Independent — the highest ever. Dem and Rep identification each fallen to ~27%.</div>
+    <div class="slide-note"><p><strong>Hoeft on "ideology":</strong> The word implies too much coherence. Political scientists prefer <strong>"public opinion"</strong>; sociologists prefer <strong>"political attitudes"</strong> — both imply looser, less systematic belief systems. This is consistent with Achen & Bartels' critique (see Voters and Elites tabs).</p></div>
+    <div class="accordion">
+      <button class="accordion-trigger" onclick="toggleAcc(this)">Political Socialization</button>
+      <div class="accordion-content"><p>Parents are the single greatest influence. Children adopt perceived parental party affiliation. But adult life changes it: marriage, economic status, charismatic leaders (FDR, Reagan, Obama), major events, hot-button issues. <em>Also from Hoeft slide:</em> voters learn from parties/celebrity politicians they like, social groups they inhabit, and interest groups/advocacy organizations — not only family.</p></div>
+    </div>
+    <div class="accordion">
+      <button class="accordion-trigger" onclick="toggleAcc(this)">Geography — The Urban/Rural Sort (Figure 11.2)</button>
+      <div class="accordion-content"><p>Urban areas → Democrat. Rural/suburban → Republican. A deep <strong>geographical sort</strong> (WashU research: partisan affiliation shaped by proximity to urban areas). Biden won ~90% of urban cores in 2020; Trump won 75–90% of rural areas. 2024 deepened this further — Trump support up 30% in rural communities from prior elections.</p></div>
+    </div>
+    <div class="accordion">
+      <button class="accordion-trigger" onclick="toggleAcc(this)">Gender, Race/Ethnicity, Age</button>
+      <div class="accordion-content">
+        <ul>
+          <li><strong>Gender:</strong> ~54% of women ID as Democrat or lean Dem. Gender gap since 1980 — driven more by Democratic Party's failure to attract men than by Republican failure to attract women. Most remarkable divide: <strong>Black women vs. White men.</strong></li>
+          <li><strong>Race:</strong> Republican base ~85% White. Black voters overwhelmingly Democratic (Harris 85% in 2024, down from Biden's 92%). Latino voters: more split — Hispanic men split 50-49 for Trump in 2024. Asian Americans lean Democratic (~65%) but vary by subgroup (Chinese American → Dem; older Vietnamese American → Rep).</li>
+          <li><strong>Age:</strong> Republicans skew older (37% are 65+). Democrats younger (14% under 30 vs. 6% for Republicans). 2024 youth gender gap: young women +17 for Harris; young men +14 for Trump.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="accordion">
+      <button class="accordion-trigger" onclick="toggleAcc(this)">Income, Education, Religion (Figure 11.10B)</button>
+      <div class="accordion-content">
+        <ul>
+          <li>Higher income → more likely Democrat (but varies by state — in conservative states, rich people are much more Republican)</li>
+          <li>College/post-grad → Democrat; some college or less → Republican (very stark in 2024)</li>
+          <li>Jewish & Black Protestants → Democrat. White Evangelicals, Latter-day-Saints → Republican. Religiously unaffiliated → Democrat by 20+ point margin.</li>
+          <li>82% of evangelicals voted Trump in 2024; 78% of Jewish voters chose Harris (only ~2% of electorate)</li>
+        </ul>
+      </div>
+    </div>
+    <div class="accordion">
+      <button class="accordion-trigger" onclick="toggleAcc(this)">Mediatization of Party-Voter Links (Hoeft slide)</button>
+      <div class="accordion-content">
+        <p>Print → radio → TV → internet transformed how parties reach voters. <strong>Mediatization:</strong> media increasingly mediates party-to-voter communication. This contributes to negative partisanship (media rewards outrage, conflict). Turns party conventions into TV shows. Creates symbolic "hot button" wedge issues (abortion, immigration, same-sex marriage). Makes party assemblies into scripted performances.</p>
+        <p style="margin-top:0.5rem"><strong>"The great sort" (1940s–1990s):</strong> fuse O'C&S 11.6 "Causes of Polarization" with <strong>Noel (2014)</strong> — ideological activists inside the parties drove them apart over decades, producing clearer sorting of voters by party. See the Party History tab or Elites & Money tab for the full Noel reading summary. Key claim: the parties look "extreme" but are really just newly <em>distinct</em> — they finally caught up to ideological development that had been happening among intellectuals and activists for decades.</p>
+      </div>
+    </div>
+  </div>
+  <div class="topic-block">
+    <h2>Minor Parties (11.5)</h2>
+    <div class="prof-note"><p>★ The structural insight: <strong>winner-take-all vs. proportional representation.</strong> Second place earns nothing. The 2000 Florida result (Bush won by 537 votes; Nader took 97,488 Green votes) is a concrete illustration of the spoiler effect. Germany 2021 shows what PR enables: 6+ parties, coalition negotiations. The U.S. structurally produces two parties.</p></div>
+    <ul class="study-list">
+      <li><strong>Types:</strong> sectionalism (Dixiecrats 1948), economic protest (Populists 1892), specific issues (Green), ideology (Libertarian), charismatic personality (Bull Moose/TR 1912)</li>
+      <li><strong>Why they fail:</strong> major parties co-opt popular ideas; winner-take-all; Electoral College requires state majorities; no public financing</li>
+      <li><strong>Minnesota FLP exception:</strong> governed Minnesota to the left of Democrats 1930s–40s. New Deal Democrats subsumed it (Valelly 1989) — illustrates both possibility and limits of U.S. third parties</li>
+      <li><strong>RFK Jr. 2024:</strong> ran Independent, pulled from ballot in swing states, endorsed Trump, got HHS nomination</li>
+    </ul>
+  </div>
+</div>
+
+<!-- CH12 ELECTIONS -->
+<div class="section" id="ch12-elections">
+  <div class="section-header">
+    <div class="chapter-badge ch12">Chapter 12.1</div>
+    <h1>Types of Elections & Incumbency</h1>
+  </div>
+  <div class="prof-note"><p>Focus on <strong>primary vs. general election</strong> distinction. Sub-types of primaries (delegate allocation mechanics, winner-take-all vs. proportional within primaries) are less important per professor.</p></div>
+  <div class="topic-block">
+    <h2>Election Types (from class slides, 12.1)</h2>
+    <table>
+      <tr><th>Type</th><th>What It Is</th><th>Notes</th></tr>
+      <tr><td><strong>Primary</strong></td><td>Candidate selection, usually for a party. Voter picks the party in which to vote.</td><td>Closed = registered members only; Open = independents/crossover. Fewer than 1 in 4 Americans vote in primaries — so the most partisan minority selects the general election candidates.</td></tr>
+      <tr><td><strong>Runoff Primary</strong></td><td>When no candidate gets majority in initial primary</td><td>Used in 10 states</td></tr>
+      <tr><td><strong>General Election</strong></td><td>Contest between party nominees for actual office</td><td>Municipal, county, state, national levels</td></tr>
+      <tr><td><strong>Initiative</strong></td><td>Citizens push out to voters — propose legislation via petition</td><td>26 states + DC; critics say elite players dominate despite democratic appearance (Achen & Bartels)</td></tr>
+      <tr><td><strong>Referendum</strong></td><td>Legislature pushes out to voters — OR citizens petition to repeal existing law</td><td>Legislative vs. popular referendum distinction</td></tr>
+      <tr><td><strong>Recall</strong></td><td>Voters remove an incumbent before next election</td><td>19 states; rare historically, growing in use recently</td></tr>
+    </table>
+    <div class="slide-note"><p><strong>Hoeft on public funds:</strong> Public campaign financing is not much — in most of the U.S.! NYC and NY State are outliers with relatively bigger public matching programs. The textbook's discussion of public funds applies mainly to presidential general elections. Most candidates now decline public funds to avoid spending caps.</p></div>
+  </div>
+  <div class="topic-block">
+    <h2>Presidential Elections (12.1)</h2>
+    <ul class="study-list">
+      <li><strong>Electoral College:</strong> 538 total; need 270. Each state gets electors = senators + representatives. DC gets 3. Winner-take-all by state in almost all states.</li>
+      <li>Twelfth Amendment (1804): separate ballots for president and VP — fixed Jefferson/Burr 1800 tie</li>
+      <li>Five popular vote losers who won presidency: 1824, 1876, 1888, 2000, 2016</li>
+      <li><strong>Reapportionment:</strong> House seats reallocated every 10 years after Census → changes Electoral College</li>
+      <li>2024: Trump 312, Harris 226. Trump = first Republican to win popular vote in 20 years.</li>
+    </ul>
+  </div>
+  <div class="topic-block">
+    <h2>The Incumbency Advantage (from class slides + 12.1)</h2>
+    <div class="slide-note"><p><strong>From class slides:</strong> Incumbency advantages = staff support, constituent service, access to local media, generous travel allowances, scare-off effect. Cross-reference with Congress unit (6.3 and Table 6.4).</p></div>
+    <ul class="study-list">
+      <li>2024: 96.6% House members, 88% senators seeking reelection won</li>
+      <li><strong>Financial:</strong> Senate incumbent avg $31M; challenger avg $2.76M in 2024</li>
+      <li><strong>Visibility:</strong> ~25% of district residents have met their rep; ~50% recognize name</li>
+      <li><strong>Scare-off effect:</strong> strong challengers wait until incumbent retires rather than run</li>
+      <li><strong>When incumbents lose:</strong> scandal (sex > corruption; public > private), redistricting putting two incumbents in same district, presidential coattails, mid-term backlash</li>
+      <li><strong>Mid-term pattern:</strong> president's party reliably loses seats — "policy balancing." 6th-year curse: especially heavy losses in 6th year of 8-year presidency</li>
+    </ul>
+  </div>
+</div>
+
+<!-- CH12 CAMPAIGNS -->
+<div class="section" id="ch12-campaigns">
+  <div class="section-header">
+    <div class="chapter-badge ch12">Chapter 12.2</div>
+    <h1>How Campaigns Are Organized</h1>
+  </div>
+  <div class="topic-block">
+    <h2>Campaign Staff Roles</h2>
+    <table>
+      <tr><th>Role</th><th>Function</th></tr>
+      <tr><td><strong>Campaign Manager</strong></td><td>Travels with candidate; all day-to-day decisions; often only full-time employee</td></tr>
+      <tr><td><strong>Finance Chair</strong></td><td>Raises money, records kept, files FEC paperwork</td></tr>
+      <tr><td><strong>Communications Director</strong></td><td>Overall media strategy; supervises media/ad consultants</td></tr>
+      <tr><td><strong>Press Secretary</strong></td><td>Daily journalist interface; delivers bad news; responds to attacks</td></tr>
+      <tr><td><strong>Digital Team</strong></td><td>Online outreach, fundraising, social media, content generation; sometimes spreads misinformation</td></tr>
+      <tr><td><strong>Campaign Consultants</strong></td><td>Private-sector specialists: pollsters, media, fundraising, opposition research — grew exponentially since 1930s</td></tr>
+      <tr><td><strong>Volunteers / Voter Canvass</strong></td><td>Door-to-door, phone banking, GOTV efforts — "lifeblood" of every campaign</td></tr>
+    </table>
+  </div>
+  <div class="topic-block">
+    <h2>Conventions & Debates</h2>
+    <div class="slide-note"><p><strong>Hoeft on conventions:</strong> Formally nominate candidates; seek to energize party faithful ("convention bounce"). But: ritualistic, essentially TV shows. Decisions don't actually bind politicians to policy resolutions. Voter preferences most volatile around convention time and harden after.</p></div>
+    <ul class="study-list">
+      <li>Presidential debates began 1960 (Kennedy-Nixon) — radio listeners said Nixon won; TV viewers said Kennedy won</li>
+      <li>Debates have limited effect on vote choice (most viewers already decided) but do inform and can polarize</li>
+      <li>Biden's 2024 debate performance was a rare case where debate impact was decisive — led to his withdrawal</li>
+    </ul>
+  </div>
+  <div class="topic-block">
+    <h2>Media & Advertising</h2>
+    <div class="slide-note"><p><strong>Hoeft on media:</strong> Media "sells eyeballs on contents not helpful for democracy." Coverage = dramas (personal, petty, gossipy), <strong>horse-race talk</strong> (who's gaining/slipping/forecasts), and campaign tactics. NOT policy substance. Research confirms: horse-race coverage → voter distrust, uninformed electorate, inaccurate poll reporting. Hurts female candidates and third-party candidates most.</p></div>
+    <ul class="study-list">
+      <li><strong>Positive ads:</strong> candidate qualifications, family, positions — no mention of opponent</li>
+      <li><strong>Negative ads:</strong> attack opponent's character or platform — can backfire</li>
+      <li><strong>Contrast ads:</strong> compare both candidates' records; bias toward sponsor</li>
+      <li><strong>2024:</strong> first "TikTok and podcast election." Harris spent $200M digital, $170M TV. Total both sides: $2.16B on ads.</li>
+      <li><strong>Social media microtargeting:</strong> campaigns buy access to individual user profiles. 77% of Americans disapprove (Pew 2020).</li>
+      <li><strong>AI and disinformation:</strong> deepfakes, fake ads, foreign interference. Biden voice robocall suppressed NH primary votes.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- CH12 FINANCE -->
+<div class="section" id="ch12-finance">
+  <div class="section-header">
+    <div class="chapter-badge ch12">Chapter 12.3</div>
+    <h1>Campaign Finance</h1>
+  </div>
+  <div class="warn-box"><strong>Hoeft says:</strong> Understand the technical differences exist, but you <em>needn't</em> master every definition. Understand the ideas — how money flows and what it means for who politicians answer to.</div>
+  <div class="topic-block">
+    <h2>The Regulatory Timeline</h2>
+    <div class="timeline">
+      <div class="timeline-item"><div class="timeline-year" style="color:var(--ch12)">1907</div><div class="timeline-text"><strong>Tillman Act:</strong> banned corporate direct contributions to federal candidates</div></div>
+      <div class="timeline-item"><div class="timeline-year" style="color:var(--ch12)">1970s</div><div class="timeline-text"><strong>FECA:</strong> disclosure requirements; Presidential Public Funding Program; created the FEC (Federal Election Commission). Post-Watergate.</div></div>
+      <div class="timeline-item"><div class="timeline-year" style="color:var(--ch12)">1976</div><div class="timeline-text"><strong>Buckley v. Valeo:</strong> No limit on candidates spending own money = First Amendment free speech. Enables self-funded candidates.</div></div>
+      <div class="timeline-item"><div class="timeline-year" style="color:var(--ch12)">2002</div><div class="timeline-text"><strong>BCRA (McCain-Feingold):</strong> hard limits on contributions; limits on issue advocacy ads within 30 days of primary, 60 days of general election</div></div>
+      <div class="timeline-item"><div class="timeline-year" style="color:var(--ch12)">2010</div><div class="timeline-text"><strong>Citizens United v. FEC:</strong> struck down BCRA's ban on corporate/union electioneering communications. Money = speech. Opens door for Super PACs. Courts insist on "the right of people with money to fund the electoral campaigns of candidates for public office."</div></div>
+      <div class="timeline-item"><div class="timeline-year" style="color:var(--ch12)">2014</div><div class="timeline-text"><strong>McCutcheon v. FEC:</strong> eliminated aggregate limits — individuals can give unlimited TOTAL to all candidates/parties/PACs combined. Per-candidate limits remain. Creates joint fundraising committees.</div></div>
+    </div>
+  </div>
+  <div class="topic-block">
+    <h2>Money Sources (12.3)</h2>
+    <table>
+      <tr><th>Source</th><th>Key Idea</th><th>Limit</th></tr>
+      <tr><td><strong>Individuals</strong></td><td>Most candidates get majority of funds directly from individuals. Less than 1% of population gives over $200 — yet those donors give 78% of all contributions. 10 individuals = 44% of Trump's 2024 fundraising.</td><td>$3,300/election/candidate</td></tr>
+      <tr><td><strong>Political Parties / Joint Committees</strong></td><td>Pool donations across candidates; increasingly important after McCutcheon</td><td>$5K/election (House); $57.8K (Senate)</td></tr>
+      <tr><td><strong>Personal Savings</strong></td><td>Buckley v. Valeo: no limit on candidate's own money = free speech. Self-funded candidates rarely win.</td><td>No limit</td></tr>
+      <tr><td><strong>PACs</strong></td><td>8,206 registered with FEC. Controversial — studies show they influence legislative votes. Corporate PACs ~51% to Reps, 49% to Dems.</td><td>$5,000/candidate/election</td></tr>
+      <tr><td><strong>527 Committees</strong></td><td>Tax-exempt orgs; primary purpose = influencing electoral outcomes; minimal regulation; no spending limits</td><td>No spending limit</td></tr>
+      <tr><td><strong>501(c) Groups / Dark Money</strong></td><td>Nonprofits; primary purpose must be non-electoral; don't disclose donors; "dark money." $4.5B outside spending in 2024.</td><td>Max 50% on campaigns</td></tr>
+      <tr><td><strong>Super PACs</strong></td><td>Post-Citizens United; unlimited independent expenditures; cannot coordinate with campaigns. $2.7B spent in 2024. Funded by the nation's wealthiest.</td><td>No limit on expenditures</td></tr>
+      <tr><td><strong>Public Funds</strong></td><td>Presidential candidates who meet thresholds and accept spending limits. Most opt out since Obama (2008). NYC/NY State = unusual outliers with stronger public matching.</td><td>~$20M grant if accepted</td></tr>
+    </table>
+  </div>
+  <div class="slide-note">
+    <p><strong>Political money in the U.S. — Hoeft's big picture:</strong></p>
+    <ul>
+      <li>U.S. laws and courts have <em>insisted</em> on permissive money — treating it as "freedom of expression" under the Constitution (Teachout 2016 on this history from Ben Franklin's snuff box to Citizens United)</li>
+      <li>SCOTUS has upheld ONLY disclosure rules (easy to get around) and public matching (Heerwig & Shah 2014)</li>
+      <li>Tax carve-outs for wealthy interests are often buried in legal texts — moneyed lobbies win benefits most voters never know about</li>
+      <li>Other rich democracies restrict political money far more; many provide public subsidies to parties — never in the U.S., common elsewhere</li>
+      <li><strong>Capitalism and democracy in tension?</strong> Bernie Sanders (2024): "Ordinary Americans get one vote apiece. Billionaires get to contribute hundreds of millions to Super PACs." Social scientists see a tougher tension, not easily resolved.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- CH12 VOTERS -->
+<div class="section" id="ch12-voters">
+  <div class="section-header">
+    <div class="chapter-badge ch12">Chapter 12.4</div>
+    <h1>Voter Turnout & Vote Choice</h1>
+  </div>
+  <div class="topic-block">
+    <h2>Turnout Basics</h2>
+    <ul class="study-list">
+      <li><strong>Presidential elections:</strong> ~60–67% of eligible voters (2024: 64%, down from 67% in 2020)</li>
+      <li><strong>Midterms:</strong> ~40–45%</li>
+      <li><strong>Primaries:</strong> fewer than 1 in 4 Americans vote — the most partisan minority selects general election candidates, pushing candidates toward more extreme positions</li>
+      <li><strong>Most important individual factor:</strong> reported level of interest in government and public affairs</li>
+      <li><strong>Key demographic predictors:</strong> age (strongest), income, education, residential mobility</li>
+      <li>2024: ~90 million eligible voters didn't show up — control of all three branches decided by slim margins</li>
+    </ul>
+  </div>
+  <div class="topic-block">
+    <h2>What Determines Vote Choice?</h2>
+    <div class="slide-note"><p><strong>Hoeft note:</strong> "Ideology" is often too strong a term — implies too much coherence. Prefer "public opinion" (political scientists) or "political attitudes" (sociologists) which carry looser implications. Party ID is big, but even that is less stable than textbooks suggest (see Achen & Bartels).</p></div>
+    <div class="accordion">
+      <button class="accordion-trigger" onclick="toggleAcc(this)">Party Identification — #1 Predictor</button>
+      <div class="accordion-content"><p>Self-described Democrats vote Democratic; Republicans vote Republican. In 2024, only 5% of Republicans voted for Harris. Three views: (1) psychological attachment through socialization; (2) running tally of party performance on economy/foreign affairs; (3) underlying ideology/policy preferences. All interact.</p></div>
+    </div>
+    <div class="accordion">
+      <button class="accordion-trigger" onclick="toggleAcc(this)">Income & Education</button>
+      <div class="accordion-content"><p>Higher income → higher turnout. College graduates much more likely to vote. In 2024: college-educated voters chose Harris; non-college voters chose Trump. Low-income voters who backed Biden in 2020 shifted to Trump in 2024 — "pocket economy" effect (what things cost day-to-day, not macro economic statistics).</p></div>
+    </div>
+    <div class="accordion">
+      <button class="accordion-trigger" onclick="toggleAcc(this)">Race, Gender & Age</button>
+      <div class="accordion-content">
+        <ul>
+          <li>Black voters overwhelmingly Democratic but declining margin (Harris 85% in 2024, down from Biden's 92%)</li>
+          <li>Latine/o voters: Democrat-leaning but not monolithic — Hispanic men split 50-49 for Trump in 2024</li>
+          <li>Gender gap: women ~5–7% more Democratic. Young women +17 for Harris; young men +14 for Trump (unprecedented youth gender divide)</li>
+          <li>Age: turnout rises with age until ~70. Youth turnout 2024 = 42%, down from 50% in 2020</li>
+          <li>Pathbreaking research (Fraga): racial gaps persist because voters of color perceive their votes matter less — not just due to suppression or socioeconomics</li>
+        </ul>
+      </div>
+    </div>
+    <div class="accordion">
+      <button class="accordion-trigger" onclick="toggleAcc(this)">★ Civic Organizations & Interest Groups — The Real Point (12.4)</button>
+      <div class="accordion-content">
+        <div class="slide-note" style="margin:0"><p>★ <strong>Hoeft note:</strong> This textbook section is really about <strong>interest groups</strong> and their vote-mobilizing role. Labor unions, trade associations, religious associations all function as interest groups by developing organizational skills, community norms of participation, and direct voter mobilization. Connects to <strong>political socialization</strong> beyond the family (O'C&S 11.4). Regular participation in these groups increases political participation by exposing members to requests for support and developing relevant skills.</p></div>
+      </div>
+    </div>
+    <div class="accordion">
+      <button class="accordion-trigger" onclick="toggleAcc(this)">Candidate Traits & Issues — Retrospective vs. Prospective Voting</button>
+      <div class="accordion-content">
+        <p><strong>Retrospective judgment:</strong> reward/punish party in power based on PAST performance (especially economy). "Pocket economy" matters most.</p>
+        <p style="margin-top:0.5rem"><strong>Prospective judgment:</strong> vote based on what candidates PLEDGE to do.</p>
+        <div class="warn-box" style="margin-top:0.7rem"><strong>Critical caveat — Achen & Bartels (2016), reviewed by Drutman (2016) — BOTH ASSIGNED:</strong> Both models assume more voter rationality than actually exists. Voters blame incumbents irrationally — shark attacks in NJ (1916), bad weather in 2000 (Gore vs. Bush), economic hits months before elections. More "informed" voters are actually more apt to parrot elites. Primaries are too personalistic for policy voting. Ballot initiatives favor elite players. See the full reading summary below.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-block">
+    <h2>Drutman (2016) — "Ballot Pox: Rationality Is a Chimera"</h2>
+    <div class="reading-note">
+      <span class="cite">Lee Drutman, <em>Chronicle of Higher Education</em>, Nov. 4, 2016 — Review of Achen & Bartels, <em>Democracy for Realists</em> (Princeton UP, 2016) — ASSIGNED READING</span>
+      <p><strong>Core argument:</strong> Political science has been working with bunk assumptions for decades — ones that overstate voter rationality and treat elections as meaningful exercises in informed individual choice. Achen & Bartels' <em>Democracy for Realists</em> is a comprehensive demolition of what they call "the folk theory of democracy," and a call to accept that "rationality is a chimera."</p>
+    </div>
+
+    <div class="accordion">
+      <button class="accordion-trigger" onclick="toggleAcc(this)">The "Folk Theory of Democracy" — What Political Science Got Wrong</button>
+      <div class="accordion-content">
+        <p>The "folk theory of democracy": democracy makes the people the rulers; legitimacy derives from their consent; elections empower the people to choose direction. Under this theory, if democracy goes wrong it's because voters are too uninformed, candidates too corrupt, or political discourse too awash in lies.</p>
+        <p style="margin-top:0.5rem">Political science adopted a version of this — treating voters and politicians as utility-maximizing actors along a one-dimensional left-right spectrum, with consistent, externally determined preferences. Scholars assumed voters know enough to express these preferences meaningfully. Economics, not sociology, became the model discipline. Incentives replaced norms, cultures, and group identities.</p>
+        <p style="margin-top:0.5rem">This was popular because it made formal modeling and statistical analysis tractable and "scientific." But the result, Achen & Bartels write, was "a body of work that was simultaneously advanced in its methods and antiquated in its ideas."</p>
+      </div>
+    </div>
+
+    <div class="accordion">
+      <button class="accordion-trigger" onclick="toggleAcc(this)">What Voters Actually Do — The Evidence</button>
+      <div class="accordion-content">
+        <ul>
+          <li><strong>Most voters are deeply uninformed</strong> and lack meaningful policy preferences. The 1960 classic <em>The American Voter</em> found "general impoverishment of political thought in a large proportion of the electorate." Converse (1964) concluded that "belief systems" of ordinary citizens are "thin, disorganized, and ideologically incoherent." Achen & Bartels: this is even better supported today than when Converse wrote.</li>
+          <li><strong>Most voters don't fit on a left-right spectrum.</strong> Social issues and economic issues are largely independent for most voters — most people's opinions are not well represented in a two-party system. This throws out Downs's "median voter theorem" (which predicts candidates converge on the political center — obviously wrong for long enough to call it into question).</li>
+          <li><strong>There can be no meaningful "will of the people"</strong> when voters are all over the map. Elections reduce multidimensional issue spaces to binary choices — parties and leaders (not voters) shape the alternatives.</li>
+          <li><strong>Voters blame incumbents irrationally:</strong> for droughts, floods, shark attacks (New Jersey 1916), and bad weather in 2000 (Gore vs. Bush). Economic conditions months before an election affect votes even when incumbents' actions had nothing to do with those conditions. "Even perceptions of well-being are subject to considerable vagaries. Prospective voters' economic perceptions are powerfully shaped by partisan biases, rationalization, and sheer randomness."</li>
+          <li><strong>The more informed citizens are, the more partisan they become.</strong> Most people "let their party tell them what to think about the issues of the day." "For most people, partisanship is… but a reflection of judgments about where 'people like me' belong." The chapter title: "It Feels Like We're Thinking: The Rationalizing Voter."</li>
+          <li><strong>Social-group identities are the most important structuring force in politics.</strong> Politics is — and always will be — based on emotion, group conflict, and identity, not logic and consensus.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="accordion">
+      <button class="accordion-trigger" onclick="toggleAcc(this)">What This Means — Implications for Political Science and Reform</button>
+      <div class="accordion-content">
+        <p><strong>For political science:</strong> A new research agenda is needed — one where modern formal modeling and sophisticated statistics seem LESS relevant, and old sociological approaches of close observation of actual people seem more relevant. Revitalize the study of "interest groups" (long marginalized). Go beyond surveys to understand how identities and groups structure political life — as exemplified by scholars like Skocpol (see the Gose et al. reading).</p>
+        <p style="margin-top:0.5rem"><strong>For good-government reform community:</strong> Give up on the deeply held belief that American democracy can be fixed by giving citizens more chances to participate (emailing Congress, voting, "getting informed on the issues"). This is "an exercise in futility." Instead: think harder about how citizens can use collective capacity to shape politicians' agendas before and between elections — through policy advocacy, not just electoral participation.</p>
+        <p style="margin-top:0.5rem"><strong>The upside:</strong> "We don't think for ourselves; we think together. And maybe that's fine. Partisanship and group loyalties are inevitable, and they can even be good things if they can help us realize shared interests." The key is building theory around this reality rather than the fiction of individual rational voters.</p>
+      </div>
+    </div>
+
+    <div class="accordion">
+      <button class="accordion-trigger" onclick="toggleAcc(this)">How This Connects to the Rest of the Course</button>
+      <div class="accordion-content">
+        <ul>
+          <li><strong>Retrospective/prospective voting (O'C&S 12.4):</strong> Directly challenged by Achen & Bartels. Both models assume rational policy-based voting. The shark attack example shows voters punish incumbents for events entirely outside government control — not policy performance at all.</li>
+          <li><strong>Catatonic electorate (Shenk/Obama):</strong> If voters don't make rational choices and take cues from elites instead of holding them accountable, then the electorate isn't just disengaged — it's structurally incapable of the accountability role democracy assigns to it.</li>
+          <li><strong>"Ideology" vs. "political attitudes" (Hoeft):</strong> Drutman confirms Hoeft's preference for "political attitudes" over "ideology" — most voters' beliefs are thin, disorganized, and ideologically incoherent. "Ideology" implies too much coherence.</li>
+          <li><strong>Political socialization (O'C&S 11.4):</strong> Achen & Bartels' group-identity focus is consistent with political socialization — party identification comes from family and social group membership, not rational issue evaluation.</li>
+          <li><strong>Civic organizations as interest groups (Hoeft note on 12.4):</strong> Drutman's prescription ("revitalize interest group study; think about collective capacity") aligns with Hoeft's point that civic organizations — not individual voters — are the real unit of democratic participation.</li>
+          <li><strong>"Costly voting" (Holbein & Hillygus):</strong> If most voters are deeply uninformed AND voting is costly, then the combination explains low turnout and low-quality democratic accountability without needing to blame individual voters for being bad citizens.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  </div>
+  <div class="topic-block">
+    <h2>Youth Turnout — Why Voting Is "Costly" (and Applies to All)</h2>
+    <div class="slide-note">
+      <p><strong>★ Highlighted by Hoeft and in the textbook:</strong> Holbein & Hillygus research — the hidden driver of low youth turnout isn't lack of political interest or motivation. It's that voting is <strong>"costly"</strong>: familiarize yourself with candidates, decide which you prefer, overcome everyday distractions, find the right polling station on the right day, meet registration deadlines. Voting may sound simple, but for tens of millions of Americans it can only be considered after work, homework, or grocery shopping.</p>
+      <p style="margin-top:0.5rem"><strong>★ Hoeft note (Tim Shenk 2022 class slide):</strong> Achen and Bartels argue this "costly" challenge applies to <em>most</em> American voters — regardless of age. The reference to a <strong>"catatonic electorate"</strong> is not only about youth — it describes the general condition of the American public under a system where complacent legislators, sovereign lobbyists, and a disengaged public make genuine accountability very difficult. This connects back to Obama's description of Springfield and to the broader "politicians answer to elites" argument.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ELITES & MONEY -->
+<div class="section" id="elites">
+  <div class="section-header">
+    <div class="chapter-badge ch-slide">Class Slides</div>
+    <h1>American Politicians Answer to Elites</h1>
+    <p>'Show Me the Money' framework + Shenk/Obama + Achen & Bartels + Veto Players + Interest Groups</p>
+  </div>
+  <div class="quote-box">
+    "Complacent legislators, sovereign lobbyists, and a catatonic electorate — that's what Springfield's version of democracy looked like."
+    <cite>— Tim Shenk (2022: 311), quoting Obama's experience as a new Illinois State Senator, late 1990s to early 2000s</cite>
+  </div>
+  <div class="prof-note">
+    <p>This quote is a central thread of the course. Obama discovered that: (1) lobbyists had an effective veto over most legislating, which usually concerned technical matters crucial to a company's balance sheet; (2) reelection was guaranteed so long as politicians stayed on the right side of charged social issues; (3) "You don't have the court of public opinion to appeal to because nobody's listening to you." This is the real-world illustration of what Achen & Bartels describe theoretically and what the "Show Me the Money" diagram documents empirically.</p>
+  </div>
+  <div class="topic-block">
+    <h2>'Show Me the Money' — 5 Channels of Elite Influence (Hoeft diagram)</h2>
+    <div class="money-grid">
+      <div class="money-card"><strong>Campaign Contributions — Direct</strong><p>U.S. courts have consistently insisted on the <em>right of people with money to fund the electoral campaigns of candidates for public office.</em> Money = free speech (First Amendment). SCOTUS has struck down most limits.</p></div>
+      <div class="money-card"><strong>Employers & Investors</strong><p>Capitalist elites sway politicians by supplying or withdrawing <strong>investments and jobs</strong> in a given terrain. Promises and threats — explicit or tacit — both count.</p></div>
+      <div class="money-card"><strong>Lobbying & 'Revolving Doors'</strong><p>Financially potent lobbies cajole, charm, and convince — and also <strong>lure politicians with post-office job opportunities</strong> that may be lucrative (and easy). "Revolving doors can open to penthouses" (Pierson).</p></div>
+      <div class="money-card"><strong>Class Backgrounds of Elected Officials</strong><p>Nick Carnes (political scientist): class backgrounds of U.S. elected officials <strong>strongly overrepresent high-income occupations</strong> — salaried professionals, managers, business owners, independently wealthy. Partly due to campaigning costs (lost earnings, time, employment discontinuity). Winners enjoy incumbency advantages including lucrative post-office jobs.</p></div>
+      <div class="money-card"><strong>Independent Expenditures (IE) — Indirect Campaigning</strong><p>U.S. laws and courts permit lobbies and committees to campaign for elections, so long as they don't "coordinate" with the candidate. Called independent expenditures (IEs). Super PACs are the primary vehicle. No spending limits.</p></div>
+    </div>
+  </div>
+  <div class="topic-block">
+    <h2>Consequences of "Privileged Classes" in Office (Carnes, Schlozman, Pierson)</h2>
+    <div class="slide-note">
+      <ul>
+        <li>Congress members spend <em>massive</em> time on fundraising — diverts from actual governing (CBS News 2016)</li>
+        <li>Consequences of mostly privileged-class officeholders (Carnes): <strong>thinner welfare state, freer environment for business, lower taxes on wealthy,</strong> biases of knowledge and perspective in lawmaking</li>
+        <li><strong>BUT</strong> don't overfocus on campaign contributions despite the "bribery" framing (Schlozman). Pay attention to <strong>lobbying after electoral campaigns</strong> → that's where actual policy impacts happen</li>
+        <li><strong>Unequal representation — extremely so (Schlozman):</strong> Business interests = 72% of all lobbying spending. Labor unions = 1%. Poor people's social service providers = 1%. <em>Zero</em> spent on advocacy for welfare policy beneficiaries or incarcerated people.</li>
+        <li>Politicians "come from particular places, and they're going places" (Pierson). "Elected officials are surrounded at all times by immense wealth" (Pierson). "Revolving doors can open to penthouses" (Pierson).</li>
+        <li><strong>SCOTUS decisions harden these patterns</strong> — by treating money as speech and striking down most limits</li>
+      </ul>
+    </div>
+  </div>
+  <div class="topic-block">
+    <h2>Achen & Bartels (2016) + Drutman (2016) — Voters Often Swing Elections Irrationally</h2>
+    <div class="reading-note">
+      <span class="cite">Drutman, "Ballot Pox: Rationality Is a Chimera," <em>Chronicle of Higher Education</em>, Nov. 4, 2016 — review of Achen & Bartels, <em>Democracy for Realists</em> (Princeton UP) — BOTH ASSIGNED. Full reading summary in the Voters tab.</span>
+      <p>Key claims: voters are deeply uninformed and lack meaningful policy preferences; belief systems of ordinary citizens are "thin, disorganized, and ideologically incoherent" (Converse 1964 — still better supported today); rationality is a chimera; partisanship and group identity are the real drivers of political behavior; good-government reform through individual participation is "an exercise in futility."</p>
+    </div>
+    <div class="accordion">
+      <button class="accordion-trigger" onclick="toggleAcc(this)">Why Voter Irrationality Enables Elite Dominance</button>
+      <div class="accordion-content">
+        <ul>
+          <li><strong>Voters take cues from elites,</strong> not the other way around. Democratic ideals assume the reverse. Voters learn from parties, celebrity politicians they like, social groups, and interest groups/advocacy orgs.</li>
+          <li><strong>Voters blame incumbents irrationally:</strong> shark attacks in NJ (1916), bad weather in 2000 (Gore vs. Bush), economic conditions months before elections that incumbents didn't cause — events entirely outside government control affect vote choices</li>
+          <li><strong>More "informed" voters</strong> are more apt to parrot elites, not reason independently. Chapter title: "It Feels Like We're Thinking: The Rationalizing Voter."</li>
+          <li><strong>Primaries</strong> are too personalistic for genuine policy voting</li>
+          <li><strong>Ballot initiatives and referendums</strong> favor elite players despite democratic appearance</li>
+          <li>This fundamentally challenges textbook models of retrospective and prospective voting — both assume more voter rationality than actually exists</li>
+        </ul>
+        <p style="margin-top:0.6rem">If voters take cues from elites, vote based on irrelevant events, and become more partisan (not more rational) when informed — then the electorate is structurally ill-equipped to hold politicians accountable. Add: no court of public opinion that politicians fear ("nobody's listening," Obama/Shenk). The result: politicians answer to lobbyists and donors instead of the public.</p>
+        <p style="margin-top:0.5rem">The "catatonic electorate" is not just about apathy — it's about a structural incapacity for the kind of rational accountability democracy requires. Holbein & Hillygus' "costly voting" applies to most voters regardless of age. Together these arguments explain how elite dominance persists even in a formal democracy with regular elections.</p>
+        <p style="margin-top:0.5rem"><strong>Drutman's prescription:</strong> Collective capacity through organized policy advocacy — not more individual participation (emailing Congress, "getting informed"). This aligns with the interest-group framing throughout the course and Skocpol's grassroots organizing research.</p>
+      </div>
+    </div>
+  </div>
+  <div class="topic-block">
+    <h2>Gose, Skocpol & Williamson (2020) — "Saving America Once Again: From the Tea Party to the Anti-Trump Resistance"</h2>
+    <div class="reading-note">
+      <span class="cite">Chapter 9 in Skocpol & Tervo (eds.), <em>Upending American Politics</em> (Oxford University Press) — ASSIGNED READING</span>
+      <p><strong>Core argument:</strong> Twice in eight years the U.S. witnessed massive grassroots citizen organizing — the Tea Party (after Obama's 2008 election) and the Anti-Trump Resistance (after Trump's 2016 election). Both included top-down professional advocacy organizations AND more remarkable bottom-up voluntary citizen organizing. These movements are remaking U.S. politics on both right and left, functioning as parts of "extended party networks" while remaining partially independent of formal party structures.</p>
+    </div>
+
+    <div class="accordion">
+      <button class="accordion-trigger" onclick="toggleAcc(this)">The Tea Party — Who, When, Why, How</button>
+      <div class="accordion-content">
+        <ul>
+          <li><strong>Trigger:</strong> Rick Santelli's CNBC rant (Feb. 19, 2009) against Obama mortgage assistance policies invited America's "capitalists" to a "Chicago Tea Party." Conservative media (Fox News, FreedomWorks) amplified. By Tax Day April 2009: 400,000–800,000 Americans protested in 542 counties.</li>
+          <li><strong>But grassroots activity was NOT mainly from conservative media or professional orgs.</strong> National conservative elites would have been content with spectacular rallies. Grassroots Tea Partiers wanted to do more — they organized 1,000–2,000 local groups, meeting monthly in libraries, church basements, restaurant back rooms. Still active close to a decade later.</li>
+          <li><strong>Who:</strong> White, middle-class, relatively well-educated Americans, mostly older (mid-life to retirement). Many from military, small business, white-collar occupations. Disproportionately men but women very visible in leadership. Many listed as "Independent" but fall to the RIGHT of the GOP in practice.</li>
+          <li><strong>Beliefs:</strong> More inclined to agree with negative stereotypes about African Americans, immigrants, and Muslims. Consistently angry about illegal immigration (tending to overestimate it). Focused on Hispanic newcomers; made hateful comments about Muslims. Uncompromising: believed "establishment" Republicans too willing to compromise with Democrats. Supported Donald Trump in 2015–16 — setting the stage for the Resistance.</li>
+          <li><strong>Impact:</strong> Helped catalyze 2010 Republican midterm victories. Tea Partiers backed anti-establishment challengers in GOP primaries, pushing the party further right. Congress moved markedly rightward after 2010 — not just more Republicans but more conservative ones. Sharpened partisan and ideological divides.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="accordion">
+      <button class="accordion-trigger" onclick="toggleAcc(this)">The Anti-Trump Resistance — Who, When, Why, How</button>
+      <div class="accordion-content">
+        <ul>
+          <li><strong>Trigger:</strong> Trump's Electoral College win on Nov. 8, 2016. Organizing started within hours to days — much faster than Tea Party's 1–6 weeks. The "Indivisible Guide" (posted Dec. 14, 2016 by former Democratic congressional staffers Ezra Levin and Leah Greenberg) went viral, drawing on Tea Party organizing tactics.</li>
+          <li><strong>Women's March:</strong> Day after inauguration, Jan. 21, 2017 — estimated 4.2 million participants in US and worldwide. Largest mass demonstration in U.S. history (Chenoweth & Pressman). Spawned thousands of local resistance groups.</li>
+          <li><strong>Who:</strong> Surprising finding — <strong>NOT primarily young people or minorities</strong> (as national media suggested), but rather white, middle-class, college-educated women ages 30s–retirement. Educators, health care professionals, nonprofit managers. Two-thirds to 90% of volunteer activists female, white, college-educated. Men present but often husbands/partners of women involved.</li>
+          <li><strong>Political leanings:</strong> 9 in 10 of 412 surveyed resistance participants identified as Democrats in some sense. But many groups formed OUTSIDE formal Democratic Party channels — to welcome those unwilling to call themselves Democrats and to maintain freedom of action.</li>
+          <li><strong>Top reasons for joining:</strong> #1 Opposition to Trump; #2 desire to save or improve the country and American democracy; #3 finding community/working with like-minded others; #4 personal need to be an active citizen. "Electing Democrats" was far down the list.</li>
+          <li><strong>Activities:</strong> Postcard writing parties, lobbying Congress, voter registration and canvassing, running community forums, supporting new candidates for office. Subcommittees by function or issue area. Focused on: healthcare (ACA defense), climate, immigration, education.</li>
+          <li><strong>Less party-aligned than Tea Party:</strong> Grassroots resistance spans from centrist to far-left — wider range than Tea Partiers who clustered at the far right of the GOP. Resisters reached out to disaffected Republicans and moderates; Tea Partiers pushed GOP toward uncompromising right-wing purity.</li>
+          <li><strong>Geographic spread:</strong> Just as widespread as Tea Party organizing — appeared in conservative non-metropolitan counties too, not just blue enclaves. More resistance groups than Tea Parties in many counties of NC and PA (Figure 9.2).</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="accordion">
+      <button class="accordion-trigger" onclick="toggleAcc(this)">Key Comparisons Between Tea Party and Resistance</button>
+      <div class="accordion-content">
+        <table>
+          <tr><th>Dimension</th><th>Tea Party</th><th>Anti-Trump Resistance</th></tr>
+          <tr><td>Triggered by</td><td>Obama's 2008 election; Santelli's rant Feb. 2009</td><td>Trump's 2016 election; organized within hours</td></tr>
+          <tr><td>Who organized</td><td>White, middle-class, older, more men; military/small business</td><td>White, middle-class, college-educated women; educators/health care</td></tr>
+          <tr><td>Party relation</td><td>Outside GOP but far right of it; pushed GOP toward extremes; sometimes took over local GOP structures</td><td>Outside Democratic Party but generally left-leaning; maintained independence; wider ideological range (centrist to far-left)</td></tr>
+          <tr><td>Meetings</td><td>Monthly; Pledge of Allegiance; prayer; ideological lectures; invited right-wing speakers</td><td>Monthly; secular civic flavor; skill-building sessions; policy education; subcommittees by issue</td></tr>
+          <tr><td>National coordination</td><td>FreedomWorks, Americans for Prosperity; conservative media cheerleading</td><td>Indivisible Guide (Dec. 2016); Action Together; Swing Left; left-leaning media</td></tr>
+          <tr><td>Electoral impact</td><td>2010 midterms: massive Republican gains; very conservative new officeholders; Congress moved hard right</td><td>2018 midterms: Democratic "blue wave"; mostly moderate Democratic winners; 2018 brought record number of female Democrats elected</td></tr>
+          <tr><td>Polarization effect</td><td>Substantially sharpened partisan and ideological divides; pushed GOP hard right</td><td>More likely to revitalize Democrats broadly without increasing polarization; "big tent" approach</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="accordion">
+      <button class="accordion-trigger" onclick="toggleAcc(this)">Why This Reading Connects to Party Organization Theory</button>
+      <div class="accordion-content">
+        <p>This case study is the best empirical illustration of several concepts from throughout the course:</p>
+        <ul>
+          <li><strong>Extended party networks:</strong> Both the Tea Party and the Resistance are "loosely coupled concatenations of mutually leveraging top-down and bottom-up organizations." No single hierarchy speaks for either. National orgs try to coordinate and "speak for" the whole; local groups pick and choose resources. This is exactly what Galvin (2016) calls "extended party networks" and what Schlozman & Rosenfeld call "blobs."</li>
+          <li><strong>Interest groups as political socialization:</strong> Both movements show how civic organizations develop organizational skills, community norms of participation, and political engagement — the point of Hoeft's note on O'C&S 12.4's civic organizations section. The Tea Party's monthly meetings functioned as political socialization and mobilization vehicles.</li>
+          <li><strong>Candidate-centered politics:</strong> Resistance groups that moved from protest to electoral action were supporting specific candidates, not acting through party structures — consistent with candidate-centered politics.</li>
+          <li><strong>Top-down vs. bottom-up dynamic:</strong> National conservative elites (Republican Party leaders) would have been happy to use Tea Partiers as a "passive backdrop" for spectacle. Grassroots activists refused this — they built their own sustained organizations. This tension between elite capture and genuine grassroots organizing runs throughout the study.</li>
+          <li><strong>Mediatization:</strong> Fox News and conservative media played a key role amplifying Tea Party symbolism and logistics. Left-leaning media (Rachel Maddow Show) played similar role for the Resistance. Facebook enabled both movements to organize locally, but especially the Resistance (whose organizers were already Facebook adepts).</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="topic-block">
+    <h2>Political Money in U.S. Courts — The Structural Foundation</h2>
+    <div class="slide-note">
+      <ul>
+        <li>U.S. courts — up through SCOTUS — have <em>consistently insisted</em> on the right of people with money to fund electoral campaigns, treating it as "freedom of expression" under the First Amendment (Teachout 2016: <em>Corruption in America</em>)</li>
+        <li>American courts have struck down laws where elected officials decided to restrict political money, for <em>hundreds of years</em> — this is not a recent development</li>
+        <li>SCOTUS has upheld only disclosure rules (easy to get around) and public matching programs (Heerwig & Shah 2014)</li>
+        <li>Other rich democracies restrict political money far more tightly; many provide public subsidies to parties — never in the U.S., common elsewhere</li>
+        <li>This is why Warren's "complicating claim" about veto players matters: gridlock blocks democratic majorities, not wealthy interests who can navigate around it through lobbying, carve-outs, and revolving doors</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- QUIZ -->
+<div class="section" id="quiz">
+  <div class="section-header"><h1>Practice Quiz</h1><p>Textbook quiz questions + class slide concepts. Click to check.</p></div>
+  <div id="quiz-container"></div>
+  <div style="margin-top:1.5rem; font-family:'DM Mono',monospace; font-size:0.8rem; color:var(--muted)">Score: <span id="score-display">0 / 0</span></div>
+</div>
+
+</main>
+<script>
+function showSection(id, btn) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+function toggleAcc(btn) {
+  btn.classList.toggle('open');
+  btn.nextElementSibling.classList.toggle('open');
+}
+const questions = [
+  { q: "What is the most powerful predictor of vote choice?", options: ["Party identification","Ethnicity","Income","Level of education"], answer: 0, explanation: "Party identification is #1. Self-described Democrats vote Democratic; Republicans vote Republican — especially true in low-visibility elections." },
+  { q: "★ Candidate-centered politics (prof emphasis) is most directly caused by:", options: ["Single-member districts with winner-take-all elections","The Electoral College's state-by-state structure","Citizens United removing campaign finance limits","The rise of social media and digital advertising"], answer: 0, explanation: "★ From Hoeft party slide: single-member districts → candidate-centered politics. Winner-take-all means candidates win or lose individually, not by proportional share, so the individual matters more than the party label." },
+  { q: "The 'catatonic electorate' phrase (Shenk 2022, quoting Obama) describes:", options: ["A disengaged public that provides no check on lobbyists and complacent legislators","Young voters who are uninformed about politics","The electorate that chose Trump in 2016","Voters who support neither major party"], answer: 0, explanation: "★ Shenk describes a political system (Obama's experience in Illinois) where lobbyists had effective veto over legislating, reelection was guaranteed by playing to base on social issues, and there was no court of public opinion to appeal to. Applies broadly — not just to youth (Achen & Bartels; Holbein & Hillygus)." },
+  { q: "According to the 'Show Me the Money' framework (Hoeft), business interests account for what share of all lobbying spending?", options: ["72%","44%","51%","28%"], answer: 0, explanation: "Business interests = 72% of all lobbying spending (Schlozman). Labor unions and poor people's social service providers = 1% each. Zero spent on advocacy for welfare beneficiaries or incarcerated people." },
+  { q: "★ Which structural feature of U.S. elections most directly produces the two-party system AND candidate-centered politics?", options: ["Winner-take-all in single-member districts","The Electoral College","Citizens United","Party primaries"], answer: 0, explanation: "★ Winner-take-all in single-member districts means: (a) second place earns nothing, so third parties are crushed; (b) candidates must win individually, producing candidate-centered politics. The Hoeft party slide makes this connection explicit." },
+  { q: "According to Achen & Bartels (2016), voters who are more 'informed' are:", options: ["More apt to parrot elites rather than reason independently","More likely to vote based on retrospective judgment","More consistent in supporting their party's platform","Less susceptible to negative advertising"], answer: 0, explanation: "Counterintuitive but key: more 'informed' voters are actually more apt to take cues from elites they like. This challenges the standard democratic model of informed citizens holding politicians accountable." },
+  { q: "Citizens United v. FEC (2010) primarily:", options: ["Struck down BCRA's ban on corporate/union electioneering communications, treating money as speech","Limited individual contributions to $5,000","Created the Super PAC system for coordinated party spending","Required full disclosure of all advertising donors"], answer: 0, explanation: "Citizens United equated money with First Amendment free speech and struck down limits on corporate/union electioneering communications. Courts have consistently insisted on the right of people with money to fund electoral campaigns." },
+  { q: "What is a 'revolving door' in politics?", options: ["Movement of politicians/staffers between government and lucrative private-sector lobbying jobs","The process by which voters cycle between parties across elections","Regular turnover of staff at the FEC","The cycling of campaign finance rules through court decisions"], answer: 0, explanation: "From Hoeft's 'Show Me the Money' diagram: lobbies lure politicians with post-office job opportunities that are lucrative and easy. Pierson: 'Revolving doors can open to penthouses.'" },
+  { q: "Prof. Hoeft prefers which terms over 'ideology' when describing what shapes voter choices?", options: ["Public opinion or political attitudes — which imply looser, less coherent belief systems","Party platform alignment","Interest-group affiliation","Retrospective judgment"], answer: 0, explanation: "Hoeft says 'ideology' implies too much coherence in voters' minds. Political scientists say 'public opinion'; sociologists say 'political attitudes' — both carry looser implications more consistent with how actual voters behave (and with Achen & Bartels)." },
+  { q: "Extended party networks (Galvin 2016) describes U.S. party organizations as:", options: ["Weak coalitions of formal party units, interest groups ('blobs'), and candidate campaigns that overlap, compete, and collide","The formal national-state-local hierarchy of party committees","Digital organizing networks created by social media","Diaspora communities with party affiliations across state lines"], answer: 0, explanation: "U.S. party organizations are weak and overlapping — not a clean hierarchy. Formal committees blur into interest groups ('blobs' — Schlozman & Rosenfeld) that blur into candidate-driven campaigns. Parties cohere mainly on fundraising and voter databases." },
+  { q: "According to Elizabeth Warren's complicating claim about veto players:", options: ["Big-money players navigate around gridlock — wealthy interests overcome the blocking mechanisms that stop democratic majorities","Gridlock protects democracy by preventing hasty legislation","Veto players only operate at the federal level","Gridlock equally affects all interests, rich and poor"], answer: 0, explanation: "Warren (2016): the same institutions that block democratic majorities DON'T effectively block wealthy interests, who use lobbying, tax carve-outs buried in legal texts, and revolving doors. This connects to the 'American politicians answer to elites' argument." },
+  { q: "★ Hoeft's note on the 'Religious Groups & Civic Organizations' section of 12.4 says this section is really about:", options: ["Interest groups and their vote-mobilizing role — connecting to political socialization beyond the family","The importance of religious institutions in shaping party platforms","How non-partisan groups are protected from electoral influence","The role of church attendance as a proxy for political conservatism"], answer: 0, explanation: "★ Hoeft explicitly: this section is really about interest groups and their vote-mobilizing function. Labor unions, trade associations, and religious associations all function as interest groups by developing organizational skills, community norms, and direct voter mobilization. Connects to political socialization (11.4)." },
+  { q: "From the Hoeft 'Show Me the Money' diagram, which channel of elite influence involves capitalist elites supplying or withdrawing investments and jobs?", options: ["Employers & Investors","Campaign Contributions — Direct","Lobbying & Revolving Doors","Independent Expenditures"], answer: 0, explanation: "The 'Employers & Investors' petal of the diagram: capitalist elites sway politicians by supplying or withdrawing investments and jobs in a given terrain. Promises and threats — explicit or tacit — both count." },
+  { q: "Hoeft's note on media coverage (class slides, 12.2) says media primarily covers:", options: ["Dramas, horse-race talk, and campaign tactics — not policy substance","Policy proposals and candidate platforms","Equal amounts of strategy and substance","Candidate character and personal scandals only"], answer: 0, explanation: "Hoeft: media 'sells eyeballs on contents not helpful for democracy.' Coverage = personal dramas (sometimes petty), polls and horse-race talk (who's gaining/slipping/forecasts), campaign tactics. NOT policy substance. Research confirms this leads to voter distrust, uninformed electorate, inaccurate reporting." },
+  { q: "A fundamental and enduring alteration in a party's base of supporters is called a:", options: ["Realignment","Critical election","Polarization","Split ticket"], answer: 0, explanation: "Party realignment = dramatic, durable shift in party coalitions. A critical election triggers it. Examples: 1860, 1932. The Tea Party/MAGA movement is identified in the textbook as a 4th major critical election era." }
+];
+let answered = 0, correct = 0;
+function renderQuiz() {
+  const c = document.getElementById('quiz-container');
+  c.innerHTML = '';
+  questions.forEach((q, i) => {
+    const card = document.createElement('div');
+    card.className = 'quiz-card';
+    card.innerHTML = `<div class="q-text">${i+1}. ${q.q}</div><div class="quiz-options">${q.options.map((o,j)=>`<button class="quiz-option" onclick="checkAnswer(${i},${j},this)">${o}</button>`).join('')}</div><div class="quiz-feedback" id="fb-${i}"></div>`;
+    c.appendChild(card);
+  });
+}
+function checkAnswer(qi, chosen, btn) {
+  const q = questions[qi];
+  if (btn.classList.contains('correct') || btn.classList.contains('wrong')) return;
+  btn.parentElement.querySelectorAll('.quiz-option').forEach(o => o.style.pointerEvents = 'none');
+  const fb = document.getElementById(`fb-${qi}`);
+  if (chosen === q.answer) { btn.classList.add('correct'); fb.textContent = '✓ Correct! ' + q.explanation; fb.className = 'quiz-feedback show correct-fb'; correct++; }
+  else { btn.classList.add('wrong'); btn.parentElement.querySelectorAll('.quiz-option')[q.answer].classList.add('correct'); fb.textContent = '✗ ' + q.explanation; fb.className = 'quiz-feedback show wrong-fb'; }
+  answered++;
+  document.getElementById('score-display').textContent = `${correct} / ${answered} answered (${Math.round(correct/answered*100)}% correct)`;
+}
+renderQuiz();
+</script>
+</body>
+</html>
