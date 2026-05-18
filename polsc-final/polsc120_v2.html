@@ -993,7 +993,7 @@ const QUESTIONS=[
 
 const SEC_COLORS={s1:'#1a3a5c',s2:'#2d5a27',s3:'#5c3a1a',s4:'#8b0000',mixed:'#2c3e50'};
 const SEC_LABELS={s1:'§1 Federalism',s2:'§2 Parties',s3:'§3 Courts',s4:'§4 Core',mixed:'Mixed Review'};
-let pool=[],cursor=0,totalCorrect=0,totalWrong=0,submitted=false;
+let pool=[],cursor=0,totalCorrect=0,totalWrong=0,submitted=false,reviewList=[];
 let activeFilter='all', activeCount=100;
 
 function setCount(n, btn){
@@ -1021,7 +1021,7 @@ function buildPool(){
 }
 
 function startQuiz(){
-  pool=buildPool(); cursor=0; totalCorrect=0; totalWrong=0;
+  pool=buildPool(); cursor=0; totalCorrect=0; totalWrong=0; reviewList=[];
   document.getElementById('quiz-setup').style.display='none';
   document.getElementById('btn-start').style.display='none';
   document.getElementById('btn-restart').style.display='inline-block';
@@ -1080,7 +1080,7 @@ function submitAnswer(){
     else if(!correctSet.has(i)&&selectedSet.has(i)){b.style.background='#f8d7da';b.style.borderColor='#dc3545';b.style.color='#721c24';}
     else if(correctSet.has(i)&&!selectedSet.has(i)){b.style.background='#fff3cd';b.style.borderColor='#ffc107';b.style.color='#856404';}
   });
-  if(isOK){totalCorrect++;}else{totalWrong++;}
+  if(isOK){totalCorrect++;}else{totalWrong++;reviewList.push(q);}
   updateScoreDisplay();
   const fb=document.getElementById('q-feedback');
   fb.style.display='block';
@@ -1097,28 +1097,59 @@ function submitAnswer(){
   txt+=q.exp;
   fb.textContent=txt;
   document.getElementById('btn-submit').style.display='none';
-  if(cursor+1<pool.length){document.getElementById('btn-next').style.display='inline-block';}
-  else{showFinished();}
+  const btnNext=document.getElementById('btn-next');
+  btnNext.style.display='inline-block';
+  btnNext.textContent=cursor+1>=pool.length?'See Results →':'Next Question →';
 }
 
-function nextQuestion(){cursor++;renderQuestion();}
+function nextQuestion(){
+  cursor++;
+  document.getElementById('btn-next').textContent='Next Question →';
+  if(cursor>=pool.length){showFinished();}else{renderQuestion();}
+}
 
 function showFinished(){
   const pct=pool.length?Math.round(totalCorrect/pool.length*100):0;
-  document.getElementById('q-tag').textContent='COMPLETE';
-  document.getElementById('q-tag').style.background='#2d5a27';
-  document.getElementById('q-counter').textContent=`${pool.length} / ${pool.length}`;
-  document.getElementById('q-text').textContent=`Quiz complete! You got ${totalCorrect} of ${pool.length} questions fully correct (${pct}%).`;
-  document.getElementById('q-hint').textContent='';
-  document.getElementById('q-opts').innerHTML='';
-  document.getElementById('q-feedback').style.display='none';
+  const letters=['A','B','C','D','E','F'];
+  let reviewHTML='';
+  if(reviewList.length===0){
+    reviewHTML='<p style="color:#155724;font-weight:500;font-size:0.9rem;">Perfect score — nothing to review!</p>';
+  } else {
+    reviewHTML=reviewList.map(q=>{
+      const correctSet=new Set(q.ans);
+      const optsHTML=q.opts.map((o,i)=>{
+        const isCorrect=correctSet.has(i);
+        const bg=isCorrect?'#d4edda':'var(--paper)';
+        const bc=isCorrect?'#28a745':'rgba(0,0,0,0.1)';
+        const col=isCorrect?'#155724':'rgba(0,0,0,0.3)';
+        return `<div style="padding:0.45rem 0.8rem;border:1.5px solid ${bc};background:${bg};color:${col};font-size:0.83rem;margin-bottom:0.35rem;">
+          <span style="font-family:'DM Mono',monospace;font-size:0.72rem;margin-right:0.5rem;">${letters[i]}</span>${o}
+        </div>`;
+      }).join('');
+      return `<div style="margin-bottom:1.5rem;padding:1rem 1.1rem;background:#fff;border:1.5px solid var(--ink);">
+        <div style="font-weight:500;font-size:0.9rem;margin-bottom:0.75rem;line-height:1.5;">${q.q}</div>
+        ${optsHTML}
+        <div style="margin-top:0.6rem;font-size:0.78rem;color:var(--muted);border-top:1px solid rgba(0,0,0,0.08);padding-top:0.5rem;">${q.exp}</div>
+      </div>`;
+    }).join('');
+  }
+  const card=document.getElementById('q-card');
+  card.innerHTML=`
+    <div style="text-align:center;padding:1rem 0 1.5rem;">
+      <div style="font-family:'DM Mono',monospace;font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:#2d5a27;margin-bottom:0.5rem;">Quiz Complete</div>
+      <div style="font-family:'Playfair Display',serif;font-size:2.5rem;font-weight:900;margin-bottom:0.25rem;">${pct}%</div>
+      <div style="font-size:0.88rem;color:var(--muted);">${totalCorrect} of ${pool.length} correct</div>
+    </div>
+    ${reviewList.length>0?`<div style="font-family:'DM Mono',monospace;font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--accent);margin-bottom:1rem;padding-top:0.75rem;border-top:2px solid var(--ink);">Review — ${reviewList.length} question${reviewList.length!==1?'s':''} to revisit</div>`:''}
+    ${reviewHTML}
+  `;
   document.getElementById('btn-submit').style.display='none';
   document.getElementById('btn-next').style.display='none';
   updateProgress();
 }
 
 function resetQuiz(){
-  cursor=0;totalCorrect=0;totalWrong=0;submitted=false;
+  cursor=0;totalCorrect=0;totalWrong=0;submitted=false;reviewList=[];
   pool=buildPool();
   document.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('active'));
   document.querySelector('.fbtn').classList.add('active');
@@ -1129,12 +1160,16 @@ function resetQuiz(){
   document.getElementById('btn-next').style.display='none';
   document.getElementById('btn-start').style.display='inline-block';
   document.getElementById('btn-restart').style.display='none';
-  document.getElementById('q-tag').textContent='—';
-  document.getElementById('q-counter').textContent='—';
-  document.getElementById('q-text').textContent='Select a filter and question count, then click Start.';
-  document.getElementById('q-hint').textContent='';
-  document.getElementById('q-opts').innerHTML='';
-  document.getElementById('q-feedback').style.display='none';
+  document.getElementById('q-card').innerHTML=`
+    <div id="q-meta" style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:0.75rem;flex-wrap:wrap;gap:0.5rem;">
+      <span id="q-tag" class="qtag" style="background:#444;">—</span>
+      <span id="q-counter" style="font-family:'DM Mono',monospace;font-size:0.7rem;color:var(--muted);">—</span>
+    </div>
+    <div id="q-text" style="font-weight:500;font-size:0.95rem;margin-bottom:1rem;line-height:1.6;">Select a filter and question count, then click Start.</div>
+    <div id="q-hint" style="font-family:'DM Mono',monospace;font-size:0.68rem;color:var(--accent);letter-spacing:0.06em;margin-bottom:1rem;min-height:1rem;"></div>
+    <div id="q-opts" style="display:flex;flex-direction:column;gap:0.5rem;"></div>
+    <div id="q-feedback" style="display:none;margin-top:1rem;padding:0.8rem 1rem;font-size:0.84rem;line-height:1.6;"></div>
+  `;
   updateProgress();
 }
 
