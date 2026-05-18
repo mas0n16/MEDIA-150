@@ -838,6 +838,12 @@
       <button class="fbtn" onclick="setFilter('mixed',this)">Mixed Review</button>
     </div>
     <div style="margin-bottom:1.2rem;">
+      <label style="display:flex;align-items:center;gap:0.5rem;cursor:pointer;font-family:'DM Mono',monospace;font-size:0.72rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink);margin-bottom:1rem;">
+        <input type="checkbox" id="hint-toggle" checked style="width:15px;height:15px;cursor:pointer;accent-color:var(--accent);">
+        Show answer count on multi-select questions
+      </label>
+    </div>
+    <div style="margin-bottom:1.2rem;">
       <div style="font-family:'DM Mono',monospace;font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:0.5rem;">How many questions?</div>
       <div style="display:flex;flex-wrap:wrap;gap:0.5rem;" id="count-btns">
         <button class="count-btn" onclick="setCount(15,this)" style="font-family:'DM Mono',monospace;font-size:0.72rem;letter-spacing:0.08em;text-transform:uppercase;padding:0.5rem 1.1rem;background:#fff;border:2px solid var(--ink);cursor:pointer;transition:all 0.12s;">15</button>
@@ -1027,7 +1033,8 @@ function renderQuestion(){
   submitted=false;
   const q=pool[cursor];
   const cc=q.ans.length;
-  const label=cc===1?'Select 1 correct answer':`Select all that apply — ${cc} correct`;
+  const showCount=document.getElementById('hint-toggle').checked;
+  const label=cc===1?'Select the BEST answer':(showCount?`Select all that apply — ${cc} correct`:'Select all that apply');
   document.getElementById('q-tag').textContent=SEC_LABELS[q.sec]||q.sec;
   document.getElementById('q-tag').style.background=SEC_COLORS[q.sec]||'#444';
   document.getElementById('q-counter').textContent=`Q ${cursor+1} of ${pool.length}`;
