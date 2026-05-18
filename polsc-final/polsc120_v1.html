@@ -1399,32 +1399,19 @@ function filterQuiz(section, btn) {
   renderQuiz();
 }
 
-function shuffleOptions(options, correctIdx) {
-  const indices = options.map((_, i) => i);
-  for (let k = indices.length - 1; k > 0; k--) {
-    const r = Math.floor(Math.random() * (k + 1));
-    [indices[k], indices[r]] = [indices[r], indices[k]];
-  }
-  return {
-    shuffled: indices.map(i => options[i]),
-    newCorrect: indices.indexOf(correctIdx)
-  };
-}
-
 function renderQuiz() {
   const filtered = currentFilter === 'all' ? questions : questions.filter(q => q.section === currentFilter);
   document.getElementById('q-count').textContent = filtered.length;
   const c = document.getElementById('quiz-container');
   c.innerHTML = '';
   filtered.forEach((q, i) => {
-    const { shuffled, newCorrect } = shuffleOptions(q.options, q.answer);
     const card = document.createElement('div');
     card.className = 'quiz-card';
     const labelCls = q.labelClass ? `quiz-section-label ${q.labelClass}` : 'quiz-section-label';
     card.innerHTML = `
       <div class="${labelCls}">${q.label}</div>
       <div class="q-text">${i+1}. ${q.q}</div>
-      <div class="quiz-options" data-correct="${newCorrect}">${shuffled.map((o,j)=>`<button class="quiz-option" onclick="checkAnswer(${i},${j},this,'${q.section}')">${o}</button>`).join('')}</div>
+      <div class="quiz-options">${q.options.map((o,j)=>`<button class="quiz-option" onclick="checkAnswer(${i},${j},this,'${q.section}')">${o}</button>`).join('')}</div>
       <div class="quiz-feedback" id="fb-${q.section}-${i}"></div>`;
     c.appendChild(card);
   });
@@ -1434,18 +1421,16 @@ function checkAnswer(qi, chosen, btn, section) {
   const filtered = currentFilter === 'all' ? questions : questions.filter(q => q.section === currentFilter);
   const q = filtered[qi];
   if (btn.classList.contains('correct') || btn.classList.contains('wrong')) return;
-  const optionsEl = btn.parentElement;
-  const correctIdx = parseInt(optionsEl.dataset.correct);
-  optionsEl.querySelectorAll('.quiz-option').forEach(o => o.style.pointerEvents = 'none');
+  btn.parentElement.querySelectorAll('.quiz-option').forEach(o => o.style.pointerEvents = 'none');
   const fb = document.getElementById(`fb-${section}-${qi}`);
-  if (chosen === correctIdx) {
+  if (chosen === q.answer) {
     btn.classList.add('correct');
     fb.textContent = '✓ Correct! ' + q.explanation;
     fb.className = 'quiz-feedback show correct-fb';
     correct++;
   } else {
     btn.classList.add('wrong');
-    optionsEl.querySelectorAll('.quiz-option')[correctIdx].classList.add('correct');
+    btn.parentElement.querySelectorAll('.quiz-option')[q.answer].classList.add('correct');
     fb.textContent = '✗ ' + q.explanation;
     fb.className = 'quiz-feedback show wrong-fb';
   }

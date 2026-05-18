@@ -1,0 +1,1148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>POLSC 101 — Final Exam Study Guide V2</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap');
+  :root {
+    --ink: #0f0e0b; --paper: #f5f0e8; --accent: #c8392e; --gold: #d4a017;
+    --muted: #7a756a; --s1: #1a3a5c; --s2: #2d5a27; --s3: #5c3a1a;
+    --s4: #8b0000; --highlight: #ffe066; --warn: #ff6b35;
+    --reading: #eae4f5; --slide: #e8f0e8;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--paper); color: var(--ink); font-family: 'DM Sans', sans-serif; font-weight: 300; line-height: 1.65; }
+
+  /* HEADER */
+  header { background: var(--ink); color: var(--paper); padding: 2.5rem 2rem 2rem; text-align: center; position: relative; overflow: hidden; }
+  header::before { content:''; position:absolute; inset:0; background: repeating-linear-gradient(-45deg,transparent,transparent 10px,rgba(255,255,255,0.025) 10px,rgba(255,255,255,0.025) 11px); }
+  .eyebrow { font-family:'DM Mono',monospace; font-size:0.68rem; letter-spacing:0.25em; text-transform:uppercase; color:var(--gold); margin-bottom:0.6rem; position:relative; }
+  header h1 { font-family:'Playfair Display',serif; font-size:clamp(1.8rem,4.5vw,3rem); font-weight:900; line-height:1.1; position:relative; }
+  header .sub { margin-top:0.75rem; font-size:0.82rem; color:rgba(245,240,232,0.55); font-family:'DM Mono',monospace; position:relative; }
+
+  /* EXAM EMPHASIS BANNER */
+  .exam-banner { background:var(--s4); color:#fff; padding:0.65rem 1.5rem; font-family:'DM Mono',monospace; font-size:0.72rem; letter-spacing:0.12em; text-transform:uppercase; text-align:center; }
+
+  /* NAV */
+  nav { display:flex; border-bottom:3px solid var(--ink); background:var(--paper); position:sticky; top:0; z-index:100; overflow-x:auto; }
+  nav button { padding:0.8rem 1rem; font-family:'DM Mono',monospace; font-size:0.64rem; letter-spacing:0.07em; text-transform:uppercase; background:none; border:none; cursor:pointer; color:var(--muted); border-bottom:3px solid transparent; margin-bottom:-3px; white-space:nowrap; transition:all 0.2s; }
+  nav button:hover { color:var(--ink); }
+  nav button.active { color:var(--ink); border-bottom-color:var(--accent); font-weight:500; }
+
+  main { max-width:940px; margin:0 auto; padding:2rem 1.5rem 5rem; }
+  .section { display:none; }
+  .section.active { display:block; animation:fadeIn 0.25s ease; }
+  @keyframes fadeIn { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:none} }
+
+  /* SECTION BADGE */
+  .sec-badge { display:inline-block; font-family:'DM Mono',monospace; font-size:0.62rem; letter-spacing:0.14em; text-transform:uppercase; padding:0.18rem 0.55rem; border-radius:2px; margin-bottom:0.45rem; color:#fff; }
+  .b1{background:var(--s1);} .b2{background:var(--s2);} .b3{background:var(--s3);} .b4{background:var(--s4);}
+  .b4a{background:#b30000;} .b4b{background:#900;} .b4c{background:#7a0000;} .b4d{background:#600;}
+  .b4e{background:#500010;} .b4f{background:#3a0020;} .b4g{background:#1a003a;} .b4h{background:#001a3a;}
+
+  .section-header { margin-bottom:1.8rem; }
+  .section-header h1 { font-family:'Playfair Display',serif; font-size:1.9rem; font-weight:900; }
+  .section-header p { color:var(--muted); margin-top:0.35rem; font-size:0.87rem; }
+
+  /* TOPIC BLOCK */
+  .topic-block { margin-bottom:2.2rem; border-left:4px solid var(--ink); padding-left:1.2rem; }
+  .topic-block h2 { font-family:'Playfair Display',serif; font-size:1.3rem; font-weight:700; margin-bottom:0.35rem; }
+
+  /* BOXES */
+  .exam-box { background:var(--highlight); border:2px solid var(--ink); padding:0.85rem 1.05rem; margin:0.9rem 0; }
+  .exam-box::before { content:'★ EXAM EMPHASIS'; font-family:'DM Mono',monospace; font-size:0.58rem; letter-spacing:0.15em; display:block; margin-bottom:0.35rem; font-weight:500; }
+  .exam-box p, .exam-box ul { font-size:0.88rem; }
+  .exam-box ul { padding-left:1.2rem; }
+
+  .reading-box { background:var(--reading); border:2px solid #6b3fa0; padding:0.85rem 1.05rem; margin:0.9rem 0; }
+  .reading-box::before { content:'📖 ASSIGNED READING'; font-family:'DM Mono',monospace; font-size:0.58rem; letter-spacing:0.15em; color:#6b3fa0; display:block; margin-bottom:0.35rem; font-weight:500; }
+  .reading-box .cite { font-family:'DM Mono',monospace; font-size:0.7rem; color:#6b3fa0; display:block; margin-bottom:0.4rem; font-weight:500; }
+  .reading-box p, .reading-box ul { font-size:0.87rem; }
+  .reading-box ul { padding-left:1.2rem; }
+
+  .hoeft-box { background:var(--slide); border:2px solid #4a6741; padding:0.85rem 1.05rem; margin:0.9rem 0; }
+  .hoeft-box::before { content:'📋 HOEFT NOTE'; font-family:'DM Mono',monospace; font-size:0.58rem; letter-spacing:0.15em; color:#4a6741; display:block; margin-bottom:0.35rem; font-weight:500; }
+  .hoeft-box p, .hoeft-box ul { font-size:0.87rem; }
+  .hoeft-box ul { padding-left:1.2rem; }
+
+  .warn-box { background:#fff3e0; border-left:4px solid var(--warn); padding:0.65rem 0.95rem; font-size:0.84rem; margin:0.7rem 0; }
+  .warn-box strong { color:var(--warn); }
+
+  /* LISTS */
+  .study-list { list-style:none; margin:0.75rem 0; }
+  .study-list li { padding:0.3rem 0 0.3rem 1.35rem; position:relative; font-size:0.88rem; border-bottom:1px dashed rgba(0,0,0,0.09); }
+  .study-list li::before { content:'—'; position:absolute; left:0; color:var(--muted); }
+
+  /* TABLE */
+  table { width:100%; border-collapse:collapse; font-size:0.83rem; margin-top:0.9rem; }
+  th { background:var(--ink); color:var(--paper); font-family:'DM Mono',monospace; font-size:0.67rem; letter-spacing:0.08em; text-transform:uppercase; padding:0.55rem 0.75rem; text-align:left; }
+  td { padding:0.55rem 0.75rem; border-bottom:1px solid rgba(0,0,0,0.09); vertical-align:top; }
+  tr:nth-child(even) td { background:rgba(0,0,0,0.025); }
+
+  /* ACCORDION */
+  .accordion { margin:0.65rem 0; }
+  .acc-trigger { width:100%; text-align:left; background:#fff; border:1.5px solid var(--ink); padding:0.7rem 0.95rem; cursor:pointer; font-family:'DM Sans',sans-serif; font-size:0.86rem; font-weight:500; display:flex; justify-content:space-between; align-items:center; transition:background 0.15s; }
+  .acc-trigger:hover { background:var(--highlight); }
+  .acc-trigger::after { content:'+'; font-size:1.15rem; color:var(--muted); }
+  .acc-trigger.open::after { content:'−'; }
+  .acc-content { display:none; background:#fff; border:1.5px solid var(--ink); border-top:none; padding:0.9rem 1rem; font-size:0.85rem; }
+  .acc-content.open { display:block; }
+  .acc-content ul { padding-left:1.2rem; }
+  .acc-content li { margin-bottom:0.3rem; }
+
+  /* SCHOLAR TABLE */
+  .scholar-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:0.9rem; margin-top:1rem; }
+  .scholar-card { background:#fff; border:1.5px solid var(--ink); padding:0.8rem 0.95rem; }
+  .scholar-card .name { font-family:'DM Mono',monospace; font-size:0.72rem; color:var(--accent); text-transform:uppercase; letter-spacing:0.06em; display:block; margin-bottom:0.15rem; }
+  .scholar-card .work { font-size:0.78rem; color:var(--muted); font-style:italic; display:block; margin-bottom:0.3rem; }
+  .scholar-card p { font-size:0.82rem; }
+
+  /* GLOSSARY */
+  .glossary-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(270px,1fr)); gap:0.85rem; margin-top:1rem; }
+  .gloss-card { background:#fff; border:1.5px solid var(--ink); padding:0.8rem 0.95rem; }
+  .gloss-card strong { font-family:'DM Mono',monospace; font-size:0.73rem; color:var(--accent); text-transform:uppercase; letter-spacing:0.05em; display:block; margin-bottom:0.25rem; }
+  .gloss-card p { font-size:0.82rem; }
+
+  /* MONEY CHANNELS */
+  .money-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(250px,1fr)); gap:0.9rem; margin:1rem 0; }
+  .money-card { background:#fff; border:2px solid #2d5a27; padding:0.85rem 1rem; }
+  .money-card .num { font-family:'Playfair Display',serif; font-size:1.6rem; font-weight:900; color:#2d5a27; line-height:1; margin-bottom:0.3rem; }
+  .money-card strong { font-family:'DM Mono',monospace; font-size:0.68rem; color:#2d5a27; text-transform:uppercase; letter-spacing:0.07em; display:block; margin-bottom:0.3rem; }
+  .money-card p { font-size:0.82rem; }
+
+  .divider { border:none; border-top:2px solid var(--ink); margin:2.2rem 0; }
+
+  /* QUIZ */
+  .qcard { background:#fff; border:2px solid var(--ink); padding:1.2rem 1.2rem 0.9rem; margin-bottom:1.1rem; }
+  .qcard .qtag { font-family:'DM Mono',monospace; font-size:0.6rem; letter-spacing:0.12em; text-transform:uppercase; color:#fff; padding:0.12rem 0.45rem; border-radius:2px; display:inline-block; margin-bottom:0.45rem; }
+  .qcard .qtext { font-weight:500; margin-bottom:0.8rem; font-size:0.9rem; }
+  .qopts { display:flex; flex-direction:column; gap:0.45rem; }
+  .qopt { background:var(--paper); border:1.5px solid rgba(0,0,0,0.18); padding:0.45rem 0.75rem; cursor:pointer; font-size:0.84rem; text-align:left; transition:all 0.12s; }
+  .qopt:hover { border-color:var(--ink); background:#ede8de; }
+  .qopt.correct { background:#d4edda; border-color:#28a745; color:#155724; }
+  .qopt.wrong { background:#f8d7da; border-color:#dc3545; color:#721c24; }
+  .qfb { margin-top:0.65rem; font-size:0.79rem; padding:0.35rem 0.55rem; display:none; }
+  .qfb.show { display:block; }
+  .qfb.cfb { background:#d4edda; color:#155724; }
+  .qfb.wfb { background:#f8d7da; color:#721c24; }
+
+  .filter-row { display:flex; flex-wrap:wrap; gap:0.4rem; margin-bottom:1.2rem; }
+  .fbtn { font-family:'DM Mono',monospace; font-size:0.62rem; letter-spacing:0.07em; text-transform:uppercase; padding:0.35rem 0.75rem; background:#fff; border:1.5px solid var(--ink); cursor:pointer; transition:all 0.12s; }
+  .fbtn:hover { background:var(--highlight); }
+  .fbtn.active { background:var(--ink); color:var(--paper); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="eyebrow">POLSC 101 · American Government · Final Exam</div>
+  <h1>Comprehensive Study Guide — V2</h1>
+  <div class="sub">Based on the official Final Exam Study Guide & Review Sheet · Cumulative with emphasis on Section 4</div>
+</header>
+
+<div class="exam-banner">⚠ Section 4 is the primary exam emphasis — Political Money, Lobbying, Interest Groups & Elections</div>
+
+<nav>
+  <button onclick="show('quiz',this)" style="color:var(--accent);font-weight:500;">⬤ Practice Test</button>
+  <button class="active" onclick="show('home',this)">Overview</button>
+  <button onclick="show('s1',this)">§1 Federalism</button>
+  <button onclick="show('s2',this)">§2 Parties</button>
+  <button onclick="show('s3',this)">§3 Congress/Courts</button>
+  <button onclick="show('s4a',this)">§4A Funding</button>
+  <button onclick="show('s4b',this)">§4B Show Me $</button>
+  <button onclick="show('s4c',this)">§4C Elections</button>
+  <button onclick="show('s4d',this)">§4D Lobbying</button>
+  <button onclick="show('s4e',this)">§4E Voters</button>
+  <button onclick="show('s4f',this)">§4F Interest Grps</button>
+  <button onclick="show('s4g',this)">§4G SCOTUS</button>
+  <button onclick="show('s4h',this)">§4H Foreign Policy</button>
+  <button onclick="show('scholars',this)">Scholars</button>
+  <button onclick="show('glossary',this)">Glossary</button>
+</nav>
+
+<main>
+
+<!-- ══════════════════════════════════════════════════
+     OVERVIEW
+══════════════════════════════════════════════════ -->
+<div class="section active" id="home">
+
+  <!-- PRACTICE TEST CTA -->
+  <div style="margin-bottom:2rem;">
+    <button onclick="showQuiz()" style="width:100%;padding:1.4rem 2rem;background:var(--s4);color:#fff;border:none;cursor:pointer;font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;letter-spacing:0.01em;display:flex;align-items:center;justify-content:center;gap:1rem;transition:opacity 0.15s;" onmouseover="this.style.opacity='0.88'" onmouseout="this.style.opacity='1'">
+      <span style="font-size:1.8rem;">📝</span>
+      Practice Test — 100 Questions
+      <span style="font-family:'DM Mono',monospace;font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;background:rgba(255,255,255,0.18);padding:0.3rem 0.7rem;border-radius:2px;">Start →</span>
+    </button>
+  </div>
+
+  <div class="section-header">
+    <h1>What to Know & How to Study It</h1>
+    <p>Organized directly from the official final exam study guide. Section 4 is the exam's primary emphasis.</p>
+  </div>
+
+  <div class="exam-box">
+    <p><strong>The money-in-politics thread runs through everything in Section 4:</strong> Hoeft's diagram → Schlozman / Pierson / Carnes → SCOTUS decisions (Citizens United / Bowie) → veto players (Warren's counter-claim) → voter irrationality (Achen & Bartels). Friedman & Payne connects foreign policy to those same voter behavior patterns from 12.4.</p>
+  </div>
+
+  <div class="topic-block">
+    <h2>Table of Contents — What's on the Exam</h2>
+    <table>
+      <tr><th>Section</th><th>Topic</th><th>Weight</th></tr>
+      <tr><td><span class="sec-badge b1">§1</span></td><td>State Structure — Federalism, Constitution & Veto Players (O'C&S Ch. 2, 3)</td><td>Background</td></tr>
+      <tr><td><span class="sec-badge b2">§2</span></td><td>Parties (O'C&S Ch. 11)</td><td>Background</td></tr>
+      <tr><td><span class="sec-badge b3">§3</span></td><td>Congress, Presidency & Courts</td><td>Background</td></tr>
+      <tr><td><span class="sec-badge b4">§4A</span></td><td>Sources of Campaign Funding</td><td style="color:var(--s4);font-weight:600">PRIMARY EMPHASIS</td></tr>
+      <tr><td><span class="sec-badge b4">§4B</span></td><td>'Show Me the Money' — Hoeft's Five Channels</td><td style="color:var(--s4);font-weight:600">PRIMARY EMPHASIS</td></tr>
+      <tr><td><span class="sec-badge b4">§4C</span></td><td>Types of Elections & Electoral College</td><td style="color:var(--s4);font-weight:600">PRIMARY EMPHASIS</td></tr>
+      <tr><td><span class="sec-badge b4">§4D</span></td><td>Lobbying, Unequal Representation & Veto Players</td><td style="color:var(--s4);font-weight:600">PRIMARY EMPHASIS</td></tr>
+      <tr><td><span class="sec-badge b4">§4E</span></td><td>Voters: Turnout, Choice & Rationality (Achen & Bartels)</td><td style="color:var(--s4);font-weight:600">PRIMARY EMPHASIS</td></tr>
+      <tr><td><span class="sec-badge b4">§4F</span></td><td>Interest-Group Campaigning (Gose, Skocpol & Williamson)</td><td style="color:var(--s4);font-weight:600">PRIMARY EMPHASIS</td></tr>
+      <tr><td><span class="sec-badge b4">§4G</span></td><td>The Supreme Court & Democracy (Bowie 2021)</td><td style="color:var(--s4);font-weight:600">PRIMARY EMPHASIS</td></tr>
+      <tr><td><span class="sec-badge b4">§4H</span></td><td>Foreign Policy & Voter Perception (Friedman & Payne 2024)</td><td style="color:var(--s4);font-weight:600">PRIMARY EMPHASIS</td></tr>
+    </table>
+  </div>
+
+  <div class="topic-block">
+    <h2>Sources on the Exam</h2>
+    <div class="glossary-grid">
+      <div class="gloss-card"><strong>O'Connor & Sabato (2026)</strong><p>Main textbook — Chapters 2, 3, 11, 12. Sections 11.4, 11.6, 12.1, 12.3, 12.4 are especially relevant.</p></div>
+      <div class="gloss-card"><strong>Hoeft Slides</strong><p>'Show Me the Money' diagram (rev. 2024) — five channels of financial influence. Voter Attachments & Mediatization slide. Party organization slides.</p></div>
+      <div class="gloss-card"><strong>Noel (2014)</strong><p>WaPo Monkey Cage — "How Ideological Activists Polarized Parties." The great sort. Parties became distinct, not just extreme.</p></div>
+      <div class="gloss-card"><strong>Achen & Bartels (2016)</strong><p><em>Democracy for Realists</em> — voters swing elections irrationally; informed voters parrot elites; primaries too personalistic.</p></div>
+      <div class="gloss-card"><strong>Gose, Skocpol & Williamson (2020)</strong><p><em>Upending American Politics</em> Ch. 9 — Tea Party vs. Anti-Trump Resistance comparison.</p></div>
+      <div class="gloss-card"><strong>Bowie (2021)</strong><p>WaPo / Harvard Law — SCOTUS is antidemocratic; judicial review historically protected wealth over democracy.</p></div>
+      <div class="gloss-card"><strong>Friedman & Payne (2024)</strong><p><em>Foreign Affairs</em> — "Americans Love a Tough Guy." Voters respond to strength perception, not expert consensus.</p></div>
+      <div class="gloss-card"><strong>Schlozman, Carnes, Pierson (2013)</strong><p>SSN essays — unequal lobbying expenditures; class backgrounds of officials; revolving doors.</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════
+     SECTION 1: FEDERALISM
+══════════════════════════════════════════════════ -->
+<div class="section" id="s1">
+  <div class="section-header">
+    <div class="sec-badge b1">Section 1</div>
+    <h1>Federalism, Constitution & Veto Players</h1>
+    <p>O'C&S Ch. 2, 3 — Background knowledge; veto players connects to Section 4</p>
+  </div>
+
+  <div class="topic-block">
+    <h2>1.1 Federalism</h2>
+    <p style="font-size:0.9rem;margin-bottom:0.75rem;"><strong>Definition:</strong> Power divided among national, 50 state, and municipal governments. National government is supreme (Supremacy Clause).</p>
+    <p style="font-size:0.85rem;margin-bottom:0.5rem;color:var(--muted);">Over 89,000 total governments: 1 U.S. + 50 states + 89,004 local (counties, municipalities, townships, school districts, special districts).</p>
+    <table>
+      <tr><th>Type</th><th>Who Holds It</th><th>Examples</th></tr>
+      <tr><td><strong>Enumerated (National)</strong></td><td>Federal government only</td><td>Coin money, declare war, regulate interstate commerce, naturalization, post office</td></tr>
+      <tr><td><strong>Reserved (State)</strong></td><td>States only</td><td>Set election times/places/manner, appoint electors, public health/safety/morals, establish local governments, regulate intrastate commerce</td></tr>
+      <tr><td><strong>Concurrent</strong></td><td>Both national and state</td><td>Tax, borrow money, establish courts, make and enforce laws, charter banks, spend for general welfare</td></tr>
+    </table>
+  </div>
+
+  <div class="topic-block">
+    <h2>1.2 Separation of Powers & Checks</h2>
+    <div class="accordion">
+      <button class="acc-trigger" onclick="ta(this)">Executive (President, governors, mayors)</button>
+      <div class="acc-content"><ul><li>Veto legislation</li><li>Call Congress into special session</li><li>Appoint federal judges</li><li>Implement laws</li></ul></div>
+    </div>
+    <div class="accordion">
+      <button class="acc-trigger" onclick="ta(this)">Legislative (Congress, state legislatures)</button>
+      <div class="acc-content"><ul><li>Impeach president</li><li>Reject legislation/nominees</li><li>Override veto by 2/3 vote</li><li>Change number/jurisdiction of courts</li></ul></div>
+    </div>
+    <div class="accordion">
+      <button class="acc-trigger" onclick="ta(this)">Judicial (SCOTUS and federal courts)</button>
+      <div class="acc-content"><ul><li>Declare laws unconstitutional (judicial review)</li><li>Rule executive actions unconstitutional</li></ul></div>
+    </div>
+  </div>
+
+  <div class="topic-block">
+    <h2>1.3 Amending the Constitution</h2>
+    <ul class="study-list">
+      <li><strong>Formal:</strong> 2/3 of both houses of Congress (or 2/3 of state legislatures — never used) to propose; 3/4 of states to ratify</li>
+      <li>Only 27 of ~12,000 proposed amendments have passed</li>
+      <li><strong>Informal change:</strong> Judges reinterpret; new societal developments prompt new judicial precedent</li>
+    </ul>
+  </div>
+
+  <div class="topic-block">
+    <h2>1.4 Veto Players — Key Concept</h2>
+    <div class="exam-box">
+      <p><strong>Tsebelis (2003):</strong> Veto players are actors whose agreement is required to change policy. The U.S. has many and heavy veto players — making new democratic lawmaking very difficult. Near-synonyms: veto points, veto gates, veto opportunities, veto plays.</p>
+    </div>
+    <div class="accordion">
+      <button class="acc-trigger" onclick="ta(this)">George Will (conservative, 2010) — Gridlock as Achievement</button>
+      <div class="acc-content"><p>The Founders designed blocking mechanisms: 3 branches, bicameral legislature, presidential veto, veto override, supermajorities, judicial review. "Gridlock is not an American problem, it is an American achievement."</p></div>
+    </div>
+    <div class="accordion">
+      <button class="acc-trigger" onclick="ta(this)">Elizabeth Warren (2016) — The Complicating Counter-Claim</button>
+      <div class="acc-content"><p>Big-money players can and do overcome gridlock — securing favorable policies (tax carve-outs, hidden benefits) that most voters never know about. This connects to Section 4: the same institutional structures that block ordinary democratic majorities do NOT effectively block wealthy interests who can navigate around them through lobbying.</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════
+     SECTION 2: PARTIES
+══════════════════════════════════════════════════ -->
+<div class="section" id="s2">
+  <div class="section-header">
+    <div class="sec-badge b2">Section 2</div>
+    <h1>Political Parties</h1>
+    <p>O'C&S Ch. 11 — Background; connects to Section 4 through extended party networks and mediatization</p>
+  </div>
+
+  <div class="topic-block">
+    <h2>2.1 Party Organization</h2>
+    <div class="hoeft-box"><p><strong>Extended party networks (Galvin 2016):</strong> Parties are weak networks where formal units, interest groups, and candidate organizations overlap, compete, and sometimes collide. Interest groups blur in — called "blobs" (Schlozman & Rosenfeld). Democrats post-1960s became "the advocacy party" (Adam Hilton 2021). Candidate selection is mostly done through primaries, making parties weaker.</p></div>
+    <p style="font-size:0.87rem;margin-top:0.75rem;"><strong>Hierarchy (Figure 11.3):</strong></p>
+    <ul class="study-list">
+      <li><strong>National:</strong> National chair → National committee → National convention</li>
+      <li><strong>State:</strong> State central committees & state conventions → Congressional district committees</li>
+      <li><strong>Local:</strong> City & county committees → Precinct & ward committees → Activists & volunteers → Identifiers & voters</li>
+    </ul>
+  </div>
+
+  <div class="topic-block">
+    <h2>2.2 Two-Party System & Single-Member Districts</h2>
+    <ul class="study-list">
+      <li><strong>Causal chain:</strong> Winner-take-all / single-member districts → candidate-centered politics → 2-party domination</li>
+      <li><strong>Minor party exception:</strong> Minnesota's Farmer-Labor Party (FLP, 1920s–40s) — most successful U.S. third party; governed to the left of Democrats; subsumed by New Deal Democrats (Valelly 1989)</li>
+      <li><strong>Proportional Representation (PR):</strong> Could dissolve 2-party domination? Debatable (Wang 2023). Germany 2021 produced coalition negotiations among 4+ parties.</li>
+    </ul>
+  </div>
+
+  <div class="topic-block">
+    <h2>2.3 Voter Attachments & Mediatization</h2>
+    <ul class="study-list">
+      <li><strong>Demographic correlates of party ID:</strong> Race, gender, occupation, religion, income, geography (urban vs. rural sorting)</li>
+      <li><strong>Income pattern:</strong> Higher-income brackets lean Republican; lower-income lean Democratic (Pew, Figure 11.10B1)</li>
+      <li><strong>Negative partisanship:</strong> Voters motivated more by disliking the other party than liking their own</li>
+      <li><strong>The great sort (1940s–1990s):</strong> Parties became more internally coherent and more polarized from each other — see Noel (2014)</li>
+      <li><strong>Noel (2014):</strong> Ideological activists (not just voters) drove party polarization, pushing parties toward more extreme positions</li>
+      <li><strong>Mediatization:</strong> Print → radio → TV → internet changed party-voter links. Media emphasizes drama, horse-race coverage, wedge issues. Makes national conventions into TV shows.</li>
+    </ul>
+  </div>
+
+  <div class="topic-block">
+    <h2>2.4 Party Discipline & Polarization</h2>
+    <ul class="study-list">
+      <li>Majorities typically face defections; parties cohere mainly around fundraising and databases</li>
+      <li>2-party domination may alienate voters — 43%+ now identify as Independent</li>
+      <li>Consequences of polarization: reduced bipartisan governance, gridlock, democratic norm erosion</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════
+     SECTION 3: CONGRESS / COURTS
+══════════════════════════════════════════════════ -->
+<div class="section" id="s3">
+  <div class="section-header">
+    <div class="sec-badge b3">Section 3</div>
+    <h1>Congress, Presidency & Courts</h1>
+    <p>Background knowledge — connects to Section 4 through incumbency, SCOTUS, and judicial review</p>
+  </div>
+
+  <div class="topic-block">
+    <h2>3.1 Incumbency Advantage in Congress</h2>
+    <ul class="study-list">
+      <li>Staff support, constituent service, access to local media, generous travel allowances</li>
+      <li><strong>Scare-off effect:</strong> discourages strong challengers from running</li>
+      <li>Reelection rates consistently very high — often 85–98% (Figure 12.2)</li>
+    </ul>
+  </div>
+
+  <div class="topic-block">
+    <h2>3.2 The Supreme Court & Judicial Review (Bowie 2021)</h2>
+    <div class="reading-box">
+      <span class="cite">Nikolas Bowie (2021), Washington Post / Harvard Law — ASSIGNED READING</span>
+      <p><strong>Core argument:</strong> Judicial review — giving 5 unelected justices power to invalidate federal law — is fundamentally antidemocratic. The court has historically protected the wealthy more than racial or political minorities.</p>
+      <ul style="margin-top:0.5rem">
+        <li><strong>Historical record:</strong> SCOTUS struck down the first federal voting rights act (1876); enabled Jim Crow by ignoring white mob violence against Black voters; used Shelby County (2013) to gut the Voting Rights Act</li>
+        <li><strong>Lincoln (1861):</strong> If government policy on vital questions is to be irrevocably fixed by SCOTUS, the people will have ceased to be their own rulers</li>
+        <li><strong>Marbury v. Madison (1803):</strong> Chief Justice Marshall established judicial review — "It is emphatically the province and duty of the judicial department to say what the law is"</li>
+        <li><strong>Countermajoritarian difficulty:</strong> Judicial review is antidemocratic, yet scholars argue it may be necessary to protect rights from majority tyranny. Bowie challenges this historically.</li>
+        <li><strong>Best cases FOR judicial review:</strong> Windsor (2013 — DOMA), Boumediene (2008 — Guantanamo), 1970s sex discrimination cases. But these don't outweigh the court's pro-Jim Crow history.</li>
+        <li><strong>Brown v. Board (1954):</strong> Desegregation remained nearly unchanged in 1964 — a full decade later. Only the Civil Rights Act + Voting Rights Act (1964–65) actually ended formal segregation. The court needed to give Congress permission to enforce what Congress itself had enacted.</li>
+        <li><strong>Citizens United (2010):</strong> SCOTUS threw out a century of campaign finance limits — directly connects to Section 4.</li>
+      </ul>
+      <p style="margin-top:0.6rem;font-style:italic;">"In the name of protecting us from the excesses of democracy, the judicial review of federal laws is costing us democracy itself."</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════
+     SECTION 4A: CAMPAIGN FUNDING
+══════════════════════════════════════════════════ -->
+<div class="section" id="s4a">
+  <div class="section-header">
+    <div class="sec-badge b4">Section 4A — Primary Exam Emphasis</div>
+    <h1>Sources of Campaign Funding</h1>
+    <p>O'C&S 12.3</p>
+  </div>
+
+  <div class="hoeft-box"><p>Prof. Hoeft note: Understand technical differences exist, but you don't need to master every detail — know the categories and key concepts. The ideological core matters more than exact dollar limits.</p></div>
+
+  <div class="topic-block">
+    <h2>Federal Funding Vehicles</h2>
+    <table>
+      <tr><th>Vehicle</th><th>Key Feature</th><th>Limit</th></tr>
+      <tr><td><strong>Individuals</strong></td><td>Direct to candidate/committee</td><td>$3,300 per election</td></tr>
+      <tr><td><strong>Political Parties</strong></td><td>Joint fundraising committees</td><td>Varies</td></tr>
+      <tr><td><strong>Candidate's Personal Savings</strong></td><td>Self-financing (Buckley v. Valeo)</td><td>No limit</td></tr>
+      <tr><td><strong>PACs</strong></td><td>Political Action Committees — pool contributions</td><td>$5,000/candidate/election</td></tr>
+      <tr><td><strong>527 Committees</strong></td><td>Political orgs under IRS code</td><td>Varies</td></tr>
+      <tr><td><strong>501(c) Groups</strong></td><td>Nonprofits — not primarily political; "dark money"</td><td>Varies</td></tr>
+      <tr><td><strong>Super PACs (IEs)</strong></td><td>Independent Expenditures — cannot coordinate with candidates</td><td><strong>No limit — key!</strong></td></tr>
+      <tr><td><strong>Carey Committees</strong></td><td>Hybrid PAC/Super PAC with dual account system</td><td>Dual limits</td></tr>
+    </table>
+  </div>
+
+  <div class="topic-block">
+    <h2>Public Funds</h2>
+    <ul class="study-list">
+      <li>Not much public financing in most of the U.S.</li>
+      <li><strong>NYC and New York State are outliers</strong> — larger public matching programs</li>
+      <li>Presidential: must raise $5,000 in at least 20 states; must accept spending restrictions; few actually accept</li>
+      <li>Presidential Election Campaign Fund = $3 per taxpayer who checks the box (~20% participate)</li>
+    </ul>
+  </div>
+
+  <div class="topic-block">
+    <h2>SCOTUS on Money in Politics</h2>
+    <div class="exam-box">
+      <p>Courts — up through SCOTUS — have consistently protected the right of people with money to fund electoral campaigns, framing it as <strong>"freedom of expression"</strong> under the First Amendment. SCOTUS has upheld ONLY disclosure rules (easy to circumvent) and public matching programs. Other rich democracies restrict political money far more tightly; public subsidies to parties are common elsewhere but <strong>never in the U.S.</strong></p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════
+     SECTION 4B: SHOW ME THE MONEY
+══════════════════════════════════════════════════ -->
+<div class="section" id="s4b">
+  <div class="section-header">
+    <div class="sec-badge b4">Section 4B — Primary Exam Emphasis</div>
+    <h1>'Show Me the Money!' — Five Channels of Financial Influence</h1>
+    <p>Hoeft rev. 2024 — Know all five channels and how they connect</p>
+  </div>
+
+  <div class="money-grid">
+    <div class="money-card">
+      <div class="num">1</div>
+      <strong>Campaign Contributions — Direct</strong>
+      <p>Courts have protected people's right to fund candidates as free speech. Direct contributions go to candidate committees with some per-cycle limits — but coordinated with campaigns, making them the most "direct" channel.</p>
+    </div>
+    <div class="money-card">
+      <div class="num">2</div>
+      <strong>Employers & Investors</strong>
+      <p>Capitalist elites sway politicians by supplying or withdrawing <em>investments and jobs</em> in a given terrain. Promises and threats — explicit or tacit — may count. Economic leverage beyond formal donations.</p>
+    </div>
+    <div class="money-card">
+      <div class="num">3</div>
+      <strong>Lobbying & 'Revolving Doors'</strong>
+      <p>Financially potent lobbies cajole, charm, and convince politicians. They also <em>lure politicians with post-office opportunities</em> — lucrative and easy jobs after leaving office. "Revolving doors can open to penthouses" (Pierson).</p>
+    </div>
+    <div class="money-card">
+      <div class="num">4</div>
+      <strong>Independent Expenditures (IEs)</strong>
+      <p>Laws and courts permit lobbies and committees to campaign for elections, so long as candidates don't "coordinate" with outside campaigners. Super PACs operate through this mechanism — <strong>no spending limits</strong>.</p>
+    </div>
+    <div class="money-card">
+      <div class="num">5</div>
+      <strong>Class Backgrounds of Elected Officials</strong>
+      <p>Carnes: Economic class backgrounds of U.S. politicians strongly overrepresent high-income occupations. Because: (a) campaigning costs lost earnings/time, (b) discontinuity of employment, (c) reputational risks. Winners also enjoy incumbency advantages including lucrative post-office options.</p>
+    </div>
+  </div>
+
+  <div class="topic-block" style="margin-top:1.5rem">
+    <h2>The Core Tension</h2>
+    <div class="exam-box">
+      <p><strong>Capitalism vs. Democracy:</strong> Bernie Sanders (2024): "Ordinary Americans get one vote; billionaires contribute hundreds of millions to Super PACs." Social scientists and legal scholars see this tension as not easily smoothed over.</p>
+      <p style="margin-top:0.5rem"><strong>Schlozman's framing:</strong> "It is the affront to the democratic tenet of equality among citizens, embodied in the principle of one person, one vote — that makes the other kind of political money so worrisome. Some kinds of people and some political perspectives — most notably, the affluent — receive much more vigorous representation."</p>
+    </div>
+  </div>
+
+  <div class="topic-block">
+    <h2>Consequences When Privileged Classes Dominate (Carnes)</h2>
+    <ul class="study-list">
+      <li>Thinner welfare state</li>
+      <li>Freer regulatory environment for business</li>
+      <li>Lower taxes on the wealthy</li>
+      <li>Biases of knowledge and perspective in lawmaking</li>
+      <li>Congress members spend massive time fundraising (CBS News 2016; Pierson 2013)</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════
+     SECTION 4C: ELECTIONS
+══════════════════════════════════════════════════ -->
+<div class="section" id="s4c">
+  <div class="section-header">
+    <div class="sec-badge b4">Section 4C — Primary Exam Emphasis</div>
+    <h1>Types of Elections & the Electoral College</h1>
+    <p>O'C&S 12.1</p>
+  </div>
+
+  <div class="topic-block">
+    <h2>Types of Elections</h2>
+    <table>
+      <tr><th>Type</th><th>Definition</th></tr>
+      <tr><td><strong>Primary elections</strong></td><td>Candidate selection, usually within a party; voter picks which party primary to vote in</td></tr>
+      <tr><td><strong>General elections</strong></td><td>Main contest between party nominees for actual office</td></tr>
+      <tr><td><strong>Ballot initiatives</strong></td><td>Citizens push policy directly to voters via petition</td></tr>
+      <tr><td><strong>Referendums</strong></td><td>A legislature pushes a question out to voters; or citizens petition to repeal a law</td></tr>
+      <tr><td><strong>Recall</strong></td><td>Removal of an official by popular vote — only in some states</td></tr>
+    </table>
+  </div>
+
+  <div class="topic-block">
+    <h2>The Electoral College</h2>
+    <ul class="study-list">
+      <li>Each state gets electors = # senators + # representatives; DC gets 3</li>
+      <li><strong>270 electoral votes needed</strong> to win the presidency</li>
+      <li>Reapportionment (after each Census) can change state allocations</li>
+      <li><strong>2024:</strong> Trump & Vance won Electoral College; Harris won popular vote</li>
+      <li><strong>2000:</strong> Bush won Electoral College (271) despite Gore winning popular vote — Florida margin of 537 votes; Nader (Green) took 97,488 FL votes → spoiler effect</li>
+    </ul>
+  </div>
+
+  <div class="topic-block">
+    <h2>Conventions & Media Coverage</h2>
+    <ul class="study-list">
+      <li>Conventions: held quadrennially; formally nominate presidential/VP candidates; seek "convention bounce"</li>
+      <li>Now largely <strong>ritualistic TV shows</strong> — decisions made there don't bind politicians to policy resolutions</li>
+      <li><strong>Media coverage of campaigns:</strong> Sells eyeballs. Focus on personal dramas, horse-race polls (who's gaining/slipping), campaign tactics — <em>not</em> policy substance. Hoeft: media content "not helpful for democracy."</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════
+     SECTION 4D: LOBBYING
+══════════════════════════════════════════════════ -->
+<div class="section" id="s4d">
+  <div class="section-header">
+    <div class="sec-badge b4">Section 4D — Primary Exam Emphasis</div>
+    <h1>Lobbying, Unequal Representation & Political Money</h1>
+    <p>Schlozman (2013), Carnes (2013), Pierson (2013), CBS News (2016)</p>
+  </div>
+
+  <div class="exam-box">
+    <p><strong>Extreme inequality in lobbying expenditures (Schlozman):</strong></p>
+    <ul>
+      <li>Business interests: <strong>72%</strong> of all lobbying money</li>
+      <li>Labor unions: only <strong>1%</strong> of lobbying expenditures</li>
+      <li>Poor people's social service providers: only <strong>1%</strong></li>
+      <li>Welfare policy beneficiaries and incarcerated people: <strong>Zero</strong></li>
+    </ul>
+  </div>
+
+  <div class="topic-block">
+    <h2>Key Distinctions from Schlozman</h2>
+    <div class="accordion">
+      <button class="acc-trigger" onclick="ta(this)">Don't overfocus on campaign contributions</button>
+      <div class="acc-content"><p>Despite the "bribery" framing, lobbying AFTER elections shapes policy more than contributions do. The real action is post-election influence — where lobbyists have sustained access, technical expertise, and revolving-door leverage. Tax carve-outs and regulatory favors are buried in legal texts that most voters never see.</p></div>
+    </div>
+    <div class="accordion">
+      <button class="acc-trigger" onclick="ta(this)">Carnes (2013) — Privileged Classes in Office</button>
+      <div class="acc-content"><p>When elected officials predominantly come from privileged classes, policy reflects those biases: thinner welfare state, freer regulatory environment for business, lower taxes on the wealthy. This isn't just about donations — it's about whose life experiences and social networks shape legislative priorities.</p></div>
+    </div>
+    <div class="accordion">
+      <button class="acc-trigger" onclick="ta(this)">Pierson (2013) — Revolving Doors</button>
+      <div class="acc-content"><p>Politicians "come from particular places, and they're going places." "Elected officials are surrounded at all times by immense wealth." "Revolving doors can open to penthouses." Post-office employment opportunities create anticipatory deference to industry interests even before leaving office.</p></div>
+    </div>
+    <div class="accordion">
+      <button class="acc-trigger" onclick="ta(this)">Veto Players & Political Money</button>
+      <div class="acc-content"><p>U.S. courts are very powerful by global standards. For hundreds of years they have struck down laws restricting political money (framed as free speech). SCOTUS upheld only disclosure rules and public matching. Other rich democracies restrict political money more tightly; public subsidies to parties are common elsewhere but never in the U.S. "Carve-outs": tax and policy benefits buried in legal texts — moneyed lobbies win benefits most voters never know about. This is how big money navigates around gridlock.</p></div>
+    </div>
+  </div>
+
+  <div class="topic-block">
+    <h2>Obama's Reflection (Shenk 2022) — The Catatonic Electorate</h2>
+    <div class="reading-box">
+      <span class="cite">Tim Shenk (2022: 311) — quoting Obama's experience as Illinois State Senator, late 1990s/early 2000s</span>
+      <p>Obama discovered that lobbyists had an effective veto over most legislating done in Springfield (IL). Legislative work mainly concerned technical matters crucial to companies' balance sheets. Reelection was guaranteed if politicians stayed on the right side of "charged social issues." There was no court of public opinion to appeal to because "nobody's listening to you."</p>
+      <p style="margin-top:0.5rem;font-style:italic;">"Complacent legislators, sovereign lobbyists, and a catatonic electorate — that's what Springfield's version of democracy looked like."</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════
+     SECTION 4E: VOTERS
+══════════════════════════════════════════════════ -->
+<div class="section" id="s4e">
+  <div class="section-header">
+    <div class="sec-badge b4">Section 4E — Primary Exam Emphasis</div>
+    <h1>Voters: Turnout, Choice & Rationality</h1>
+    <p>O'C&S 12.4 · Achen & Bartels (2016) · Drutman (2016)</p>
+  </div>
+
+  <div class="topic-block">
+    <h2>Factors in Voter Turnout & Choice (O'C&S 12.4)</h2>
+    <ul class="study-list">
+      <li><strong>Party Identification & Ideology</strong> — Hoeft: "ideology" implies too much coherence; prefer "public opinion" (poli sci) or "political attitudes" (sociology); party ID is still the #1 predictor of vote choice</li>
+      <li><strong>Income & Education</strong> — higher income/education → higher turnout</li>
+      <li><strong>Race & Ethnicity</strong> — persistent gaps; Fraga: voters of color perceive votes matter less, not just suppression</li>
+      <li><strong>Gender & Age</strong> — gender gap since 1980; 2024: massive youth gender divide</li>
+      <li><strong>Religious groups & civic organizations</strong> — Hoeft: this section is really about interest groups and their vote-mobilizing role</li>
+      <li><strong>Candidate traits and issues</strong> — retrospective judgment (past performance) and prospective judgment (pledges) — both challenged by Achen & Bartels</li>
+    </ul>
+  </div>
+
+  <div class="topic-block">
+    <h2>Achen & Bartels (2016) — Democracy for Realists</h2>
+    <div class="reading-box">
+      <span class="cite">Achen & Bartels (2016) — reviewed by Drutman (2016), Chronicle of Higher Education — BOTH ASSIGNED</span>
+      <p><strong>Core argument:</strong> American voters often swing elections irrationally. "Rationality is a chimera." The "folk theory of democracy" — that informed citizens make rational choices — is empirically false.</p>
+      <ul style="margin-top:0.5rem">
+        <li>Voters take cues from politicians — <em>not</em> the other way around (inverts democratic ideals)</li>
+        <li>Voters learn from: parties/celebrity politicians they like, social groups they inhabit, interest groups/advocacy organizations</li>
+        <li>Voters sometimes blame incumbents irrationally: shark attacks in NJ (1916), bad weather during 2000 Gore v. Bush race, economic hits months before an election</li>
+        <li><strong>Voters who are more "informed" are more apt to parrot elites</strong> — not independent thinkers. Chapter: "It Feels Like We're Thinking: The Rationalizing Voter."</li>
+        <li>Primaries are too personalistic to serve real policy-voting function</li>
+        <li>Ballot initiatives and referendums tend to favor elite players who can fund campaigns</li>
+        <li>Most voters' belief systems are "thin, disorganized, and ideologically incoherent" (Converse 1964 — still better supported today)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="topic-block">
+    <h2>What This Means — Implications (Drutman 2016)</h2>
+    <div class="accordion">
+      <button class="acc-trigger" onclick="ta(this)">For political science</button>
+      <div class="acc-content"><p>A new research agenda: old sociological approaches of close observation of actual people are more relevant than formal modeling and fancy statistics. Revitalize study of interest groups. Go beyond surveys to understand how identities and groups structure political life (exemplified by Skocpol's work).</p></div>
+    </div>
+    <div class="accordion">
+      <button class="acc-trigger" onclick="ta(this)">For good-government reformers</button>
+      <div class="acc-content"><p>Give up on the belief that democracy is fixed by giving citizens more opportunities to participate (emailing Congress, voting, "getting informed on the issues"). These are "mountains of wasted good intentions." Instead: think harder about how citizens can use collective capacity to shape politicians' agendas through organized policy advocacy.</p></div>
+    </div>
+    <div class="accordion">
+      <button class="acc-trigger" onclick="ta(this)">Connection to elite dominance</button>
+      <div class="acc-content"><p>If voters take cues from elites, vote based on irrelevant events, and become more partisan (not more rational) when informed — the electorate is structurally ill-equipped to hold politicians accountable. No court of public opinion that politicians fear ("nobody's listening," Obama/Shenk). Result: politicians answer to lobbyists and donors. This is the thread connecting voter rationality to Show Me the Money.</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════
+     SECTION 4F: INTEREST GROUPS
+══════════════════════════════════════════════════ -->
+<div class="section" id="s4f">
+  <div class="section-header">
+    <div class="sec-badge b4">Section 4F — Primary Exam Emphasis</div>
+    <h1>Interest-Group Campaigning</h1>
+    <p>Gose, Skocpol & Williamson (2020) — Upending American Politics</p>
+  </div>
+
+  <div class="reading-box">
+    <span class="cite">Gose, Skocpol & Williamson (2020), Chapter 9 in Upending American Politics — ASSIGNED READING (At least 3 exam questions per class notes)</span>
+    <p><strong>Core argument:</strong> Twice in eight years the U.S. witnessed massive grassroots citizen organizing — the Tea Party (2009–) and the anti-Trump Resistance (2016–18). Both mixed top-down and bottom-up influences. Both functioned as extended party networks while remaining partially independent of formal party structures.</p>
+  </div>
+
+  <div class="topic-block">
+    <h2>Key Points to Know</h2>
+    <ul class="study-list">
+      <li><strong>"Advocacy groups" = interest groups</strong> (terminology note — know this equivalence)</li>
+      <li>Both movements featured <strong>top-down + bottom-up influences</strong> that mixed and jostled</li>
+      <li><strong>Federal geography</strong> shaped both movements' activity and electoral strategies</li>
+      <li>The <strong>Resistance was less party-aligned than the Tea Party</strong> (pp. 207–208)</li>
+      <li>Resistance activities: postcard-writing parties, procedural uptake (using Google to find legislators), eventually from protest to party-political activism</li>
+    </ul>
+  </div>
+
+  <div class="topic-block">
+    <h2>Key Comparisons</h2>
+    <table>
+      <tr><th>Dimension</th><th>Tea Party</th><th>Anti-Trump Resistance</th></tr>
+      <tr><td>Trigger</td><td>Obama 2008 election; Santelli CNBC rant Feb. 2009</td><td>Trump 2016 election; organized within hours/days</td></tr>
+      <tr><td>Who</td><td>White, older, middle-class; military/small business; more men</td><td>White, middle-class, college-educated women; educators/health care</td></tr>
+      <tr><td>Party relation</td><td>Outside GOP but pushed it far right; Republicans align with leadership much more strongly</td><td>Outside Dem Party; less party-aligned; wider ideological range (centrist to far-left)</td></tr>
+      <tr><td>Activities</td><td>Ideological lectures; Constitution line-by-line; invited right-wing speakers</td><td>Skill-building; OpEd writing; voter registration; postcard writing parties</td></tr>
+      <tr><td>Electoral impact</td><td>2010 midterms: massive Republican gains; Congress moved hard right</td><td>2018 "blue wave": mostly moderate Democratic winners; record female Democrats elected</td></tr>
+      <tr><td>Polarization effect</td><td>Substantially sharpened partisan divides; pushed GOP to far right</td><td>More likely to revitalize Democrats broadly without increasing polarization</td></tr>
+    </table>
+  </div>
+
+  <div class="topic-block">
+    <h2>Why This Reading Connects to Everything Else</h2>
+    <div class="hoeft-box">
+      <ul>
+        <li><strong>Extended party networks / blobs:</strong> Both movements are "loosely coupled concatenations of mutually leveraging top-down and bottom-up organizations" — the empirical case for Galvin's concept</li>
+        <li><strong>Candidate-centered politics:</strong> Both movements show how grassroots organizing targets specific candidates, not party structures</li>
+        <li><strong>Mediatization:</strong> Fox News amplified Tea Party; Rachel Maddow / Facebook amplified Resistance — media played the coordinating role that formal party structures used to play</li>
+        <li><strong>Negative partisanship:</strong> Both movements were primarily organized around opposition to a dreaded presidency, not affirmative ideology</li>
+        <li><strong>Voter rationality (Achen & Bartels):</strong> Both movements show that collective organizing is more effective than individual rational voting — consistent with Drutman's prescription</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════
+     SECTION 4G: SCOTUS
+══════════════════════════════════════════════════ -->
+<div class="section" id="s4g">
+  <div class="section-header">
+    <div class="sec-badge b4">Section 4G — Primary Exam Emphasis</div>
+    <h1>The Supreme Court & Democracy</h1>
+    <p>Bowie (2021), Washington Post</p>
+  </div>
+
+  <div class="reading-box">
+    <span class="cite">Nikolas Bowie (2021), Washington Post / Harvard Law — ASSIGNED READING</span>
+    <p><strong>Central claim:</strong> "In the name of protecting us from the excesses of democracy, the judicial review of federal laws is costing us democracy itself."</p>
+    <p style="margin-top:0.5rem">Judicial review gives 5 unelected justices power to invalidate federal law. The court has historically protected the wealthy — not racial or political minorities — most often.</p>
+  </div>
+
+  <div class="topic-block">
+    <h2>Historical Record</h2>
+    <ul class="study-list">
+      <li>SCOTUS struck down the first federal voting rights act (1876)</li>
+      <li>Enabled Jim Crow by ignoring white mob violence against Black voters</li>
+      <li><em>Shelby County</em> (2013): gutted the Voting Rights Act</li>
+      <li><em>Pollock</em> (1895): invalidated the income tax</li>
+      <li><em>Citizens United</em> (2010): struck down a century of campaign finance limits</li>
+      <li><em>Brown v. Board</em> (1954): desegregation remained nearly unchanged in 1964 — a full decade later. Only the Civil Rights Act + Voting Rights Act (1964–65) actually ended formal segregation.</li>
+    </ul>
+  </div>
+
+  <div class="topic-block">
+    <h2>Key Concepts</h2>
+    <div class="accordion">
+      <button class="acc-trigger" onclick="ta(this)">Countermajoritarian difficulty</button>
+      <div class="acc-content"><p>The philosophical problem that unelected justices can override democratically enacted law. Scholars acknowledge this tension — judicial review is antidemocratic, yet it may be necessary to protect rights from majority tyranny. Bowie's argument: historically, the court has used this power more to protect wealth than individual rights.</p></div>
+    </div>
+    <div class="accordion">
+      <button class="acc-trigger" onclick="ta(this)">Best cases FOR judicial review (that Bowie acknowledges)</button>
+      <div class="acc-content"><p><em>Windsor</em> (2013 — DOMA overturned); <em>Boumediene</em> (2008 — Guantanamo detainee rights); 1970s sex discrimination cases. But these cases, Bowie argues, don't outweigh the court's long history of enabling wealth concentration and racial subordination.</p></div>
+    </div>
+    <div class="accordion">
+      <button class="acc-trigger" onclick="ta(this)">Lincoln's warning (1861)</button>
+      <div class="acc-content"><p>"If government policy on vital questions is to be irrevocably fixed by decisions of the Supreme Court... the people will have ceased to be their own rulers." Lincoln was responding to the Dred Scott decision — but Bowie argues the concern is still valid today.</p></div>
+    </div>
+    <div class="accordion">
+      <button class="acc-trigger" onclick="ta(this)">Connection to campaign finance (Citizens United)</button>
+      <div class="acc-content"><p>Citizens United directly connects Section 4G to Section 4A and 4B. SCOTUS struck down a century of campaign finance limits — the judicial channel through which the "right of people with money to fund electoral campaigns" has been repeatedly protected. This is the institutional mechanism behind the Show Me the Money diagram.</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════
+     SECTION 4H: FOREIGN POLICY
+══════════════════════════════════════════════════ -->
+<div class="section" id="s4h">
+  <div class="section-header">
+    <div class="sec-badge b4">Section 4H — Primary Exam Emphasis</div>
+    <h1>Foreign Policy & Voter Perception</h1>
+    <p>Friedman & Payne (2024), Foreign Affairs</p>
+  </div>
+
+  <div class="reading-box">
+    <span class="cite">Friedman & Payne (2024), Foreign Affairs — "Americans Love a Tough Guy: Why Trump Won on Foreign Policy — and What Democrats Can Learn From Him" — ASSIGNED READING</span>
+    <p><strong>Core argument:</strong> Despite the virtually united foreign policy establishment declaring Trump unfit for commander-in-chief — including 100+ Republican national security leaders endorsing Harris, two secretaries of defense, two national security advisers, and a chairman of the Joint Chiefs — Trump still won on foreign policy.</p>
+  </div>
+
+  <div class="topic-block">
+    <h2>Key Points</h2>
+    <ul class="study-list">
+      <li>Voters' foreign policy preferences are <strong>not driven primarily by expert assessments</strong> of competence or fitness</li>
+      <li>Americans respond to <strong>perceptions of strength and toughness</strong> in foreign policy leadership</li>
+      <li>The "commander-in-chief test" is about <strong>projected image</strong>, not credentials or expert endorsement</li>
+      <li>Lesson for Democrats: expert consensus against a candidate does not determine voter choice</li>
+    </ul>
+  </div>
+
+  <div class="topic-block">
+    <h2>Connection to Achen & Bartels</h2>
+    <div class="exam-box">
+      <p>Friedman & Payne is the Section 4H empirical illustration of Achen & Bartels' theoretical argument from 4E. Voters don't process information the way democratic theory predicts — they respond to emotional cues (strength, toughness) rather than expert assessments of policy competence. This is Achen & Bartels applied to foreign policy: voters take cues from projected identity, not policy analysis. The establishment consensus (100+ national security experts) had zero effect — because "informed" voters parrot the elites they already trust, not the experts presented to them.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════
+     SCHOLARS
+══════════════════════════════════════════════════ -->
+<div class="section" id="scholars">
+  <div class="section-header">
+    <h1>Important Scholars, Authors & Sources</h1>
+    <p>From the official study guide — know each scholar's core contribution and which section they connect to.</p>
+  </div>
+  <div class="scholar-grid">
+    <div class="scholar-card"><span class="name">Achen & Bartels (2016)</span><span class="work">Democracy for Realists</span><p>Voters swing elections irrationally; take cues from politicians; blame incumbents for unrelated events; informed voters parrot elites; primaries are too personalistic. → §4E</p></div>
+    <div class="scholar-card"><span class="name">Bowie, Nikolas (2021)</span><span class="work">WaPo / Harvard Law</span><p>SCOTUS is antidemocratic; judicial review has historically protected wealth over democracy; Jim Crow enabled by courts; Citizens United a key example. → §4G / §3.2</p></div>
+    <div class="scholar-card"><span class="name">Carnes, Nick (2013)</span><span class="work">SSN — "How Government by the Privileged Distorts Policy"</span><p>Class backgrounds of elected officials overrepresent high-income occupations → thinner welfare state, lower taxes on rich, freer business environment. → §4B / §4D</p></div>
+    <div class="scholar-card"><span class="name">Friedman & Payne (2024)</span><span class="work">Foreign Affairs — "Americans Love a Tough Guy"</span><p>Voters favor perceived strength/toughness in foreign policy; expert consensus against a candidate does not determine voter choice. Connects to Achen & Bartels. → §4H</p></div>
+    <div class="scholar-card"><span class="name">Galvin (2016)</span><span class="work">Extended party networks concept</span><p>Parties are loose networks of overlapping, competing actors — not unified command structures. → §2.1</p></div>
+    <div class="scholar-card"><span class="name">Gose, Skocpol & Williamson (2020)</span><span class="work">Upending American Politics</span><p>Tea Party vs. anti-Trump Resistance; both mixed top-down/bottom-up influences; Resistance less party-aligned; interest groups = advocacy groups. At least 3 exam questions. → §4F</p></div>
+    <div class="scholar-card"><span class="name">Hoeft (2024)</span><span class="work">'Show Me the Money' diagram</span><p>Five financial influence channels: direct contributions, employer/investor leverage, lobbying/revolving doors, independent expenditures, class backgrounds of officials. → §4B</p></div>
+    <div class="scholar-card"><span class="name">Noel (2014)</span><span class="work">WaPo — "How Ideological Activists Polarized Parties"</span><p>Ideological activists drove party polarization from 1960s–90s; explains "the great sort" and increasing partisan divergence. → §2.3</p></div>
+    <div class="scholar-card"><span class="name">Pierson (2013)</span><span class="work">SSN — "Life Experiences and Public Possibilities"</span><p>Politicians surrounded by immense wealth; revolving doors open to penthouses; class origins shape policy. → §4B / §4D</p></div>
+    <div class="scholar-card"><span class="name">Schlozman (2013)</span><span class="work">SSN — "The Other Kind of Political Money"</span><p>Don't overfocus on contributions; lobbying post-election matters more. Business = 72% of lobbying; labor and poor = 1% each; welfare beneficiaries = 0%. → §4D</p></div>
+    <div class="scholar-card"><span class="name">Tsebelis, George (2003)</span><span class="work">Veto Players theory</span><p>Institutional actors who must agree for policy to change; U.S. has many/heavy veto players by global comparison. → §1.4</p></div>
+    <div class="scholar-card"><span class="name">Valelly (1989)</span><span class="work">Minnesota FLP study</span><p>Minnesota's Farmer-Labor Party — most successful 3rd party in U.S. history — subsumed by New Deal Democrats. → §2.2</p></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════
+     GLOSSARY
+══════════════════════════════════════════════════ -->
+<div class="section" id="glossary">
+  <div class="section-header">
+    <h1>Key Terms Glossary</h1>
+    <p>From the official study guide — know the definition and which section it appears in.</p>
+  </div>
+  <div class="glossary-grid">
+    <div class="gloss-card"><strong>Candidate-centered politics</strong><p>Electioneering where individual candidates, rather than parties, drive campaigns. Product of single-member districts and primaries. → §2.2, §4C</p></div>
+    <div class="gloss-card"><strong>Citizens United (2010)</strong><p>SCOTUS decision striking down century-old campaign finance limits; extended First Amendment protection to corporate political spending; paved way for Super PACs. → §4A, §4G</p></div>
+    <div class="gloss-card"><strong>Concurrent powers</strong><p>Powers shared by both national and state governments — taxing, borrowing, court establishment. → §1.1</p></div>
+    <div class="gloss-card"><strong>Convention bounce</strong><p>Temporary polling boost a presidential candidate receives following their party's national convention. → §4C</p></div>
+    <div class="gloss-card"><strong>Countermajoritarian difficulty</strong><p>The philosophical problem that unelected justices can override democratically enacted law. → §4G</p></div>
+    <div class="gloss-card"><strong>Electoral College</strong><p>Indirect system for electing the President; each state's electoral votes = senators + representatives; 270 votes needed to win. → §4C</p></div>
+    <div class="gloss-card"><strong>Extended party networks</strong><p>Loose, overlapping networks of formal party units, interest groups, and advocacy organizations that constitute a modern party (Galvin 2016). → §2.1</p></div>
+    <div class="gloss-card"><strong>Horse-race coverage</strong><p>Media focus on polling, momentum, and electoral strategy rather than policy substance. → §4C</p></div>
+    <div class="gloss-card"><strong>Incumbency advantage</strong><p>Benefits sitting officeholders enjoy: staff, constituent service, media access, travel allowances, scare-off effect. → §3.1</p></div>
+    <div class="gloss-card"><strong>Independent Expenditures (IEs)</strong><p>Campaign spending by outside groups not "coordinated" with a candidate; Super PAC spending falls here; legally unlimited under SCOTUS rulings. → §4A, §4B</p></div>
+    <div class="gloss-card"><strong>Judicial review</strong><p>Power of courts to strike down laws as unconstitutional; established for federal law in Marbury v. Madison (1803). → §3.2, §4G</p></div>
+    <div class="gloss-card"><strong>Mediatization</strong><p>Process by which media increasingly mediate the relationship between politicians and voters; shifts communication from print → radio → TV → internet. → §2.3</p></div>
+    <div class="gloss-card"><strong>Negative partisanship</strong><p>Voter motivation driven primarily by opposition to the other party rather than support for one's own. → §2.3, §4F</p></div>
+    <div class="gloss-card"><strong>PAC (Political Action Committee)</strong><p>Organization that pools campaign contributions; limited to $5,000 per candidate per election. → §4A</p></div>
+    <div class="gloss-card"><strong>Proportional representation (PR)</strong><p>Electoral system in which seats are allocated proportional to vote share, enabling multiparty systems. → §2.2</p></div>
+    <div class="gloss-card"><strong>Revolving door</strong><p>Movement of individuals between government roles and the industries they regulate/legislate; often involves lucrative post-office employment. → §4B, §4D</p></div>
+    <div class="gloss-card"><strong>Single-member district</strong><p>Electoral district that sends one representative; winner-take-all; tends to produce two-party systems (Duverger's Law). → §2.2</p></div>
+    <div class="gloss-card"><strong>Super PAC</strong><p>Independent expenditure committee that can raise and spend unlimited amounts; cannot "coordinate" with candidates; result of Citizens United. → §4A, §4B</p></div>
+    <div class="gloss-card"><strong>The great sort</strong><p>Decades-long process (1940s–1990s) of ideological sorting — parties became internally more coherent and more polarized from each other. → §2.3</p></div>
+    <div class="gloss-card"><strong>Veto player</strong><p>Actor whose agreement is required to change policy (Tsebelis 2003); U.S. has many veto players, making policy change difficult. → §1.4, §4D</p></div>
+    <div class="gloss-card"><strong>Wedge issues</strong><p>Symbolic or emotionally charged policy issues used to divide the opposition and energize one's base; "hot button" topics. → §2.3</p></div>
+    <div class="gloss-card"><strong>Catatonic electorate</strong><p>Obama's description (via Shenk 2022) of a disengaged public that provides no accountability check on legislators or lobbyists. → §4D, §4E</p></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════
+     QUIZ
+══════════════════════════════════════════════════ -->
+<div class="section" id="quiz">
+  <div class="section-header">
+    <h1>Practice Exam — 100 Questions</h1>
+    <p>One question at a time. Each question tells you how many answers are correct. Select all that apply, then hit Submit.</p>
+  </div>
+
+  <!-- SETUP PANEL — hidden once quiz starts -->
+  <div id="quiz-setup">
+    <div class="filter-row">
+      <button class="fbtn active" onclick="setFilter('all',this)">All (100)</button>
+      <button class="fbtn" onclick="setFilter('s1',this)">§1 Federalism</button>
+      <button class="fbtn" onclick="setFilter('s2',this)">§2 Parties</button>
+      <button class="fbtn" onclick="setFilter('s3',this)">§3 Courts</button>
+      <button class="fbtn" onclick="setFilter('s4',this)">§4 Core</button>
+      <button class="fbtn" onclick="setFilter('mixed',this)">Mixed Review</button>
+    </div>
+    <div style="margin-bottom:1.2rem;">
+      <div style="font-family:'DM Mono',monospace;font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:0.5rem;">How many questions?</div>
+      <div style="display:flex;flex-wrap:wrap;gap:0.5rem;" id="count-btns">
+        <button class="count-btn" onclick="setCount(15,this)" style="font-family:'DM Mono',monospace;font-size:0.72rem;letter-spacing:0.08em;text-transform:uppercase;padding:0.5rem 1.1rem;background:#fff;border:2px solid var(--ink);cursor:pointer;transition:all 0.12s;">15</button>
+        <button class="count-btn" onclick="setCount(25,this)" style="font-family:'DM Mono',monospace;font-size:0.72rem;letter-spacing:0.08em;text-transform:uppercase;padding:0.5rem 1.1rem;background:#fff;border:2px solid var(--ink);cursor:pointer;transition:all 0.12s;">25</button>
+        <button class="count-btn" onclick="setCount(50,this)" style="font-family:'DM Mono',monospace;font-size:0.72rem;letter-spacing:0.08em;text-transform:uppercase;padding:0.5rem 1.1rem;background:#fff;border:2px solid var(--ink);cursor:pointer;transition:all 0.12s;">50</button>
+        <button class="count-btn active-count" onclick="setCount(100,this)" style="font-family:'DM Mono',monospace;font-size:0.72rem;letter-spacing:0.08em;text-transform:uppercase;padding:0.5rem 1.1rem;background:var(--ink);color:var(--paper);border:2px solid var(--ink);cursor:pointer;transition:all 0.12s;">100 (All)</button>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin:1rem 0 0.5rem;display:flex;align-items:center;gap:1rem;">
+    <div style="flex:1;background:rgba(0,0,0,0.08);height:6px;border-radius:3px;overflow:hidden;">
+      <div id="prog-bar" style="height:100%;background:var(--s4);width:0%;transition:width 0.3s;"></div>
+    </div>
+    <span id="prog-text" style="font-family:'DM Mono',monospace;font-size:0.72rem;color:var(--muted);white-space:nowrap;">Q 0 / 0</span>
+  </div>
+  <div style="font-family:'DM Mono',monospace;font-size:0.75rem;color:var(--muted);margin-bottom:1.5rem;display:flex;gap:1.5rem;flex-wrap:wrap;">
+    <span>Score: <strong id="score-display" style="color:var(--ink);">—</strong></span>
+    <span>Correct: <strong id="correct-count" style="color:#28a745;">0</strong></span>
+    <span>Wrong: <strong id="wrong-count" style="color:#dc3545;">0</strong></span>
+  </div>
+  <div id="q-card" style="background:#fff;border:2px solid var(--ink);padding:1.5rem 1.5rem 1.2rem;min-height:200px;">
+    <div id="q-meta" style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:0.75rem;flex-wrap:wrap;gap:0.5rem;">
+      <span id="q-tag" class="qtag" style="background:#444;">—</span>
+      <span id="q-counter" style="font-family:'DM Mono',monospace;font-size:0.7rem;color:var(--muted);">—</span>
+    </div>
+    <div id="q-text" style="font-weight:500;font-size:0.95rem;margin-bottom:1rem;line-height:1.6;">Select a filter and question count, then click Start.</div>
+    <div id="q-hint" style="font-family:'DM Mono',monospace;font-size:0.68rem;color:var(--accent);letter-spacing:0.06em;margin-bottom:1rem;min-height:1rem;"></div>
+    <div id="q-opts" style="display:flex;flex-direction:column;gap:0.5rem;"></div>
+    <div id="q-feedback" style="display:none;margin-top:1rem;padding:0.8rem 1rem;font-size:0.84rem;line-height:1.6;"></div>
+  </div>
+  <div style="display:flex;gap:0.75rem;margin-top:1rem;flex-wrap:wrap;">
+    <button id="btn-submit" onclick="submitAnswer()" style="font-family:'DM Mono',monospace;font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.7rem 1.5rem;background:var(--ink);color:var(--paper);border:none;cursor:pointer;display:none;">Submit Answer</button>
+    <button id="btn-next" onclick="nextQuestion()" style="font-family:'DM Mono',monospace;font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.7rem 1.5rem;background:var(--s4);color:#fff;border:none;cursor:pointer;display:none;">Next Question →</button>
+    <button id="btn-start" onclick="startQuiz()" style="font-family:'DM Mono',monospace;font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.7rem 1.5rem;background:var(--ink);color:var(--paper);border:none;cursor:pointer;">Start Quiz</button>
+    <button id="btn-restart" onclick="resetQuiz()" style="font-family:'DM Mono',monospace;font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.7rem 1.2rem;background:none;color:var(--muted);border:1.5px solid var(--muted);cursor:pointer;display:none;">Restart</button>
+  </div>
+</div>
+</main>
+<script>
+function show(id,btn){document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));document.getElementById(id).classList.add('active');btn.classList.add('active');window.scrollTo({top:0,behavior:'smooth'});}
+function showQuiz(){document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));document.getElementById('quiz').classList.add('active');const navBtns=document.querySelectorAll('nav button');navBtns[0].classList.add('active');window.scrollTo({top:0,behavior:'smooth'});}
+function ta(btn){btn.classList.toggle('open');btn.nextElementSibling.classList.toggle('open');}
+
+const QUESTIONS=[
+{n:1,sec:'s1',q:'Which of the following are classified as NATIONAL (enumerated) powers under the U.S. Constitution?',opts:['Declare and conduct war','Establish local governments','Coin money','Take measures for public health and safety','Regulate commerce with foreign nations'],ans:[0,2,4],exp:'Declaring war, coining money, and regulating foreign commerce are enumerated (national) powers. Establishing local governments and public health/safety are reserved state powers.'},
+{n:2,sec:'s1',q:'Which of the following are CONCURRENT powers shared by both national and state governments?',opts:['Establish courts','Coin money','Tax','Declare war','Charter banks and corporations'],ans:[0,2,4],exp:'Taxation, establishing courts, and chartering banks are concurrent powers. Coining money and declaring war are exclusively national.'},
+{n:3,sec:'s1',q:'According to the course, how many total governmental units exist in the United States?',opts:['50','3,031','Approximately 89,000','19,522','535'],ans:[2],exp:'The U.S. Census Bureau counts over 89,000 governmental units: 1 federal, 50 state, and 89,004 local governments.'},
+{n:4,sec:'s1',q:'The concept of "veto players" was developed by which political scientist?',opts:['Adam Hilton','George Tsebelis','George Will','Elizabeth Warren','Nick Carnes'],ans:[1],exp:'George Tsebelis (2003) developed veto player theory to compare how institutional structures block policy change across countries.'},
+{n:5,sec:'s1',q:'George Will argued that American political gridlock is best understood as which of the following?',opts:['A serious flaw in the constitutional design','An American achievement','A product of too many blocking mechanisms','Proof that the Founders wanted safe government, not efficient government','A failure of legislative leadership'],ans:[1,2,3],exp:'Will celebrated gridlock as intentional. Madison and the Founders built in blocking mechanisms to make government safe, not efficient.'},
+{n:6,sec:'s1',q:"Senator Elizabeth Warren's 2016 claim COMPLICATES the 'veto players' framework by arguing which of the following?",opts:['Gridlock is actually a good thing for ordinary Americans','Big-money players can and do overcome gridlock','The Senate should abolish the filibuster','SCOTUS is the only real veto player that matters','Lobbying is unconstitutional'],ans:[1],exp:"Warren argued that while ordinary lawmaking is blocked by veto players, well-resourced lobbies navigate around gridlock to secure hidden benefits most voters never know about."},
+{n:7,sec:'s1',q:'Which of the following accurately describes the formal amendment process for the U.S. Constitution?',opts:['Requires two-thirds of both chambers of Congress to propose','Can be ratified by a majority vote in Congress alone','Can be proposed by two-thirds of state legislatures (never actually used)','Requires three-quarters of states to ratify','12,000 amendments have been proposed; 27 have passed'],ans:[0,2,3,4],exp:'B is wrong — Congress alone cannot ratify. Only 27 of ~12,000 proposed amendments have ever passed.'},
+{n:8,sec:'s1',q:"Which of the following are 'near-synonyms' for veto players as used in comparative politics?",opts:['Veto points','Veto gates','Veto opportunities','Checks and balances','Veto plays'],ans:[0,1,2,4],exp:"All four are near-synonyms (Tsebelis). 'Checks and balances' is the familiar American civics term but not technically a synonym — it is the idealized framing."},
+{n:9,sec:'s2',q:'According to political scientists like Galvin (2016), U.S. political parties are best described as which of the following?',opts:['Tightly controlled hierarchical organizations','Extended party networks where actors overlap, compete, and collide','Purely grassroots movements','Identical to European parliamentary parties','Declining in importance since the 1990s'],ans:[1],exp:"Galvin's concept of 'extended party networks' captures the loose, overlapping reality."},
+{n:10,sec:'s2',q:'Which of the following are formal levels in U.S. party organization as shown in Figure 11.3?',opts:['National committee','National convention','Congressional district committees','Corporate donor networks','Precinct and ward committees'],ans:[0,1,2,4],exp:'The formal hierarchy runs from national chair/committee/convention down through state and congressional district committees to local/precinct committees. Corporate donor networks are informal.'},
+{n:11,sec:'s2',q:'The Minnesota Farmer-Labor Party (FLP) is historically significant because it:',opts:['Was the first party to support proportional representation','Was the most successful third party in U.S. history before being subsumed by New Deal Democrats','Governed Minnesota to the right of Republicans','Was founded by Bernie Sanders in the 1970s','Won a presidential election in 1936'],ans:[1],exp:'The FLP (1920s–40s) governed Minnesota to the LEFT of Democrats in the 1930s. National Democrats subsumed it during the New Deal (Valelly 1989). It won no presidential elections.'},
+{n:12,sec:'s2',q:'Single-member districts in the U.S. tend to produce which of the following outcomes?',opts:['Candidate-centered politics','Multi-party competition','Two-party domination','Stronger party discipline','Winner-take-all results'],ans:[0,2,4],exp:'Single-member districts create winner-take-all dynamics that disadvantage third parties and encourage candidate-centered campaigns.'},
+{n:13,sec:'s2',q:"Hans Noel's (2014) argument about how ideological activists polarized parties emphasizes which of the following?",opts:['Voters drove polarization by demanding more extreme candidates','Ideological activists pushed parties toward more extreme positions, causing "the great sort"','Gerrymandering was the primary cause of polarization','Social media is responsible for contemporary polarization','Campaign finance rules caused polarization'],ans:[1],exp:'Noel focuses on ideological activists — not ordinary voters — as the engine of polarization.'},
+{n:14,sec:'s2',q:"Which of the following correctly characterize 'mediatization' as discussed in the Parties unit?",opts:['The shift from print to radio to TV to internet as party-voter communication channels','The transformation of national conventions into primarily televised spectacles','Media emphasis on "wedge issues" (symbolic hot buttons)','Media coverage of substantive policy debates','Contributing to negative partisanship'],ans:[0,1,2,4],exp:'D is incorrect — mediatization is characterized by horse-race coverage, drama, and wedge issues rather than substantive policy debate.'},
+{n:15,sec:'s2',q:'According to Figure 11.10B1 (Pew Research income and party ID), which income bracket shows the STRONGEST lean toward the Democratic Party?',opts:['$75,000+','$30,000–$74,999','Under $30,000','All brackets show equal Democratic lean','No income bracket clearly leans Democratic'],ans:[2],exp:'The Pew data shows that the under-$30,000 income bracket has the strongest Democratic lean.'},
+{n:16,sec:'s2',q:"'Negative partisanship' refers to which of the following?",opts:['Voters who have no party identification','Party members who defect from their party\'s position','Voters motivated primarily by opposition to the other party rather than support for their own','Campaign tactics that attack opponents','Media coverage that is biased against both parties'],ans:[2],exp:"Negative partisanship (O'C&S 11.6) describes voters whose primary motivation is disliking the opposing party."},
+{n:17,sec:'s3',q:"Nikolas Bowie's (2021) central argument about the Supreme Court and democracy is which of the following?",opts:['Judicial review of federal law is fundamentally antidemocratic','The court has historically protected the wealthy more than racial minorities','The court\'s record on Jim Crow was a critical failure of judicial review','Congress, not the Supreme Court, should have the final say on constitutional meaning','SCOTUS should be abolished entirely'],ans:[0,1,2,3],exp:'Bowie argues A, B, C, and D from historical evidence. He does not call for abolishing SCOTUS.'},
+{n:18,sec:'s3',q:'In Marbury v. Madison (1803), Chief Justice Marshall established which foundational principle?',opts:['Congress has the power to remove the president','It is emphatically the province of the judicial department to say what the law is (judicial review)','The president is immune from criminal prosecution','States can nullify federal law','The Bill of Rights applies to the states'],ans:[1],exp:'Marbury v. Madison established judicial review — the power of courts to strike down laws that conflict with the Constitution.'},
+{n:19,sec:'s3',q:"Which SCOTUS decision is central to both the Section 4 political money discussion AND Bowie's critique of the court?",opts:['Brown v. Board of Education (1954)','Citizens United (2010)','Shelby County v. Holder (2013)','Marbury v. Madison (1803)','Obergefell v. Hodges (2015)'],ans:[1,2],exp:"Citizens United (threw out campaign finance limits) is central to Section 4. Shelby County (gutted the Voting Rights Act) is central to Bowie's argument."},
+{n:20,sec:'s3',q:"Bowie argues that the 'minority' most often protected by judicial review of federal legislation is which of the following?",opts:['Racial minorities','Religious minorities','The wealthy','Political dissidents','Immigrants'],ans:[2],exp:"Bowie's historical survey shows that wealthy litigants — who have resources to repeatedly challenge legislation — are the group most consistently protected."},
+{n:21,sec:'s4',q:'Under federal campaign finance law, an individual may contribute up to how much directly to a candidate or candidate committee per election?',opts:['$1,000','$2,500','$3,300','$5,000','No limit'],ans:[2],exp:'Individuals may contribute $3,300 per election directly to candidates/candidate committees under current federal law.'},
+{n:22,sec:'s4',q:'Which of the following types of campaign funding organizations have NO legal limit on how much they can raise or spend?',opts:['Traditional PACs','Super PACs','527 political committees (in some contexts)','Individual donors','Candidate\'s personal savings (self-financing)'],ans:[1,4],exp:"Super PACs and a candidate's personal savings have no legal caps. Traditional PACs are capped at $5,000/candidate/election."},
+{n:23,sec:'s4',q:"Which of the following accurately describes 'Super PACs' or 'Independent Expenditures (IEs)'?",opts:['They may coordinate directly with the candidates they support','They are permitted to raise unlimited funds','They are not permitted to coordinate with the candidate\'s official campaign','SCOTUS has ruled them protected as free speech','They were invented before Citizens United'],ans:[1,2,3],exp:'Super PACs raise unlimited funds but cannot legally coordinate with candidates. Citizens United (2010) extended free speech protection to their spending.'},
+{n:24,sec:'s4',q:'Public campaign funding in the U.S. is best described as which of the following?',opts:['Absent in most of the U.S.','Provided generously to all federal candidates','NYC and New York State are notable outliers with larger public matching programs','The Presidential Election Campaign Fund draws from taxpayers who opt in ($3 each)','About 20% of taxpayers participate in the presidential fund'],ans:[0,2,3,4],exp:'B is wrong — few candidates accept public funds. A, C, D, and E are all accurate per the slides.'},
+{n:25,sec:'s4',q:'Political Action Committees (PACs) are limited to how much per candidate per election?',opts:['$1,000','$2,500','$3,300','$5,000','No limit'],ans:[3],exp:'Traditional PACs are capped at $5,000 per candidate per election, distinguishing them from Super PACs (no limit).'},
+{n:26,sec:'s4',q:'Which of the following statements about U.S. courts and political money are correct?',opts:['SCOTUS has framed campaign spending as a form of "freedom of expression"','SCOTUS has upheld strict limits on all political spending','Courts have consistently struck down laws restricting political money','SCOTUS has upheld disclosure rules and public matching programs','Other rich democracies tend to restrict political money more tightly than the U.S.'],ans:[0,2,3,4],exp:"B is false — SCOTUS has NOT upheld strict limits. A, C, D, and E are all accurate."},
+{n:27,sec:'s4',q:"According to Hoeft's 'Show Me the Money' diagram, which of the following are the five channels of financial influence in U.S. politics?",opts:['Direct campaign contributions','Employer and investor leverage','Media advertising','Lobbying and the revolving door','Independent expenditures (indirect campaigning)','Class backgrounds of elected officials'],ans:[0,1,3,4,5],exp:'The five channels are: (1) Direct contributions, (2) Employer/investor leverage, (3) Lobbying/revolving doors, (4) Independent Expenditures, and (5) Class backgrounds of elected officials. Media advertising is not one of the five.'},
+{n:28,sec:'s4',q:"The 'revolving door' in American politics refers to which of the following?",opts:['Movement of individuals between government roles and private-sector positions in industries they regulated','Lobbies luring politicians with post-office job opportunities','Pierson\'s observation that "revolving doors can open to penthouses"','The regular rotation of congressional committee chairs','The process of primary elections selecting candidates'],ans:[0,1,2],exp:'The revolving door describes the pattern through which lobbies attract officials with lucrative post-government jobs. Pierson called this "revolving doors that open to penthouses."'},
+{n:29,sec:'s4',q:"Nick Carnes's research on the class backgrounds of elected officials found which of the following?",opts:['U.S. politicians strongly overrepresent high-income occupations','Working-class people are proportionally represented in Congress','The class skew is partly due to costs of campaigning (lost earnings, time, discontinuity of employment)','The skew may also reflect reputational risks to candidates and their employers','Candidates who win office enjoy post-office job advantages'],ans:[0,2,3,4],exp:'B is false — working-class people are dramatically underrepresented. Carnes found A, C, D, and E all contribute to and result from the class skew.'},
+{n:30,sec:'s4',q:"When Hoeft discusses 'Employers & Investors' as a channel of financial influence, this means which of the following?",opts:['Capitalist elites supply or withdraw investments and jobs to sway politicians','Promises and threats — explicit or tacit — can count as political leverage','This channel operates independently of formal campaign contributions','Only formal contracts between firms and politicians count','This is a purely legal and transparent form of influence'],ans:[0,1,2],exp:'A, B, and C capture the employer/investor channel. D is wrong (tacit threats count). E is wrong — much of this influence is informal and opaque.'},
+{n:31,sec:'s4',q:'Bernie Sanders argued in 2024 that the tension between capitalism and democracy in U.S. politics is illustrated by which of the following?',opts:['Ordinary Americans each get one vote','Billionaires can contribute hundreds of millions to Super PACs','Citizens United should be overturned','Public funding of elections should be implemented','The Electoral College is unfair'],ans:[0,1,2,3],exp:"Sanders' argument focused on A, B, C, and D. He did not make a specific argument about the Electoral College in this context."},
+{n:32,sec:'s4',q:'Which of the following are correctly classified as types of elections in the U.S.?',opts:['Primary elections','General elections','Ballot initiatives (citizen-pushed)','Referendums (legislature-pushed)','Recall elections (in some states)'],ans:[0,1,2,3,4],exp:"All five are correctly identified types of U.S. elections per O'C&S 12.1."},
+{n:33,sec:'s4',q:'How is the number of Electoral College votes for each state determined?',opts:["By the state's population alone","By the number of senators only","By the sum of the state's senators and House representatives","By a formula set by the Federal Election Commission","By popular vote within each state"],ans:[2],exp:"Each state's electoral votes = number of senators (always 2) + number of House representatives. 270 votes are needed to win the presidency."},
+{n:34,sec:'s4',q:'In the 2000 presidential election in Florida, which of the following are accurate?',opts:['George W. Bush won Florida by 537 votes','Ralph Nader (Green Party) received 97,488 Florida votes','Al Gore won the Florida popular vote','The Florida margin was decisive for the Electoral College outcome','Pat Buchanan (Reform) received more votes than Nader in Florida'],ans:[0,1,3],exp:"Bush won Florida by 537 votes, Nader got 97,488 votes, and Florida was decisive for the Electoral College. Gore did NOT win Florida. Nader got far more votes than Buchanan's 17,484."},
+{n:35,sec:'s4',q:'National party conventions are best characterized by which of the following?',opts:['Held every four years (quadrennial)','Formally nominate presidential and VP candidates','Decisions made there are binding on elected officials for policy positions','Primarily function as televised spectacles in recent decades','Designed to energize party faithful and produce a "convention bounce"'],ans:[0,1,3,4],exp:'C is false — convention policy resolutions do NOT bind politicians.'},
+{n:36,sec:'s4',q:'The "incumbency advantage" for congressional candidates includes which of the following?',opts:['Staff support','Constituent service capacity','Guaranteed reelection','Access to local media','"Scare-off effect" discouraging strong challengers','Generous travel allowances'],ans:[0,1,3,4,5],exp:'C is wrong — incumbency advantage does not guarantee reelection, just makes it more likely.'},
+{n:37,sec:'s4',q:'How does media coverage of campaigns, according to the slides, tend to underserve democracy?',opts:['By emphasizing personal dramas and gossip','By focusing on horse-race polling rather than policy','By providing too much detail on candidates\' policy platforms','By covering campaign tactics rather than substance','By prioritizing entertainment over civic information'],ans:[0,1,3,4],exp:"C is the opposite of the problem. Media 'sells eyeballs' through A, B, D, and E."},
+{n:38,sec:'s4',q:'According to Schlozman (2013), business interests account for approximately what percentage of all lobbying expenditures?',opts:['25%','50%','72%','85%','95%'],ans:[2],exp:"Schlozman found business interests consume 72% of all lobbying money — compared to 1% each for labor unions and poor people's social service providers, and 0% for welfare beneficiaries."},
+{n:39,sec:'s4',q:"Schlozman's key methodological insight about political money is which of the following?",opts:['Campaign contributions matter most because they directly buy votes','Lobbying after electoral campaigns shapes policy more than contributions do','Disclosure rules are sufficient to control money\'s influence','Individual donations are the most distorting form of political money','Super PACs have no real political impact'],ans:[1],exp:"Schlozman's key argument: don't overfocus on campaign contributions. Post-election lobbying — which shapes actual policy content — matters more."},
+{n:40,sec:'s4',q:'Pierson (2013) argued which of the following about elected officials and wealth?',opts:['Politicians come from particular (privileged) places','They are going places (to lucrative post-office jobs)','Elected officials are surrounded at all times by immense wealth','Revolving doors can open to penthouses','Financial backgrounds of politicians do not affect policy'],ans:[0,1,2,3],exp:"E is the opposite of Pierson's argument. A, B, C, and D are all direct quotations or paraphrases from Pierson's SSN piece."},
+{n:41,sec:'s4',q:'If Carnes is correct that elected officials predominantly come from privileged classes, the predicted policy consequences include which of the following?',opts:['A thinner welfare state','A more robust regulatory environment for workers','Lower taxes on wealthy people','Greater freedom for business','Biases of knowledge and perspective that disfavor lower-income populations'],ans:[0,2,3,4],exp:'B is the opposite of what Carnes predicts.'},
+{n:42,sec:'s4',q:"Obama's reflection on his early days in the Illinois State Senate (per Shenk 2022) illustrated which of the following?",opts:['Lobbyists had an effective veto over most of the substantive legislating','Most legislative work concerned technical matters crucial to companies\' balance sheets','Voters held politicians highly accountable for policy','Social issues were used to guarantee reelection while lobbyists controlled economic policy','The system reflected what Obama called "complacent legislators, sovereign lobbyists, and a catatonic electorate"'],ans:[0,1,3,4],exp:'C is the opposite — voters were described as catatonic and not holding politicians accountable for economic policy.'},
+{n:43,sec:'s4',q:"How does Elizabeth Warren's argument about big-money players connect to the veto players framework?",opts:['Big money actually increases the number of veto players','Big money can overcome veto-player gridlock, securing policy changes ordinary citizens cannot','Warren agrees with George Will that gridlock is an achievement','Big money primarily works through voter mobilization','Warren argues veto players are irrelevant to modern politics'],ans:[1],exp:"Warren's complicating claim: while gridlock blocks ordinary democratic lawmaking, well-resourced money players navigate AROUND gridlock to win hidden carve-outs and favorable policies."},
+{n:44,sec:'s4',q:'Which of the following accurately describe how U.S. lobbying compares to other rich democracies?',opts:['The U.S. restricts political money more than most other rich democracies','Other rich democracies tend to restrict political money more tightly than the U.S.','Public subsidies to political parties are common in other rich democracies but nonexistent in the U.S.','SCOTUS has upheld restrictions comparable to European systems','The U.S. is unique in the extent to which courts protect political spending as free speech'],ans:[1,2,4],exp:'A and D are false. B, C, and E accurately describe the international comparison.'},
+{n:45,sec:'s4',q:'Achen and Bartels (2016) in Democracy for Realists argue which of the following about American voters?',opts:['Voters often take cues from politicians rather than the other way around','Voters sometimes irrationally blame incumbents for events beyond their control','More "informed" voters are more likely to think independently','Primaries are too personalistic to facilitate real policy voting','Ballot initiatives tend to favor elite players'],ans:[0,1,3,4],exp:'C is the opposite of Achen & Bartels\' finding — more "informed" voters are more apt to parrot elites, not think independently.'},
+{n:46,sec:'s4',q:'Which of the following are examples Achen and Bartels give of IRRATIONAL incumbent blame?',opts:['Shark attacks in New Jersey in 1916','Bad weather during the 2000 Gore v. Bush election','Economic downturns occurring months before an election','A president\'s handling of a major war','A governor\'s management of a state budget crisis'],ans:[0,1,2],exp:'A, B, and C are the specific "irrational" examples — blaming incumbents for events clearly outside their control. D and E represent more rational accountability.'},
+{n:47,sec:'s4',q:"According to the O'C&S 12.4 slides, which factors influence voter turnout and choices?",opts:['Party identification and ideology','Income and education','Race and ethnicity','Gender and age','Religious groups and civic organizations','Candidate traits and issues'],ans:[0,1,2,3,4,5],exp:'All six are listed as factors in 12.4.'},
+{n:48,sec:'s4',q:"Prof. Hoeft's preferred terminology for what others call 'ideology' in voter research is which of the following?",opts:['Public opinion (used by political scientists)','Political attitudes (used by sociologists)','Ideology (same term, no preference)','Partisanship','Political socialization'],ans:[0,1],exp:"Hoeft says 'ideology' implies too much coherence. He prefers 'public opinion' (political scientists) or 'political attitudes' (sociologists) — these have looser, more realistic implications."},
+{n:49,sec:'s4',q:'Which of the following statements about voter sophistication and information, per Achen and Bartels, are accurate?',opts:['Voters who are more "informed" are more apt to parrot elite positions','Greater information leads to more independent political thinking','Voters learn primarily from parties, celebrity politicians they like, and social groups','Interest groups and advocacy organizations also serve as cue-givers for voters','Democratic ideals assume voters should take cues from politicians'],ans:[0,2,3],exp:'B is wrong (contradicts Achen & Bartels). E is wrong — democratic ideals have it the OPPOSITE way.'},
+{n:50,sec:'s4',q:'Gose, Skocpol, and Williamson (2020) compared the Tea Party and the anti-Trump "Resistance." Which of the following are accurate findings?',opts:['Both movements featured mixes of top-down and bottom-up influences','The Resistance was less party-aligned than the Tea Party','The Resistance never engaged in electoral activity','"Advocacy groups" is a near-synonym for interest groups','Federal geography shaped both movements\' activities'],ans:[0,1,3,4],exp:'C is wrong — the Resistance evolved from protest to party-political activism.'},
+{n:51,sec:'s4',q:'Which of the following were specific activities of the anti-Trump "Resistance" as described by Gose, Skocpol, and Williamson?',opts:['Postcard-writing parties','Procedural uptake using Google to find legislators','Organizing third-party electoral campaigns','Evolution from protest to party-political activism','Mirroring the Tea Party\'s partisan alignment with the Democratic Party'],ans:[0,1,3],exp:'C and E are wrong. A, B, and D are specific examples from the text.'},
+{n:52,sec:'s4',q:"Bowie (2021) argues that the principal 'minority' most often protected by judicial review of federal legislation is which group?",opts:['African Americans','LGBTQ+ individuals','The wealthy','Religious minorities','Political dissidents'],ans:[2],exp:'Bowie\'s historical survey shows wealthy litigants can mount repeated court challenges. Pollock (1895) and Citizens United (2010) are his examples.'},
+{n:53,sec:'s4',q:'Which SCOTUS decisions does Bowie cite as examples of courts enabling or tolerating racial injustice?',opts:['The 1876 decision striking down the first federal voting rights act','Brown v. Board of Education (1954)','Shelby County v. Holder (2013)','Citizens United (2010)','The 1903 ruling explaining why federal law could not stop white suppression of Black voters'],ans:[0,2,4],exp:'B (Brown) and D (Citizens United) are not examples of SCOTUS enabling racial injustice. A, C, and E are cited by Bowie.'},
+{n:54,sec:'s4',q:"Bowie's horse-and-buggy metaphor for the Supreme Court's relationship to Congress means which of the following?",opts:['Congress drives the legislative process at full speed','The court gives Congress free rein most of the time but pulls the reins when lawmakers move to disrupt hierarchies of wealth or status','The court and Congress work in tandem like a team of horses','Judicial review has made government faster and more efficient','Congress controls the Supreme Court\'s jurisdiction'],ans:[1],exp:"Bowie's metaphor: justices let Congress proceed but pull the reins specifically when laws threaten wealth and status hierarchies."},
+{n:55,sec:'s4',q:'According to Bowie, Brown v. Board of Education (1954) illustrates which of the following about judicial review?',opts:['SCOTUS alone ended school segregation','Southern schools remained nearly as racially segregated in 1964 as in 1954','Formal desegregation came through Congress (Civil Rights Act & Voting Rights Act), not the court alone','Brown enforced the Ku Klux Klan Act of 1871 (a federal law) against state action','This case proves judicial review always advances democratic equality'],ans:[1,2,3],exp:'A and E are myths Bowie debunks. B, C, and D reflect his actual analysis.'},
+{n:56,sec:'s4',q:'Friedman and Payne (2024) in Foreign Affairs argue which of the following about voters and foreign policy?',opts:['Voters are primarily moved by expert assessments of candidates\' foreign policy competence','Americans respond to perceptions of strength and toughness in foreign policy','The foreign policy establishment\'s near-unanimous opposition to Trump had little effect on his 2024 victory','Democrats should focus on projecting strength, not expertise','Credentials and expert endorsements reliably determine foreign policy voters'],ans:[1,2,3],exp:'A and E are the opposite of Friedman & Payne\'s findings.'},
+{n:57,sec:'s4',q:"The 'commander-in-chief test' concept in Friedman and Payne's article refers to which of the following?",opts:['A formal constitutional requirement for presidential foreign policy qualification','A public opinion dynamic in which voters evaluate candidates on projected image of strength rather than actual competence','A test administered to presidential candidates by the Joint Chiefs','The Senate confirmation process for secretaries of defense','A standard developed by the Council on Foreign Relations'],ans:[1],exp:"The 'commander-in-chief test' is a voter psychology concept about how voters evaluate candidates on projected image of strength, not actual strategic knowledge."},
+{n:58,sec:'s4',q:"Which of the following connect the 'veto players' concept to political money?",opts:['Big money can navigate around gridlock that blocks ordinary democratic lawmaking','SCOTUS has used its veto-player status to strike down campaign finance restrictions','Warren argues that veto players make the system more equal','Carve-outs buried in legal texts allow lobbies to win benefits despite gridlock','Elizabeth Warren\'s argument directly challenges the George Will "gridlock is achievement" framing'],ans:[0,1,3,4],exp:"C is wrong — Warren argues the opposite. A, B, D, and E correctly connect veto players to political money themes."},
+{n:59,sec:'s4',q:"The concept of 'extended party networks' (Galvin) relates to which other concepts in the course?",opts:['Interest groups blurring into party structures ("blobs" per Schlozman & Rosenfeld)','Democrats post-1960s becoming "the advocacy party" (Hilton)','Candidate-centered politics weakening party organizations','Strict party discipline on all legislative votes','Primaries reducing party control over candidate selection'],ans:[0,1,2,4],exp:'D is wrong — the extended network concept highlights party weakness, not discipline.'},
+{n:60,sec:'s4',q:'Which of the following illustrate the tension between capitalism and democracy that runs through Section 4?',opts:['Business interests dominating 72% of lobbying expenditures (Schlozman)','SCOTUS framing unlimited campaign spending as free speech (Citizens United)','Super PACs allowing unlimited wealthy spending on elections','Public matching funds making campaigns more equal','Carnes showing that elected officials disproportionately come from wealthy backgrounds'],ans:[0,1,2,4],exp:'D is a mechanism trying to reduce the tension, not illustrate it.'},
+{n:61,sec:'s4',q:'Proportional representation (PR), compared to single-member district systems, tends to produce which of the following?',opts:['Multi-party systems','Coalition governments','Two-party domination','Greater representation of smaller parties','More winner-take-all outcomes'],ans:[0,1,3],exp:'C and E describe single-member district outcomes. PR produces multi-party systems, coalition governments, and greater representation of smaller parties.'},
+{n:62,sec:'s4',q:"The 'great sort' of political parties refers to which of the following?",opts:['Geographic sorting of voters into urban and rural areas','The decades-long process (1940s–1990s) of ideological realignment making parties internally more coherent and more polarized from each other','The process by which Super PACs select candidates','How immigrants are incorporated into party coalitions','Media sorting of voters into separate information bubbles'],ans:[1],exp:"The 'great sort' (O'C&S 11.6; Noel 2014) refers to ideological realignment: parties became more internally homogeneous and more polarized from each other."},
+{n:63,sec:'s4',q:'Reapportionment of congressional seats affects the Electoral College because:',opts:['It directly changes the president\'s term length','Electoral votes equal senators + representatives, so population shifts change state electoral vote totals','It determines which states hold primaries first','It changes the threshold needed to win the presidency','It has no effect on the Electoral College'],ans:[1],exp:"Each state's electoral votes = senators (fixed at 2) + House seats. House seats are reapportioned after every census based on population."},
+{n:64,sec:'s4',q:'Which of the following correctly characterize the role of SCOTUS decisions in entrenching political money inequalities?',opts:['Shelby County weakened the Voting Rights Act, reducing political equality','Citizens United struck down a century of campaign finance restrictions','Pollock (1895) invalidated the federal income tax, protecting wealthy interests','SCOTUS has only upheld disclosure rules and public matching','These decisions "harden" the patterns of unequal representation (Schlozman)'],ans:[0,1,2,3,4],exp:'All five are accurate per the slides — they show how SCOTUS decisions compound inequality.'},
+{n:65,sec:'s4',q:"Which of the following describes what Hoeft means by interest groups as 'blobs' in the party system?",opts:['Interest groups are entirely separate from parties and never interact','Interest groups blur into party networks, making the boundaries between parties and interest groups unclear','Interest groups are legally prohibited from participating in party activities','Parties control interest groups from the top down','"Blobs" is a negative term meaning interest groups are too large'],ans:[1],exp:"Schlozman & Rosenfeld's 'blobs' metaphor captures how interest groups blur into party networks."},
+{n:66,sec:'s4',q:'Based on the Figure 12.2 reelection rate data (1964–2024), which of the following are accurate?',opts:['Senate reelection rates are generally more stable than House rates','House reelection rates fluctuate more dramatically than Senate rates','Both chambers show very high incumbency reelection rates overall','Reelection rates have generally been below 70% for most of the period','The most recent data (2024) shows very high reelection rates for both chambers'],ans:[0,1,2,4],exp:'D is false — rates have generally been well above 70%, often 85–98%.'},
+{n:67,sec:'s4',q:"The distinction between 'ballot initiatives' and 'referendums' is which of the following?",opts:['Initiatives come from the legislature; referendums from citizens','Initiatives come from citizens; referendums come from the legislature','Both are the same thing, just different names','Referendums are only used at the federal level','Initiatives are only available in presidential election years'],ans:[1],exp:"Per O'C&S 12.1: Initiatives = citizens push to voters. Referendums = a legislature pushes to voters."},
+{n:68,sec:'s4',q:'Achen and Bartels argue that ballot initiatives and referendums tend to favor which group?',opts:['Ordinary citizens without organized backing','Elite players who have resources to fund campaigns for/against measures','Third parties who cannot compete in general elections','Rural voters who have historically had less representation','Young voters who prefer direct democracy'],ans:[1],exp:'Achen & Bartels: ballot initiatives may seem more democratic but in practice favor elite players who can fund expensive campaigns.'},
+{n:69,sec:'s4',q:'Which of the following correctly compare the Tea Party and anti-Trump Resistance movements per Gose, Skocpol & Williamson?',opts:['Both involved top-down and bottom-up influences mixing','The Tea Party was more closely party-aligned (Republican) than the Resistance was (Democratic)','The Resistance was more purely a grassroots phenomenon than the Tea Party','Both operated within federal geographic structures','The Tea Party never engaged in electoral activity'],ans:[0,1,3],exp:'C is an overstatement — both had top-down and bottom-up elements. E is false — the Tea Party significantly shaped Republican primaries.'},
+{n:70,sec:'s4',q:'The Urban-Rural divide in U.S. party identification, as shown in Figure 11.2, demonstrates which of the following?',opts:['Urban areas tend to vote more Democratic','Rural areas tend to vote more Republican','The divide has been stable since the founding of the U.S.','This geographic sorting is one dimension of the "great sort"','Suburban areas are perfectly split between the parties'],ans:[0,1,3],exp:'C is false — urban-rural polarization intensified over recent decades. E is an overstatement.'},
+{n:71,sec:'s4',q:'If Schlozman, Carnes, and Pierson are all correct simultaneously, the overall implication for American democracy is which of the following?',opts:['Elected officials are disproportionately from wealthy backgrounds','Post-election lobbying shapes policy more than campaign contributions','Revolving-door opportunities reinforce the connection between officeholders and economic elites','Policy outcomes systematically favor business, the wealthy, and employers','The U.S. political system functions as a fully equal democracy'],ans:[0,1,2,3],exp:'E is the opposite conclusion. A (Carnes), B (Schlozman), C (Pierson), and D (combined implication) paint a picture of systematic elite bias.'},
+{n:72,sec:'s4',q:"Hoeft's 'Show Me the Money' diagram most directly illustrates which broader course concept?",opts:['The separation of powers','The tension between capitalism and democracy','The advantages of federalism','The benefits of judicial review','The efficiency of the two-party system'],ans:[1],exp:'The diagram maps five channels through which economic power translates into political power — illustrating the capitalism-vs-democracy tension.'},
+{n:73,sec:'s4',q:'Which of the following scholars or concepts most directly CHALLENGE a purely positive view of American democracy?',opts:['Achen & Bartels (irrational voters)','Bowie (antidemocratic judicial review)','Schlozman (extreme lobbying inequality)','Tsebelis (veto players blocking lawmaking)','Carnes (class bias in representation)'],ans:[0,1,2,3,4],exp:'All five challenge idealized democratic theory from different angles.'},
+{n:74,sec:'s4',q:"The Friedman & Payne (2024) article's argument about foreign policy and voters most directly connects to which other course concept?",opts:['Achen & Bartels\' argument that voters don\'t behave according to idealized democratic theory','Carnes\' argument about class backgrounds of officials','Schlozman\'s argument about lobbying inequality','Tsebelis\' veto player theory','Noel\'s argument about ideological activists'],ans:[0],exp:'Friedman & Payne show voters evaluate foreign policy on image/toughness rather than expert credentials — directly paralleling Achen & Bartels\' broader argument.'},
+{n:75,sec:'s4',q:'Which statement best describes the relationship between lobbying and the concept of veto players?',opts:['Lobbying is unrelated to the veto players framework','Lobbyists ARE veto players in the sense that they can block legislation they oppose','Money allows well-resourced interests to navigate through or around veto-player gridlock to secure private benefits, while also using veto players to block legislation that threatens them','Veto players always work to reduce lobbying influence','The veto player concept was developed specifically to describe lobbying'],ans:[2],exp:"Money works BOTH ways — lobbying uses veto players to block unwanted reform AND helps powerful interests circumvent gridlock to secure private benefits. Warren's and Schlozman's insights combine here."},
+{n:76,sec:'mixed',q:'Which of the following are reserved STATE powers under U.S. federalism?',opts:['Set times, places, and manner of elections','Ratify amendments to the U.S. Constitution','Coin money','Establish local governments','Regulate commerce within a state'],ans:[0,1,3,4],exp:"C is an exclusively national power. A, B, D, and E are all state (reserved) powers."},
+{n:77,sec:'mixed',q:'According to the Parties slides, Democrats post-1960s are best described as which of the following?',opts:['A purely top-down party organization','"The advocacy party" — increasingly dominated by interest groups and advocacy organizations','A party with stronger discipline than the Republicans','A party that shuns interest groups','A purely grassroots organization'],ans:[1],exp:"Adam Hilton (2021) argues Democrats became 'the advocacy party' after the 1960s."},
+{n:78,sec:'mixed',q:'Which of the following accurately describe what happens in U.S. presidential PRIMARIES?',opts:["Voters select which party's primary they will vote in","The Electoral College votes are distributed","Candidate selection for the general election occurs","Delegates to the national convention are selected","The formal presidential nomination is announced"],ans:[0,2,3],exp:'B happens in the general election. E (formal nomination) happens at the convention. A, C, and D accurately describe what primaries do.'},
+{n:79,sec:'mixed',q:"The CBS News (2016) 'call center' video about Congress illustrates which course argument?",opts:['Congressional members spend massive amounts of time on fundraising','Voters are well-informed about their representatives\' activities','Lobbying has no influence on congressional behavior','Members of Congress have too much free time','Public financing eliminates the fundraising problem'],ans:[0],exp:"The CBS 'call center' video documents that congressional members dedicate extraordinary amounts of time to fundraising calls — supporting Pierson's and Schlozman's broader arguments."},
+{n:80,sec:'mixed',q:"Germany's 2021 national election example is used in the course to illustrate which of the following?",opts:['How proportional representation enables multi-party competition','How coalition governments form after PR elections','Why the U.S. should immediately adopt PR','The contrast between PR and the U.S. winner-take-all system','That Germany had more than 4 parties winning significant seats in 2021'],ans:[0,1,3,4],exp:'C is not claimed — the slides present the comparison as illustrative, not as a policy prescription.'},
+{n:81,sec:'mixed',q:"Which of the following are accurate about how 'political socialization' affects party identification?",opts:['Life course factors may change political orientations over time','Race, gender, occupation, and religion correlate with party ID','Party ID is fixed at birth and never changes','Income brackets correlate with party ID','Geographic context (urban vs. rural) shapes political attitudes'],ans:[0,1,3,4],exp:'C is false — political socialization recognizes that identity can shift over the life course.'},
+{n:82,sec:'mixed',q:"Zephyr Teachout's book 'Corruption in America' (2016), as cited in the slides, argues which of the following?",opts:['Campaign finance laws should be loosened further','U.S. courts have historically protected the right to buy political influence, framing it as freedom of expression','Campaign contributions are constitutionally prohibited','The Founders intended no limits on political money','SCOTUS has been consistent in restricting political money'],ans:[1],exp:"Teachout's historical legal scholarship traces how U.S. courts framed money in politics as a constitutional free speech right, building the framework for Citizens United."},
+{n:83,sec:'mixed',q:"Which of the following accurately characterize the concept of 'candidate-centered politics'?",opts:['It results from winner-take-all single-member districts','Individual candidates, not parties, drive campaign strategy','It weakens parties\' control over electoral outcomes','It is a feature of European parliamentary systems','Primaries contribute to candidate-centered politics by reducing party control over candidate selection'],ans:[0,1,2,4],exp:'D is wrong — candidate-centered politics is more characteristic of the U.S. than of European parliamentary systems.'},
+{n:84,sec:'mixed',q:'Which of the following scholars specifically focus on the POLICY consequences of money in politics rather than its electoral effects?',opts:['Carnes — class backgrounds → policy biases','Schlozman — lobbying post-election shapes policy','Achen & Bartels — voter behavior in elections','Pierson — revolving doors affect how politicians behave in office','Noel — ideological activists polarized parties'],ans:[0,1,3],exp:'C focuses on electoral behavior. E focuses on party polarization. A, B, and D are specifically about how money and class shape policy output.'},
+{n:85,sec:'mixed',q:"The 'countermajoritarian difficulty' as described in the Bowie reading refers to which of the following?",opts:['The difficulty of counting votes in a diverse society','The philosophical problem that unelected justices can override democratically enacted law — acknowledged even by judicial review\'s proponents','The problem that supermajorities are required for constitutional amendments','The challenge of representing minority voters under single-member districts','The tendency for courts to side with majorities against minorities'],ans:[1],exp:"The countermajoritarian difficulty: judicial review is antidemocratic yet many scholars accept it as necessary. Bowie challenges this acceptance historically."},
+{n:86,sec:'mixed',q:'Regarding the Voting Rights Act and SCOTUS, which of the following are accurate per Bowie (2021)?',opts:['The 1876 SCOTUS decision struck down the first federal voting rights act','Shelby County (2013) treated a key VRA provision as beyond Congress\'s power','Brnovich (2021) further weakened the VRA','SCOTUS has consistently upheld the Voting Rights Act','Jim Crow laws re-emerged after SCOTUS weakened the VRA'],ans:[0,1,2,4],exp:"D is the opposite of Bowie's argument."},
+{n:87,sec:'mixed',q:'Which of the following describe limitations or obstacles to third-party success in the U.S.?',opts:['Winner-take-all single-member districts make it nearly impossible to win seats','Access to ballots is regulated by states in ways that favor established parties','Media coverage focuses overwhelmingly on the two major parties','Proportional representation rules prevent third-party campaigns','Candidate-centered politics somewhat helps third-party candidates by reducing the need for party infrastructure'],ans:[0,1,2],exp:"D is wrong — the U.S. does NOT have PR. E is a stretch not supported by the course materials."},
+{n:88,sec:'mixed',q:"The concept of 'political attitudes' (preferred by sociologists) vs. 'ideology' (used by political scientists) is relevant to voter behavior because:",opts:['"Ideology" implies too much internal coherence in how voters think about politics','Sociologists believe voters are more rational than political scientists do','"Political attitudes" assumes looser, more ambiguous political orientations that better match empirical findings','Both terms mean exactly the same thing','Hoeft prefers "ideology" because it is more precise'],ans:[0,2],exp:'Hoeft explicitly prefers "public opinion" or "political attitudes" over "ideology" because the latter implies too much coherence.'},
+{n:89,sec:'mixed',q:'Which of the following are features of NATIONAL party organization in the U.S.?',opts:['National party chair','National committee','National convention (held every 4 years)','Precinct and ward committees','The ability to enforce strict discipline on all party legislators'],ans:[0,1,2],exp:'D is local, not national organization. E is false — American parties lack the disciplinary power of many European parties.'},
+{n:90,sec:'mixed',q:"Based on Hoeft's slides, which of the following are accurate about SCOTUS's upholding or striking down of political money laws?",opts:['SCOTUS has upheld disclosure requirements','SCOTUS has upheld public matching programs (e.g., NYC, NY State)','SCOTUS struck down limits on Super PAC spending in Citizens United','SCOTUS has struck down all forms of campaign finance regulation','Disclosure rules are described as "easy to get around"'],ans:[0,1,2,4],exp:'D is too absolute — SCOTUS upheld disclosure and matching. C is accurate (Citizens United). E is noted in the slides.'},
+{n:91,sec:'mixed',q:'When Adam Hilton (2021) calls the Democrats "the advocacy party," he means which of the following?',opts:['Democrats rely primarily on television advertising','Interest groups and advocacy organizations became central to the Democratic Party\'s identity and operations after the 1960s','Democrats advocate for conservative policies','The party has no formal organizational structure','Democratic politicians personally advocate for every policy position'],ans:[1],exp:"Post-1960s civil rights realignment brought waves of advocacy organizations into the Democratic Party's extended network."},
+{n:92,sec:'mixed',q:'Which of the following accurately describe the role of the national party CONVENTION in the modern era?',opts:['Formally nominating presidential and vice presidential candidates','Seeking to energize party members and create a "convention bounce"','Making binding policy decisions that legislators must follow','Functioning primarily as a televised spectacle','Ritualistic in nature'],ans:[0,1,3,4],exp:'C is false — convention decisions do NOT bind politicians.'},
+{n:93,sec:'mixed',q:'The campaign finance system\'s complexity (PACs, Super PACs, 527s, 501(c)s, Carey Committees, etc.) primarily benefits which group?',opts:['Small individual donors who can navigate the system easily','Well-resourced interests with lawyers and accountants who can exploit regulatory distinctions','Third parties who can use complexity to their advantage','The Federal Election Commission, which gains authority','Ordinary voters who can track money flows more easily'],ans:[1],exp:'Complexity in campaign finance rules systematically advantages those with resources to navigate it.'},
+{n:94,sec:'mixed',q:'Based on all Section 4 materials, which of the following best summarizes the relationship between money and political equality in the U.S.?',opts:['Economic inequality translates into political inequality through multiple channels','The legal system (SCOTUS) has entrenched rather than corrected this relationship','The U.S. is more permissive of political money than most other rich democracies','Lobbying, class backgrounds, revolving doors, and independent expenditures all compound each other','Public financing programs have fully corrected the inequality'],ans:[0,1,2,3],exp:'E is false — public financing is minimal and has not corrected the problem.'},
+{n:95,sec:'mixed',q:'Which of the following scholars/readings are specifically assigned for SECTION 4 (Political Money, Lobbying, Interest Groups & Elections)?',opts:['Hoeft "Show Me the Money" diagram','Noel (2014) — "How Ideological Activists Polarized Parties"','Schlozman (2013) — "The Other Kind of Political Money"','Friedman & Payne (2024) — "Americans Love a Tough Guy"','Bowie (2021) — "How the Supreme Court Dominates Our Democracy"'],ans:[0,2,3,4],exp:"B (Noel 2014) is assigned for the PARTIES unit (Section 2), not Section 4. A, C, D, and E are all Section 4 assigned readings."},
+{n:96,sec:'mixed',q:"The 'scare-off effect' as a component of incumbency advantage means which of the following?",opts:['Incumbents frighten voters with negative advertising','The strength of incumbents deters potentially strong challengers from even running','Incumbents use government resources to scare voters','Third-party candidates scare off major-party candidates','The incumbent\'s name recognition scares away donors from challengers'],ans:[1],exp:'The scare-off effect: knowing an incumbent\'s advantages, strong potential challengers often decide not to run — reducing competition before it starts.'},
+{n:97,sec:'mixed',q:"Hoeft's slides note that 'other rich democracies' handle political money differently than the U.S. in which of the following ways?",opts:['They have generally restricted political money more tightly','They commonly provide public subsidies to political parties','They have never had campaign finance laws','They allow unlimited Super PAC spending like the U.S.','They use proportional representation more commonly, reducing the role of money in individual races'],ans:[0,1],exp:'C, D, and E are either wrong or not stated in the slides. A and B are explicitly noted.'},
+{n:98,sec:'mixed',q:'Which of the following are accurate descriptions of 501(c) groups as campaign vehicles?',opts:['They are technically nonprofits','They must be "not primarily" political in their activities','They have no political spending restrictions whatsoever','They are a way money can move into politics through the nonprofit sector','They were created by Citizens United'],ans:[0,1,3],exp:'C is wrong — 501(c)s are restricted from being primarily political. E is wrong — 501(c)s predated Citizens United.'},
+{n:99,sec:'mixed',q:'Combining Achen & Bartels with Friedman & Payne, which of the following broad conclusions about American voters are supported?',opts:['Voters do not behave according to idealized democratic theory','Image and perception often outweigh substantive information in voters\' decisions','Expert consensus reliably shapes voter preferences','Voters take cues from groups, parties, and symbols rather than processing policy independently','Democratic theory\'s assumption that informed voters drive good government is challenged by empirical evidence'],ans:[0,1,3,4],exp:"C is the opposite — both readings show expert consensus can be ignored and that being 'informed' doesn't mean independent thinking."},
+{n:100,sec:'mixed',q:'Based on the ENTIRE course, which of the following most accurately describe structural features of American democracy that distinguish it from idealized democratic theory?',opts:['Multiple veto players make passing new democratic legislation very difficult','Economic inequality translates into political inequality through lobbying, class backgrounds, and money','SCOTUS can override democratically enacted law without electoral accountability','Voter behavior often departs from the rational, informed ideal','The winner-take-all electoral system systematically marginalizes third parties and some voter groups','The U.S. is a perfect example of functioning democratic equality'],ans:[0,1,2,3,4],exp:'F is the opposite of what the course argues. A through E are all structural features creating gaps between ideal and actual democracy — the central theme of the entire course.'}
+];
+
+const SEC_COLORS={s1:'#1a3a5c',s2:'#2d5a27',s3:'#5c3a1a',s4:'#8b0000',mixed:'#2c3e50'};
+const SEC_LABELS={s1:'§1 Federalism',s2:'§2 Parties',s3:'§3 Courts',s4:'§4 Core',mixed:'Mixed Review'};
+let pool=[],cursor=0,totalCorrect=0,totalWrong=0,submitted=false;
+let activeFilter='all', activeCount=100;
+
+function setCount(n, btn){
+  activeCount=n;
+  document.querySelectorAll('.count-btn').forEach(b=>{
+    b.style.background='#fff'; b.style.color='var(--ink)';
+  });
+  btn.style.background='var(--ink)'; btn.style.color='var(--paper)';
+}
+
+function setFilter(f,btn){
+  activeFilter=f;
+  document.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  // don't auto-start, just update state so next Start uses the filter
+}
+
+function buildPool(){
+  let base = activeFilter==='all' ? [...QUESTIONS]
+    : activeFilter==='s4' ? QUESTIONS.filter(q=>q.sec==='s4')
+    : QUESTIONS.filter(q=>q.sec===activeFilter);
+  // shuffle
+  for(let i=base.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[base[i],base[j]]=[base[j],base[i]];}
+  return base.slice(0, Math.min(activeCount, base.length));
+}
+
+function startQuiz(){
+  pool=buildPool(); cursor=0; totalCorrect=0; totalWrong=0;
+  document.getElementById('quiz-setup').style.display='none';
+  document.getElementById('btn-start').style.display='none';
+  document.getElementById('btn-restart').style.display='inline-block';
+  updateScoreDisplay(); renderQuestion();
+}
+
+function renderQuestion(){
+  if(cursor>=pool.length){showFinished();return;}
+  submitted=false;
+  const q=pool[cursor];
+  const cc=q.ans.length;
+  const label=cc===1?'Select 1 correct answer':`Select all that apply — ${cc} correct`;
+  document.getElementById('q-tag').textContent=SEC_LABELS[q.sec]||q.sec;
+  document.getElementById('q-tag').style.background=SEC_COLORS[q.sec]||'#444';
+  document.getElementById('q-counter').textContent=`Q ${cursor+1} of ${pool.length}`;
+  document.getElementById('q-text').textContent=`${q.n}. ${q.q}`;
+  document.getElementById('q-hint').textContent=label;
+  document.getElementById('q-feedback').style.display='none';
+  const optsEl=document.getElementById('q-opts');
+  optsEl.innerHTML='';
+  const letters=['A','B','C','D','E','F'];
+  q.opts.forEach((o,i)=>{
+    const btn=document.createElement('button');
+    btn.className='qopt';btn.dataset.idx=i;btn.dataset.selected='false';
+    btn.innerHTML=`<span style="font-family:'DM Mono',monospace;font-size:0.75rem;margin-right:0.6rem;opacity:0.5;">${letters[i]}</span>${o}`;
+    btn.onclick=()=>toggleOpt(btn);
+    optsEl.appendChild(btn);
+  });
+  updateProgress();
+  document.getElementById('btn-submit').style.display='inline-block';
+  document.getElementById('btn-next').style.display='none';
+}
+
+function toggleOpt(btn){
+  if(submitted)return;
+  const sel=btn.dataset.selected==='true';
+  btn.dataset.selected=sel?'false':'true';
+  btn.style.background=sel?'var(--paper)':'#e8f0e8';
+  btn.style.borderColor=sel?'rgba(0,0,0,0.18)':'#2d5a27';
+}
+
+function submitAnswer(){
+  if(submitted)return;
+  submitted=true;
+  const q=pool[cursor];
+  const opts=document.querySelectorAll('#q-opts .qopt');
+  const selected=[];
+  opts.forEach((b,i)=>{if(b.dataset.selected==='true')selected.push(i);});
+  const correctSet=new Set(q.ans);
+  const selectedSet=new Set(selected);
+  const isOK=correctSet.size===selectedSet.size&&[...correctSet].every(x=>selectedSet.has(x));
+  opts.forEach((b,i)=>{
+    b.style.pointerEvents='none';
+    if(correctSet.has(i)&&selectedSet.has(i)){b.style.background='#d4edda';b.style.borderColor='#28a745';b.style.color='#155724';}
+    else if(!correctSet.has(i)&&selectedSet.has(i)){b.style.background='#f8d7da';b.style.borderColor='#dc3545';b.style.color='#721c24';}
+    else if(correctSet.has(i)&&!selectedSet.has(i)){b.style.background='#fff3cd';b.style.borderColor='#ffc107';b.style.color='#856404';}
+  });
+  if(isOK){totalCorrect++;}else{totalWrong++;}
+  updateScoreDisplay();
+  const fb=document.getElementById('q-feedback');
+  fb.style.display='block';
+  fb.style.background=isOK?'#d4edda':'#f8d7da';
+  fb.style.color=isOK?'#155724':'#721c24';
+  const letters=['A','B','C','D','E','F'];
+  const missed=q.ans.filter(i=>!selectedSet.has(i));
+  const wrongPicks=selected.filter(i=>!correctSet.has(i));
+  let txt=isOK?'✓ Correct! ':'✗ Incorrect. ';
+  if(!isOK){
+    if(missed.length)txt+=`Missed: ${missed.map(i=>letters[i]).join(', ')}. `;
+    if(wrongPicks.length)txt+=`Should not have selected: ${wrongPicks.map(i=>letters[i]).join(', ')}. `;
+  }
+  txt+=q.exp;
+  fb.textContent=txt;
+  document.getElementById('btn-submit').style.display='none';
+  if(cursor+1<pool.length){document.getElementById('btn-next').style.display='inline-block';}
+  else{showFinished();}
+}
+
+function nextQuestion(){cursor++;renderQuestion();}
+
+function showFinished(){
+  const pct=pool.length?Math.round(totalCorrect/pool.length*100):0;
+  document.getElementById('q-tag').textContent='COMPLETE';
+  document.getElementById('q-tag').style.background='#2d5a27';
+  document.getElementById('q-counter').textContent=`${pool.length} / ${pool.length}`;
+  document.getElementById('q-text').textContent=`Quiz complete! You got ${totalCorrect} of ${pool.length} questions fully correct (${pct}%).`;
+  document.getElementById('q-hint').textContent='';
+  document.getElementById('q-opts').innerHTML='';
+  document.getElementById('q-feedback').style.display='none';
+  document.getElementById('btn-submit').style.display='none';
+  document.getElementById('btn-next').style.display='none';
+  updateProgress();
+}
+
+function resetQuiz(){
+  cursor=0;totalCorrect=0;totalWrong=0;submitted=false;
+  pool=buildPool();
+  document.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('active'));
+  document.querySelector('.fbtn').classList.add('active');
+  activeFilter='all';
+  updateScoreDisplay();
+  document.getElementById('quiz-setup').style.display='block';
+  document.getElementById('btn-submit').style.display='none';
+  document.getElementById('btn-next').style.display='none';
+  document.getElementById('btn-start').style.display='inline-block';
+  document.getElementById('btn-restart').style.display='none';
+  document.getElementById('q-tag').textContent='—';
+  document.getElementById('q-counter').textContent='—';
+  document.getElementById('q-text').textContent='Select a filter and question count, then click Start.';
+  document.getElementById('q-hint').textContent='';
+  document.getElementById('q-opts').innerHTML='';
+  document.getElementById('q-feedback').style.display='none';
+  updateProgress();
+}
+
+function updateProgress(){
+  const total=pool.length,done=Math.min(cursor,total),pct=total?(done/total*100):0;
+  document.getElementById('prog-bar').style.width=pct+'%';
+  document.getElementById('prog-text').textContent=`Q ${done} / ${total}`;
+}
+
+function updateScoreDisplay(){
+  const total=totalCorrect+totalWrong,pct=total?Math.round(totalCorrect/total*100):0;
+  document.getElementById('score-display').textContent=total?`${totalCorrect}/${total} (${pct}%)`:'—';
+  document.getElementById('correct-count').textContent=totalCorrect;
+  document.getElementById('wrong-count').textContent=totalWrong;
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>POLSC 101 — Final Exam Study Guides</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap');
+  :root { --ink:#0f0e0b; --paper:#f5f0e8; --gold:#d4a017; --accent:#c8392e; --muted:#7a756a; }
+  *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+  body { background:var(--ink); color:var(--paper); font-family:'DM Sans',sans-serif; min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:2rem; }
+
+  .eyebrow { font-family:'DM Mono',monospace; font-size:0.68rem; letter-spacing:0.25em; text-transform:uppercase; color:var(--gold); margin-bottom:0.75rem; text-align:center; }
+  h1 { font-family:'Playfair Display',serif; font-size:clamp(2rem,5vw,3.2rem); font-weight:900; text-align:center; line-height:1.1; margin-bottom:0.5rem; }
+  .sub { font-family:'DM Mono',monospace; font-size:0.78rem; color:rgba(245,240,232,0.45); text-align:center; margin-bottom:3rem; }
+
+  .cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:1.5rem; width:100%; max-width:780px; }
+
+  .card { background:rgba(255,255,255,0.04); border:1.5px solid rgba(255,255,255,0.12); padding:2rem 1.75rem 1.75rem; display:flex; flex-direction:column; gap:1rem; transition:all 0.2s; }
+  .card:hover { background:rgba(255,255,255,0.07); border-color:rgba(255,255,255,0.22); }
+
+  .card .vtag { font-family:'DM Mono',monospace; font-size:0.62rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--gold); }
+  .card h2 { font-family:'Playfair Display',serif; font-size:1.5rem; font-weight:700; }
+  .card p { font-size:0.85rem; color:rgba(245,240,232,0.6); line-height:1.6; flex:1; }
+  .card ul { padding-left:1.1rem; font-size:0.83rem; color:rgba(245,240,232,0.55); line-height:1.8; flex:1; }
+
+  .btn { display:inline-block; text-decoration:none; font-family:'DM Mono',monospace; font-size:0.72rem; letter-spacing:0.1em; text-transform:uppercase; padding:0.7rem 1.4rem; border:1.5px solid var(--paper); color:var(--paper); transition:all 0.15s; text-align:center; }
+  .btn:hover { background:var(--paper); color:var(--ink); }
+  .btn.primary { background:var(--paper); color:var(--ink); }
+  .btn.primary:hover { background:var(--gold); border-color:var(--gold); color:var(--ink); }
+
+  .divider { width:100%; max-width:780px; border:none; border-top:1px solid rgba(255,255,255,0.1); margin:2.5rem 0 1rem; }
+  .footer { font-family:'DM Mono',monospace; font-size:0.65rem; color:rgba(245,240,232,0.25); text-align:center; }
+</style>
+</head>
+<body>
+
+  <div class="eyebrow">POLSC 101 · American Government · Final Exam Prep</div>
+  <h1>Study Guide Hub</h1>
+  <p class="sub">Two versions — choose based on how you want to study</p>
+
+  <div class="cards">
+
+    <div class="card">
+      <div class="vtag">Version 1 — Class Notes Edition</div>
+      <h2>Your Notes + All Slides</h2>
+      <ul>
+        <li>Built from textbook readings + every slide deck</li>
+        <li>Class emphasis panel from 4/28, 5/7, 5/12, 5/14</li>
+        <li>Full summaries of all 3 assigned readings</li>
+        <li>24 advanced practice questions by section</li>
+        <li>Includes Noel, Gose et al., Drutman / Achen & Bartels</li>
+      </ul>
+      <a href="polsc120_v1.html" class="btn">Open V1 →</a>
+    </div>
+
+    <div class="card">
+      <div class="vtag">Version 2 — Official Study Guide Edition</div>
+      <h2>Exam Guide Structure</h2>
+      <ul>
+        <li>Organized exactly by the official final exam study guide</li>
+        <li>Section 4 emphasized throughout (primary exam focus)</li>
+        <li>Includes Bowie (2021) and Friedman & Payne (2024)</li>
+        <li>Clean scholars table + full glossary from the guide</li>
+        <li>Quiz tab ready for your practice test questions</li>
+      </ul>
+      <a href="polsc120_v2.html" class="btn primary">Open V2 →</a>
+    </div>
+
+  </div>
+
+  <hr class="divider">
+  <p class="footer">Both versions open in this tab. Use your browser's back button to return here.</p>
+
+</body>
+</html>
