@@ -1038,7 +1038,7 @@ function renderQuestion(){
   document.getElementById('q-tag').textContent=SEC_LABELS[q.sec]||q.sec;
   document.getElementById('q-tag').style.background=SEC_COLORS[q.sec]||'#444';
   document.getElementById('q-counter').textContent=`Q ${cursor+1} of ${pool.length}`;
-  document.getElementById('q-text').textContent=`${q.n}. ${q.q}`;
+  document.getElementById('q-text').textContent=q.q;
   document.getElementById('q-hint').textContent=label;
   document.getElementById('q-feedback').style.display='none';
   const optsEl=document.getElementById('q-opts');
