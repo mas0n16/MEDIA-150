@@ -860,10 +860,11 @@
     </div>
     <span id="prog-text" style="font-family:'DM Mono',monospace;font-size:0.72rem;color:var(--muted);white-space:nowrap;">Q 0 / 0</span>
   </div>
-  <div style="font-family:'DM Mono',monospace;font-size:0.75rem;color:var(--muted);margin-bottom:1.5rem;display:flex;gap:1.5rem;flex-wrap:wrap;">
+  <div style="font-family:'DM Mono',monospace;font-size:0.75rem;color:var(--muted);margin-bottom:1.5rem;display:flex;gap:1.5rem;flex-wrap:wrap;align-items:center;">
     <span>Score: <strong id="score-display" style="color:var(--ink);">—</strong></span>
     <span>Correct: <strong id="correct-count" style="color:#28a745;">0</strong></span>
     <span>Wrong: <strong id="wrong-count" style="color:#dc3545;">0</strong></span>
+    <button id="btn-restart" onclick="resetQuiz()" style="margin-left:auto;font-family:'DM Mono',monospace;font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.4rem 0.9rem;background:none;color:var(--muted);border:1.5px solid var(--muted);cursor:pointer;display:none;">Restart</button>
   </div>
   <div id="q-card" style="background:#fff;border:2px solid var(--ink);padding:1.5rem 1.5rem 1.2rem;min-height:200px;">
     <div id="q-meta" style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:0.75rem;flex-wrap:wrap;gap:0.5rem;">
@@ -879,7 +880,6 @@
     <button id="btn-submit" onclick="submitAnswer()" style="font-family:'DM Mono',monospace;font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.7rem 1.5rem;background:var(--ink);color:var(--paper);border:none;cursor:pointer;display:none;">Submit Answer</button>
     <button id="btn-next" onclick="nextQuestion()" style="font-family:'DM Mono',monospace;font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.7rem 1.5rem;background:var(--s4);color:#fff;border:none;cursor:pointer;display:none;">Next Question →</button>
     <button id="btn-start" onclick="startQuiz()" style="font-family:'DM Mono',monospace;font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.7rem 1.5rem;background:var(--ink);color:var(--paper);border:none;cursor:pointer;">Start Quiz</button>
-    <button id="btn-restart" onclick="resetQuiz()" style="font-family:'DM Mono',monospace;font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.7rem 1.2rem;background:none;color:var(--muted);border:1.5px solid var(--muted);cursor:pointer;display:none;">Restart</button>
   </div>
 </div>
 </main>
