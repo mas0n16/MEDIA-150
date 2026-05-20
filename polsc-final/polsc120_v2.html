@@ -138,7 +138,10 @@
   .qopt.correct { background:#d4edda; border-color:#28a745; color:#155724; }
   .qopt.wrong { background:#f8d7da; border-color:#dc3545; color:#721c24; }
 
-  .filter-row { display:flex; flex-wrap:wrap; gap:0.4rem; margin-bottom:1.2rem; }
+  .filter-row { display:flex; flex-wrap:nowrap; gap:0.4rem; margin-bottom:1.2rem; overflow-x:auto; padding-bottom:2px; }
+  .filter-row::-webkit-scrollbar { height:3px; }
+  .filter-row::-webkit-scrollbar-thumb { background:rgba(0,0,0,0.2); border-radius:2px; }
+  .fbtn { flex-shrink:0; }
   .fbtn { font-family:'DM Mono',monospace; font-size:0.62rem; letter-spacing:0.07em; text-transform:uppercase; padding:0.35rem 0.75rem; background:#fff; border:1.5px solid var(--ink); cursor:pointer; transition:all 0.12s; }
   .fbtn:hover { background:var(--highlight); }
   .fbtn.active { background:var(--ink); color:var(--paper); }
