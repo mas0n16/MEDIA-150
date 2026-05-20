@@ -1006,6 +1006,30 @@
     </div>
   </div>
 
+  <!-- REVIEW SESSION QUIZ -->
+  <div class="topic-block" style="border-left-color:var(--gold);">
+    <h2>★ Review Session Practice Quiz</h2>
+    <p style="font-size:0.87rem;margin-bottom:1.2rem;">Single-answer format covering all review session material. Instant feedback after each answer.</p>
+
+    <div style="margin:0.5rem 0 1rem;display:flex;align-items:center;gap:1rem;">
+      <div style="flex:1;background:rgba(0,0,0,0.08);height:6px;border-radius:3px;overflow:hidden;">
+        <div id="rq-prog-bar" style="height:100%;background:var(--gold);width:0%;transition:width 0.3s;"></div>
+      </div>
+      <span id="rq-prog-text" style="font-family:'DM Mono',monospace;font-size:0.7rem;color:var(--muted);white-space:nowrap;">0 / 30</span>
+      <span id="rq-score-text" style="font-family:'DM Mono',monospace;font-size:0.7rem;color:var(--ink);white-space:nowrap;">Score: —</span>
+    </div>
+
+    <div id="rq-container"></div>
+
+    <div id="rq-summary" style="display:none;text-align:center;padding:2rem 1rem;background:#fff;border:2px solid var(--ink);margin-top:1.5rem;">
+      <div style="font-family:'DM Mono',monospace;font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--s2);margin-bottom:0.5rem;">Review Quiz Complete</div>
+      <div id="rq-grade" style="font-family:'Playfair Display',serif;font-size:3rem;font-weight:900;color:var(--gold);line-height:1;"></div>
+      <div id="rq-pct" style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;margin-bottom:0.4rem;"></div>
+      <div id="rq-msg" style="font-size:0.85rem;color:var(--muted);margin-bottom:1.2rem;"></div>
+      <button onclick="restartRQ()" style="background:var(--gold);color:var(--ink);border:none;padding:0.7rem 1.8rem;font-family:'DM Mono',monospace;font-size:0.72rem;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;font-weight:500;">Restart Quiz</button>
+    </div>
+  </div>
+
 </div>
 
 <div class="section" id="quiz">
@@ -1612,6 +1636,163 @@ function restartClaudes(){
   document.getElementById('c-progress-bar').style.width='0%';
   buildClaudes();
 }
+/* ══════════════════════════════════════════════════
+   REVIEW SESSION QUIZ
+══════════════════════════════════════════════════ */
+const RQ_QUESTIONS=[
+  {q:"According to Lukes (2003), how is 'Left' defined in political theory?",opts:["Restore or defend a natural/sacred order","Egalitarian rectification — seeking more equality to offset perceived unfairness","Supporting free markets and deregulation","Opposing government intervention in personal life"],ans:1,exp:"Lukes (2003: 618–23): Left ≈ egalitarian rectification — seeking more equality to offset perceived unfairness. Right ≈ restore or defend order taken as natural and/or sacred."},
+  {q:"What does the LRC diagram show on its surface, and what does Hoeft want you to recognize about it?",opts:["That voters are always rational and policy-driven","That political attitudes, parties, interest groups, policies, and rhetoric are imagined on a left-to-right spectrum — implying voters find politicians who align with their views","That the U.S. has moved steadily rightward since the 1980s","That media is the primary driver of political alignment"],ans:1,exp:"The LRC diagram maps political actors on a left-to-right spectrum. The surface implication is that voters are policy-driven and find politicians who align with them — but Achen & Bartels complicates this."},
+  {q:"George Will is best described as which of the following?",opts:["A Democratic senator and legal scholar","A market-fundamentalist Republican politician from Illinois","A conservative philosopher and journalist — a media professional, not a politician","A political scientist who developed veto player theory"],ans:2,exp:"George Will is a conservative philosopher and journalist — a market fundamentalist and media professional. He is NOT a politician. Know his occupation/role for the exam."},
+  {q:"ALEC (American Legislative Exchange Council) is best classified as which type of political actor?",opts:["A political party","An interest group on the market-fundamentalist right","A federal government agency","A campaign committee"],ans:1,exp:"ALEC is an interest group — it sits on the market-fundamentalist right of the LRC diagram. Do not confuse it with a party."},
+  {q:"Which of the following correctly traces the historical trajectory of MAGA?",opts:["MAGA emerged independently in 2015 with no prior movement","The Tea Party (2009–12) radicalized the Republican Party and eventually became MAGA","MAGA grew out of the Resistance movement after 2016","Ronald Reagan founded MAGA in the 1980s"],ans:1,exp:"Tea Party (2009–12) → radicalized the Republican Party → became MAGA. Trump and his MAGA fan movement arose in 2015."},
+  {q:"DSA (Democratic Socialists of America) is classified as which type of political actor?",opts:["A formal political party that fields its own ballot lines independently","An interest group and campaigner — it acts like a party but is formally an interest group","A government-recognized third party under federal election law","A nonprofit 501(c)(3) organization that does not campaign"],ans:1,exp:"DSA acts like a party — it organizes activists and sometimes fields candidates — but it is formally an interest group and campaigner, not a party."},
+  {q:"Which of the following best captures Learning Goal #3's description of how political actors relate to each other?",opts:["Political actors always operate in a strict hierarchy with parties at the top","Patterns of power plays are sometimes nested, sometimes mutual, sometimes hierarchical — and sometimes independent and conflicted despite outward claims of shared basis","All political actors share the same goals and work cooperatively","Voters are the only truly independent political actors"],ans:1,exp:"Learning Goal #3 language: 'Patterns of power plays are sometimes nested, sometimes mutual, sometimes hierarchical — and sometimes independent and conflicted despite outward claims of shared basis.'"},
+  {q:"What is the key structural difference between political parties and interest groups?",opts:["Parties are funded by corporations; interest groups are funded by individuals","Parties have a formal hierarchical structure and field candidates for election; interest groups do not have an electoral hierarchy and instead lobby, campaign, and advocate","Parties operate only at the national level; interest groups operate only at the state level","Interest groups are legal; parties are technically unofficial organizations"],ans:1,exp:"Parties: formal hierarchy (national chair → committees → convention → state → local → voters) and field candidates. Interest groups: no formal electoral hierarchy; blur into party structures as 'blobs' (Schlozman & Rosenfeld)."},
+  {q:"Schlozman & Rosenfeld use the term 'blobs' to describe which phenomenon?",opts:["The way voters cluster geographically into urban and rural areas","The way interest groups blur into party networks, making the boundaries between parties and interest groups unclear","The shapeless nature of Super PAC spending","The undefined ideological positions of centrist politicians"],ans:1,exp:"'Blobs' (Schlozman & Rosenfeld) describes how interest groups blur into party networks. The boundaries between parties and interest groups become unclear as advocacy organizations become central to party operations."},
+  {q:"Adam Hilton (2021) calls the post-1960s Democratic Party 'the advocacy party.' What does this mean?",opts:["Democrats became more focused on television advertising after the 1960s","Interest groups and advocacy organizations blurred so deeply into the Democratic Party that the party itself took on that character","Democrats abandoned their interest in economic policy after the 1960s","The party became more focused on foreign policy advocacy"],ans:1,exp:"Adam Hilton (2021): Democrats post-1960s became 'the advocacy party' — interest groups and advocacy organizations blurred so deeply into the party's structure that the party took on that character."},
+  {q:"'Advocacy groups' is a near-synonym for which other term used in this course?",opts:["Political parties","Veto players","Interest groups","Extended party networks"],ans:2,exp:"'Advocacy groups' = interest groups. This equivalence appears directly in Gose, Skocpol & Williamson (2020) and was flagged in the review session as something to know exactly."},
+  {q:"Why is politics described as 'very geographical' in the Skocpol framework?",opts:["Because the Electoral College is determined by state boundaries","Because political activists make strategic decisions about where to put their energy — targeting competitive geography like Pennsylvania rather than places like NYC where one party already dominates 8:1","Because most lobbying takes place in Washington DC","Because urban voters outnumber rural voters nationally"],ans:1,exp:"Political activists make strategic geographic decisions. No point flooding NYC where Democrats already win 8:1. Target competitive geography — e.g. Pennsylvania — where flipping seats is actually possible. Federal geography shapes activity and elections (Gose, Skocpol & Williamson pp. 203, 206)."},
+  {q:"How does the anti-Trump Resistance compare to the Tea Party in terms of party alignment, according to Gose, Skocpol & Williamson?",opts:["The Resistance was more party-aligned than the Tea Party","The Resistance was less party-aligned than the Tea Party","Both movements were equally party-aligned","Neither movement had any relationship to a political party"],ans:1,exp:"Gose, Skocpol & Williamson (pp. 207–208): The Resistance was less party-aligned than the Tea Party. The Tea Party pushed closely with the GOP; the Resistance had a wider ideological range and was more independent of the Democratic Party."},
+  {q:"Which of the following were specific activities of the anti-Trump Resistance?",opts:["Running third-party candidates in federal elections","Postcard-writing parties, procedural uptake using Google to find legislators, and evolving from protest to party-political activism","Organizing constitutional conventions at the state level","Merging formally with the Democratic National Committee"],ans:1,exp:"Resistance activities from the text: postcard-writing parties (p. 202), procedural uptake using Google to find legislators (p. 197), and evolution from protest to party-political activism (p. 206)."},
+  {q:"What is the core claim of Teachout (2016), Corruption in America?",opts:["The U.S. should adopt a parliamentary system to reduce corruption","U.S. courts, for hundreds of years, have protected the right to buy political influence, framing it as freedom of expression under the Constitution","Campaign finance corruption only became a problem after Citizens United (2010)","The Founders intended unlimited political spending as a democratic right"],ans:1,exp:"Teachout (2016), Corruption in America: From Benjamin Franklin's Snuff Box to Citizens United traces how U.S. courts historically built the legal framework treating political money as free expression — protecting the right of rich people and corporations to give money to politicians."},
+  {q:"What has SCOTUS upheld regarding campaign finance, and what has it struck down?",opts:["SCOTUS has upheld all campaign finance limits and struck down Super PACs","SCOTUS has upheld only disclosure rules and public matching funds; it has struck down laws restricting political money for hundreds of years","SCOTUS has struck down all campaign finance regulation including disclosure rules","SCOTUS has upheld strict spending limits for corporations but not individuals"],ans:1,exp:"SCOTUS has upheld only disclosure rules (easy to get around) and public matching (e.g. NYC, NY State) — Heerwig & Shah (2014). For hundreds of years, courts have struck down laws where elected officials decided to restrict political money."},
+  {q:"What are 'carve-outs' in the context of political money and lobbying?",opts:["Exemptions for small donors under campaign finance law","Tax and other policy benefits buried in legal texts, won by moneyed-up lobbies, that most voters never know about","Districts drawn to favor incumbents in congressional elections","The portion of a Super PAC budget reserved for independent expenditures"],ans:1,exp:"Carve-outs are tax and other policy benefits buried in legal texts. Moneyed-up lobbies win these benefits through post-election lobbying. Most voters never know about them. This is how big money navigates around gridlock."},
+  {q:"According to Schlozman (2013), what percentage of all lobbying money is spent by business interests?",opts:["About 35%","About 50%","72%","Over 90%"],ans:2,exp:"Schlozman (2013): Business interests consume 72% of all lobbying money. Labor unions: 1%. Poor people's social service providers: 1%. Zero spent on advocacy for welfare policy beneficiaries or incarcerated people."},
+  {q:"What is Schlozman's key methodological point about where political money matters most?",opts:["Campaign contributions during elections are the most powerful form of influence","Lobbying after electoral campaigns shapes policy more than campaign contributions — don't overfocus on the 'bribery' frame","Dark money through 501(c) groups is the most distorting form of political money","Individual donations are the biggest driver of policy outcomes"],ans:1,exp:"Schlozman's key point: don't overfocus on campaign contributions despite the 'bribery' framing. Lobbying after electoral campaigns is where the real policy impact happens — shaping legislation through sustained access and technical expertise."},
+  {q:"Paul Pierson (2013) said 'revolving doors can open to penthouses.' What does this mean?",opts:["That politicians move between federal and state government frequently","That after leaving office, politicians can land in lucrative private-sector jobs through lobbying connections — creating anticipatory deference to industry interests even before leaving office","That SCOTUS justices frequently become corporate lawyers","That campaign donors often become elected officials"],ans:1,exp:"Pierson (2013): 'Revolving doors can open to penthouses.' Politicians are surrounded at all times by immense wealth. The promise of lucrative post-office jobs creates anticipatory deference to industry interests even before politicians leave office."},
+  {q:"According to Carnes (2013), what are the policy consequences when elected officials predominantly come from privileged class backgrounds?",opts:["A stronger welfare state, higher taxes on the wealthy, and more regulation","A thinner welfare state, freer regulatory environment for business, lower taxes on the wealthy, and biases of knowledge and perspective","Greater investment in public education and infrastructure","More bipartisan cooperation on economic policy"],ans:1,exp:"Carnes (2013): Consequences of privileged classes dominating elected office — thinner welfare state, freer regulatory environment for business, lower taxes on rich people, and biases of knowledge and perspective that disfavor lower-income populations."},
+  {q:"Which of Hoeft's five 'Show Me the Money' channels involves capitalist elites supplying or withdrawing investments and jobs to sway politicians?",opts:["Campaign contributions — direct","Independent expenditures (IEs)","Employers and investors","Lobbying and revolving doors"],ans:2,exp:"Channel 2 — Employers & Investors: Capitalist elites sway politicians by supplying or withdrawing investments and jobs. Promises and threats — explicit or tacit — may count. This is economic leverage beyond formal donations."},
+  {q:"Bernie Sanders (2024) argued which of the following about capitalism and democracy in the U.S.?",opts:["The U.S. is a model of democratic equality","Ordinary Americans get one vote apiece while billionaires contribute hundreds of millions to Super PACs — a fundamental tension between capitalism and democracy","Campaign finance is not a significant problem in U.S. democracy","Super PACs are beneficial because they increase political participation"],ans:1,exp:"Bernie Sanders (2024, Aug 5): Ordinary Americans get one vote apiece. Billionaires get to contribute hundreds of millions to Super PACs. If we believe in democracy, we must overturn Citizens United and begin public funding of elections. Social scientists and legal scholars see this as a tougher tension, not easily smoothed over."},
+  {q:"What did Obama discover about the Illinois State Senate in the late 1990s to early 2000s, as described by Shenk (2022)?",opts:["That voters were highly engaged and held politicians accountable on economic issues","That lobbyists had an effective veto over most of the substantive legislating, which usually concerned technical matters crucial to companies' balance sheets","That the Illinois legislature was unusually resistant to lobbying influence","That party discipline was extremely strong in Springfield"],ans:1,exp:"Shenk (2022: 311): Obama found lobbyists had an effective veto over most legislating in Springfield, which concerned technical matters crucial to companies' balance sheets. Reelection was guaranteed if politicians stayed on the right side of charged social issues. 'Complacent legislators, sovereign lobbyists, and a catatonic electorate.'"},
+  {q:"What does 'catatonic electorate' mean?",opts:["An electorate that votes at extremely high rates","An electorate so disengaged and distracted by symbolic social issues that it provides no real accountability check on politicians or lobbyists — filling the vacuum that allows lobbyists to run the show","An electorate that votes based purely on economic self-interest","An electorate that is highly informed but chooses not to vote"],ans:1,exp:"Catatonic = frozen, unresponsive. A catatonic electorate is so disengaged and distracted by symbolic hot-button issues that nobody is paying attention to the actual economic and regulatory legislating. Voters are placated by wedge issues while lobbyists handle everything that matters to a company's balance sheet."},
+  {q:"According to Achen & Bartels (2016), voters who are more 'informed' tend to do which of the following?",opts:["Think more independently and hold politicians more accountable","Parrot elite views rather than think independently — becoming more partisan, not more rational","Vote at higher rates but for third-party candidates","Ignore party affiliation and vote purely on issues"],ans:1,exp:"Achen & Bartels (2016): Voters more 'informed' are more apt to parrot elites — not to think independently. This inverts the democratic ideal. More information does not produce more independent thinking; it produces more exposure to elite messaging."},
+  {q:"Achen & Bartels give the example of shark attacks in New Jersey in 1916 to illustrate which concept?",opts:["How environmental issues influence voter turnout","How voters sometimes irrationally blame incumbents for events completely outside government control","How local disasters increase political participation","How the media distorts coverage of political events"],ans:1,exp:"Shark attacks in New Jersey (1916) — a classic Achen & Bartels example of voters irrationally blaming incumbents. Also: bad weather in the 2000 Gore vs. Bush race, and economic hits months before an election. Voters punish incumbents for things beyond government control."},
+  {q:"What are 'wedge issues' or 'symbolic hot buttons,' and why do they matter politically?",opts:["Policy issues where both parties agree, used to build bipartisan coalitions","Emotionally charged symbolic issues — like abortion or gun control — used strategically to rile up a base and guarantee reelection, even while lobbyists control substantive economic legislating","Technical economic policy debates that only experts follow","Issues that only affect a small minority of voters"],ans:1,exp:"Wedge issues (O'C&S 11.6) are emotionally charged symbolic issues — pro-life/pro-choice, gun control, immigration. Politicians stay on the right side of them to guarantee reelection. Mediatization amplifies them because they sell eyeballs. They distract the electorate while lobbyists handle economic legislation — exactly what Obama observed in Springfield."},
+  {q:"Hoeft prefers which terms over 'ideology' when describing how voters relate to politics, and why?",opts:["'Partisanship' and 'affiliation' — because they are more measurable","'Public opinion' (political scientists) or 'political attitudes' (sociologists) — because 'ideology' implies too much internal coherence that most voters don't actually have","'Belief systems' and 'worldviews' — because they capture the depth of voter convictions","'Preferences' and 'values' — because they are more neutral terms"],ans:1,exp:"Hoeft's note from the 12.4 slide: 'ideology' often implies too much coherence. Most voters' belief systems are inconsistent. He prefers 'public opinion' (political scientists) or 'political attitudes' (sociologists, with looser implications)."},
+  {q:"According to Figure 11.10B1 (Pew Research), how does income relate to party identification?",opts:["Higher income brackets lean Democratic; lower income brackets lean Republican","Higher income brackets lean Republican; lower income brackets (under $30,000) show the strongest Democratic lean","Income has no consistent relationship with party identification","All income brackets show equal levels of independent identification"],ans:1,exp:"Figure 11.10B1: Higher income brackets ($75,000+) lean Republican. The under-$30,000 income bracket shows the strongest Democratic lean. Income is one of the key demographic correlates of party identification."},
+  {q:"Which of the following best describes 'negative partisanship'?",opts:["Voters who identify with no party and vote against all incumbents","Voter motivation driven primarily by disliking the other party rather than enthusiasm for their own — amplified by mediatization and wedge issues","The tendency of parties to take increasingly negative positions on policy","Media coverage that is negative toward both major parties equally"],ans:1,exp:"Negative partisanship (O'C&S 11.6): voters motivated more by disliking the other party than by liking their own. Mediatization contributes to this by amplifying wedge issues and dramas. Both the Tea Party and the Resistance were primarily organized around opposition to a dreaded presidency."}
+];
+
+let rqAnswered=0, rqCorrect=0, rqBuilt=false;
+
+function rqShuffle(opts, correctIdx){
+  const indices=opts.map((_,i)=>i);
+  for(let k=indices.length-1;k>0;k--){const r=Math.floor(Math.random()*(k+1));[indices[k],indices[r]]=[indices[r],indices[k]];}
+  return {shuffled:indices.map(i=>opts[i]), newCorrect:indices.indexOf(correctIdx)};
+}
+
+function buildRQ(){
+  rqBuilt=true;
+  const container=document.getElementById('rq-container');
+  container.innerHTML='';
+  const letters=['A','B','C','D'];
+
+  RQ_QUESTIONS.forEach((q,i)=>{
+    const {shuffled, newCorrect}=rqShuffle(q.opts, q.ans);
+    const card=document.createElement('div');
+    card.id=`rqcard-${i}`;
+    card.dataset.correct=newCorrect;
+    card.style.cssText='background:#fff;border:2px solid var(--ink);padding:1.2rem 1.2rem 0.9rem;margin-bottom:1rem;';
+
+    const optsHTML=shuffled.map((opt,j)=>`
+      <button id="rqopt-${i}-${j}" onclick="rqSelect(${i},${j})"
+        style="background:var(--paper);border:1.5px solid rgba(0,0,0,0.18);padding:0.5rem 0.8rem;cursor:pointer;font-size:0.84rem;text-align:left;width:100%;margin-bottom:0.4rem;transition:all 0.12s;font-family:'DM Sans',sans-serif;">
+        <span style="font-family:'DM Mono',monospace;font-size:0.72rem;margin-right:0.5rem;opacity:0.5;">${letters[j]}</span>${opt}
+      </button>`).join('');
+
+    card.innerHTML=`
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.65rem;flex-wrap:wrap;gap:0.4rem;">
+        <span style="font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;color:#fff;padding:0.12rem 0.5rem;border-radius:2px;background:var(--gold);color:var(--ink);">Q${String(i+1).padStart(2,'0')}</span>
+        <span id="rqresult-${i}" style="font-family:'DM Mono',monospace;font-size:0.68rem;font-weight:500;"></span>
+      </div>
+      <div style="font-weight:500;font-size:0.9rem;margin-bottom:0.85rem;line-height:1.55;">${q.q}</div>
+      <div style="display:flex;flex-direction:column;">${optsHTML}</div>
+      <div id="rqexp-${i}" style="display:none;margin-top:0.65rem;padding:0.6rem 0.85rem;font-size:0.8rem;line-height:1.55;border-left:3px solid var(--gold);background:#fffbe6;color:var(--ink);">${q.exp}</div>`;
+
+    container.appendChild(card);
+  });
+
+  document.getElementById('rq-prog-text').textContent=`0 / ${RQ_QUESTIONS.length}`;
+}
+
+function rqSelect(qIdx, optIdx){
+  const q=RQ_QUESTIONS[qIdx];
+  const card=document.getElementById(`rqcard-${qIdx}`);
+  if(card.dataset.answered) return;
+  card.dataset.answered='true';
+
+  const correctIdx=parseInt(card.dataset.correct);
+  const isCorrect=optIdx===correctIdx;
+  const letters=['A','B','C','D'];
+
+  for(let j=0;j<q.opts.length;j++){
+    const btn=document.getElementById(`rqopt-${qIdx}-${j}`);
+    btn.disabled=true;
+    btn.style.cursor='default';
+    if(j===correctIdx){
+      btn.style.background='#d4edda';
+      btn.style.borderColor='#28a745';
+      btn.style.color='#155724';
+    }
+    if(j===optIdx&&!isCorrect){
+      btn.style.background='#f8d7da';
+      btn.style.borderColor='#dc3545';
+      btn.style.color='#721c24';
+    }
+  }
+
+  const resultEl=document.getElementById(`rqresult-${qIdx}`);
+  if(isCorrect){
+    resultEl.textContent='✓ Correct';
+    resultEl.style.color='#28a745';
+    rqCorrect++;
+    card.style.borderColor='#28a745';
+  } else {
+    resultEl.textContent=`✗ Incorrect — ${letters[q.ans]} was correct`;
+    resultEl.style.color='#dc3545';
+    card.style.borderColor='#dc3545';
+  }
+
+  document.getElementById(`rqexp-${qIdx}`).style.display='block';
+
+  rqAnswered++;
+  const pct=(rqAnswered/RQ_QUESTIONS.length)*100;
+  document.getElementById('rq-prog-bar').style.width=pct+'%';
+  document.getElementById('rq-prog-text').textContent=`${rqAnswered} / ${RQ_QUESTIONS.length}`;
+  document.getElementById('rq-score-text').textContent=`Score: ${rqCorrect}/${rqAnswered}`;
+
+  if(rqAnswered===RQ_QUESTIONS.length) setTimeout(rqShowSummary, 400);
+}
+
+function rqShowSummary(){
+  const pct=Math.round(rqCorrect/RQ_QUESTIONS.length*100);
+  let grade, msg;
+  if(pct>=90){grade='A';msg='Strong. You know this review material well.';}
+  else if(pct>=80){grade='B';msg='Good. Go back over the questions you missed.';}
+  else if(pct>=70){grade='C';msg='Decent. Focus especially on the political money and voters sections.';}
+  else{grade='D/F';msg='Go back through the review session notes from top to bottom before the exam.';}
+  document.getElementById('rq-grade').textContent=grade;
+  document.getElementById('rq-pct').textContent=`${rqCorrect} / ${RQ_QUESTIONS.length} — ${pct}%`;
+  document.getElementById('rq-msg').textContent=msg;
+  document.getElementById('rq-summary').style.display='block';
+  document.getElementById('rq-summary').scrollIntoView({behavior:'smooth',block:'center'});
+}
+
+function restartRQ(){
+  rqAnswered=0; rqCorrect=0; rqBuilt=false;
+  document.getElementById('rq-summary').style.display='none';
+  document.getElementById('rq-prog-bar').style.width='0%';
+  document.getElementById('rq-prog-text').textContent=`0 / ${RQ_QUESTIONS.length}`;
+  document.getElementById('rq-score-text').textContent='Score: —';
+  buildRQ();
+}
+
+// Auto-build when review tab is opened
+const _origShow=show;
+window.show=function(id,btn){
+  _origShow(id,btn);
+  if(id==='review'&&!rqBuilt) buildRQ();
+};
 </script>
 </body>
 </html>
