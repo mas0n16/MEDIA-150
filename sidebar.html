@@ -9,10 +9,21 @@
     <div class="sidebar-title">Navigation</div>
     <nav>
         <a href="index.html" onclick="closeSidebar()">&#8962; Home</a>
-        <a href="#" onclick="toggleHomeworks(event)">&#9783; Homeworks
-            <span id="homeworkArrow" style="display:inline-block; transition: transform 0.35s ease;">&#9660;</span>
+        <a href="#" onclick="toggleExtracurricular(event)">&#10022; Extracurricular Projects
+            <span id="extracurricularArrow" style="display:inline-block; transition: transform 0.35s ease;">&#9660;</span>
         </a>
-        <div class="homework-dropdown" id="homeworkDropdown">
+        <div class="homework-dropdown" id="extracurricularDropdown">
+            <span class="sidebar-subsection">Coding</span>
+            <a href="irtheorytest.html">IR Theory Test</a>
+            <a href="film-test.html">Film Test</a>
+            <a href="medpl final/index.html">MEDP Final</a>
+            <a href="polsc-final/polsc120_v2.html">POLSC Final</a>
+            <a href="#" onclick="var p=prompt('Enter password:'); if(p==='ghclient'){window.location.href='GH/gh-index.html';}else if(p!==null){alert('Incorrect password.');} return false;">Genesis House</a>
+            <a href="k-learn.html">k-learn: Korean Through Music</a>
+            <span class="sidebar-subsection">Media / Videos</span>
+            <a href="place.html">Know Your Place</a>
+            <a href="finding-her.html">Finding Her</a>
+            <span class="sidebar-subsection">Homework</span>
             <span class="sidebar-subsection">Reading Responses</span>
             <a href="reading1.html">Plato's Cave</a>
             <a href="reading2.html">AI Slop and Sleepwalking into Disaster</a>
@@ -29,21 +40,6 @@
             <a href="game/game2.html">Interactive Narrative Game</a>
             <a href="presentation.html">PRESENTATION</a>
         </div>
-        <a href="#" onclick="toggleExtracurricular(event)">&#10022; Extracurricular Projects
-            <span id="extracurricularArrow" style="display:inline-block; transition: transform 0.35s ease;">&#9660;</span>
-        </a>
-        <div class="homework-dropdown" id="extracurricularDropdown">
-            <span class="sidebar-subsection">Coding</span>
-            <a href="irtheorytest.html">IR Theory Test</a>
-            <a href="film-test.html">Film Test</a>
-            <a href="medpl final/index.html">MEDP Final</a>
-            <a href="polsc-final/polsc120_v2.html">POLSC Final</a>
-            <a href="#" onclick="var p=prompt('Enter password:'); if(p==='ghclient'){window.location.href='GH/gh-index.html';}else if(p!==null){alert('Incorrect password.');} return false;">Genesis House</a>
-            <a href="k-learn.html">k-learn: Korean Through Music</a>
-            <span class="sidebar-subsection">Media / Videos</span>
-            <a href="place.html">Know Your Place</a>
-            <a href="finding-her.html">Finding Her</a>
-        </div>
         <a href="https://www.linkedin.com/in/mason-riehm/" target="_blank">&#8599; LinkedIn</a>
     </nav>
 </div>
@@ -56,15 +52,6 @@
     }
     function closeSidebar() {
         document.body.classList.remove('sidebar-open');
-    }
-    function toggleHomeworks(event) {
-        event.preventDefault();
-        const dropdown = document.getElementById('homeworkDropdown');
-        const arrow = document.getElementById('homeworkArrow');
-        dropdown.classList.toggle('open');
-        arrow.style.transform = dropdown.classList.contains('open')
-            ? 'rotate(180deg)'
-            : 'rotate(0deg)';
     }
     function toggleExtracurricular(event) {
         event.preventDefault();
